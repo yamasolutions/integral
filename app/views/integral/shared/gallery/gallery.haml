@@ -1,0 +1,7 @@
+- if @list.list_items.present?
+  = render_gallery(@list, { html_classes: 'main-swiper'})
+  = render_thumb_gallery(@list, { html_classes: 'thumb-swiper'})
+- else
+  %p.text-center
+    Sorry, no media available.
+

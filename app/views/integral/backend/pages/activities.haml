@@ -1,0 +1,2 @@
+- content_for :title, t('.title', title: @page.title)
+= render partial: 'integral/backend/activities/shared/listing', locals: { form_url: activities_backend_page_url(@page.id) }

@@ -1,0 +1,18 @@
+= content_for :title, "Activity #{activity.id}"
+
+.card-panel
+  %table.table-striped.table-bordered.table.wice-grid
+    %tbody
+      %tr
+        %th Date
+        %td= l(@activity.created_at)
+        %th User
+        %td= @activity.whodunnit
+        %th Action
+        %td= @activity.event
+        %th Object
+        %td= @activity.item_type
+        %td Instance
+        %td
+          = link_to @activity.item_url do
+            = @activity.item_title

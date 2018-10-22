@@ -1,0 +1,36 @@
+!!! 5
+%html{ 'xml:lang' => I18n.locale, 'lang' => I18n.locale }
+  %head
+    %meta{ name: 'viewport', content: 'width=device-width, initial-scale=1.0' }
+    %meta{ charset: 'utf-8' }
+    %link{ rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Montserrat:400,400i,700' }
+
+    = stylesheet_link_tag    'integral/frontend', media: 'all', 'data-turbolinks-track' => true
+    = javascript_include_tag 'integral/frontend', 'data-turbolinks-track' => true
+
+    = csrf_meta_tags
+    = display_meta_tags
+
+  %body{class: "#{controller_name} #{action_name}" }
+    = google_tag_manager
+    = render 'layouts/integral/frontend/admin_bar' if user_signed_in?
+
+    -# Off Canvas - Mobile Menu
+    #offCanvas.off-canvas.position-left{ 'data-off-canvas' => true }
+      = link_to site_title, root_url, class: 'site-title'
+      = render_list(main_menu_list, { html_classes: 'menu vertical'})
+
+    -# Off Canvas - Main Content
+    .off-canvas-content{ 'data-off-canvas-content' => true }
+      %header
+        = render partial: 'layouts/integral/frontend/header'
+
+      %main
+        = yield
+
+      %footer
+        = render partial: 'layouts/integral/frontend/footer'
+
+    = render partial: 'integral/shared/share_modal'
+    = render partial: 'integral/shared/scroll_to_top'
+    = render partial: 'integral/shared/media_query_indicator'

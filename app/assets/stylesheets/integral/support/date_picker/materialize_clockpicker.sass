@@ -1,0 +1,220 @@
+.clockpicker-display
+  vertical-align: middle
+  display: inline-block
+  margin: auto
+  height: 85px
+  font-size: 70px
+  padding: 10px
+  padding-bottom: 0px
+  color: $datepicker-selected-outfocus
+
+.clockpicker-display-column
+  float: left
+
+.clockpicker-display-am-pm
+  padding-left: 5px
+  vertical-align: bottom
+  height: 85px
+
+.clockpicker-span-am-pm
+  display: inline-block
+  font-size: 23px
+  line-height: 25px
+  color: #b2dfdb
+
+.clockpicker-span-hours, .clockpicker-span-minutes
+  animation-duration: 500ms
+  animation-duration: 500ms
+  animation-fill-mode: both
+  animation-fill-mode: both
+  transition: color 500ms
+  cursor: pointer
+
+@-webkit-keyframes pulse
+  from
+    transform: scale3d(1, 1, 1)
+
+  50%
+    transform: scale3d(1.1, 1.1, 1.1)
+
+  to
+    transform: scale3d(1, 1, 1)
+
+@-moz-keyframes pulse
+  from
+    transform: scale3d(1, 1, 1)
+
+  50%
+    transform: scale3d(1.1, 1.1, 1.1)
+
+  to
+    transform: scale3d(1, 1, 1)
+
+@-ms-keyframes pulse
+  from
+    transform: scale3d(1, 1, 1)
+
+  50%
+    transform: scale3d(1.1, 1.1, 1.1)
+
+  to
+    transform: scale3d(1, 1, 1)
+
+@-o-keyframes pulse
+  from
+    transform: scale3d(1, 1, 1)
+
+  50%
+    transform: scale3d(1.1, 1.1, 1.1)
+
+  to
+    transform: scale3d(1, 1, 1)
+
+@keyframes pulse
+  from
+    transform: scale3d(1, 1, 1)
+
+  50%
+    transform: scale3d(1.1, 1.1, 1.1)
+
+  to
+    transform: scale3d(1, 1, 1)
+
+#click-am, #click-pm
+  cursor: pointer
+
+.clockpicker-span-hours.text-primary, .clockpicker-span-minutes.text-primary, #click-am.text-primary, #click-pm.text-primary
+  -webkit-animation-name: pulse
+  animation-name: pulse
+  color: white
+
+.clockpicker-moving
+  cursor: move
+
+.clockpicker-plate
+  background-color: #eeeeee
+  border-radius: 50%
+  width: 270px
+  height: 270px
+  overflow: visible
+  position: relative
+  margin: auto
+  margin-top: 20px
+
+  /* Disable text selection highlighting. Thanks to Hermanya
+  -webkit-touch-callout: none
+  -webkit-user-select: none
+  -khtml-user-select: none
+  -moz-user-select: none
+  -ms-user-select: none
+  user-select: none
+
+.clockpicker-canvas, .clockpicker-dial
+  width: 270px
+  height: 270px
+  position: absolute
+  left: -1px
+  top: -1px
+
+.clockpicker-minutes
+  visibility: hidden
+
+.clockpicker-tick
+  border-radius: 50%
+  color: #666
+  line-height: 40px
+  text-align: center
+  width: 40px
+  height: 40px
+  position: absolute
+  cursor: pointer
+  transition: background-color 300ms
+
+  &.active, &:hover
+    background-color: $datepicker-selected
+
+.clockpicker-dial
+  transition: transform 350ms, opacity 350ms
+
+.clockpicker-dial-out
+  opacity: 0
+
+.clockpicker-hours.clockpicker-dial-out
+  transform: scale(1.2, 1.2)
+
+.clockpicker-minutes.clockpicker-dial-out
+  transform: scale(0.8, 0.8)
+
+.clockpicker-canvas
+  transition: opacity 300ms
+
+.clockpicker-canvas-out
+  opacity: 0.25
+
+.clockpicker-canvas-bearing
+  stroke: none
+  fill: $datepicker-selected
+
+.clockpicker-canvas-fg
+  stroke: none
+  fill: $datepicker-selected-outfocus
+
+  &.active
+    fill: $datepicker-selected-outfocus
+
+.clockpicker-canvas-bg
+  stroke: none
+  fill: $datepicker-selected-outfocus
+
+.clockpicker-canvas-bg-trans
+  fill: $datepicker-selected-outfocus
+
+.clockpicker-canvas line
+  stroke: $datepicker-selected-outfocus
+  stroke-width: 1
+  stroke-linecap: round
+
+  /*shape-rendering: crispEdges;
+
+.clockpicker-am-pm-block
+  margin-top: -10px
+  width: 100%
+  height: 50px
+
+.clockpicker-button
+  &.am-button
+    height: 45px
+    width: 45px
+    float: left
+
+  &.pm-button
+    height: 45px
+    width: 45px
+    float: right
+
+.btn-flat
+  cursor: pointer
+
+.btn-floating.btn-flat
+  &:focus, &:visited
+    background-color: transparent
+
+  &:hover
+    box-shadow: none
+    background-color: transparent
+
+  &.active
+    background-color: $datepicker-selected-outfocus
+
+  &:active
+    background-color: $datepicker-selected-outfocus
+
+.picker__footer .clockpicker-button
+  margin: auto
+  margin-top: 15px
+
+  &:focus
+    background-color: transparent
+
+  &:active
+    background-color: $datepicker-selected-outfocus

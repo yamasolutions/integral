@@ -1,0 +1,52 @@
+= simple_form_for [:backend, @page], validate: true, html: { id: 'page_form', class: 'are-you-sure', 'data-confirm-dirty-form' => true } do |f|
+  = f.input :lock_version, as: :hidden
+  .grid-x.grid-padding-x
+    .cell.small-12.medium-8.large-9
+      .grid-y
+        .cell
+          .card
+            .card-section
+              = f.input :title
+        .cell
+          .card
+            .card-section
+              = f.input :description
+        .cell
+          .card
+            .card-section
+              = f.input :path, disabled: current_policy.unpermitted_attribute?(:path)
+        .cell
+          .card
+            .card-section
+              = f.input :body, as: :ckeditor, input_html: { id: 'page_body_editor', ckeditor: { toolbar: 'mini', language: current_user.locale }, data: { 'ckeditor-class' => @page.template } }
+
+    .cell.small-12.medium-4.large-3
+      .grid-y
+        .cell
+          .card
+            .card-section
+              %h2= t('integral.records.attributes.status')
+              %hr.dark
+              .radios
+                = f.collection_radio_buttons :status, Integral::Page.statuses.map{ |status| [status.first, I18n.t("integral.records.status.#{status.first}")] }, :first, :last, disabled: current_policy.permitted_attribute?(:status) ? '' : Integral::Post.statuses.keys, include_hidden: false
+              %hr.dark
+              = f.button :button if f.object.persisted?
+        .cell
+          .card
+            .card-section
+              = f.input :template, collection: Integral::Page.available_templates, prompt: t('integral.backend.pages.prompts.choose_template'), include_blank: false
+        .cell
+          .card
+            .card-section
+              = f.association :parent, collection: @page.available_parents.map {|p| [p.title, p.id]}, include_blank: true
+        .cell
+          .card.initial-overflow
+            .card-section
+              %h2= t('integral.records.attributes.image')
+              = render partial: 'integral/backend/shared/image_preview', locals: { f:f, image_attr: :image }
+
+    .cell.small-12
+      = f.button :button
+
+.record-image
+  = render partial: 'integral/backend/shared/image_selector'

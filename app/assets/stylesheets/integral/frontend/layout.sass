@@ -1,0 +1,66 @@
+.site-title
+  font-size: 1.5rem
+  font-weight: bold
+  letter-spacing: .05rem
+  span
+    font-weight: normal
+    margin-left: -.5rem
+main
+  position: relative
+
+header
+  position: sticky
+  z-index: 999
+  top: 0
+  padding: .5rem 0
+  border-bottom: 1px solid #dee1e1
+  background-color: $white
+  font-size: .9em
+  .top-bar
+    @include breakpoint(small down)
+      @include top-bar-unstack
+
+header, .off-canvas
+  ul.menu a
+    color: $black
+    font-weight: bold
+    text-transform: uppercase
+    &:hover
+      color: $primary-color
+  ul.menu li:last-of-type a
+    @include button
+    font-size: .8em
+    margin-bottom: 0
+    // Same as .button overrides - move out into mixin?
+    border-radius: .15rem
+    letter-spacing: .1em
+    padding-left: 2rem
+    padding-right: 2rem
+    font-weight: bold
+    text-transform: uppercase
+
+.off-canvas
+  text-align: center
+  li
+    margin-bottom: 1rem
+  .site-title
+    display: block
+    margin: 2rem 0
+
+footer
+  background-color: #212121
+  color: $white
+  padding: 2rem 0
+  font-size: .85rem
+  a
+    color: $white
+  h3
+    margin-bottom: 1.5rem
+  .menu.vertical li
+    i
+      margin-right: .5rem
+    a
+      padding-left: 0
+    button
+      margin-top: 1rem
+

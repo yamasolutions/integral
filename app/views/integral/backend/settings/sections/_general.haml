@@ -1,0 +1,12 @@
+= render layout: 'section', locals: { f: f, icon: 'cogs', name: 'general', classes: 'is-active' } do
+  .grid-x.grid-padding-x
+    .cell.medium-6
+      = render 'input', f: f, name: 'website_title'
+    .cell.medium-6
+      = render 'input', f: f, name: 'contact_email'
+    .cell.medium-6
+      = render 'input', f: f, name: 'homepage_id'
+    .cell.medium-6
+      = render 'input', f: f, name: 'newsletter_api_key'
+    .cell.medium-6
+      = render 'input', f: f, name: 'newsletter_list_id'

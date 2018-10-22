@@ -1,0 +1,48 @@
+# Changelog
+
+This project follows [semver 2.0.0](http://semver.org/spec/v2.0.0.html) and the
+recommendations of [keepachangelog.com](http://keepachangelog.com/).
+
+## Unreleased
+
+### Breaking Changes
+
+- None
+
+### Added
+
+- None
+
+### Fixed
+
+- None
+
+## v1.0.0
+
+### Breaking Changes
+
+- None
+
+### Added
+
+* Frontend - Dynamic pages
+* Frontend - Integrated Blog
+* Frontend - SEO Ready
+* Frontend - Contact form procesing w/ HTML emails & autoreply
+* Frontend - Newsletter signup tracking
+* Frontend - Remote form helper
+* Frontend - Sitemap generation
+* Backend - Sleek admin area
+* Backend - User authentication & authorisation
+* Backend - Activity tracking
+* Backend - User management (CRUD)
+* Backend - Post management (CRUD)
+* Backend - Page management (CRUD)
+* Backend - Image management (CRUD)
+* Backend - List management (CRUD)
+* Backend - Settings management
+
+### Fixed
+
+- None
+

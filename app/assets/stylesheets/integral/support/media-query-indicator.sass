@@ -1,0 +1,25 @@
+/** Indicator used to display to developer what media query is currently active
+  *
+  * Red: Small Screens
+  * Orange: Medium Screens
+  * Green: Large and above
+  */
+.query-indicator
+  display: block
+  padding: 5px
+  position: fixed
+  bottom: 0
+  right: 50%
+  z-index: 1000
+  font-weight: bold
+  color: white
+  text-align: center
+  border-top-left-radius: 4px
+  border-top-right-radius: 4px
+  @include breakpoint(small)
+    background-color: #ff0000
+  @include breakpoint(medium)
+    background-color: #ffa500
+  @include breakpoint(large)
+    background-color: #008000
+

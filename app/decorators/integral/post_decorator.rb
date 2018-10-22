@@ -1,0 +1,63 @@
+module Integral
+  # Page view-level logic
+  class PostDecorator < Draper::Decorator
+    delegate_all
+
+    # Tags to be used within the header of an article to describe the subject
+    def header_tags
+      return I18n.t('integral.posts.show.subtitle') if object.tags_on('published').empty?
+
+      header_tags = ''
+      object.tags_on('published').each_with_index do |tag, i|
+        header_tags += tag.name
+        header_tags += ' | ' unless i == object.tags_on('published').size - 1
+      end
+      header_tags
+    end
+
+    # Preview image for the post if present. Otherwise returns featured image
+    def preview_image(size = :small)
+      preview_image = object&.preview_image&.url(size)
+      return preview_image if preview_image.present?
+
+      image(size, false)
+    end
+
+    # Image for the post if present. Otherwise returns default image
+    def image(size = :small, fallback = true)
+      image = object&.image&.url(size)
+      return image if image.present?
+
+      h.image_url('integral/defaults/no_image_available.jpg') if fallback
+    end
+
+    # Date the post was published
+    def published_at
+      return I18n.l(object.published_at, format: :blog) if object.published?
+      'Not yet published'
+    end
+
+    # @return [String] URL to backend post page
+    def url
+      if Integral.blog_enabled?
+        Integral::Engine.routes.url_helpers.edit_backend_post_url(object.id)
+      else
+        ''
+      end
+    end
+
+    # @return [String] URL to backend activity
+    def activity_url(activity_id)
+      if Integral.blog_enabled?
+        Integral::Engine.routes.url_helpers.activity_backend_post_url(object.id, activity_id)
+      else
+        ''
+      end
+    end
+
+    # @return [String] formatted body
+    def body
+      object.body&.html_safe
+    end
+  end
+end

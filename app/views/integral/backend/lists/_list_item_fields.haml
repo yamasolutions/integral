@@ -1,0 +1,26 @@
+-# = render 'item_container', f: f
+- formatted_item = Integral::ListItemRenderer.new(f.object)
+- children_allowed ||= @list.children?
+
+.list-item-container
+  = f.input :priority, as: :hidden, input_html: { class: 'priority-field' }
+  .list-item{ 'data-persisted' => "#{f.object.persisted?}" }
+    = render 'item_modal', f:f, formatted_item: formatted_item
+    .type
+      = icon('list', class: 'identifier')
+    .data
+      %span.title= formatted_item.title
+      %span.url= formatted_item.url
+    .actions
+      = icon('edit', class: 'action', 'data-open' => "list-item-modal-#{f.object.id}", class: 'modal-trigger')
+
+      - if children_allowed
+        .add-children
+          = link_to_add_association f, :children, 'data-association-insertion-method' => 'prepend', force_non_association_create: true do
+            = icon('plus', class: 'action')
+
+  - if children_allowed
+    .children.sortable.hide
+      = f.simple_fields_for :children do |list_item|
+        = render 'child_fields', f: list_item
+

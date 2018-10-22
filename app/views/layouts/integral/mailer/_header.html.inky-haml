@@ -1,0 +1,7 @@
+%wrapper.header
+  %container
+    %row.collapse
+      %columns{ small: 12 }
+        %center
+          %spacer{ size: 16 }
+          = title

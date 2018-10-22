@@ -1,0 +1,9 @@
+<%= @enquiry.name %>
+<%= @enquiry.email %>
+
+<% if @enquiry.subject.present? %>
+Re: <%= @enquiry.subject %>
+<% end %>
+
+<%= @enquiry.message %>
+

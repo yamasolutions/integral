@@ -1,0 +1,20 @@
+#share-modal.reveal{ data: { reveal: '' } }
+  %h3= t('integral.share_modal.title')
+  %hr.modal-topbar
+  %p
+    = link_to facebook_share_url, class: 'button facebook' do
+      = icon('facebook')
+      Facebook
+    = link_to twitter_share_url, class: 'button twitter' do
+      = icon('twitter')
+      Twitter
+    = link_to google_plus_share_url, class: 'button google-plus' do
+      = icon('google')
+      Google+
+    = link_to canonical_url, class: 'button copy-url hollow' do
+      = icon('copy')
+      %span= t('integral.actions.copy_url')
+
+  %button.close-button{ data: { close: '' }, aria: { label: "Close modal" }}
+    %span{ aria: { hidden: true } } &times;
+

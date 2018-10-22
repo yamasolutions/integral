@@ -1,0 +1,41 @@
+- @image ||= Integral::Image.new
+- form_path ||= backend_img_index_url
+
+= simple_form_for @image, validate: true, multipart: true, authenticity_token: true, url: form_path do |f|
+  = f.input :lock_version, as: :hidden
+  .grid-x.grid-padding-x
+    .cell.medium-8
+      .grid-y
+        .cell
+          .card
+            .card-section
+              = f.input :title
+        .cell
+          .card
+            .card-section
+              = f.input :description
+    .cell.medium-4
+      .grid-y
+        .cell
+          .card
+            .card-section
+              - if @image.persisted?
+                = image_tag @image.url
+              - if !@image.persisted? || Integral.editable_persisted_images
+                = f.input :file, :wrapper_html => { :class => "file-field" }, validate: { presence: true }, input_html: { accept: "image/*" }
+              - else
+                = f.input :file, as: :string, label: false, disabled: true
+        - if @image.persisted?
+          .cell
+            .grid-x.grid-padding-x
+              .cell.medium-6
+                .card
+                  .card-section
+                    = f.input :dimensions, readonly: true, input_html: { value: @image.dimensions }
+              .cell.medium-6
+                .card
+                  .card-section
+                    = f.input :file_size, as: :string, readonly: true, input_html: { value: number_to_human_size(@image.file_size) }
+
+    .cell
+      = f.button :button

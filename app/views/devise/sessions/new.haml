@@ -1,0 +1,18 @@
+%h2= t('.title')
+= simple_form_for(resource, as: resource_name, url: session_path(resource_name), validate: true) do |f|
+  .input-group
+    %span.input-group-label
+      = icon('envelope')
+    = f.input :email, autofocus: true, input_html: { class: 'input-group-field' }, label: false
+
+  .input-group
+    %span.input-group-label
+      = icon('key')
+    = f.input :password, input_html: { class: 'input-group-field' }, label: false
+  = f.input :remember_me, as: :boolean
+
+  .form-actions
+    = f.button :button, "Log in", class: 'button expanded'
+
+= render "devise/shared/links"
+

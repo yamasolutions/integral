@@ -1,0 +1,19 @@
+@import "foundation-emails";
+@import "integral/emails/colors";
+
+.content-wrapper {
+  background-color: $secondary-color !important;
+}
+
+a {
+  color: $secondary-color;
+}
+h1 {
+  font-weight: bold;
+  color: $secondary-color;
+}
+
+.header, .header .container, .footer, .footer .container {
+  background-color: $primary-color;
+}
+

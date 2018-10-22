@@ -1,0 +1,25 @@
+$facebook-color: #3b5998
+$twitter-color: #1da1f2
+$google-plus-color: #dd4b39
+
+#share-modal
+  text-align: center
+  hr
+    margin-bottom: 2em
+  a.button
+    width: 20em
+    font-weight: bold
+    i
+      margin-right: 0.5em
+    &.facebook
+      background-color: $facebook-color
+      &:hover
+        background-color: darken($facebook-color, 10%)
+    &.twitter
+      background-color: $twitter-color
+      &:hover
+        background-color: darken($twitter-color, 10%)
+    &.google-plus
+      background-color: $google-plus-color
+      &:hover
+        background-color: darken($google-plus-color, 10%)

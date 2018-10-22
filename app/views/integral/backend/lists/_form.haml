@@ -1,0 +1,25 @@
+= simple_form_for [:backend, @list], validate: true, html: { class: 'are-you-sure', 'data-confirm-dirty-form' => true, id: :list_form } do |f|
+  = f.input :lock_version, as: :hidden
+  .grid-x.grid-padding-x
+    .cell.medium-8
+      .grid-y
+        .cell
+          .card
+            .card-section
+              = f.input :title
+        .cell
+          .card
+            .card-section
+              = f.input :description
+    .cell.medium-4
+      .grid-y
+        .cell
+          .card
+            .card-section
+              = f.input :list_item_limit
+        .cell
+          .card
+            .card-section
+              = f.input :children
+    .cell
+      = f.button :button

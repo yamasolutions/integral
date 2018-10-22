@@ -1,0 +1,16 @@
+{
+  "name": "Strinsert",
+  "description": "StrInsert - Insert strings into ckEditor",
+  "main": [
+    "plugin.js"
+  ],
+  "keywords": [
+    "string insert",
+    "custom dropdown",
+    "ckeditor"
+  ],
+  "authors": [
+    "Stuart Sillitoe"
+  ],
+  "private": false
+}

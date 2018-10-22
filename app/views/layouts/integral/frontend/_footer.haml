@@ -1,0 +1,23 @@
+.grid-container
+  .grid-x.grid-padding-x
+    .cell.small-6.medium-4
+      %h3 Quick Links
+      = render_list(main_menu_list, { html_classes: 'menu vertical'})
+    .cell.small-6.medium-4
+      %h3 Socials
+      %ul.menu.vertical
+        = render partial: 'integral/shared/social_list_items'
+        %li
+          %button.button.hollow{ 'data-open' => 'share-modal' }
+            = icon('share')
+            %span= t('integral.actions.share')
+
+    .cell.medium-4
+      %h3 Contact Us
+      = simple_form_for Integral::Enquiry.new, url: integral.contact_url, validate: true, remote: true, html: { class: 'remote-form' }  do |f|
+        = f.input :name, placeholder: t('integral.contact_form.placeholders.name'), label: false
+        = f.hidden_field(:subject, value: 'No Subject')
+        = f.input :email, placeholder: t('integral.contact_form.placeholders.email'), label: false
+        = f.input :message, placeholder: t('integral.contact_form.placeholders.message'), label: false, as: :text
+        = f.button :submit , t('integral.contact_form.submit'), class: 'button hollow'
+

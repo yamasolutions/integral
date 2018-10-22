@@ -1,0 +1,12 @@
+.grid-container
+  .top-bar
+    .top-bar-left
+      = link_to root_url, class: 'site-title' do
+        Integral
+        %span
+          CMS
+    .top-bar-right
+      %button.hide-for-large{ type: 'button', 'data-toggle' => 'offCanvas' }
+        = icon('bars')
+      = render_list(main_menu_list, { html_classes: 'menu show-for-large'})
+

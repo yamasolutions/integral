@@ -1,0 +1,70 @@
+.materialize-tags
+  .twitter-typeahead
+    width: 100%
+    margin-top: 1em
+    input
+      margin-bottom: 0.5em
+  .label
+    background: scale-color($primary-color, $lightness: 30%)
+    margin: 0.2em 0
+    i
+      cursor: pointer
+
+  .tt-hint
+    position: relative !important
+
+  .tt-input
+    position: absolute !important
+    left: 0
+    top: 0
+    width: 100% !important
+
+  .tt-dropdown-menu
+    min-width: 200px
+    max-width: 100%
+    padding: 10px 0
+    -webkit-border-radius: 5px
+    -moz-border-radius: 5px
+    border-radius: 5px
+    background: #ffffff
+    -webkit-box-shadow: 0 2px 5px rgba(0, 0, 0, 0.35)
+    -moz-box-shadow: 0 2px 5px rgba(0, 0, 0, 0.35)
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.35)
+
+    .tt-suggestion
+      line-height: 1.1rem !important
+      padding: 2px 10px !important
+
+    .tt-cursor
+      background: deepskyblue
+      color: #ffffff
+
+@media screen and (max-width: 600px)
+  .materialize-tags
+    margin-top: 8px
+
+.tt-menu
+  min-width: 200px
+  max-width: 100%
+  padding: 10px 0
+  -webkit-border-radius: 5px
+  -moz-border-radius: 5px
+  border-radius: 5px
+  background: #fff
+  -webkit-box-shadow: 0 2px 5px rgba(0, 0, 0, 0.35)
+  -moz-box-shadow: 0 2px 5px rgba(0, 0, 0, 0.35)
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.35)
+
+.materialize-tags .tt-menu
+  .tt-suggestion
+    line-height: 1.1rem !important
+    padding: 1em 10px !important
+
+    &:hover
+      background: scale-color($primary-color, $lightness: 30%)
+      color: #fff
+      cursor: pointer
+
+  .tt-cursor
+    background: #03a9f4
+    color: #fff

@@ -1,0 +1,770 @@
+/**
+ * Mixin to add a FontAwesome icon to an element
+ */
+@mixin font-awesome($content)
+  font-family: FontAwesome
+  font-weight: normal
+  font-style: normal
+  display: inline-block
+  text-decoration: inherit
+  content: $content
+
+// Grids
+[data-grid]
+  .load-indicator
+    display: none
+  &.loading
+    position: relative
+    table
+      opacity: .35
+    .load-indicator
+      position: absolute
+      display: block
+      top: 2em
+      width: 100%
+      text-align: center
+      color: $primary-color
+
+  .integral-grid
+    thead th
+      &.ordered button
+        &:after
+          font-size: .65em
+      &.desc button:after
+        @include font-awesome('\f078')
+      &.asc button:after
+        @include font-awesome('\f077')
+      button
+        cursor: pointer
+
+#action-bar
+  padding: 0 .5rem
+  ul.menu
+    li
+      margin-right: .5rem
+      &:last-of-type
+        margin-right: 0
+
+.button
+  padding: 0.7em 1.5em
+  &.primary
+    color: $white
+  &.white
+    border-radius: 4px
+    background-color: $white
+    color: $primary-color
+    font-size: .8rem
+    margin: .5rem 0
+    &:hover
+      box-shadow: $card-shadow
+      color: $secondary-color
+
+.initial-overflow
+  overflow: initial
+
+span.label.clear
+  background-color: transparent
+  cursor: inherit
+  &:hover
+    background-color: rgba(212, 223, 239, 0.3)
+
+input:disabled, input[readonly], textarea:disabled, textarea[readonly]
+  border: none
+
+input[readonly].datepicker
+  border: solid 0.5px #d4dfef
+  background-color: transparent
+  cursor: pointer
+
+.input.alternative
+  label
+    font-size: .9rem
+    margin-bottom: 0
+    color: $body-font-color-secondary
+  > input, > select
+    &:focus
+      border: 1px solid #62799a
+      box-shadow: 0 0 5px #d4dfef
+  > select, > textarea, > input[type=text], > input[type=url], > input[type=number]
+    border-radius: 0
+    -webkit-appearance: none
+    &.has-error
+      margin-bottom: 0
+      color: $alert-color
+      border-color: $alert-color
+      background-color: transparentize($alert-color, 0.9)
+  > input[type=url]
+    color: $primary-color
+    text-decoration: underline
+  .parsley-error-block
+    margin: .5em 0
+    font-size: .9rem
+    color: $alert-color
+
+ul.accordion
+  background-color: transparent
+  .is-active .accordion-title
+    background-color: $white
+    box-shadow: 0 4px 12px 0 rgba(35, 52, 69, 0.05)
+    border: solid 0.5px rgba(27, 142, 207, 0.4)
+    i
+      color: $primary-color
+  .accordion-title
+    display: flex
+    margin-bottom: .5rem
+    align-items: center
+    border: solid 1px #d4dfef
+    background-color: rgba(212, 223, 239, 0.3)
+    color: $secondary-color
+    i
+      display: flex
+      @include flex-align(center, center)
+      width: 2rem
+      height: 2rem
+      margin-right: .5rem
+      border-radius: 50%
+      background-color: rgba(27, 142, 207, 0.05)
+    h3, p
+      margin: 0
+    h3
+      font-weight: normal
+      font-size: 1.5rem
+      line-height: 1
+    p
+      color: #2d4a67
+  .accordion-item
+    align-items: center
+    padding: 0.75rem 0.5rem
+    &:first-child > :first-child
+      border-radius: 5px
+  .accordion-content
+    border: none
+    border-radius: 5px
+    box-shadow: 0 4px 12px 0 rgba(35, 52, 69, 0.05)
+
+ul.accordion.accordion-alternative
+  .accordion-title
+    margin-bottom: 0
+    font-size: 1rem
+    &:hover
+      box-shadow: 0 4px 12px 0 rgba(35, 52, 69, 0.05)
+      &:before
+        color: $primary-color
+    &:before
+      @include font-awesome('\f067')
+      position: absolute
+      right: 1rem
+  .accordion-item
+    padding: 0.25rem 0.5rem
+    &:last-child:not(.is-active) > .accordion-title
+      border-radius: 5px
+    &.is-active .accordion-title
+      margin-bottom: -.25rem
+      border: none
+      &:before
+        @include font-awesome('\f068')
+
+.tabs-content
+  margin-bottom: 1rem
+  border-radius: 5px
+  border: none
+  box-shadow: 0 4px 12px 0 rgba(35, 52, 69, 0.05)
+
+ul.tabs
+  display: flex
+  margin-bottom: .5rem
+  border: none
+  .tabs-title
+    flex-grow: 1
+    border-radius: 5px
+    margin-right: .5rem
+    border: solid 1px #d4dfef
+    background-color: rgba(212, 223, 239, 0.3)
+    &:last-of-type
+      margin-right: 0
+    &:hover
+      background-color: $white
+    &.is-active
+      box-shadow: 0 4px 12px 0 rgba(35, 52, 69, 0.05)
+      border: solid 1px rgba(27, 142, 207, 0.4)
+      background-color: $white
+      i
+        color: $primary-color
+    h3, p
+      margin: 0
+    h3
+      font-weight: normal
+      font-size: 1.5rem
+      line-height: 1
+    p
+      color: #2d4a67
+    a
+      display: flex
+      align-items: center
+      padding: .75rem .5rem
+    i
+      display: flex
+      @include flex-align(center, center)
+      width: 2rem
+      height: 2rem
+      margin-right: .5rem
+      border-radius: 50%
+      background-color: rgba(27, 142, 207, 0.05)
+
+.reveal
+  padding: 0
+  &.fixed
+    display: flex !important
+    flex-direction: column
+    max-height: 70vh
+    .modal-content
+      height: 100%
+      overflow-y: auto
+  .modal-content.padded
+    padding: 1rem
+  .modal-header
+    padding: .5rem
+    box-shadow: 0 1px 2px 0 rgba(45, 74, 103, 0.1)
+    text-align: center
+    h4
+      margin-bottom: 0
+      font-weight: normal
+  .modal-footer
+    padding: .5rem
+    box-shadow: 0 0 2px 0 rgba(45, 74, 103, 0.1)
+    text-align: center
+    .button
+      margin-bottom: 0
+
+.reveal.dialog
+  max-width: 30em
+  @include breakpoint(medium up)
+    border-radius: 5px
+  @include breakpoint(small down)
+    height: auto
+    min-height: auto
+    width: auto
+    margin: 1rem
+    margin-top: 20%
+  p
+    color: $body-font-color-secondary
+    .button
+      margin-bottom: 0
+  .modal-header, .modal-footer
+    box-shadow: none
+  .modal-footer
+    text-align: right
+  .modal-content
+    margin: 0 1rem
+
+.reveal.list-item-modal
+  .modal-content
+    padding: 1rem
+    .image-preview
+      cursor: pointer
+    .object-preview
+      display: flex
+      padding: .5rem
+      margin-top: -1rem
+      background-color: rgba(212, 223, 239, 0.2)
+      cursor: pointer
+      h5
+        margin: 0
+        font-weight: normal
+      img
+        width: 10em
+        height: 8em
+        object-fit: cover
+      i
+        font-size: 1.5rem
+        color: $primary-color
+        padding: 1rem
+        align-self: center
+      small
+        color: #2d4a67
+        i
+          font-size: .7em
+      .object-data
+        flex-grow: 1
+        margin: 0 .5rem
+      .url
+        color: $primary-color
+        font-size: .75rem
+
+.record-selector.reveal
+  .loader
+    margin: 3rem 0
+    color: $primary-color
+  .top-bar
+    margin-top: 1em
+    .filter.search
+      max-width: 16em
+      input
+        width: 100%
+        max-width: initial
+  .placeholder
+    display: none
+  .records
+    .pagination
+      margin-top: 1em
+    .cell
+      padding-left: 0.2rem
+      padding-right: 0.2rem
+      padding-bottom: 0.5rem
+  .record
+    position: relative
+    cursor: pointer
+    height: 7em
+    border: 1px solid #d4dfef
+    &:after
+      @include font-awesome('\f03e')
+      display: flex
+      position: absolute
+      top: 0
+      height: 100%
+      width: 100%
+      flex-direction: row
+      align-items: center
+      justify-content: center
+      font-size: 2em
+      color: #d4dfef
+    &.selected
+      outline: 2px solid $primary-color
+      border: 2px solid $white
+      &:before
+        @include font-awesome('\f00c')
+        position: absolute
+        right: -0.75em
+        top: -0.75em
+        width: 1.5em
+        height: 1.5em
+        border-radius: 50%
+        text-align: center
+        padding-top: 1px
+        background-color: $primary-color
+        color: $white
+        box-shadow: 0 0 0 2px $white
+        font-size: 0.9em
+        z-index: 2
+    img
+      position: inherit
+      width: 100%
+      height: 100%
+      object-fit: cover
+      z-index: 1
+  // Ideally want this to be a sticky sidebar but can't work out how to do it.
+  .modal-content > .grid-x > .cell.medium-3
+    background-color: rgba(212, 223, 239, 0.2)
+  .sidebar
+    padding: .5rem
+    img
+      margin: 0.5em 0
+    .title
+      font-weight: 600
+      font-size: 0.9em
+      margin-bottom: 0.5em
+    .description
+      font-size: 0.7em
+      color: $body-font-color-secondary
+
+
+.card.list-management
+  .top-bar
+    @include top-bar-unstack
+    .top-bar-right .input.alternative
+      display: flex
+      align-items: center
+      label
+        flex: none
+        margin-right: .5rem
+      input
+        width: 3rem
+        margin: 0
+        padding-left: 1rem
+        border-radius: 4px
+
+  .add-list-item
+    padding: 0.5rem 1rem
+    text-align: center
+    border: 1px dashed $primary-color
+    border-radius: 5px
+    &:hover
+      background-color: rgba(212, 223, 239, 0.3)
+    i
+      border-radius: 50%
+      padding: .5em
+      height: 2em
+      width: 2.25em
+      text-align: center
+      background-color: $primary-color
+      color: $white
+
+  .sortable-placeholder
+    width: 100%
+    height: 3rem
+    margin: .5rem 0
+    border: solid 0.5px #d4dfef
+    border-radius: 5px
+    background-color: rgba(212, 223, 239, 0.3)
+
+  .list-item-container
+    .children
+      margin-left: 3rem
+    .list-item
+      display: flex
+      align-items: center
+      padding: .5rem
+      margin: .5rem 0
+      border: solid 0.5px #d4dfef
+      border-radius: 5px
+      cursor: move
+      .type
+        .action
+          cursor: pointer
+          &:hover
+            color: $primary-color
+
+      .actions
+        display: flex
+      .data
+        flex-grow: 1
+        padding: 0 .5rem
+        margin: 0 .5rem
+        border: 1px solid #d4dfef
+        border-top: none
+        border-bottom: none
+      .modal-trigger
+        cursor: pointer
+        &:hover
+          color: $primary-color
+
+// Users
+.user_roles .checkbox
+  input
+    margin-right: 1em
+    margin-bottom: 0
+  label
+    font-size: 1em
+
+.card.profile
+  position: relative
+  a.settings
+    position: absolute
+    top: 1em
+    right: 1em
+    font-size: 1.4em
+    i
+      width: 1em
+  h2
+    font-size: 1.5em
+    margin-bottom: 0.15em
+  h3
+    color: $primary-color
+    font-weight: 100
+    text-transform: uppercase
+    font-size: 1em
+    margin-bottom: 1.25em
+  p
+    color: $body-font-color-secondary
+    margin-bottom: 0.8em
+    i
+      width: 1.5em
+      text-align: left
+  .roles
+    margin-top: 1.5em
+  .label
+    background-color: #d4dfef
+    color: $body-font-color-secondary
+    border-radius: 15px
+    margin: 0 0.5em 0.5em 0
+    padding: 0.75em 1.25em
+    text-transform: uppercase
+
+
+/** Forms **/
+.field-with-errors
+  > input, > textarea, > select
+    @include form-input-error
+label
+  margin-bottom: 0.5em
+  &.small
+    font-size: 1em
+
+p.help-text
+  &:before
+    @include font-awesome('\f05a')
+    margin-right: 0.5em
+
+.input.ckeditor
+  .cke
+    display: none
+  &:after
+    margin: 5rem 0
+    position: initial
+    top: 1em
+    display: block
+    font: normal normal normal 14px/1 FontAwesome
+    content: "\f110"
+    animation: fa-spin 1s infinite steps(8)
+    font-size: 3rem
+    text-align: center
+    color: #0089ec
+  &.loaded
+    &:after
+      display: none
+    .populate-button
+      display: block
+    .cke
+      display: block
+  a.populate-button
+    margin: 0.5rem 0
+    display: none
+    font-size: 0.75rem
+    color: $body-font-color-secondary
+    &:hover
+      color: $primary-color
+    i
+      width: 2em
+      text-align: center
+
+.radios
+  label
+    margin-bottom: 0
+    &.collection_radio_buttons
+      font-size: 0.7em
+      color: $body-font-color-secondary
+// Filters
+.filter.search
+  position: relative
+  &:after
+    @include font-awesome('\f002')
+    position: absolute
+    right: 1em
+    top: 0em
+    line-height: 2.25
+    pointer-events: none
+    color: $body-font-color-secondary
+  input
+    padding-right: 3em
+.filter
+  display: flex
+  input, select
+    display: inline-block
+    background-color: rgba(212, 223, 239, 0.2)
+    color: $body-font-color-secondary
+    border: none
+    box-shadow: none
+    height: 2.5em
+    width: 15em
+    font-size: 0.9em
+    padding: 0.5em 1em
+    border-radius: 3px
+    margin-right: 0
+  select
+    background-position: right 0 center
+.filters
+  label
+    font-size: 1em
+    margin-bottom: 0
+
+
+.image-select
+  .image-container
+    .menu-unlinked, .menu-linked
+      margin-top: 0.5em
+    .menu-unlinked
+      .button
+        padding: 0
+        font-size: 0.9em
+    .menu-linked
+      .button
+        padding: 0.2em
+        font-size: 1.2em
+        color: $secondary-color
+        i
+          width: 1.25em
+
+.ckeditor
+  .cke_chrome
+    border: none
+  .cke .cke_inner
+    .cke_wysiwyg_frame, .cke_wysiwyg_div
+      background-color: transparent
+    .cke_contents
+      border-left: 0.5px solid #d4dfef
+      border-right: 1.5px solid #d4dfef
+    .cke_bottom
+      border-radius: 0 0 5px 5px
+      border: 0.5px solid #d4dfef
+      background-color: #edf1f7
+    .cke_top
+      border: 0.5px solid #d4dfef
+      border-radius: 5px 5px 0 0
+      background-color: rgba(212, 223, 239, 0.4)
+    .cke_toolgroup, .cke_combo_button
+      background: transparent
+      border: none
+
+
+ul.breadcrumbs
+  a
+    &:hover
+      color: $primary-color
+      text-decoration: none
+  li
+    &:last-of-type
+      opacity: 0.5
+
+// Move into object listing file
+.card.listing
+  margin-left: 1em
+  margin-right: 1em
+  @include breakpoint(small down)
+    margin-left: 0.5em
+    margin-right: 0.5em
+  h2
+    margin-bottom: 1em
+  > .card-section
+    position: relative
+    .create.show-for-small-only
+      position: absolute
+      right: 1em
+      top: 1em
+  .top-bar
+    padding: 0
+  .filters
+    li
+      margin: 0.5em 0 0.5em 2em
+      @include breakpoint(small down)
+        width: 100%
+        margin-left: 0
+    label
+      margin-right: 0.5em
+      display: flex
+      align-items: center
+      color: $body-font-color-secondary
+    .wg-detached-filter
+      .custom-dropdown-container
+        display: inline-block
+        .expand-multi-select-icon
+          display: none
+      @include breakpoint(small down)
+        width: 100%
+        .custom-dropdown-container, select, input
+          width: 100%
+          max-width: none
+  .wice-grid
+    img.preview
+      max-width: 8em
+      max-height: 8em
+      margin-right: 1em
+      border-radius: 3px
+
+// move into object listing file
+table
+  @include breakpoint(medium down)
+    tbody td
+      padding: 0.5em
+  @include breakpoint(small down)
+    display: block
+    width: 100%
+    overflow-x: auto
+  td.actions
+    min-width: 10em
+    @include breakpoint(medium down)
+      min-width: 9em
+  .avatar
+    max-width: 20px
+    margin-right: 0.1em
+  thead
+    i
+      opacity: 0.5
+    &:hover
+      background: transparent
+  tfoot
+    .pagination
+      float: left
+      li
+        a
+          border-radius: 50%
+          &:hover
+            background-color: $primary-color
+            color: $white
+        &:last-of-type a
+          background-color: rgba(212, 223, 239, 0.35)
+          &:hover
+            background-color: $primary-color
+        &.active a
+          opacity: 0.5
+          &:hover
+            background-color: transparent
+            color: $body-font-color-secondary
+    .pagination_status
+      float: right
+      font-size: 0.9em
+
+  tbody
+    color: $body-font-color-secondary
+    font-size: 0.95em
+    .label
+      color: $body-font-color-secondary
+      border-radius: 1em
+      background-color: rgba(212, 223, 239, 0.3)
+      font-size: 0.9em
+      padding: 0.5em 1em
+    .actions
+      a
+        color: $body-font-color-secondary
+        border-radius: 50%
+        padding: 0.4em 0.25em
+        &:hover
+          background-color: $primary-color
+          color: $white
+        .fa
+          width: 2em
+          text-align: center
+    tr.empty-grid
+      &:hover
+        background-color: transparent
+      img
+        margin-left: 2em
+
+\:focus
+  outline: none !important
+
+.button
+  text-transform: uppercase
+
+.dropdown-pane
+  box-shadow: 1px 6px 15px 0 rgba(35, 52, 69, 0.15)
+
+.avatar
+  border-radius: 50%
+
+.chevron::before
+  border-style: solid
+  border-width: 0.05em 0.05em 0 0
+  content: ''
+  display: inline-block
+  height: 0.45em
+  left: 0.15em
+  position: relative
+  top: 0.15em
+  transform: rotate(-45deg)
+  vertical-align: super
+  width: 0.45em
+  margin-left: 0.25em
+  margin-right: 0.25em
+
+.chevron.right:before
+  left: 0
+  transform: rotate(45deg)
+
+.chevron.bottom:before
+  top: 0
+  transform: rotate(135deg)
+
+.chevron.left:before
+  left: 0.25em
+  transform: rotate(-135deg)
+

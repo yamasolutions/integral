@@ -1,0 +1,73 @@
+\:focus
+  outline: none
+
+iframe
+  border: none
+
+.toast-success
+  background-color: $primary-color
+
+.button
+  border-radius: .15rem
+  letter-spacing: .1em
+  padding-left: 2rem
+  padding-right: 2rem
+  font-weight: bold
+  text-transform: uppercase
+  &.white
+    color: $white
+    border-color: $white
+    &:hover
+      color: $black
+      border-color: $black
+
+.button--edit-resource
+  position: absolute
+  z-index: 2
+  right: 1em
+  top: 1em
+
+.text-primary
+  color: $primary-color
+
+.pos-rel
+  position: relative
+
+.image--shadow
+  border-radius: 5px
+  box-shadow: 0px 0px 25px 0px rgba(0,0,0,0.25)
+
+.image--no-shadow
+  box-shadow: none !important
+
+.field-with-errors
+  input, textarea
+    border-color: $alert-color
+    color: $alert-color
+
+h1
+  margin: .5em 0
+  font-size: 2.5rem
+  font-weight: bold
+  @include breakpoint(small down)
+    font-size: 2rem
+h2
+  font-size: 2.25rem
+  font-weight: bold
+  margin-bottom: .5em
+h3
+  font-size: 1.25rem
+  font-weight: bold
+
+section
+  overflow: hidden
+
+.swiper-container
+  .swiper-button-prev
+    &:before
+      @include font-awesome('\f104')
+  .swiper-button-next
+    &:before
+      @include font-awesome('\f105')
+  .swiper-button-prev, .swiper-button-next
+    background-image: none

@@ -1,0 +1,91 @@
+%li
+  = link_to backend_dashboard_url do
+    = icon('home')
+    %span= t('integral.navigation.dashboard')
+
+- if policy(Integral::Page).index?
+  %li
+    = link_to backend_pages_url do
+      = icon('file')
+      %span= t('integral.navigation.pages')
+    %ul
+      %li= t('integral.navigation.pages')
+      %li
+        = link_to backend_pages_url do
+          %span= t('integral.navigation.dashboard')
+
+      - if policy(Integral::Page).create?
+        %li
+          = link_to new_backend_page_url do
+            %span= t('integral.actions.create')
+
+- if policy(Integral::Post).index? && Integral.blog_enabled?
+  %li
+    = link_to backend_posts_url do
+      = icon('rss')
+      %span= t('integral.navigation.posts')
+    %ul
+      %li= t('integral.navigation.posts')
+      %li
+        = link_to backend_posts_url do
+          %span= t('integral.navigation.dashboard')
+      - if policy(Integral::Post).create?
+        %li
+          = link_to new_backend_post_url do
+            %span= t('integral.actions.create')
+
+- if policy(Integral::List).index?
+  %li
+    = link_to backend_lists_url do
+      = icon('list')
+      %span= t('integral.navigation.lists')
+    %ul
+      %li= t('integral.navigation.lists')
+      %li
+        = link_to backend_lists_url do
+          %span= t('integral.navigation.dashboard')
+      - if policy(Integral::List).create?
+        %li
+          = link_to new_backend_list_url do
+            %span= t('integral.actions.create')
+
+- if policy(Integral::Image).manager?
+  %li
+    = link_to backend_img_index_url do
+      = icon('picture-o')
+      %span= t('integral.navigation.images')
+    %ul
+      %li= t('integral.navigation.images')
+      %li
+        = link_to backend_img_index_url do
+          %span= t('integral.navigation.dashboard')
+      - if policy(Integral::Image).create?
+        %li
+          = link_to new_backend_img_url do
+            %span= t('integral.actions.create')
+
+- if policy(current_user).manager?
+  %li
+    = link_to backend_users_url do
+      = icon('users')
+      %span=t('integral.navigation.users')
+    %ul
+      %li= t('integral.navigation.users')
+      %li
+        = link_to backend_users_url do
+          %span= t('integral.navigation.dashboard')
+      %li
+        = link_to new_backend_user_url do
+          %span= t('integral.actions.create')
+
+- if policy(Integral::Version).manager?
+  %li
+    = link_to backend_activities_url do
+      = icon('crosshairs')
+      %span=t('integral.navigation.activities')
+
+- if current_user.admin?
+  %li
+    = link_to backend_settings_url do
+      = icon('cog')
+      %span=t('integral.navigation.settings')

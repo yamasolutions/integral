@@ -1,0 +1,17 @@
+!!! Strict
+%html{:xmlns => "http://www.w3.org/1999/xhtml"}
+  %head
+    %meta{:content => "text/html; charset=utf-8", "http-equiv" => "Content-Type"}/
+    %meta{:content => "width=device-width", :name => "viewport"}/
+    = stylesheet_link_tag "integral/emails"
+  %body
+    %wrapper.content-wrapper
+      = render partial: 'layouts/integral/mailer/header'
+      %container
+        %spacer{ size: 16 }
+        %row
+          %columns{ small: 12 }
+            %spacer{ size: 16 }
+            = yield
+            %spacer{ size: 16 }
+        = render partial: 'layouts/integral/mailer/footer'

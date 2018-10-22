@@ -1,0 +1,154 @@
+/*
+ * Default CKEditor configuration
+ *
+ * Override this file to create your own customised configuration
+ * Reasons for overriding could include;
+ * - Adding/removing a plugin
+ * - Customising the toolbar
+ * - Adding widgets to HTML buttons plugin
+ *
+**/
+
+CKEDITOR.editorConfig = function( config )
+{
+  <%-
+     attachment_files_path = Ckeditor::Engine.routes.url_helpers.attachment_files_path
+     pictures_path = Ckeditor::Engine.routes.url_helpers.pictures_path
+  %>
+  /* Filebrowser routes */
+  config.filebrowserBrowseUrl = "<%= attachment_files_path %>"
+  config.filebrowserUploadUrl = "<%= attachment_files_path %>"
+  config.filebrowserFlashUploadUrl = "<%= attachment_files_path %>"
+  config.filebrowserFlashBrowseUrl = "<%= attachment_files_path %>"
+  config.filebrowserImageBrowseLinkUrl = "<%= pictures_path %>"
+  config.filebrowserImageBrowseUrl = "<%= pictures_path %>"
+  config.filebrowserImageUploadUrl = "<%= pictures_path %>"
+  config.filebrowserImageBrowseLinkUrl = "<%= pictures_path %>"
+
+  // Toolbar groups configuration.
+  config.toolbarGroups = [
+    { name: 'clipboard', groups: [ 'clipboard', 'undo' ] },
+    { name: 'styles', groups: [ 'styles' ] },
+    { name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ] },
+    { name: 'colors', groups: [ 'colors' ] },
+    { name: 'paragraph', groups: [ 'list', 'indent', 'blocks', 'align', 'bidi', 'paragraph' ] },
+    { name: 'forms', groups: [ 'forms' ] },
+    '/',
+    { name: 'links', groups: [ 'links' ] },
+    { name: 'insert', groups: [ 'insert' ] },
+    { name: 'tools', groups: [ 'tools' ] },
+    { name: 'document', groups: [ 'mode', 'document', 'doctools' ] },
+    { name: 'editing', groups: [ 'find', 'selection', 'spellchecker', 'editing' ] },
+    { name: 'others', groups: [ 'others' ] },
+    { name: 'about', groups: [ 'about' ] }
+  ];
+
+  config.toolbar_basic = [
+    { name: 'clipboard', items: [ 'Undo', 'Redo' ] },
+    { name: 'document', items: [ 'Source' ] },
+    '/',
+    { name: 'basicstyles', items: [ 'Bold', 'Italic', 'Underline', 'Strike' ] },
+    { name: 'paragraph', items: [ 'NumberedList', 'BulletedList', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock' ] },
+    { name: 'links', items: [ 'Link', 'Unlink', 'Image' ] }
+  ];
+
+  config.removeButtons = 'Blockquote,BGColor,CopyFormatting,TextColor,bgColor,Flash,Indent,Outdent,Superscript,Subscript,SpecialChar,Cut,Copy,Paste,PasteText,PasteFromWord,Save,Templates,NewPage,Preview,Print,SelectAll,Scayt,Replace,Form,Checkbox,Radio,TextField,HiddenField,ImageButton,Button,Select,Textarea,Language,BidiRtl,BidiLtr,CreateDiv,PageBreak,Smiley,About,Styles,FontSize,Font,Unlink';
+  config.removeDialogTabs = 'link:upload;image:Upload';
+  config.image_prefillDimensions = false;
+
+  config.format_small = { element: 'small' };
+
+  config.format_tags = 'p;h2;h3;h4;h5;h6;pre;small;address;div';
+  config.extraPlugins = 'wordcount,autogrow,codemirror,embedjs,lineutils,widgetselection,widget,placeholder,strinsert';
+  config.removePlugins = 'forms';
+
+  config.autoGrow_maxHeight = 500;
+  config.autoGrow_bottomSpace = 20;
+
+  config.extraAllowedContent = 'h1 section span i code blockquote form button input textarea select option label;*[*](*)';
+  config.disallowedContent = '*[dir];strong[id]'; // Workaround to all pasted GDocs content to be unbolded
+  config.coreStyles_italic = { element : 'i' };
+
+  CKEDITOR.dtd.a.div = 1;
+
+  config.codemirror = {
+    showCommentButton: false,
+    showUncommentButton: false,
+    showFormatButton: false,
+    showSearchButton: false,
+    enableSearchTools: false,
+    showAutoCompleteButton: false
+  }
+
+  config.embedjs = {
+    file: '<%= javascript_path 'ckeditor/my_javascript.js' %>'
+  }
+
+  /** Static Widgets **/
+
+  // Tables
+  tableBasic = "<table><thead><tr><th>Heading 1</th><th>Heading 1</th></thead><tbody></tr><tr><td></td><td></td></tbody></table>";
+  tableHoverable = "<table class='hover'><thead><tr><th>Heading 1</th><th>Heading 1</th></thead><tbody></tr><tr><td></td><td></td></tbody></table>";
+  tableUnstriped = "<table class='unstriped'><thead><tr><th>Heading 1</th><th>Heading 1</th></thead><tbody></tr><tr><td></td><td></td></tbody></table>";
+  tableCollapsible = "<table class='collapsible'><thead><tr><th>Heading 1</th><th>Heading 1</th></thead><tbody></tr><tr><td></td><td></td></tbody></table>";
+  //  Callouts
+  calloutPrimary = "<div class='callout primary'><h5>Primary Callout Example</h5><p>Fill this with content such as paragraphs, links & lists</p></div>";
+  calloutSecondary = "<div class='callout secondary'><h5>Secondary Callout Example</h5><p>Fill this with content such as paragraphs, links & lists</p></div>";
+  calloutSuccess = "<div class='callout success'><h5>Success Callout Example</h5><p>Fill this with content such as paragraphs, links & lists</p></div>";
+  calloutWarning = "<div class='callout warning'><h5>Warning Callout Example</h5><p>Fill this with content such as paragraphs, links & lists</p></div>";
+  calloutAlert = "<div class='callout alert'><h5>Alert Callout Example</h5><p>Fill this with content such as paragraphs, links & lists</p></div>";
+  //  Embeds
+  embedYoutube = "<iframe height='400px' src='https://www.youtube.com/embed/J9LK6EtxzgM' width='100%'></iframe>";
+  //  Instagram
+  //  Twitter
+
+  //  Buttons
+  primaryButton = "<a href='https://google.com' href='_blank' class='button'>Primary Button</a>";
+  primaryHollowButton = "<a href='https://google.com' href='_blank' class='button hollow'>Primary Hollow Button</a>";
+  secondaryButton = "<a href='https://google.com' href='_blank' class='button secondary'>Secondary Button</a>";
+  secondaryHollowButton = "<a href='https://google.com' href='_blank' class='button secondary hollow'>Secondary Hollow Button</a>";
+  successButton = "<a href='https://google.com' href='_blank' class='button success'>Success Button</a>";
+  successHollowButton = "<a href='https://google.com' href='_blank' class='button success hollow'>Success Hollow Button</a>";
+  warningButton = "<a href='https://google.com' href='_blank' class='button warning'>Warning Button</a>";
+  warningHollowButton = "<a href='https://google.com' href='_blank' class='button warning hollow'>Warning Hollow Button</a>";
+  alertButton = "<a href='https://google.com' href='_blank' class='alert button'>Alert Button</a>";
+  alertHollowButton = "<a href='https://google.com' href='_blank' class='button alert hollow'>Alert Hollow Button</a>";
+  disabledButton = "<a href='https://google.com' href='_blank' class='button disabled'>Disabled Button</a>";
+  disabledHollowButton = "<a href='https://google.com' href='_blank' class='button disabled hollow'>Disabled Hollow Button</a>";
+  // Misc
+  quote = "<quote>You are what you do, not what you say you'll do.</quote>";
+  imageWithCaption = "<table class='img-container'><tbody><tr><td style='text-align: center;'><img alt='' src='http://lorempixel.com/600/600/' /></td></tr><tr><td style='text-align: center;'>This is an image caption example</td></tr></tbody></table>";
+
+  config.strinsert_button_label = 'Widgets';
+  config.strinsert_strings = [
+  { 'name': 'Tables' },
+  { 'name': 'Basic Table', 'value': tableBasic },
+  { 'name': 'Hoverable Table', 'value': tableHoverable },
+  { 'name': 'Unstriped Table', 'value': tableUnstriped },
+  { 'name': 'Collapsible Table', 'value': tableCollapsible },
+  { 'name': 'Callouts' },
+  { 'name': 'Primary Callout', 'value': calloutPrimary },
+  { 'name': 'Secondary Callout', 'value': calloutSecondary },
+  { 'name': 'Success Callout', 'value': calloutSuccess },
+  { 'name': 'Warning Callout', 'value': calloutWarning },
+  { 'name': 'Alert Callout', 'value': calloutAlert },
+  { 'name': 'Buttons' },
+  { 'name': 'Primary Button', 'value': primaryButton },
+  { 'name': 'Primary Hollow Button', 'value': primaryHollowButton },
+  { 'name': 'Secondary Button', 'value': secondaryButton },
+  { 'name': 'Secondary Hollow Button', 'value': secondaryHollowButton },
+  { 'name': 'Success Button', 'value': successButton },
+  { 'name': 'Success Hollow Button', 'value': successHollowButton },
+  { 'name': 'Warning Button', 'value': warningButton },
+  { 'name': 'Warning Hollow Button', 'value': warningHollowButton },
+  { 'name': 'Alert Button', 'value': alertButton },
+  { 'name': 'Alert Hollow Button', 'value': alertHollowButton },
+  { 'name': 'Disabled Button', 'value': disabledButton },
+  { 'name': 'Disabled Hollow Button', 'value': disabledHollowButton },
+  { 'name': 'Embeds' },
+  { 'name': 'Youtube Embed', 'value': embedYoutube },
+  { 'name': 'Misc' },
+  { 'name': 'Quote', 'value': quote },
+  { 'name': 'Image w/ Caption', 'value': imageWithCaption }
+  ];
+};

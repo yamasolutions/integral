@@ -1,0 +1,7 @@
+- hide ||= false
+
+%tr.empty-grid{ class: hide ? 'hide': '' }
+  %td{ colspan:' 100%' }
+    %p.text-center
+      = t('integral.backend.tables.no_data_available')
+      = image_tag image_path('integral/backend/data-unavailable.png')

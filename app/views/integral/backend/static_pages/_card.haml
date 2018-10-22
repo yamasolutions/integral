@@ -1,0 +1,24 @@
+.card.object
+  - if record.present?
+    .card-section
+      %h2= title
+      - if record.to_card[:image].present?
+        = image_tag record.to_card[:image]
+      - else
+        = image_tag image_url('integral/defaults/no_image_available.jpg')
+      %p.description= record.to_card[:description]
+      - record.to_card[:attributes].each do |attr|
+        .info-item
+          %span.attr= attr[:key]
+          %span.val= attr[:value]
+    = link_to record.to_card[:url], class: 'button' do
+      = icon('eye')
+      = t('integral.actions.view')
+  - else
+    .card-section
+      %h2= title
+      = t('integral.backend.graphs.data_unavailable')
+      = image_tag image_path('integral/backend/data-unavailable.png'), class: 'data-unavailable'
+
+
+

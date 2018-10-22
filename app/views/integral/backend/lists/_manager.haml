@@ -1,0 +1,14 @@
+.card.list-management
+  .card-section
+    .top-bar
+      .top-bar-left
+        = f.input :children, wrapper_html: { class: 'alternative' }, disabled: locked
+      .top-bar-right
+        = f.input :list_item_limit, wrapper_html: { class: 'alternative' }, disabled: locked
+    #list-items.sortable
+      = link_to_add_association f, :list_items, 'data-association-insertion-method' => 'after', id: 'top-add-list-button', 'data-association-insertion-node' => '#top-add-list-button', force_non_association_create: true do
+        .add-list-item
+          = icon('plus')
+      = f.simple_fields_for :list_items do |list_item|
+        = render 'list_item_fields', f: list_item
+

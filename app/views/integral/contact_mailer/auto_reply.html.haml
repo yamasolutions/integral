@@ -1,0 +1,16 @@
+- if @enquiry.name.present?
+  %p= t('.salutations_with_name', name: @enquiry.name)
+- else
+  %p= t('.salutations_without_name', name: @enquiry.name)
+
+%spacer{ size: 16 }
+%p= t('.thank_you')
+
+%p= t('.sent_automatically')
+
+%p= t('.closing', reference: @enquiry.reference)
+
+%spacer{ size: 16 }
+%p= t('.regards')
+
+%p= t('.sign_off')

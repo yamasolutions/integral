@@ -1,0 +1,12 @@
+%p= @enquiry.name
+%p= @enquiry.email
+
+- if @enquiry.subject.present?
+  %spacer{ size: 16 }
+  %p
+    Re: 
+    = @enquiry.subject
+
+%spacer{ size: 16 }
+%p= @enquiry.message
+

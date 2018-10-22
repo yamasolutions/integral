@@ -1,0 +1,36 @@
+= content_for :title, t('.title', name: @user.name)
+.grid-x.grid-padding-x
+  .cell.small-12.medium-6
+    .grid-y
+      .cell
+        .card.profile
+          .card-section
+            .grid-x.grid-padding-x
+              .cell.medium-4
+                = image_tag @user.avatar.url(:small), class: :avatar
+              .cell.medium-8
+                = link_to edit_backend_user_url(@user), class: :settings do
+                  = icon('cog')
+                %h2= @user.name
+                -# TODO: Implement title/position for Integral::User
+                -#%h3 Director
+                %p
+                  = icon('envelope')
+                  = @user.email
+                %p
+                  = icon('calendar')
+                  = t('.member_since', start_date: l(@user.created_at))
+
+                .roles
+                  - @user.roles.each do |role|
+                    .label= role.label
+      -# .cell
+      -#   .card
+      -#     .card-section
+      -#       Creates Graph
+  -# .cell.small-12.medium-6
+  -#   .grid-y
+  -#     .cell
+  -#       .card
+  -#         .card-section
+  -#           %h2 Activity

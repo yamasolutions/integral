@@ -1,0 +1,29 @@
+@mixin font-awesome($content)
+  font-family: FontAwesome
+  font-weight: normal
+  font-style: normal
+  display: inline-block
+  text-decoration: inherit
+  content: $content
+
+@mixin headerAnchor
+  a
+    position: relative
+    &:after
+      @include font-awesome('\f0c1')
+      position: absolute
+      top: 0
+      padding: .5em
+      color: $dark-gray
+      font-size: 1rem
+      visibility: hidden
+    &:before
+      position: absolute
+      content: "&nbsp;"
+      padding: 10px 8px 8px 5px
+      visibility: hidden
+      // margin-top can be used to offset a fixed header
+      // margin-top: -100px
+  &:hover a:after
+    visibility: visible
+

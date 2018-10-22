@@ -1,0 +1,8 @@
+%html
+  = render partial: 'layouts/integral/backend/head', locals: { render_tag_manager: false }
+  %body.devise
+    = render_flashes
+    .row.align-center
+      .columns.medium-5
+        .devise-form
+          = yield

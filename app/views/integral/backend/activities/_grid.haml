@@ -1,0 +1,23 @@
+= render layout: 'integral/backend/shared/grid', locals: { grid: grid, options: { columns: [:date, :user, :action, :object, :instance, :attributes_changed, :actions] }} do
+  - if grid.assets.any?
+    - grid.assets.decorate.each do |activity|
+      %tr
+        %td= l(activity.created_at)
+        %td
+          - if activity.whodunnit.present?
+            = link_to backend_user_url(activity.whodunnit.id) do
+              %span.label.clear
+                = image_tag activity.whodunnit.avatar.url(:thumbnail), class: :avatar
+                = activity.whodunnit.name
+        %td
+          %span.label= activity.event
+        %td= activity.item_type
+        %td
+          = link_to activity.item_url do
+            = activity.item_title
+        %td= activity.attributes_changed
+        %td.actions
+          = link_to activity.url do
+            = icon('eye')
+  - else
+    = render partial: 'integral/backend/shared/empty_grid'

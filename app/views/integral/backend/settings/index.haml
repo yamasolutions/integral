@@ -1,0 +1,10 @@
+= simple_form_for :settings, url: backend_settings_url, defaults: { required: false }, html: { id: :update_settings } do |f|
+  .grid-x.grid-padding-x
+    .cell
+      %ul.accordion{ 'data-responsive-accordion-tabs' => 'accordion medium-accordion large-tabs' }
+        = render 'integral/backend/settings/sections/general', f: f
+        = render 'integral/backend/settings/sections/seo', f: f
+        = render 'integral/backend/settings/sections/social', f: f
+        = render 'integral/backend/settings/sections/lists', f: f
+    .cell
+      = f.button :button, t('integral.actions.update')

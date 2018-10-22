@@ -1,0 +1,4 @@
+- hint = t("integral.backend.settings.hints.#{name}", default: '').presence
+- placeholder = t("integral.backend.settings.placeholder.#{name}", default: '').presence
+
+= f.input name, input_html: { value: Integral::Settings[name] }, placeholder: placeholder, hint: hint, wrapper_html: { class: 'alternative' }

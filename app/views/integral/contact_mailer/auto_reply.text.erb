@@ -1,0 +1,15 @@
+<%- if @enquiry.name.present? %>
+<%= t('.salutations_with_name', name: @enquiry.name) %>
+<%- else %>
+<%= t('.salutations_without_name', name: @enquiry.name) %>
+<%- end %>
+
+<%= t('.thank_you') %>
+
+<%= t('.sent_automatically') %>
+
+<%= t('.closing', reference: @enquiry.reference) %>
+
+<%= t('.regards') %>
+
+<%= t('.sign_off') %>

@@ -1,0 +1,20 @@
+.grid-x
+  .cell.large-6
+    .grid-x.grid-padding-x
+      .cell.small-12
+        = render partial: 'integral/backend/shared/cards/welcome'
+      .cell.small-12.medium-6.flex-container
+        = render partial: 'integral/backend/static_pages/card', locals: { title: t('.recent_post'), record: Integral::Post.first }
+      .cell.small-12.medium-6.flex-container
+        = render partial: 'integral/backend/static_pages/card', locals: { title: t('.recent_page'), record: Integral::Page.first }
+  .cell.large-6
+    .grid-x.grid-padding-x
+      .cell.small-12
+        = render partial: 'integral/backend/shared/cards/at_a_glance', locals: { dataset: dataset_dashboard_atg }
+
+      .cell.small-12
+        .card
+          .card-section
+            %h2= t('integral.backend.cards.last_week')
+            = render_line_chart(dataset_dashboard_last_week)
+

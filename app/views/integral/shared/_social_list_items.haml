@@ -1,0 +1,41 @@
+- if github_url.present?
+  %li
+    = link_to github_url do
+      = icon('github')
+      %span Github
+
+- if twitter_url.present?
+  %li
+    = link_to twitter_url do
+      = icon('twitter')
+      %span Twitter
+
+- if facebook_url.present?
+  %li
+    = link_to facebook_url do
+      = icon('facebook')
+      %span Facebook
+
+- if instagram_url.present?
+  %li
+    = link_to instagram_url do
+      = icon('instagram')
+      %span Instagram
+
+- if linkedin_url.present?
+  %li
+    = link_to linkedin_url do
+      = icon('linkedin')
+      %span Linkedin
+
+- if youtube_url.present?
+  %li
+    = link_to youtube_url do
+      = icon('youtube')
+      %span Youtube
+
+- if google_plus_url.present?
+  %li
+    = link_to google_plus_url do
+      = icon('google-plus')
+      %span Google

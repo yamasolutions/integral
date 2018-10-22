@@ -1,0 +1,20 @@
+- html_classes ||= local_assigns.fetch(:html_classes, '')
+
+-# Slider main container
+.swiper-container{ class: html_classes }
+
+  -# Additional required wrapper
+  .swiper-wrapper
+
+    -# Slides
+    = yield
+
+  -# If we need pagination
+  .swiper-pagination
+
+  -# If we need navigation buttons
+  .swiper-button-prev
+  .swiper-button-next
+
+  -# If we need scrollbar
+  .swiper-scrollbar

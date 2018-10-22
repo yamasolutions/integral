@@ -1,0 +1,38 @@
+= link_to 'Edit', edit_backend_post_url(@post.id), class: 'button primary button--edit-resource', data: { 'turbolinks' => 'false' } if current_user.present?
+= link_to posts_url, class: 'view-all' do
+  = icon('list')
+  VIEW ALL BLOG POSTS
+= render layout: 'integral/shared/blog_layout', locals: { title: @post.title, subtitle: @post.header_tags, image: @post.image(:large) } do
+  %p
+    %span.post-date= @post.published_at
+  %article#post-content.wysiwyg-content
+    = @post.body.html_safe
+
+  .share-widget
+    %p
+      %span{ 'data-open' => 'share-modal' }= t('integral.actions.share')
+      = link_to facebook_share_url, target: :blank do
+        = icon('facebook')
+      = link_to twitter_share_url(message: @post.title), target: :blank do
+        = icon('twitter')
+      = link_to google_plus_share_url, target: :blank do
+        = icon('google-plus')
+      = link_to linkedin_share_url(message: @post.title), target: :blank do
+        = icon('linkedin')
+
+  %ul.tag-list.left
+    - @post.tags_on(@post.tag_context).each do |tag|
+      %li.post-tag
+        = link_to tag_url(tag.name) do
+          = tag.name
+
+  - if @related_posts.present?
+    %section.related-posts
+      %h3= t('integral.blog.widgets.related_posts')
+      .grid-x.grid-padding-x
+        - Integral::PostDecorator.decorate_collection(@related_posts).each do |p|
+          .cell.medium-4
+            = link_to integral.post_url(p) do
+              = image_tag p.image(:medium)
+              %h5= p.title
+            %span.subtitle= p.published_at

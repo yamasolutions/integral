@@ -1,0 +1,45 @@
+version: 2
+jobs:
+  build:
+    working_directory: ~/integral
+    docker:
+      - image: circleci/ruby:2.4.1-node-browsers
+        environment:
+          RAILS_ENV: test
+    steps:
+      - checkout
+
+      # Install PhantomJS (if not found in cache)
+      - run:
+          name: Install phantomjs
+          command: |
+            if ! [ $(which phantomjs) ]; then
+            sudo curl --output /usr/local/bin/phantomjs https://s3.amazonaws.com/circle-downloads/phantomjs-2.1.1
+            fi
+
+            sudo chmod ugo+x /usr/local/bin/phantomjs
+
+      # Restore Cached Dependencies
+      - type: cache-restore
+        name: Restore bundle cache
+        key: integral-{{ checksum "Gemfile.lock" }}
+
+      # Bundle install dependencies
+      - run: bundle install --path vendor/bundle
+
+      # Cache Dependencies
+      - type: cache-save
+        name: Store bundle cache
+        key: integral-{{ checksum "Gemfile.lock" }}
+        paths:
+          - vendor/bundle
+
+      # Setup the database
+      - run: bundle exec rake db:setup
+
+      # Precompile assets to reduce chance of timeout
+      - run: bundle exec rake app:assets:precompile
+      - run: bundle exec rake app:ckeditor:nondigest
+
+      # Run the tests
+      - run: bundle exec fudge build

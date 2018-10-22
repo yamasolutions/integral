@@ -1,0 +1,9 @@
+- if @breadcrumbs.present? || content_for?(:actionbar)
+  #action-bar.top-bar
+    - if @breadcrumbs.present?
+      .top-bar-left
+        %ul.breadcrumbs
+          = render_breadcrumbs :tag => :li, :separator => ""
+    - if content_for?(:actionbar)
+      .top-bar-right
+        = content_for(:actionbar)

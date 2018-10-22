@@ -1,0 +1,42 @@
+- classes ||= ''
+- initialize = defined?(initialize) ? initialize : true
+- data_attributes ||= {}
+
+.reveal.record-selector.fixed.large{ class: classes, data: { reveal: true, record_selector_path: search_path, record_selector_name: name, record_selector_initialize: initialize, 'multiple-opened' => 'true' }.merge!(data_attributes) }
+  .modal-header
+    %button.close-button{ type: 'button', data: { close: '' }, aria: { label: "Close Search" }}
+      %span{ aria: { hidden: 'true' } } &times;
+    %h2= title
+  .modal-content
+    .grid-x.grid-padding-x
+      .cell.medium-9
+        = form_tag search_path, method: :get, remote: true, format: :json , data: {'type' => 'json'} do
+          .top-bar
+            .top-bar-left
+              .filter.search
+                = text_field_tag :search, '', class: 'search-field', placeholder: 'Search..'
+              = hidden_field_tag :page, '', class: 'page-field', value: 1
+
+            - if defined?(create_modal)
+              .top-bar-right
+                %button.button.create-button{ data: { 'target' => create_modal }}
+                  = icon('cloud-upload')
+                  = t('integral.actions.upload')
+        .loader.text-center
+          = icon('spinner', class: 'fa-pulse fa-3x fa-fw')
+          %span.sr-only Loading..
+
+        .records
+          .placeholder
+            = render partial: 'integral/backend/shared/record_selector/record', locals: { list_item: { image: '', title: '', subtitle: '' }}
+
+      .cell.medium-3
+        .sidebar
+          %h2 Details
+          %img
+          %p.title
+          %p.description
+  .modal-footer
+    %ul.menu.align-right
+      %li
+        %button.button.select= t('integral.actions.select')

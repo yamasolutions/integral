@@ -1,0 +1,7 @@
+#gallery-placeholder.reveal.large.modal--gallery{ data: {reveal: true }}
+  %button.close-button{ data: { close: '' }, aria: { label: "Close modal" }}
+    %span{ aria: { hidden: true } } &times;
+  .content
+  .placeholder
+    = icon('spinner', class: 'fa-pulse')
+    %p Loading..

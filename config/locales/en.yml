@@ -1,0 +1,477 @@
+en:
+  date:
+    formats:
+      default: "%d %B"
+  time:
+    formats:
+      default: "%B %d, %Y at %l:%M%P"
+      blog: "%B %d, %Y"
+      twelve_hour: "%I:%M %p"
+
+  date:
+    today: Today
+    yesterday: Yesterday
+    formats:
+      default: "%A, %d %B %Y"
+      long: "%H:%M %d/%m/%Y"
+
+  errors:
+    generic: Unfortunately there was a problem. Please try again later.
+    unauthorized: You are not authorized to perform this action.
+    fix_errors: Please fix the form errors before continuing.
+
+  integral:
+    remote_form:
+      error: Unfortunately there has been an error, please try again later.
+      success: Thanks for getting in touch. We'll be in contact soon.
+    share_modal:
+      title: Share
+    contact_form:
+      placeholders:
+        name: Name
+        email: Email
+        subject: Subject
+        message: Message
+      submit: Get in Touch
+    contact_mailer:
+      auto_reply:
+        subject: "We've received your message, here's what to expect next.."
+        salutations_without_name: Hi,
+        salutations_with_name: "Hi %{name},"
+        thank_you: Thanks for your message.
+        sent_automatically: We're working on your request and will get back to you as soon as possible.
+        closing: "The reference for this message is %{reference}."
+        regards: Thanks again,
+        sign_off: Your friendly customer support team :)
+      forward_enquiry:
+        subject: Website Enquiry
+    actions:
+      confirm:
+        deletion: If you delete this item it will be gone forever. Are you sure you want to proceed?
+      new_page: Add new page
+      new_post: Add new post
+      edit_profile: Edit profile
+      add_image: Add Image
+      add_image_or_video: Add an image or video
+      view_main_site: View main site
+      create: Create
+      clone: Clone
+      save: Save
+      delete: Delete
+      destroy: Delete
+      edit: Edit
+      update: Update
+      send: Send
+      view: View
+      view_record: View Record
+      view_user: View User
+      read_more: Read more..
+      reply: Reply
+      log_out: Logout
+      upload: Upload
+      share: Share this
+      apply: Apply
+      select: Select
+      copy_url: Copy URL
+      copied: Copied
+      search: Search
+    prompts:
+      select_image: Select Image..
+      select_type: Select Type..
+      unsaved_changes: Changes that you made may not be saved.
+    placeholders:
+      description: Description
+      title: Title
+    statuses:
+      draft: Draft
+      published: Published
+      archived: Archived
+    records:
+      attributes:
+        locale: Language
+        image: Image
+        featured_image: Featured Image
+        preview_image: Preview Image
+        avatar: Avatar
+        views: Views
+        author: Author
+        user: User
+        updated_at: Last updated
+        status: Status
+        title: Title
+        tags: Tags
+        gallery: Gallery
+      status:
+        archived: Archived
+        draft: Draft
+        published: Published
+    breadcrumbs:
+      home: Home
+      blog: Blog
+      tags: Tags
+      dashboard: Dashboard
+      settings: Settings
+      posts: Posts
+      pages: Pages
+      users: Users
+      images: Images
+      lists: Lists
+      activity: Activity
+      new: New
+      edit: Edit
+
+    navigation:
+      dashboard: Dashboard
+      actions: Actions
+      activity: Activity
+      activity_log: Activity Log
+      profile: My Profile
+      quick_links: Quick Links
+      activities: Activities
+      home: Home
+      posts: Posts
+      post: Post
+      pages: Pages
+      page: Page
+      users: Users
+      user: User
+      images: Images
+      image: Image
+      lists: Lists
+      list: List
+      new: New
+      edit: Edit
+      log_out: Logout
+      my_account: Account & Profile
+      settings: Settings
+
+    posts:
+      index:
+        title: Our Articles
+        subtitle: All things Integral
+      show:
+        subtitle: An interesting read
+      item:
+        read_more: Read More
+    tags:
+      index:
+        title: Our Tags
+        subtitle: Subjects discussed within this blog
+        description: Tags used within our blog
+      show:
+        subtitle: Related Articles
+        description: "All articles tagged %{tag_name} within our blog"
+    blog:
+      widgets:
+        related_posts: Related Posts
+        recent_posts: Recent Posts
+        popular_posts: Popular Posts
+        popular_tags: Tags
+        tags: Tags
+        categories: Categories
+        newsletter_signup:
+          title: Keep up to date!
+          subtitle: Integral news & tips direct to your inbox.
+          placeholder: Your email address..
+          submit: Sign Up
+          success: Great choice! Stay tuned for some quality content direct to your inbox.
+    backend:
+      graphs:
+        data_unavailable: Data Unavailable
+      cards:
+        at_a_glance: At a glance
+        last_week: Last week
+      shared:
+        cards:
+          welcome:
+            title: Welcome back!
+            get_started: "We've assembled some links to get you started:"
+      tables:
+        no_data_available: No data available.
+      charts:
+        no_data_available: No data available yet, start creating!
+      confirmation_modal:
+        title: 'Confirmation'
+        confirm: 'Confirm'
+        cancel: 'Cancel'
+      static_pages:
+        dashboard:
+          title: 'Dashboard'
+          recent_post: Recent Post
+          recent_page: Recent Page
+        pages:
+          title: 'Pages'
+      roles:
+        labels:
+          user_manager: 'User Manager'
+          image_manager: 'Image Manager'
+          page_manager: 'Page Manager'
+          post_manager: 'Post Manager'
+          list_manager: 'List Manager'
+      record_selector:
+        posts:
+          record: Post
+          title: Select a Post..
+        pages:
+          record: Page
+          title: Select a Page..
+        images:
+          record: Image
+          title: Select an Image..
+      activities:
+        index:
+          title: Website Activity
+      lists:
+        items:
+          type:
+            basic: 'Basic'
+            link: 'Link'
+            post: 'Post'
+        new:
+          title: 'New List'
+        edit:
+          title: 'Edit List'
+        index:
+          title: 'Lists'
+          add_list: 'Add list'
+          non_available: 'No Lists currently available. Try creating one!'
+        show:
+          title: "List - %{title}"
+        grid:
+          columns:
+            title: 'Title'
+            description: 'Description'
+        notification:
+          creation_success: 'List successfully created.'
+          creation_failure: 'List creation failed.'
+          edit_success: 'List successfully updated.'
+          edit_failure: 'Failed to update list.'
+          delete_success: 'List successfully deleted.'
+          delete_failure: 'Failed to delete list.'
+
+      settings:
+        index:
+          title: Settings
+          general:
+            title: General
+            description: Vital information used across the website
+          social:
+            title: Social Media
+            description: Set or update your social media profile links
+          seo:
+            title: SEO
+            description: Website SEO and tracking
+          lists:
+            title: Lists
+            description: Manage Lists
+        placeholder:
+          website_title: Super Awesome Website
+          contact_email: test@example.com
+          google_tag_manager_id: GTM-xxxx
+          twitter_url: https://twitter.com/rails
+          facebook_url: https://www.facebook.com/groups/railsrocks
+          google_plus_url: https://plus.google.com/communities/101878695540653445908
+          linkedin_url: https://www.linkedin.com/in/barackobama/
+          youtube_url: https://www.youtube.com/channel/UCUkM9uMpWatT7gVWShgtKFw
+          instagram_url: jerryoftheday
+          twitter_handler: rails
+          facebook_app_id: 123456789
+          homepage_id: 1
+        notification: 
+          successful_update: Settings successfully updated.
+      posts:
+        grid:
+          columns:
+            title: 'Title'
+            description: 'Description'
+            last_updated: 'Last updated'
+            author: 'Author'
+            views: 'Views'
+            status: 'Status'
+        index:
+          title: 'Posts'
+          new_post: 'Create post'
+          published_count: "%{count} published"
+          drafts_count: "%{count} drafted"
+          non_available: 'No posts available. Try creating one!'
+        edit:
+          title: 'Edit Post'
+        new:
+          title: 'New Post'
+        activities:
+          title: "Activities: %{title}"
+        notification:
+          creation_success: 'Post successfully created.'
+          creation_failure: 'Post creation failed.'
+          edit_success: 'Post successfully updated.'
+          edit_failure: 'Failed to update post.'
+          delete_success: 'Post successfully deleted.'
+          delete_failure: 'Failed to delete post.'
+      pages:
+        templates:
+          default: Default
+        prompts:
+          choose_template: Choose Template
+        index:
+          title: 'Page listing'
+          non_available: 'No pages available. Try creating one!'
+          add_page: 'Add page'
+          published_count: "%{count} published"
+          drafts_count: "%{count} drafted"
+        grid:
+          columns:
+            title: 'Title'
+            description: 'Description'
+            path: 'Path'
+            last_updated_at: 'Last updated'
+        notification:
+          creation_success: 'Page successfully created.'
+          creation_failure: 'Page creation failed.'
+          edit_success: 'Page successfully updated.'
+          edit_failure: 'Failed to update page.'
+          delete_success: 'Page successfully deleted.'
+          delete_failure: 'Failed to delete page.'
+        edit:
+          title: 'Editing page - %{title}'
+        new:
+          title: 'New Page'
+        create:
+          title: 'Create Page'
+      images:
+        new:
+          title: 'New Image'
+        index:
+          title: 'Image listing'
+          no_images_available: 'No images available. Try uploading some!'
+          new_image: 'New image'
+        notification:
+          creation_success: 'Image successfully created.'
+          creation_failure: 'Image creation failed.'
+          edit_success: 'Image successfully updated.'
+          edit_failure: 'Failed to update Image.'
+          delete_success: 'Image successfully deleted.'
+          delete_failure: 'Failed to delete image.'
+        edit:
+          title: 'Editing image - %{name}'
+      users:
+        available_locales:
+          en: English
+          ja: Japanese
+        status:
+          draft: 'Draft'
+          published: 'Published'
+        notification:
+          creation_success: 'User has been invited.'
+          creation_failure: 'User already exists.'
+          edit_success: 'User successfully updated.'
+          edit_failure: 'Failed to update user.'
+          delete_success: 'User successfully deleted.'
+          delete_failure: 'Failed to delete user.'
+        prompts:
+          select_language: 'Select language..'
+        grid:
+          columns:
+            name: 'Name'
+            email: 'Email'
+            last_signed_in: 'Last signed in'
+        index:
+          title: 'User listing'
+          add_user: 'Add user'
+        new:
+          title: 'New user'
+        edit:
+          title: 'Editing profile - %{name}'
+        show:
+          title: "Viewing profile - %{name}"
+          member_since: "Member since: %{start_date}"
+      messages:
+        reply_subject: 'In reply to your message'
+        index:
+          no_messages: 'You currently have no messages :('
+    date_selector_tooltip_from: 'From'
+    date_selector_tooltip_to: 'To'
+    boolean:
+      'true': 'True'
+      'false': 'False'
+
+  posts:
+    index:
+      post_info_with_comments: "Posted by %{name} on %{date} | %{comments}"
+      post_info: "Posted by %{name} on %{date}"
+
+  simple_form:
+    hints:
+      defaults:
+        title: "Grab people’s attention with an engaging title using keywords. <a target='_blank' href='https://moz.com/learn/seo/title-tag'>Learn More.</a>"
+        slug: "The URL of the content. Try to keep this short and descriptive. <a target='_blank' href='https://trafficgenerationcafe.com/what-is-slug/'>Learn More.</a>"
+        description: "Summarise the content. This will be displayed in search results and is an important part of on-page SEO. <a target='_blank' href='https://moz.com/learn/seo/meta-description'>Learn More.</a>"
+        path: Path to the record, this will be appended onto the website domain to create a URL. Example - /company/privacy-policy
+        parent: "You can arrange your pages in hierarchies by selecting a top level page for your other pages. <a target='_blank' href='https://en.wikipedia.org/wiki/Breadcrumb_(navigation)#Websites'>Learn More.</a>"
+        #tag_list: Use key terms to summarise your content and seperate words with '-', i.e. internet-marketing-tips
+        template: Layout which will be used to render the page.
+
+      image:
+        title: This is only used for internal reference.
+        description: "Summarise the image. This will be used within image search, using key terms can boost search ranking results. <a target='_blank' href='https://moz.com/learn/seo/alt-text'>Learn More.</a>"
+      list:
+        title: This is only used for internal reference.
+        description: This is only used for internal reference.
+    inputs:
+      file:
+        button_label: 'File'
+      switch:
+        turn_on: 'On'
+        turn_off: 'Off'
+    labels:
+      defaults:
+        body: Content
+      children:
+        fake_type: 'Type'
+        target: 'New Tab?'
+        url: 'URL'
+        html_classes: 'HTML Classes'
+      list:
+        html_id: HTML ID
+        html_classes: HTML Classes
+        children: Children allowed
+      list_items:
+        fake_type: 'What type is it?'
+        target: 'New Tab?'
+        url: 'URL'
+        html_classes: 'HTML Classes'
+      user:
+        locale: 'Language'
+      settings:
+        website_title: Website title
+        contact_email: Contact form email address
+        google_tag_manager_id: Google Tag Manager ID
+        twitter_url: Twitter profile URL
+        facebook_url: Facebook profile URL
+        google_plus_url: Google Plus URL
+        linkedin_url: LinkedIn profile URL
+        youtube_url: Youtube channel URL
+        facebook_app_id: Facebook app ID
+        homepage_id: Homepage Page ID
+        newsletter_api_key_id: Mailchimp API ID
+        newsletter_list_id: Newsletter list ID
+        main_menu_list_id: Main menu List ID
+
+  helpers:
+    submit:
+      user:
+        create: 'Invite %{model}'
+
+  devise:
+    passwords:
+      edit:
+        title: Change your password
+      new:
+        title: Forgot your password?
+    sessions:
+      new:
+        title: Login
+    mailer:
+      invitation_instructions:
+        someone_invited_you: "%{name} has invited you to %{url}, you can accept it through the link below."
+  ckeditor:
+    populate_editor: Populate editor with example content.

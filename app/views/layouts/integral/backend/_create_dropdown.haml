@@ -1,0 +1,30 @@
+%ul.menu.vertical
+  - if policy(Integral::Page).create?
+    %li
+      = link_to new_backend_page_url do
+        = icon('file-text-o')
+        %span= t('integral.navigation.page')
+
+  - if policy(Integral::Post).create? && Integral.blog_enabled?
+    %li
+      = link_to new_backend_post_url do
+        = icon('rss')
+        %span= t('integral.navigation.post')
+
+  - if policy(Integral::Image).create?
+    %li
+      = link_to new_backend_img_url do
+        = icon('picture-o')
+        %span= t('integral.navigation.image')
+
+  - if policy(Integral::List).create?
+    %li
+      = link_to new_backend_list_url do
+        = icon('list')
+        %span= t('integral.navigation.list')
+  - if policy(current_user).create?
+    %li
+      = link_to new_backend_user_url do
+        = icon('user')
+        %span= t('integral.navigation.user')
+

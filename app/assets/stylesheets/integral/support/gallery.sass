@@ -11,6 +11,10 @@
       font-size: 2em
       margin-bottom: 0.5em
   .main-swiper
+    height: 0
+    margin-bottom: 0
+    .swiper-wrapper
+      height: 100%
     .swiper-button-prev, .swiper-button-next
       position: absolute
       top: 40%
@@ -22,12 +26,16 @@
         font-size: 1.5em
     .swiper-slide
       margin: auto 0
+      text-align: center
+      img
+        max-height: 100%
   .thumb-swiper
     height: 9em
     padding: 0.5em 0
+    margin-bottom: 0
     .swiper-slide
-      width: 12em
-      height: 8em
+      width: 10em
+      height: 6em
       cursor: pointer
       @include breakpoint(small down)
         width: 8em

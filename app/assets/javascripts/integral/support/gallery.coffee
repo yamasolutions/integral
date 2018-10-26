@@ -72,7 +72,32 @@ class this.Gallery
       projectGalleryTop.controller.control = projectGalleryThumbs
       projectGalleryThumbs.controller.control = projectGalleryTop
 
-    # Show/hide content and placeholder 
+    # Set main swiper size
+    revealHeight = gallery.height()
+    thumbSwiperHeight = galleryContent.find('.thumb-swiper').height()
+    revealAvailableHeight = revealHeight - thumbSwiperHeight
+    mainSwiper.height(revealAvailableHeight)
+
+    window.addEventListener 'resize', =>
+      # TODO: Tidy up this duplication
+      revealHeight = gallery.height()
+      thumbSwiperHeight = galleryContent.find('.thumb-swiper').height()
+      revealAvailableHeight = revealHeight - thumbSwiperHeight
+      mainSwiper.height(revealAvailableHeight)
+
+    # Listen for arrow keys
+    $(document).keydown (event) =>
+      return unless gallery.is(':focus')
+
+      switch event.which
+        when 37 # Left
+          projectGalleryThumbs.slidePrev()
+        when 39 # Right
+          projectGalleryThumbs.slideNext()
+        else
+          return # Exit this handler for other keys
+
+    # Show/hide content and placeholder
     gallery.find('.placeholder').css('display', 'none')
     galleryContent.css('visibility', 'initial')
 

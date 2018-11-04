@@ -11,6 +11,20 @@ recommendations of [keepachangelog.com](http://keepachangelog.com/).
 
 ### Added
 
+- None
+
+### Fixed
+
+- None
+
+## v1.0.1
+
+### Breaking Changes
+
+- None
+
+### Added
+
 - Tooltip to explain media query indicator & helper method to toggle whether it displays
 
 ### Fixed

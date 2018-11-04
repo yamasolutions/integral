@@ -15,7 +15,7 @@ recommendations of [keepachangelog.com](http://keepachangelog.com/).
 
 ### Fixed
 
-- None
+- 'Errno::ENOENT: No such file' issue caused by Ckeditor demo content file not being included
 
 ## v1.0.0
 

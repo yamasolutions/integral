@@ -1,2 +1,2 @@
-- if Rails.env.development?
-  .query-indicator= icon('mobile')
+- if display_media_query_indicator?
+  .query-indicator{ 'data-tooltip' => true, title: 'Media Query Indicator - Visible in development only.' }= icon('arrows-alt')

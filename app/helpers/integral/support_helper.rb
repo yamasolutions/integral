@@ -1,6 +1,12 @@
 module Integral
   # Support Helper which contains common helper methods used within backend & frontend
   module SupportHelper
+    # @return [Boolean] Whether or not to display media query indicator
+    # Green - large screens, medium - tablets, red - mobile
+    def display_media_query_indicator?
+      Rails.env.development?
+    end
+
     # @return [String] markup listing flash notifications
     def render_flashes
       flash_types = %i[notice alert error]

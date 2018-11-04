@@ -23,7 +23,7 @@ user = Integral::User.create!({ name: 'Integrico', email: 'user@integralrails.co
 # Demo Page
 host = URI.parse(Rails.application.routes.default_url_options[:host] || 'http://localhost:3000')
 
-renderer = renderer = ApplicationController.renderer.new(
+renderer = ApplicationController.renderer.new(
   http_host: host.to_s.sub(/^https?\:\/\//, '').sub(/^www./,''),
   https: host.scheme == 'https')
 

@@ -1,2 +1,23 @@
-= render 'form'
+= simple_form_for [:backend, @list], validate: true, html: { class: 'are-you-sure', 'data-confirm-dirty-form' => true, 'data-list-item-limit' => @list.list_item_limit, id: :list_form } do |f|
+  = f.input :lock_version, as: :hidden
+  .grid-x.grid-padding-x
+    .cell.medium-6.flex-container
+      .card
+        .card-section
+          = f.input :title, hint: false, disabled: f.object.locked?
+    .cell.medium-6.flex-container
+      .card
+        .card-section
+          = f.input :description, hint: false, disabled: f.object.locked?
+    .cell
+      = render partial: 'integral/backend/lists/manager', locals: { f: f, locked: f.object.locked? }
+    .cell
+      = f.button :button
+
+-# Image Selector
+= render partial: 'integral/backend/shared/record_selector/modal', locals: { search_path: backend_img_index_path, title: t('integral.prompts.select_image'), name: 'Image', create_modal: '#new_image_modal', initialize: true }
+= render partial: 'integral/backend/images/create_modal'
+
+- Integral::ActsAsListable.objects.each do |listable|
+  = render partial: 'integral/backend/shared/record_selector/modal', locals: { search_path: listable.listable_options[:selector_path], title: listable.listable_options[:selector_title], name: listable.to_s.parameterize, initialize: true }
 

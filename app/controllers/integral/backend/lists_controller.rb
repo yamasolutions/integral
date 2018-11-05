@@ -2,7 +2,7 @@ module Integral
   module Backend
     # List controller
     class ListsController < BaseController
-      before_action :set_list, only: %i[edit update destroy show clone]
+      before_action :set_list, only: %i[edit update destroy clone]
       before_action :authorize_with_klass
       before_action -> { set_grid(Integral::Grids::ListsGrid) }, only: [:index]
 
@@ -15,14 +15,6 @@ module Integral
             render json: { content: render_to_string(partial: 'integral/backend/lists/grid', locals: { grid: @grid }) }
           end
         end
-      end
-
-      # GET /:id
-      def show
-        @list = List.find(params[:id])
-        @list.list_items.order(:priority)
-
-        add_breadcrumb @list.title, :backend_list_path
       end
 
       # GET /new
@@ -38,7 +30,7 @@ module Integral
         @list = List.new(list_params)
 
         if @list.save
-          respond_successfully(notification_message('creation_success'), backend_list_path(@list))
+          respond_successfully(notification_message('creation_success'), edit_backend_list_path(@list))
         else
           respond_failure(notification_message('creation_failure'), @list, :new)
         end
@@ -47,7 +39,8 @@ module Integral
       # GET /:id/edit
       # List edit form
       def edit
-        add_breadcrumb @list.title, :backend_list_path
+        @list = List.find(params[:id])
+
         add_breadcrumb I18n.t('integral.breadcrumbs.edit'), :edit_backend_list_path
       end
 
@@ -70,9 +63,9 @@ module Integral
       # Updating an list
       def update
         if @list.update(list_params)
-          respond_successfully(notification_message('edit_success'), backend_list_path(@list))
+          respond_successfully(notification_message('edit_success'), edit_backend_list_path(@list))
         else
-          respond_failure(notification_message('edit_failure'), @list, :show)
+          respond_failure(notification_message('edit_failure'), @list, :edit)
         end
       end
 
@@ -105,6 +98,7 @@ module Integral
 
       def set_list
         @list = List.find(params[:id])
+        @list.list_items&.order(:priority)
       end
 
       def list_params

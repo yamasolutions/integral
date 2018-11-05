@@ -15,7 +15,7 @@ recommendations of [keepachangelog.com](http://keepachangelog.com/).
 
 ### Fixed
 
-- None
+- Moved list edit form to /edit route & removed show route
 
 ## v1.0.1
 

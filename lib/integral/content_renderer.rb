@@ -3,7 +3,7 @@ module Integral
   # A widget could be used to list recent articles from the blog, featured content from a list, etc
   #
   # Example Widget Markup
-  # <p class='integral-widget' data-widget-type='recent_posts' data-widget-value-tagged='awesome-tag'>
+  # <p class='integral-widget' data-widget-type='recent_posts' data-widget-value-tagged='sweet-tag'>
   class ContentRenderer
     # Markup defining a widget
     PLACEHOLDER_SELECTOR = 'p.integral-widget'.freeze

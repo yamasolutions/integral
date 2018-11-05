@@ -91,7 +91,7 @@ module Integral
           end
 
           # List Management
-          resources :lists do
+          resources :lists, except: [:show] do
             member do
               post 'clone'
             end

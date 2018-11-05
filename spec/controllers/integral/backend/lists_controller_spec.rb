@@ -79,7 +79,7 @@ module Integral
               it 'returns status created' do
                 post :create, params: { list: resource_params }
 
-                expect(response).to redirect_to backend_list_path(assigns[:list])
+                expect(response).to redirect_to edit_backend_list_path(assigns[:list])
               end
 
               it 'saves a new record' do
@@ -172,7 +172,6 @@ module Integral
             before do
               expect(controller).to receive(:add_breadcrumb).with(I18n.t('integral.breadcrumbs.dashboard'), :backend_dashboard_path)
               expect(controller).to receive(:add_breadcrumb).with(I18n.t('integral.breadcrumbs.lists'), :backend_lists_path)
-              expect(controller).to receive(:add_breadcrumb).with(list.title, :backend_list_path)
               expect(controller).to receive(:add_breadcrumb).with(I18n.t('integral.breadcrumbs.edit'), :edit_backend_list_path)
               get :edit, params: { id: list.id }
             end
@@ -217,7 +216,7 @@ module Integral
             end
 
             context 'when valid parameters supplied' do
-              it { expect(response).to redirect_to(backend_list_path(assigns[:list])) }
+              it { expect(response).to redirect_to(edit_backend_list_path(assigns[:list])) }
               it { expect(flash[:notice]).to eq I18n.t('integral.backend.lists.notification.edit_success') }
               it { expect(record.title).to eql title }
               it { expect(record.description).to eql description }
@@ -229,7 +228,7 @@ module Integral
               it { expect(flash[:error]).to eq "#{I18n.t('integral.backend.lists.notification.edit_failure')} - #{assigns[:list].errors.full_messages.to_sentence}" }
               it { expect(record.title).not_to eql title }
               it { expect(record.description).not_to eql description }
-              it { expect(response).to render_template 'show' }
+              it { expect(response).to render_template 'edit' }
             end
           end
         end

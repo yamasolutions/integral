@@ -16,6 +16,7 @@ recommendations of [keepachangelog.com](http://keepachangelog.com/).
 ### Fixed
 
 - Moved list edit form to /edit route & removed show route
+- Dashboard displays most recent post & page
 
 ## v1.0.1
 

@@ -77,7 +77,6 @@ Gem::Specification.new do |s|
 
   # CI, code coverage, analysis and documentation tools
   s.add_development_dependency 'brakeman', '~> 3.4' # Static security
-  s.add_development_dependency 'cane', '~> 3.0' # Line length
   s.add_development_dependency 'flay', '~> 2.8' # Duplication
   s.add_development_dependency 'flog', '~> 4.4' # Complexity
   s.add_development_dependency 'fudge', '~> 0.6.3' # Build tool

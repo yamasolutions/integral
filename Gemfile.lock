@@ -123,8 +123,6 @@ GEM
     brakeman (3.7.2)
     breadcrumbs_on_rails (3.0.1)
     builder (3.2.3)
-    cane (3.0.0)
-      parallel
     capybara (2.18.0)
       addressable
       mini_mime (>= 0.1.3)
@@ -463,7 +461,6 @@ PLATFORMS
 
 DEPENDENCIES
   brakeman (~> 3.4)
-  cane (~> 3.0)
   capybara (~> 2.10)
   database_cleaner (~> 1.5)
   factory_bot_rails (~> 4.8)

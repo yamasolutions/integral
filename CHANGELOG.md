@@ -14,6 +14,7 @@ recommendations of [keepachangelog.com](http://keepachangelog.com/).
 - Can disable input character counter by adding `data-character-counter='false'` to inputs
 - Disabled input character counter for login password field
 - Improved onboarding - install script now handles route & seed creation as well as DB setup
+- Improved onboarding - added generator for Integral views `rails g integral:views`
 
 ### Fixed
 
@@ -22,7 +23,7 @@ recommendations of [keepachangelog.com](http://keepachangelog.com/).
 - Post data appears in dashboard widgets when blog is enabled
 - Recent Posts widget orders collection by most recently published
 
-## v1.0.1
+## v1.0.1 - 2018-11-04
 
 ### Breaking Changes
 
@@ -36,7 +37,7 @@ recommendations of [keepachangelog.com](http://keepachangelog.com/).
 
 - 'Errno::ENOENT: No such file' issue caused by Ckeditor demo content file not being included
 
-## v1.0.0
+## v1.0.0 - 2018-10-22
 
 ### Breaking Changes
 

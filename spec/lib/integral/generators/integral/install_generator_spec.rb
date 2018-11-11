@@ -31,6 +31,14 @@ module Integral
       it "creates a default Sitemap Generator file" do
         assert_file "config/sitemap.rb"
       end
+
+      it "creates a default routes file" do
+        assert_file "config/routes.rb"
+      end
+
+      it "creates a default seeds file" do
+        assert_file "db/seeds.rb"
+      end
     end
   end
 end

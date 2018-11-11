@@ -30,29 +30,11 @@ Out of the box integral provides;
  ```
   gem 'integral'
  ```
-3. Mount the Integral engine routes in your application
- ```
-  # config/routes.rb
-  mount Integral::Engine, at: "/", as: 'integral'
-  root to: 'integral/static_pages#home'
- ```
-4. Make sure you're app runs Integral seed data on setup
- ```
-  # db/seeds.rb
-  Integral::Engine.load_seed
- ```
-5. Setup database - Copy and run necessary migrations
- ```
-  rake integral:install:migrations
-  rake db:create
-  rake db:migrate
-  rake db:setup
- ```
-6. Run Integral install rake task (adds configuration initializers)
+3. Run Integral install rake task (adds configuration initializers, installs routes & sets up database)
  ```
 rails generate integral:install
  ```
-7. Set the default host within the development environment, used for URL generation
+4. Set the default host within the development environment, used for URL generation
 ```
 # config/environments/development.rb
 

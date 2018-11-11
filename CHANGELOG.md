@@ -13,6 +13,7 @@ recommendations of [keepachangelog.com](http://keepachangelog.com/).
 
 - Can disable input character counter by adding `data-character-counter='false'` to inputs
 - Disabled input character counter for login password field
+- Improved onboarding - install script now handles route & seed creation as well as DB setup
 
 ### Fixed
 

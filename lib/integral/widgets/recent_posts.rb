@@ -32,7 +32,7 @@ module Integral
 
       # Scope of the widget
       def self.skope(options)
-        skope = Integral::Post.published
+        skope = Integral::Post.published.order(published_at: :desc)
         skope = skope.tagged_with(options[:tagged].split) if options[:tagged].present?
         skope.limit(options[:amount])
       end

@@ -15,6 +15,7 @@ recommendations of [keepachangelog.com](http://keepachangelog.com/).
 - Disabled input character counter for login password field
 - Improved onboarding - install script now handles route & seed creation as well as DB setup
 - Improved onboarding - added generator for Integral views `rails g integral:views`
+- Improved onboarding - added generator for Integral assets `rails g integral:assets`
 
 ### Fixed
 

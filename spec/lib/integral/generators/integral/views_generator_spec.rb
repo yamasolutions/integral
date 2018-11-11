@@ -30,7 +30,7 @@ module Integral
       context 'with generate all views arguments' do
         before(:all) do
           prepare_destination
-          run_generator %w(--views backend frontend devise mailer)
+          run_generator %w(-v backend frontend devise mailer)
         end
 
         it 'creates frontend view files' do

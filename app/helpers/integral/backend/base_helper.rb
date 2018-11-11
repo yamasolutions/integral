@@ -50,22 +50,28 @@ module Integral
 
       # Donut Graph - At a Glance
       def dataset_dashboard_atg
-        [
+        data = [
           { scope: Integral::Page, label: 'Total Pages' },
           { scope: Integral::List, label: 'Total Lists' },
           { scope: Integral::Image, label: 'Total Images' },
           { scope: Integral::User, label: 'Total Users' }
         ]
+
+        data.prepend(scope: Integral::Post, label: 'Total Posts') if Integral.blog_enabled?
+        data
       end
 
       # Line graph - Last week
       def dataset_dashboard_last_week
-        [
+        data = [
           { scope: Integral::Page, label: 'Pages' },
           { scope: Integral::List, label: 'Lists' },
           { scope: Integral::Image, label: 'Images' },
           { scope: Integral::User, label: 'Users' }
         ]
+
+        data.prepend(scope: Integral::Post, label: 'Posts') if Integral.blog_enabled?
+        data
       end
     end
   end

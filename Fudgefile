@@ -1,6 +1,6 @@
 task_group :analysis do
   yard 'stats --list-undoc', :coverage => 100
-  task :flay, :exclude => '^\.\/(db|factories|spec|vendor)\/', :max => 973
+  task :flay, :exclude => '^\.\/(db|factories|spec|vendor)\/', :max => 999
   task :flog, :methods => true, :exclude => '^\.\/(db|factories|spec|vendor|config)\/', :average => 7.9, :max => 43.9
   task :brakeman, '--table-width 1500'
 end

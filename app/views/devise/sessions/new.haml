@@ -8,7 +8,7 @@
   .input-group
     %span.input-group-label
       = icon('key')
-    = f.input :password, input_html: { class: 'input-group-field' }, label: false
+    = f.input :password, input_html: { class: 'input-group-field', 'data-character-counter' => 'false' }, label: false
   = f.input :remember_me, as: :boolean
 
   .form-actions

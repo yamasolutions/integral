@@ -11,7 +11,8 @@ recommendations of [keepachangelog.com](http://keepachangelog.com/).
 
 ### Added
 
-- None
+- Can disable input character counter by adding `data-character-counter='false'` to inputs
+- Disabled input character counter for login password field
 
 ### Fixed
 

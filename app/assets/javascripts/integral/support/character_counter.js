@@ -11,8 +11,9 @@ jQuery.fn.characterCounter = function(){
     }
 
     var itHasLengthAttribute = $input.attr('maxlength') != undefined;
+    var itIsntDisabled = $input.attr('data-character-counter') != 'false';
 
-    if(itHasLengthAttribute){
+    if ((itHasLengthAttribute) && (itIsntDisabled)) {
       $input.on('input', updateCounter);
       $input.on('focus', updateCounter);
       $input.on('blur', removeCounterElement);

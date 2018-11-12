@@ -12,7 +12,7 @@ Gem::Specification.new do |s|
   s.description = "Building a professional website on Rails has never been easier. Create fascinating blog posts and interesting pages using Integrals sleek backend. Integrated SEO gives you full control of your online presence. There are no fancy over complicated methodologies to learn, so long as you have a basic grasp of Rails then you’ll be up and running in no time - with the ability to easily customise Integral to exactly what you want."
   s.license     = 'MIT'
 
-  s.files = Dir['{app,config,db,lib}/**/*', 'MIT-LICENSE', 'Rakefile', 'README.md', 'spec/factories.rb', 'spec/support/image.jpg', 'public/integral/ckeditor_demo_content.html']
+  s.files = Dir['{app,config,db,lib}/**/*', 'MIT-LICENSE', 'Rakefile', 'README.md', 'spec/factories.rb', 'spec/support/image.jpg', 'public/**/*']
 
   s.add_dependency 'active_record_union', '~> 1.3.0' # Table Unions - Used joining Versioning tables
   s.add_dependency 'acts-as-taggable-on', '~> 6.0' # Tagging

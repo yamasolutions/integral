@@ -21,6 +21,7 @@ recommendations of [keepachangelog.com](http://keepachangelog.com/).
 - Dashboard displays most recent post & page
 - Post data appears in dashboard widgets when blog is enabled
 - Recent Posts widget orders collection by most recently published
+- Demo images no longer causing 404s
 
 ## v1.0.1
 

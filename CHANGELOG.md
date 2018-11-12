@@ -23,6 +23,9 @@ recommendations of [keepachangelog.com](http://keepachangelog.com/).
 - Recent Posts widget orders collection by most recently published
 - Demo images no longer causing 404s
 
+### Dependancies
+- Bumped Devise to `~> 4.5.0` - Fixes `secret_key_base` production issue
+
 ## v1.0.1
 
 ### Breaking Changes

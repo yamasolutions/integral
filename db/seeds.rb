@@ -47,7 +47,7 @@ Integral::List.create!({ title: 'Main Menu', list_items: [
   Integral::Link.create!({title: 'Integral', url: '/'}),
   Integral::Link.create!({title: 'Documentation', url: 'https://github.com/yamasolutions/integral'}),
   Integral::Link.create!({title: 'Blog', url: '/blog'}),
-  Integral::Link.create!({title: 'Get Started', url: 'https://github.com/yamasolutions/integral'})
+  Integral::Link.create!({title: 'Demo Now', url: 'https://heroku.com/deploy?template=https://github.com/yamasolutions/integral-sample'})
 ]})
 
 PaperTrail.enabled = true

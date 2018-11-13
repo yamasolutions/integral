@@ -1,4 +1,4 @@
-[![Gem Version](https://badge.fury.io/rb/integral.svg)][version-website] 
+[![Gem Version](https://badge.fury.io/rb/integral.svg)][version-website]
 [![Current Build Status](https://img.shields.io/circleci/project/github/yamasolutions/integral/master.svg)][ci-website] [![Inline docs](http://inch-ci.org/github/yamasolutions/integral.svg?branch=master)][docs-website]
 # Integral CMS
 
@@ -46,6 +46,8 @@ Rails.application.routes.default_url_options[:host] = 'http://localhost:3000'
 ```
 
 Voila! Start your rails server and you're ready to go! You can access the user only area at `/admin`
+
+Integral requires Rails 5.1 or higher and Ruby 2.4.1 or higher.
 
 ## Information
 

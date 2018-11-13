@@ -20,6 +20,10 @@ Out of the box integral provides;
     * Sitemap generation
 * [Find out more...][integral-cms]
 
+## Demo Now - Deploy a Sample App
+
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/yamasolutions/integral-sample)
+
 ## Getting Started
 
 1. Create a new Rails application

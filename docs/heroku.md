@@ -2,11 +2,15 @@
 
 [Heroku](https://www.heroku.com/) offers a platform as a service which is commonly used by Ruby on Rails developers to host their projects. Although more expensive then just renting out servers, this expense is offset by time saved not worrying about developer operations such as server security, availability, monitoring, scaling etc.
 
-If you're new to Heroku _definetely_ check out their article on [getting start with Rails](https://devcenter.heroku.com/articles/getting-started-with-rails5).
+Would you like to get started right away and deploy a sample application? [Deploy to Heroku now!](https://heroku.com/deploy?template=https://github.com/yamasolutions/integral-sample)
+
+Otherwise if you'd like to deploy an app that you've created carry on reading...
 
 ## Deploying Integral with Heroku
 
-Deploying Integral with Heroku is just like deploying any other Ruby on Rails application. This guide assumes the following;
+Deploying Integral using Heroku is just like deploying any other Ruby on Rails application. If you're new to Heroku it's worth checking out their article [getting start with Rails](https://devcenter.heroku.com/articles/getting-started-with-rails5).
+
+This guide assumes the following;
 1. You have successfully setup [Integral](https://github.com/yamasolutions/integral/) and can access it locally
 2. Your applications database is using [Postgres](https://www.digitalocean.com/community/tutorials/how-to-setup-ruby-on-rails-with-postgres)
 3. Your project is stored in [Git](https://www.atlassian.com/git/tutorials/what-is-git)

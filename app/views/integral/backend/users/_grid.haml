@@ -13,7 +13,7 @@
               = icon('eye')
             = link_to edit_backend_user_url(record) do
               = icon('edit')
-            = link_to backend_user_url(record), method: :delete, data: { confirm: t('integral.actions.confirm.deletion') } do
+            = link_to backend_user_url(record), method: :delete, data: { confirm: t('integral.actions.confirmation.deletion') } do
               = icon('remove')
     - else
       = render partial: 'integral/backend/shared/empty_grid'

@@ -46,7 +46,7 @@ en:
       forward_enquiry:
         subject: Website Enquiry
     actions:
-      confirm:
+      confirmation:
         deletion: If you delete this item it will be gone forever. Are you sure you want to proceed?
       new_page: Add new page
       new_post: Add new post
@@ -75,6 +75,8 @@ en:
       copy_url: Copy URL
       copied: Copied
       search: Search
+      confirm: Confirm
+      cancel: Cancel
     prompts:
       select_image: Select Image..
       select_type: Select Type..
@@ -101,6 +103,7 @@ en:
         title: Title
         tags: Tags
         gallery: Gallery
+        type: Type
       status:
         archived: Archived
         draft: Draft

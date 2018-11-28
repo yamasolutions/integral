@@ -185,7 +185,7 @@ function ready() {
   I18n.locale = $('body').data('locale') || 'en';
 
   // CKEditor Initialization
-  // TODO: Figure out why this is causing JS warning messages
+  // TODO: Fork Ckeditor and remove obtrusive JS causing the below to throw warnings
   for(name in CKEDITOR.instances) {
     CKEDITOR.instances[name].destroy(true);
   }

@@ -44,12 +44,10 @@ module Integral
             flash.now[:error] = notification_message('creation_failure')
             head :unprocessable_entity
           end
+        elsif @image.save
+          respond_successfully(notification_message('creation_success'), edit_backend_img_path(@image))
         else
-          if @image.save
-            respond_successfully(notification_message('creation_success'), edit_backend_img_path(@image))
-          else
-            respond_failure(notification_message('creation_failure'), @image, :new)
-          end
+          respond_failure(notification_message('creation_failure'), @image, :new)
         end
       end
 

@@ -14,6 +14,8 @@ recommendations of [keepachangelog.com](http://keepachangelog.com/).
 - Can disable input character counter by adding `data-character-counter='false'` to inputs
 - Disabled input character counter for login password field
 - Improved onboarding - install script now handles route & seed creation as well as DB setup
+- Improved onboarding - added generator for Integral views `rails g integral:views`
+- Improved onboarding - added generator for Integral assets `rails g integral:assets`
 - Gallery arrow control and size constraint to viewport size
 
 ### Fixed
@@ -28,7 +30,7 @@ recommendations of [keepachangelog.com](http://keepachangelog.com/).
 ### Dependancies
 - Bumped Devise to `~> 4.5.0` - Fixes `secret_key_base` production issue
 
-## v1.0.1
+## v1.0.1 - 2018-11-04
 
 ### Breaking Changes
 
@@ -42,7 +44,7 @@ recommendations of [keepachangelog.com](http://keepachangelog.com/).
 
 - 'Errno::ENOENT: No such file' issue caused by Ckeditor demo content file not being included
 
-## v1.0.0
+## v1.0.0 - 2018-10-22
 
 ### Breaking Changes
 

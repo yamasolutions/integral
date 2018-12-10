@@ -22,6 +22,7 @@ recommendations of [keepachangelog.com](http://keepachangelog.com/).
 - Post data appears in dashboard widgets when blog is enabled
 - Recent Posts widget orders collection by most recently published
 - Demo images no longer causing 404s
+- Canonical URL for homepage
 
 ### Dependancies
 - Bumped Devise to `~> 4.5.0` - Fixes `secret_key_base` production issue

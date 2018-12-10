@@ -1,7 +1,7 @@
 module Integral
   # Integral Generators
   module Generators
-    # Generates helpful Integral initializers
+    # Runs setup for an Integral Application
     class InstallGenerator < Rails::Generators::Base
       source_root File.expand_path('../../templates', __FILE__)
       desc 'Creates Integral, Carrierwave, CarrierwaveBackgrounder & Sitemap initializers'

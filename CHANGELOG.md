@@ -15,7 +15,7 @@ recommendations of [keepachangelog.com](http://keepachangelog.com/).
 
 ### Fixed
 
-- None
+- Open social links in new tab & add rel noopener to each link
 
 ### Dependancies
 - None

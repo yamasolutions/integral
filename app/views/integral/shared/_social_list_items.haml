@@ -1,41 +1,41 @@
 - if github_url.present?
   %li
-    = link_to github_url do
+    = link_to github_url, target: :blank, rel: 'noopener' do
       = icon('github')
       %span Github
 
 - if twitter_url.present?
   %li
-    = link_to twitter_url do
+    = link_to twitter_url, target: :blank, rel: 'noopener' do
       = icon('twitter')
       %span Twitter
 
 - if facebook_url.present?
   %li
-    = link_to facebook_url do
+    = link_to facebook_url, target: :blank, rel: 'noopener' do
       = icon('facebook')
       %span Facebook
 
 - if instagram_url.present?
   %li
-    = link_to instagram_url do
+    = link_to instagram_url, target: :blank, rel: 'noopener' do
       = icon('instagram')
       %span Instagram
 
 - if linkedin_url.present?
   %li
-    = link_to linkedin_url do
+    = link_to linkedin_url, target: :blank, rel: 'noopener'  do
       = icon('linkedin')
       %span Linkedin
 
 - if youtube_url.present?
   %li
-    = link_to youtube_url do
+    = link_to youtube_url, target: :blank, rel: 'noopener' do
       = icon('youtube')
       %span Youtube
 
 - if google_plus_url.present?
   %li
-    = link_to google_plus_url do
+    = link_to google_plus_url, target: :blank, rel: 'noopener' do
       = icon('google-plus')
       %span Google

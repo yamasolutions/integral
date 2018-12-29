@@ -1,59 +1,14 @@
 # Extending Integral
 
-## Overriding the default views
-
-Integral includes a generator to copy views into the host application.
-
-```
-  rails generate integral:views
-```
-
-By default this only copies over the frontend views. There are 4 sets of views: `frontend`, `backend`, `mailer` and `devise`. You can use the `-v` flag to control which views you wish to generate. For example, to copy all views over:
-
-```
-  rails generate integral:views -v frontend backend mailer devise
-```
-
-## Overriding the default assets
-
-Integral includes a generator to copy assets (JS & views) into the host application.
-
-```
-  rails generate integral:assets
-```
-
-By default this only copies over the frontend assets. There are 3 sets of assets: `frontend`, `backend` and `email`. You can use the `-a` flag to control which assets you wish to generate. For example, to copy all assets over:
-
-```
-  rails generate integral:assets -a frontend backend email
-```
-
-### Just making small changes to the backend?
-You can manually override the asset extension files located at:
-```
-  app/assets/stylesheets/integral/backend/overrides.sass
-  app/assets/javascripts/integral/backend/extensions.js
-```
-
-### Just making small changes to styling on the frontend?
-You can manually override the styling extension file located at:
-```
-  app/assets/stylesheets/integral/frontend/overrides.sass
-```
-
-## Overriding files manually
-
-Just like any other engine or gem, you can override any Integral file by simply creating a file with the same name and extension in the same directory as Integral within your application. When Rails loads your application it will first check if a file exists within the host application, before then checking any dependancies.
-
-For example if you're wanting to override the logo used in the backend area, save your image to the following location with your application:
-
-```
-  app/assets/images/integral/backend/logo.png
-```
+* [Adding a custom field](#adding-a-custom-field)
+* [Adding a custom object](#adding-a-custom-object)
+* [Overriding the default views](#overriding-the-default-views)
+* [Overriding the default assets](#overriding-the-default-assets)
+* [Troubleshooting](#troubleshooting)
 
 ## Adding a custom field
 
-Below are step by step instructions on how to add a custom field to an Integral Page or Post. A [code sample][code-sample-custom-field] is available or [deploy the demo application with Heroku][herok-deploy-custom-field].
+Below are step by step instructions on how to add a custom field to an Integral Page or Post. A [code sample][code-sample-custom-field] is available or [deploy the demo application with Heroku][heroku-deploy-custom-field].
 
 User story - As a page manager I want to be able to add a custom link to particular pages. I want to do be able to add, update and remove the link in the same screen I manage the pages.
 
@@ -88,13 +43,13 @@ bundle exec rails generate integral:views -v backend
 
 Boot your app and navigate as a logged in user to `/admin/pages/new`. You should be able to create a page with a `custom_url`.
 
-Stuck? Check out the [code sample][code-sample-custom-field] or [deploy a demo application with Heroku][herok-deploy-custom-field]
+Stuck? Check out the [code sample][code-sample-custom-field] or [deploy a demo application with Heroku][heroku-deploy-custom-field]
 
 If you want to add a custom field to another object for example an Enquiry or List you can follow these same instructions however instead of using an Integral initializer you'll need to manually override `resource_params` method within the backend controller.
 
 ## Adding a custom object
 
-Below are step by step instructions on how to add a custom object to an Integral application. A [code sample][code-sample-custom-object] is available or [deploy the demo application with Heroku][herok-deploy-custom-object].
+Below are step by step instructions on how to add a custom object to an Integral application. A [code sample][code-sample-custom-object] is available or [deploy the demo application with Heroku][heroku-deploy-custom-object].
 
 User stories;
 * As a user I want to be able to manage special offers the same way I manage pages or posts.
@@ -104,6 +59,8 @@ We'll make this possible in 3 steps;
 1. Update the database to store special offers
 2. Allow visitors to view special offers
 3. Provide logged in users with a method of managing special offers
+
+### Data storage & visitor access
 
 We'll start by using a Rails scaffold to create the `SpecialOffer` model, frontend views, routes and controller. This is the fastest way to get started, however this does generate a bunch of routes and views that we won't be using. The only routes and views that are actually required for the frontend as part of this demo are `index` and `show`
 
@@ -179,7 +136,9 @@ class SpecialOffersController < Integral::ApplicationController
 
 That's the model and frontend sorted, now time to allow users to manage the special offers.
 
-We'll break this down into 5 parts;
+### Backend management
+
+We'll break this down into 5 steps;
 1. Add the backend routes
 2. Add the backend controller
 3. Add the backend views
@@ -316,7 +275,58 @@ end
 
 We're done! You can now manage special offers through the user only area and view them as a visitor on the frontend.
 
-Stuck? Check out the [code sample][code-sample-custom-object] or [deploy a demo application with Heroku][herok-deploy-custom-object]
+Stuck? Check out the [code sample][code-sample-custom-object] or [deploy a demo application with Heroku][heroku-deploy-custom-object]
+
+## Overriding the default views
+
+Integral includes a generator to copy views into the host application.
+
+```
+  rails generate integral:views
+```
+
+By default this only copies over the frontend views. There are 4 sets of views: `frontend`, `backend`, `mailer` and `devise`. You can use the `-v` flag to control which views you wish to generate. For example, to copy all views over:
+
+```
+  rails generate integral:views -v frontend backend mailer devise
+```
+
+## Overriding the default assets
+
+Integral includes a generator to copy assets (JS & views) into the host application.
+
+```
+  rails generate integral:assets
+```
+
+By default this only copies over the frontend assets. There are 3 sets of assets: `frontend`, `backend` and `email`. You can use the `-a` flag to control which assets you wish to generate. For example, to copy all assets over:
+
+```
+  rails generate integral:assets -a frontend backend email
+```
+
+### Just making small changes to the backend?
+You can manually override the asset extension files located at:
+```
+  app/assets/stylesheets/integral/backend/overrides.sass
+  app/assets/javascripts/integral/backend/extensions.js
+```
+
+### Just making small changes to styling on the frontend?
+You can manually override the styling extension file located at:
+```
+  app/assets/stylesheets/integral/frontend/overrides.sass
+```
+
+## Overriding files manually
+
+Just like any other engine or gem, you can override any Integral file by simply creating a file with the same name and extension in the same directory as Integral within your application. When Rails loads your application it will first check if a file exists within the host application, before then checking any dependancies.
+
+For example if you're wanting to override the logo used in the backend area, save your image to the following location with your application:
+
+```
+  app/assets/images/integral/backend/logo.png
+```
 
 ## Troubleshooting
 

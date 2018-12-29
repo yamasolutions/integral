@@ -2,9 +2,9 @@ module Integral
   module Backend
     # List controller
     class ListsController < BaseController
-      before_action :set_list, only: %i[edit update destroy clone]
+      before_action :set_resource, only: %i[edit update destroy clone]
       before_action :authorize_with_klass
-      before_action -> { set_grid(Integral::Grids::ListsGrid) }, only: [:index]
+      before_action -> { set_grid }, only: [:index]
 
       # GET /
       # Lists all lists
@@ -17,91 +17,37 @@ module Integral
         end
       end
 
-      # GET /new
-      # List creation form
-      def new
-        add_breadcrumb I18n.t('integral.breadcrumbs.new'), :new_backend_list_path
-        @list = List.new
-      end
-
-      # POST /
-      # List creation
-      def create
-        @list = List.new(list_params)
-
-        if @list.save
-          respond_successfully(notification_message('creation_success'), edit_backend_list_path(@list))
-        else
-          respond_failure(notification_message('creation_failure'), @list, :new)
-        end
-      end
-
-      # GET /:id/edit
-      # List edit form
-      def edit
-        @list = List.find(params[:id])
-
-        add_breadcrumb I18n.t('integral.breadcrumbs.edit'), :edit_backend_list_path
-      end
-
       # GET /:id/clone
       # Clone a list
       def clone
-        title = params[:title].present? ? params[:title] : "#{@list.title} Copy"
+        title = params[:title].present? ? params[:title] : "#{@resource.title} Copy"
         title = "#{title} #{SecureRandom.hex[1..5]}" if Integral::List.find_by_title(title).present?
 
-        cloned_list = @list.dup(title)
+        cloned_list = @resource.dup(title)
 
         if cloned_list.save
           respond_successfully(notification_message('creation_success'), backend_list_path(cloned_list))
         else
-          respond_failure(notification_message('creation_failure'), @list, :edit)
-        end
-      end
-
-      # PUT /:id
-      # Updating an list
-      def update
-        if @list.update(list_params)
-          respond_successfully(notification_message('edit_success'), edit_backend_list_path(@list))
-        else
-          respond_failure(notification_message('edit_failure'), @list, :edit)
-        end
-      end
-
-      # DELETE /:id
-      def destroy
-        if @list.destroy
-          respond_successfully(notification_message('delete_success'), backend_lists_path)
-        else
-          error_message = @list.errors.full_messages.to_sentence
-          flash[:error] = "#{notification_message('delete_failure')} - #{error_message}"
-          redirect_to backend_lists_path
+          respond_failure(notification_message('creation_failure'), :edit)
         end
       end
 
       private
 
-      def grid_options
-        default_grid_options = { 'order' => 'updated_at',
-                                 'page' => 1,
-                                 'descending' => true }
-        grid_params = params[:grid].present? ? params[:grid].permit(:descending, :order, :page, :title) : {}
-        grid_params.delete_if { |_k, v| v.empty? }
-        default_grid_options.merge(grid_params)
-      end
-      helper_method :grid_options
-
-      def authorize_with_klass
-        authorize List
+      def white_listed_grid_params
+        %i[descending order page user action object title]
       end
 
-      def set_list
-        @list = List.find(params[:id])
-        @list.list_items&.order(:priority)
+      def resource_klass
+        Integral::List
       end
 
-      def list_params
+      def set_resource
+        @resource = List.find(params[:id])
+        @resource.list_items&.order(:priority)
+      end
+
+      def resource_params
         params.require(:list).permit(
           :title, :description, :html_id, :html_classes, :lock_version, :children, :list_item_limit,
           list_items_attributes: [
@@ -117,15 +63,6 @@ module Integral
           id type object_type object_id title url image_id
           target priority description subtitle html_classes _destroy
         ]
-      end
-
-      def set_breadcrumbs
-        add_breadcrumb I18n.t('integral.breadcrumbs.dashboard'), :backend_dashboard_path
-        add_breadcrumb I18n.t('integral.breadcrumbs.lists'), :backend_lists_path
-      end
-
-      def notification_message(namespace_type)
-        super('lists', namespace_type)
       end
     end
   end

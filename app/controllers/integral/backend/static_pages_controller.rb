@@ -5,6 +5,10 @@ module Integral
       # GET /
       # Dashboard to show website stats and other useful information
       def dashboard; end
+
+      private
+
+      def set_breadcrumbs; end
     end
   end
 end

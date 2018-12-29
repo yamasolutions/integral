@@ -124,7 +124,7 @@ module Integral
             end
 
             it { expect(response.status).to eq 200 }
-            it { expect(assigns(:image)).to eq :foo }
+            it { expect(assigns(:resource)).to eq :foo }
             it { expect(response).to render_template 'new' }
           end
         end
@@ -165,7 +165,7 @@ module Integral
               get :edit, params: { id: image.id }
             end
 
-            it { expect(assigns[:image]).to eq image }
+            it { expect(assigns[:resource]).to eq image }
             it { expect(response).to render_template 'edit' }
           end
         end

@@ -1,6 +1,6 @@
 -# = render 'item_container', f: f
 - formatted_item = Integral::ListItemRenderer.new(f.object)
-- children_allowed ||= @list.children?
+- children_allowed ||= @resource.children?
 
 .list-item-container
   = f.input :priority, as: :hidden, input_html: { class: 'priority-field' }

@@ -1,14 +1,14 @@
-= content_for :title, t('.title', name: @post.title)
+= content_for :title, t('.title', name: @resource.title)
 
 = content_for :actionbar do
   %ul.menu.horizontal
     %li
-      = link_to post_url(@post), class: 'button white' do
+      = link_to post_url(@resource), class: 'button white' do
         = icon('eye')
         = t('integral.actions.view')
     - if policy(Integral::Version).manager?
       %li
-        = link_to activities_backend_post_url(@post.id), class: 'button white' do
+        = link_to activities_backend_post_url(@resource.id), class: 'button white' do
           = icon('history')
           = t('integral.navigation.activity')
 

@@ -28,7 +28,7 @@ module Integral
       # first('.image-selector .record-selector .records .record').click
       # find('.image-selector .record-selector .modal-footer .close-button').click
 
-      fill_in_ckeditor 'post_body_editor', with: builder.body
+      fill_in_ckeditor 'resource_body_editor', with: builder.body
 
       click_on 'Create Post'
 
@@ -39,11 +39,11 @@ module Integral
       sleep 1
       find('tbody tr:first-of-type a:nth-of-type(2)').click
 
-      within("#post_form") do
+      within("#resource_form") do
         fill_in 'Title', with: builder.title
         fill_in 'Description', with: builder.description
 
-        fill_in_ckeditor 'post_body_editor', with: builder.body
+        fill_in_ckeditor 'resource_body_editor', with: builder.body
       end
 
       first(:button, 'Update Post').click

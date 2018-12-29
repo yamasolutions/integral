@@ -6,9 +6,9 @@ module Integral
 
     subject { described_class.new(user) }
 
-    describe '#url' do
+    describe '#backend_url' do
       it 'provides the correct URL' do
-        expect(subject.url).to eq "http://test.somehost.com/admin/users/#{user.id}"
+        expect(subject.backend_url).to eq "http://test.somehost.com/admin/users/#{user.id}"
       end
     end
   end

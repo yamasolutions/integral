@@ -1,4 +1,12 @@
-= simple_form_for [:backend, @list], validate: true, html: { class: 'are-you-sure', 'data-confirm-dirty-form' => true, 'data-list-item-limit' => @list.list_item_limit, id: :list_form } do |f|
+-# = content_for :actionbar do
+-#   %ul.menu.horizontal
+-#     - if policy(Integral::Version).manager?
+-#       %li
+-#         = link_to activities_backend_list_url(@resource.id), class: 'button white' do
+-#           = icon('history')
+-#           = t('integral.navigation.activity')
+
+= simple_form_for [:backend, @resource], validate: true, html: { class: 'are-you-sure', 'data-confirm-dirty-form' => true, 'data-list-item-limit' => @resource.list_item_limit, id: :list_form } do |f|
   = f.input :lock_version, as: :hidden
   .grid-x.grid-padding-x
     .cell.medium-6.flex-container

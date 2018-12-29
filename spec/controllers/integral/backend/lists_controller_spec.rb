@@ -79,7 +79,7 @@ module Integral
               it 'returns status created' do
                 post :create, params: { list: resource_params }
 
-                expect(response).to redirect_to edit_backend_list_path(assigns[:list])
+                expect(response).to redirect_to edit_backend_list_path(assigns[:resource])
               end
 
               it 'saves a new record' do
@@ -135,7 +135,7 @@ module Integral
             end
 
             it { expect(response.status).to eq 200 }
-            it { expect(assigns(:list)).to eq :foo }
+            it { expect(assigns(:resource)).to eq :foo }
             it { expect(response).to render_template 'new' }
           end
         end
@@ -176,7 +176,7 @@ module Integral
               get :edit, params: { id: list.id }
             end
 
-            it { expect(assigns[:list]).to eq list }
+            it { expect(assigns[:resource]).to eq list }
             it { expect(response).to render_template 'edit' }
           end
         end
@@ -216,7 +216,7 @@ module Integral
             end
 
             context 'when valid parameters supplied' do
-              it { expect(response).to redirect_to(edit_backend_list_path(assigns[:list])) }
+              it { expect(response).to redirect_to(edit_backend_list_path(assigns[:resource])) }
               it { expect(flash[:notice]).to eq I18n.t('integral.backend.lists.notification.edit_success') }
               it { expect(record.title).to eql title }
               it { expect(record.description).to eql description }
@@ -225,7 +225,7 @@ module Integral
             context 'when invalid parameters supplied' do
               let(:title) { '' }
 
-              it { expect(flash[:error]).to eq "#{I18n.t('integral.backend.lists.notification.edit_failure')} - #{assigns[:list].errors.full_messages.to_sentence}" }
+              it { expect(flash[:error]).to eq "#{I18n.t('integral.backend.lists.notification.edit_failure')} - #{assigns[:resource].errors.full_messages.to_sentence}" }
               it { expect(record.title).not_to eql title }
               it { expect(record.description).not_to eql description }
               it { expect(response).to render_template 'edit' }

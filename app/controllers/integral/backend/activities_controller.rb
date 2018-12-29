@@ -3,7 +3,7 @@ module Integral
     # Activity management
     class ActivitiesController < BaseController
       before_action :authorize_with_klass
-      before_action -> { set_grid(Integral::Grids::ActivitiesGrid) }
+      before_action -> { set_grid }
 
       # POST /grid
       # AJAX grid for activities

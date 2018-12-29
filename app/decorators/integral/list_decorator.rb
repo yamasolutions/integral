@@ -9,7 +9,7 @@ module Integral
     end
 
     # @return [String] URL to backend list page
-    def url
+    def backend_url
       Integral::Engine.routes.url_helpers.backend_list_url(self)
     end
 

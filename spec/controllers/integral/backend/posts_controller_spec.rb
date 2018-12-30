@@ -11,7 +11,7 @@ module Integral
       let(:description) { Faker::Lorem.paragraph(8)[0..150] }
       let(:tag_list) { 'foo,bar,tags' }
       let(:post_params) { { title: title, body: body, description: description, tag_list: tag_list, slug: slug } }
-      let(:user) { create(:user) }
+      let(:user) { create(:post_manager) }
       let(:user_post) { create(:integral_post) }
 
       describe 'GET index' do
@@ -50,7 +50,7 @@ module Integral
             it 'redirects to the saved post' do
               post :create, params: { post: post_params }
 
-              expect(response).to redirect_to edit_backend_post_path(assigns[:post].id)
+              expect(response).to redirect_to edit_backend_post_path(assigns[:resource].id)
             end
 
             it 'saves a new post' do
@@ -91,7 +91,7 @@ module Integral
           end
 
           it { expect(response.status).to eq 200 }
-          it { expect(assigns(:post)).to eq :foo }
+          it { expect(assigns(:resource)).to eq :foo }
           it { expect(response).to render_template 'new' }
         end
       end
@@ -111,7 +111,7 @@ module Integral
             get :edit, params: { id: user_post.id }
           end
 
-          it { expect(assigns[:post]).to eq user_post }
+          it { expect(assigns[:resource]).to eq user_post }
           it { expect(response).to render_template 'edit' }
         end
       end

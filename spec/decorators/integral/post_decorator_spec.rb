@@ -6,17 +6,17 @@ module Integral
 
     subject { described_class.new(post) }
 
-    describe '#url' do
+    describe '#backend_url' do
       context 'when blog enabled' do
         it 'provides the URL' do
-          expect(subject.url).to eq "http://test.somehost.com/admin/posts/#{post.id}/edit"
+          expect(subject.backend_url).to eq "http://test.somehost.com/admin/posts/#{post.id}/edit"
         end
       end
 
       context 'when blog not enabled' do
         it 'provides empty string' do
           Integral.blog_enabled = false
-          expect(subject.url).to eq ''
+          expect(subject.backend_url).to eq ''
           Integral.blog_enabled = true
         end
       end

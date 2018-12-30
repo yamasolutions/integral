@@ -25,9 +25,7 @@ module Integral
           image: @post.preview_image(:large)
         }
       }
-      # TODO: Implement post templates
-      # template = @page.template
-      template = 'default'
+      template = 'default' # TODO: Implement post templates
       render "integral/posts/templates/#{template}"
     end
 
@@ -63,9 +61,7 @@ module Integral
       # If an old id or a numeric id was used to find the record, then
       # the request path will not match the post_path, and we should do
       # a 301 redirect that uses the current friendly id.
-      if request.path != post_path(@post)
-        return redirect_to post_url(@post), status: :moved_permanently
-      end
+      redirect_to post_url(@post), status: :moved_permanently if request.path != post_path(@post)
     end
   end
 end

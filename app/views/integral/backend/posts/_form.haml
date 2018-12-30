@@ -1,4 +1,4 @@
-= simple_form_for [:backend, @post], validate: true, html: { id: 'post_form', class: 'are-you-sure', 'data-confirm-dirty-form' => true } do |f|
+= simple_form_for [:backend, @resource], validate: true, html: { id: 'resource_form', class: 'are-you-sure', 'data-confirm-dirty-form' => true } do |f|
   = f.input :lock_version, as: :hidden
   .grid-x.grid-padding-x
     .cell.small-12.medium-9
@@ -6,7 +6,7 @@
         .cell
           .card
             .card-section
-              = f.input :title
+              = f.input :title, input_html: { id: 'resource_title' }
         .cell
           .card
             .card-section
@@ -14,11 +14,11 @@
         .cell
           .card
             .card-section
-              = f.input :slug, input_html: { data: { slugify: '#post_title' }}
+              = f.input :slug, input_html: { data: { slugify: '#resource_title' }}
         .cell
           .card
             .card-section
-              = f.input :body, as: :ckeditor, input_html: { id: 'post_body_editor', ckeditor: { language: current_user.locale }, data: { 'ckeditor-class' => 'integral-post' } }
+              = f.input :body, as: :ckeditor, input_html: { id: 'resource_body_editor', ckeditor: { language: current_user.locale }, data: { 'ckeditor-class' => 'integral-post' } }
 
     .cell.small-12.medium-3
       .grid-y
@@ -36,7 +36,7 @@
             .card-section
               %h2= t('integral.records.attributes.tags')
               %hr.dark
-              = f.input :tag_list, label: false, input_html: { value: @post.tag_list_on(@post.tag_context).join(','), data: { role: "materialtags", typeahead: Integral::Post.tag_counts.collect(&:name).join(' ') } }
+              = f.input :tag_list, label: false, input_html: { value: @resource.tag_list_on(@resource.tag_context).join(','), data: { role: "materialtags", typeahead: Integral::Post.tag_counts.collect(&:name).join(' ') } }
               %label.small Seperate tags with spaces
         .cell
           .card.initial-overflow

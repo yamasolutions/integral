@@ -206,11 +206,13 @@ en:
           title: 'Pages'
       roles:
         labels:
-          user_manager: 'User Manager'
-          image_manager: 'Image Manager'
-          page_manager: 'Page Manager'
-          post_manager: 'Post Manager'
-          list_manager: 'List Manager'
+          user_manager: User Manager
+          image_manager: Image Manager
+          page_manager: Page Manager
+          page_reader: Page Reader
+          page_editor: Page Editor
+          post_manager: Post Manager
+          list_manager: List Manager
       record_selector:
         posts:
           record: Post
@@ -365,7 +367,7 @@ en:
           published: 'Published'
         notification:
           creation_success: 'User has been invited.'
-          creation_failure: 'User already exists.'
+          creation_failure: 'User creation failed.'
           edit_success: 'User successfully updated.'
           edit_failure: 'Failed to update user.'
           delete_success: 'User successfully deleted.'

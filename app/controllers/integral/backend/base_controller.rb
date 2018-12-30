@@ -13,28 +13,91 @@ module Integral
         end
       end
 
-      # Prevent CSRF attacks by raising an exception.
-      protect_from_forgery with: :exception
+      protect_from_forgery with: :exception # Prevent CSRF attacks by raising an exception.
 
-      layout :layout_by_resource
+      layout :layout_by_resource # Set layout
 
       before_action :authenticate_user! # User Auth
       before_action :set_locale # User custom locale
       before_action :set_breadcrumbs # Breadcrumbs
-
-      # Track user activity via paper_trail
-      before_action :set_paper_trail_whodunnit
+      before_action :set_paper_trail_whodunnit # Track user activity via paper_trail
 
       # User authorization
       include Pundit
       rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
-      private
+      # GET /
+      # Lists all resources
+      def index
+        respond_to do |format|
+          format.html do
+            set_grid
+          end
 
-      def respond_with_activities(breadcrumb_url)
+          format.json do
+            if params[:gridview].present?
+              set_grid
+              render json: { content: render_to_string(partial: "integral/backend/#{controller_name}/grid", locals: { grid: @grid }) }
+            else
+              respond_to_record_selector
+            end
+          end
+        end
+      end
+
+      # GET /new
+      # Resource creation screen
+      def new
+        add_breadcrumb I18n.t('integral.navigation.new'), "new_backend_#{controller_name.singularize}_path".to_sym
+        @resource = resource_klass.new
+      end
+
+      # POST /
+      # Resource creation
+      def create
+        add_breadcrumb I18n.t('integral.navigation.create'), "new_backend_#{controller_name.singularize}_path".to_sym
+        @resource = resource_klass.new(resource_params)
+
+        if @resource.save
+          respond_successfully(notification_message('creation_success'), self.send("edit_backend_#{controller_name.singularize}_path", @resource.id))
+        else
+          respond_failure(notification_message('creation_failure'), :new)
+        end
+      end
+
+      # GET /:id/edit
+      # Resource edit screen
+      def edit
+        add_breadcrumb I18n.t('integral.navigation.edit'), "edit_backend_#{controller_name.singularize}_path".to_sym
+      end
+
+      # PUT /:id
+      # Updating a resource
+      def update
+        if @resource.update(resource_params)
+          respond_successfully(notification_message('edit_success'), self.send("edit_backend_#{controller_name.singularize}_path", @resource.id))
+        else
+          respond_failure(notification_message('edit_failure'), :edit)
+        end
+      end
+
+      # DELETE /:id
+      def destroy
+        if @resource.destroy
+          respond_successfully(notification_message('delete_success'), self.send("backend_#{controller_name}_path"))
+        else
+          error_message = @resource.errors.full_messages.to_sentence
+          flash[:error] = "#{notification_message('delete_failure')} - #{error_message}"
+
+          redirect_to self.send("backend_#{controller_name}_path")
+        end
+      end
+
+      # GET /:id/activities
+      def activities
         authorize Version
 
-        add_breadcrumb I18n.t('integral.navigation.edit'), breadcrumb_url
+        add_breadcrumb I18n.t('integral.navigation.edit'), "edit_backend_#{controller_name.singularize}_path".to_sym
         add_breadcrumb I18n.t('integral.navigation.activity')
 
         @grid = Integral::Grids::ActivitiesGrid.new(activity_grid_options.except('page')) do |scope|
@@ -46,6 +109,18 @@ module Integral
           format.json { render json: { content: render_to_string(partial: 'integral/backend/activities/shared/grid', locals: { grid: @grid }) } }
         end
       end
+
+      # GET /:id/activities/:id
+      def activity
+        authorize Version
+
+        add_breadcrumb I18n.t('integral.navigation.activity'), "activities_backend_#{controller_name.singularize}_url".to_sym
+        add_breadcrumb I18n.t('integral.actions.view')
+
+        @activity = resource_version_klass.find(params[:activity_id]).decorate
+      end
+
+      private
 
       # Redirect user to integral dashboard after successful login
       def after_sign_in_path_for(_resource)
@@ -77,31 +152,28 @@ module Integral
         I18n.locale = current_user.locale if current_user.present?
       end
 
-      def respond_to_record_selector(klass)
-        records = klass.search(params[:search]).order('updated_at DESC').paginate(page: params[:page])
+      def respond_to_record_selector
+        records = resource_klass.search(params[:search]).order('updated_at DESC').paginate(page: params[:page])
         render json: { content: render_to_string(partial: 'integral/backend/shared/record_selector/collection', locals: { collection: records }) }
       end
-
-      # def respond_to_record_selector_item(record)
-      #   render json: {
-      #     html: render_to_string('integral/backend/shared/record_selector/record',
-      #                            layout: false,
-      #                            locals: { :list_item => record.to_list_item }) }
-      # end
 
       def respond_successfully(flash_message, redirect_path)
         flash[:notice] = flash_message
         redirect_to redirect_path
       end
 
-      def respond_failure(message, record, template)
+      def respond_failure(message, template, record = nil)
+        record = @resource if record.nil?
+
         error_message = record.errors.full_messages.to_sentence
         flash.now[:error] = "#{message} - #{error_message}"
         render template, status: :unprocessable_entity
       end
 
-      # Abstract method. Override if providing breadcrumbs
-      def set_breadcrumbs; end
+      def set_breadcrumbs
+        add_breadcrumb I18n.t('integral.navigation.dashboard'), :backend_dashboard_path
+        add_breadcrumb I18n.t("integral.navigation.#{controller_name}"), "backend_#{controller_name}_path".to_sym
+      end
 
       def stale_record_recovery_action
         flash.now[:error] = 'Overwrite prevented. Another user has changed this record ' \
@@ -109,14 +181,62 @@ module Integral
         render :edit, status: :conflict
       end
 
-      def notification_message(object_namespace, type_namespace)
+      def notification_message(type_namespace, object_namespace = nil)
+        object_namespace = controller_name if object_namespace.nil?
+
         I18n.t("integral.backend.#{object_namespace}.notification.#{type_namespace}")
       end
 
-      def set_grid(grid_klass)
-        @grid = grid_klass.new(grid_options.except('page')) do |scope|
+      def set_grid
+        @grid = resource_grid_klass.new(grid_options.except('page')) do |scope|
           scope.page(grid_options['page']).per_page(25)
         end
+      end
+
+      def resource_klass
+        controller_name.classify.constantize
+      end
+
+      def resource_grid_klass
+        "Integral::Grids::#{controller_name.classify.pluralize}Grid".constantize
+      end
+
+      def resource_version_klass
+        "#{resource_klass}Version".constantize
+      end
+
+      def set_resource
+        @resource = resource_klass.find(params[:id])
+      end
+
+      def grid_options
+        default_grid_options = { 'order' => 'updated_at',
+                                 'page' => 1,
+                                 'descending' => true }
+        grid_params = params[:grid].present? ? params[:grid].permit(*white_listed_grid_params) : {}
+        grid_params.delete_if { |_k, v| v.empty? }
+        default_grid_options.merge(grid_params)
+      end
+      helper_method :grid_options
+
+      def activity_grid_options
+        default_grid_options = { 'order' => 'date',
+                                 'page' => 1,
+                                 'descending' => true,
+                                 'item_id' => @resource.id,
+                                 'object' => resource_klass.to_s }
+        grid_params = params[:grid].present? ? params[:grid].permit(*white_listed_grid_params) : {}
+        grid_params.delete_if { |_k, v| v.empty? }
+        default_grid_options.merge(grid_params)
+      end
+      helper_method :activity_grid_options
+
+      def white_listed_grid_params
+        raise NotImplementedError, "Specify the accepted grid parameters"
+      end
+
+      def authorize_with_klass
+        authorize resource_klass
       end
     end
   end

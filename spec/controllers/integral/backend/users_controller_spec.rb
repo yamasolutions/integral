@@ -98,7 +98,7 @@ module Integral
             it 'sets the correct attributes' do
               post :create, params: { user: user_params }
 
-              new_user = assigns[:user]
+              new_user = assigns[:resource]
               expect(new_user.name).to eq name
               expect(new_user.email).to eq email
               expect(new_user.password).to eq password
@@ -116,7 +116,7 @@ module Integral
             it 'renders new template' do
               post :create, params: { user: user_params.merge!(email: '') }
 
-              expect(flash[:error]).to eql(I18n.t('integral.backend.users.notification.creation_failure'))
+              expect(flash[:error]).to eq("#{I18n.t('integral.backend.users.notification.creation_failure')} - #{assigns[:resource].errors.full_messages.to_sentence}")
               expect(response).to render_template("new")
             end
           end
@@ -156,7 +156,7 @@ module Integral
               get :show, params: { id: presented_user.id }
             end
 
-            it { expect(assigns[:user]).to eq presented_user }
+            it { expect(assigns[:resource]).to eq presented_user }
             it { expect(response).to render_template 'show' }
           end
         end
@@ -195,7 +195,7 @@ module Integral
             end
 
             it { expect(response.status).to eq 200 }
-            it { expect(assigns(:user)).to eq :foo }
+            it { expect(assigns(:resource)).to eq :foo }
             it { expect(response).to render_template 'new' }
           end
         end
@@ -236,7 +236,7 @@ module Integral
             end
 
 
-            it { expect(assigns[:user]).to eq user }
+            it { expect(assigns[:resource]).to eq user }
             it { expect(response).to render_template 'edit' }
           end
         end
@@ -258,7 +258,7 @@ module Integral
             sign_in user
 
             put :update, params: { id: actionable_user.id, user: user_params }
-            assigns[:user].reload
+            assigns[:resource].reload
           end
 
           context 'when user does not have required privileges' do
@@ -273,29 +273,29 @@ module Integral
             let(:actionable_user) { user }
 
             it { expect(response).to redirect_to(backend_user_path(actionable_user)) }
-            it { expect(assigns[:user].name).to eql name }
-            it { expect(assigns[:user].email).to eql email }
-            it { expect(assigns[:user].password).to eql password }
-            it { expect(assigns[:user].role_ids).not_to match_array role_ids }
+            it { expect(assigns[:resource].name).to eql name }
+            it { expect(assigns[:resource].email).to eql email }
+            it { expect(assigns[:resource].password).to eql password }
+            it { expect(assigns[:resource].role_ids).not_to match_array role_ids }
           end
 
           context 'when user has required privileges' do
             context 'when valid parameters supplied' do
               it { expect(response).to redirect_to(backend_user_path(actionable_user)) }
               it { expect(flash[:notice]).to eql(I18n.t('integral.backend.users.notification.edit_success')) }
-              it { expect(assigns[:user].name).to eql name }
-              it { expect(assigns[:user].email).to eql email }
-              it { expect(assigns[:user].password).to eql password }
-              it { expect(assigns[:user].role_ids).to match_array role_ids }
+              it { expect(assigns[:resource].name).to eql name }
+              it { expect(assigns[:resource].email).to eql email }
+              it { expect(assigns[:resource].password).to eql password }
+              it { expect(assigns[:resource].role_ids).to match_array role_ids }
             end
 
             context 'when invalid parameters supplied' do
               let(:name) { '' }
 
-              it { expect(assigns[:user].name).not_to eql name }
-              it { expect(assigns[:user].email).not_to eql email }
+              it { expect(assigns[:resource].name).not_to eql name }
+              it { expect(assigns[:resource].email).not_to eql email }
 
-              it { expect(flash[:error]).to eql(I18n.t('integral.backend.users.notification.edit_failure')) }
+              it { expect(flash[:error]).to eql("#{I18n.t('integral.backend.users.notification.edit_failure')} - #{assigns[:resource].errors.full_messages.to_sentence}") }
               it { expect(response).to render_template 'edit' }
             end
           end

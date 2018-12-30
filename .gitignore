@@ -9,3 +9,4 @@ spec/lib/integral/generators/tmp/*
 pkg/
 coverage/
 .yardoc/
+*.swo

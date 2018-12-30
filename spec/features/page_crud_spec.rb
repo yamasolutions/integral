@@ -18,12 +18,12 @@ module Integral
         click_on 'Create'
       end
 
-      within("#page_form") do
+      within("#resource_form") do
         fill_in 'Title', with: builder.title
         fill_in 'Description', with: builder.description
         fill_in 'Path', with: builder.path
 
-        fill_in_ckeditor 'page_body_editor', with: builder.body
+        fill_in_ckeditor 'resource_body_editor', with: builder.body
       end
 
       click_on 'Create Page'
@@ -35,12 +35,12 @@ module Integral
       sleep 1
       find('tbody tr:first-of-type a:nth-of-type(2)').click
 
-      within("#page_form") do
+      within("#resource_form") do
         fill_in 'Title', with: builder.title
         fill_in 'Description', with: builder.description
         fill_in 'Path', with: builder.path
 
-        fill_in_ckeditor 'page_body_editor', with: builder.body
+        fill_in_ckeditor 'resource_body_editor', with: builder.body
       end
 
       first(:button, 'Update Page').click

@@ -1,5 +1,282 @@
 # Extending Integral
 
+* [Adding a custom field](#adding-a-custom-field)
+* [Adding a custom object](#adding-a-custom-object)
+* [Overriding the default views](#overriding-the-default-views)
+* [Overriding the default assets](#overriding-the-default-assets)
+* [Troubleshooting](#troubleshooting)
+
+## Adding a custom field
+
+Below are step by step instructions on how to add a custom field to an Integral Page or Post. A [code sample][code-sample-custom-field] is available or [deploy the demo application with Heroku][heroku-deploy-custom-field].
+
+User story - As a page manager I want to be able to add a custom link to particular pages. I want to do be able to add, update and remove the link in the same screen I manage the pages.
+
+We'll make this possible in 2 steps;
+1. Update the database to store the links
+2. Provide logged in users with a method of updating the links
+
+First we'll create the migration to store a link within the Pages table;
+
+```
+bundle exec rails generate migration addCustomUrlToIntegralPages custom_url:string
+```
+
+Run `bundle exec rails db:migrate`. You can now set a link to a particular page - test it yourself using the `rails console`.
+
+Now we want provide users a method of updating the links themselves, we'll break this down into 2 steps;
+1. Tell the backend pages controller to allow the `custom_url` attribute to be set
+2. Update the backend page form to include a `custom_url` text field.
+
+To update the permitted page params Integral provides a configuration option within it's initializer;
+```
+# config/initializers/integral.rb
+
+config.additional_page_params = [:custom_url]
+```
+
+Now we want to override the view which renders the page form. To do this we'll copy Integral's backend views then remove all the files apart from `app/views/integral/backend/pages/_form.haml`. Now that we have only the page form we can add the text field.
+
+```
+bundle exec rails generate integral:views -v backend
+```
+
+Boot your app and navigate as a logged in user to `/admin/pages/new`. You should be able to create a page with a `custom_url`.
+
+Stuck? Check out the [code sample][code-sample-custom-field] or [deploy a demo application with Heroku][heroku-deploy-custom-field]
+
+If you want to add a custom field to another object for example an Enquiry or List you can follow these same instructions however instead of using an Integral initializer you'll need to manually override `resource_params` method within the backend controller.
+
+## Adding a custom object
+
+Below are step by step instructions on how to add a custom object to an Integral application. A [code sample][code-sample-custom-object] is available or [deploy the demo application with Heroku][heroku-deploy-custom-object].
+
+User stories;
+* As a user I want to be able to manage special offers the same way I manage pages or posts.
+* As a visitor I want to be able to view special offers
+
+We'll make this possible in 3 steps;
+1. Update the database to store special offers
+2. Allow visitors to view special offers
+3. Provide logged in users with a method of managing special offers
+
+### Data storage & visitor access
+
+We'll start by using a Rails scaffold to create the `SpecialOffer` model, frontend views, routes and controller. This is the fastest way to get started, however this does generate a bunch of routes and views that we won't be using. The only routes and views that are actually required for the frontend as part of this demo are `index` and `show`
+
+```
+rails generate scaffold special_offer title:string description:string body:text discount:integer image_id:integer --no-assets --no-helper
+```
+
+Now we create a table which is used to store any changes relating to `SpecialOffer`. Generate a basic migration (`rails g migration createSpecialOfferVersions`) then replace the contents with;
+
+```
+  # The largest text column available in all supported RDBMS is
+  # 1024^3 - 1 bytes, roughly one gibibyte.  We specify a size
+  # so that MySQL will use `longtext` instead of `text`.  Otherwise,
+  # when serializing very large objects, `text` might not be big enough.
+  TEXT_BYTES = 1_073_741_823
+
+  def change
+    create_table :special_offer_versions do |t|
+      t.string   :item_type, {:null=>false}
+      t.integer  :item_id,   null: false
+      t.string   :event,     null: false
+      t.string   :whodunnit
+      t.text     :object, limit: TEXT_BYTES
+      t.text     :object_changes, limit: TEXT_BYTES
+      t.datetime :created_at
+    end
+    add_index :special_offer_versions, %i(item_type item_id)
+  end
+```
+
+Update the empty `SpecialOffer` model with the following;
+
+```
+# app/models/special_offer.rb
+
+class SpecialOffer < ApplicationRecord
+  has_paper_trail class_name: 'SpecialOfferVersion'
+
+  # Validations
+  validates :title, :description, :body, :discount, presence: true
+
+  # Scopes
+  scope :search, ->(search) { where('lower(title) LIKE ?', "%#{search.downcase}%") }
+
+  # Associations
+  belongs_to :image, class_name: 'Integral::Image', optional: true
+end
+```
+
+Create the `SpecialOfferVersion` which is the model that stores `SpecialOffer` changes;
+
+```
+# app/models/special_offer_version.rb
+
+class SpecialOfferVersion < Integral::Version
+  self.table_name = :special_offer_versions
+
+  # NOTE: This is only required when using Postgres
+  # https://github.com/paper-trail-gem/paper_trail#configuration
+  self.sequence_name = :special_offer_versions_id_seq
+end
+```
+
+Run `bundle exec rails db:migrate`. You can now perform CRUD actions on `SpecialOffer` at `/special_offers`. Create a couple special offers then remove the routes, views and controller actions that were created by the scaffold which we won't be using (only show & index are required).
+
+Now it's time to update the controller that `SpecialOffersController` inherits from. This allows our `SpecialOffersController` to inherit all the behaviour from Integrals frontend controller including things like SEO and layout.
+
+```
+# app/controllers/special_offers_controller.rb
+
+class SpecialOffersController < Integral::ApplicationController
+```
+
+That's the model and frontend sorted, now time to allow users to manage the special offers.
+
+### Backend management
+
+We'll break this down into 5 steps;
+1. Add the backend routes
+2. Add the backend controller
+3. Add the backend views
+4. Display activities
+
+Let's start by adding the backend routes:
+```
+# config/routes.rb
+
+  # Extend Integral engine routes
+  Integral::Engine.routes.draw do
+    namespace :backend, path: Integral.backend_namespace do
+      resources :special_offers, except: [ :show ] do
+        member do
+          get 'activities', controller: 'special_offers', as: :activities
+          get 'activities/:activity_id', to: 'special_offers#activity', as: :activity
+        end
+      end
+    end
+  end
+```
+
+Next lets create the controller;
+```
+# app/controllers/integral/backend/special_offers_controller.rb
+
+module Integral
+  module Backend
+    # Special Offers management
+    class SpecialOffersController < BaseController
+      before_action :set_resource, only: %i[edit update destroy show activities activity]
+
+      private
+
+      def resource_params
+        params.require(:special_offer).permit(
+          :title,
+          :description,
+          :body,
+          :discount,
+          :image_id
+        )
+      end
+
+      def white_listed_grid_params
+        [:descending, :order, :page, :user, :action, :object, :title]
+      end
+    end
+  end
+end
+```
+
+Now the grid which is used to display the special offers and provides filtering & sorting
+
+```
+# lib/integral/grids/special_offers_grid.rb
+
+module Integral
+  module Grids
+    # Manages Special Offer filtering & sorting
+    class SpecialOffersGrid
+      include Datagrid
+
+      scope do
+        SpecialOffer.all.order('title DESC')
+      end
+
+      filter(:title) do |value|
+        search(value)
+      end
+
+      column(:title, order: :title)
+      column(:discount, order: :discount)
+      column(:updated_at, order: :updated_at)
+      column(:actions)
+    end
+  end
+end
+```
+
+If you haven't already make sure you're loading `/lib` in your application:
+```
+# config/application.rb
+
+config.eager_load_paths << Rails.root.join('lib')
+```
+
+Finally we need to create the backend views. The fastest way to do this is use the Integral views;
+1. Copy Integrals backend views
+```
+rails g integral:views -v backend
+```
+2. Rename and `posts` folder to `special_offers`
+```
+mv app/views/integral/backend/posts/ app/views/integral/backend/special_offers
+```
+3. Make any changes necessary such as updating the form to only contain fields relating to `special_offers`
+4. Remove the additional Integral backend views which were generated that you are not using
+
+Now the only thing that is missing is special offer activity management. To add special offer activities to the activities page we're going to override the `ActivitiesGrid`
+
+```
+# app/extensions/lib/integral/grids/activities_grid_decorator.rb
+
+module Integral
+  # Grids
+  module Grids
+    # Override the versions which are displayed in the activity listing grid
+    ActivitiesGrid.class_eval do
+      scope do
+        Integral::UserVersion.all.union(Integral::PageVersion.all).union(Integral::PostVersion.all).union(Integral::ListVersion.all).union(Integral::ImageVersion.all).union(SpecialOfferVersion.all).order('created_at DESC')
+      end
+    end
+  end
+end
+```
+
+Lastly we need to update the decorator;
+```
+class SpecialOfferDecorator < Draper::Decorator
+  delegate_all
+
+  # @return [String] URL to backend page
+  def backend_url
+    Integral::Engine.routes.url_helpers.edit_backend_special_offer_url(object)
+  end
+
+  # @return [String] URL to backend activity
+  def activity_url(activity_id)
+    Integral::Engine.routes.url_helpers.activity_backend_special_offer_url(object.id, activity_id)
+  end
+end
+```
+
+We're done! You can now manage special offers through the user only area and view them as a visitor on the frontend.
+
+Stuck? Check out the [code sample][code-sample-custom-object] or [deploy a demo application with Heroku][heroku-deploy-custom-object]
+
 ## Overriding the default views
 
 Integral includes a generator to copy views into the host application.
@@ -51,13 +328,6 @@ For example if you're wanting to override the logo used in the backend area, sav
   app/assets/images/integral/backend/logo.png
 ```
 
-## Adding a custom field
-TODO
-
-## Adding a custom object
-TODO
-
-
 ## Troubleshooting
 
 Overridden a file and it doesn't seem to have done anything?
@@ -65,3 +335,8 @@ Overridden a file and it doesn't seem to have done anything?
 * Turn off caching
 * Clear your assets `rake tmp:clear`
 * Restart your application
+
+[code-sample-custom-field]: https://github.com/yamasolutions/integral-sample/compare/sample-custom-field
+[code-sample-custom-object]: https://github.com/yamasolutions/integral-sample/compare/sample-custom-object
+[heroku-deploy-custom-field]: https://heroku.com/deploy?template=https://github.com/yamasolutions/integral-sample/tree/sample-custom-field
+[heroku-deploy-custom-object]: https://heroku.com/deploy?template=https://github.com/yamasolutions/integral-sample/tree/sample-custom-object

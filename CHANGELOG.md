@@ -16,6 +16,7 @@ recommendations of [keepachangelog.com](http://keepachangelog.com/).
 ### Fixed
 
 - Open social links in new tab & add rel noopener to each link
+- Backend - Reduce duplication within controllers
 
 ### Dependancies
 - None

@@ -9,7 +9,7 @@ module Integral
     end
 
     # @return [String] URL to backend Image page
-    def url
+    def backend_url
       Integral::Engine.routes.url_helpers.edit_backend_img_url(object)
     end
   end

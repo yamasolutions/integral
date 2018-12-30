@@ -22,6 +22,10 @@ module Integral
 
       private
 
+      def resource_klass
+        Integral::Settings
+      end
+
       def parsed_value(value)
         return true if value == '_1'
         return false if value == '_0'
@@ -38,15 +42,6 @@ module Integral
         permitted_settings_params.concat Integral.additional_settings_params
 
         params[:settings].permit(*permitted_settings_params)
-      end
-
-      def set_breadcrumbs
-        add_breadcrumb I18n.t('integral.breadcrumbs.dashboard'), :backend_dashboard_path
-        add_breadcrumb I18n.t('integral.breadcrumbs.settings'), :backend_settings_path
-      end
-
-      def authorize_with_klass
-        authorize Settings
       end
     end
   end

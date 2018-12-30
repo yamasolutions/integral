@@ -15,7 +15,7 @@ module Integral
 
     # @return [String] Item URL
     def item_url
-      decorated_item&.url
+      decorated_item&.backend_url
     end
 
     # @return [Integral::User] who carried out the version (if one exists)

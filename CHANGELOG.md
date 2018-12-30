@@ -11,7 +11,7 @@ recommendations of [keepachangelog.com](http://keepachangelog.com/).
 
 ### Added
 
-- None
+- Ckeditor - Add link balloon toolbar
 
 ### Fixed
 
@@ -19,7 +19,7 @@ recommendations of [keepachangelog.com](http://keepachangelog.com/).
 - Backend - Reduce duplication within controllers
 
 ### Dependancies
-- None
+- Ckeditor - Update to 4.11.1
 
 ## v1.1.0 - 2018-12-24
 

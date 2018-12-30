@@ -52,14 +52,14 @@ CKEDITOR.editorConfig = function( config )
     { name: 'links', items: [ 'Link', 'Unlink', 'Image' ] }
   ];
 
-  config.removeButtons = 'Blockquote,BGColor,CopyFormatting,TextColor,bgColor,Flash,Indent,Outdent,Superscript,Subscript,SpecialChar,Cut,Copy,Paste,PasteText,PasteFromWord,Save,Templates,NewPage,Preview,Print,SelectAll,Scayt,Replace,Form,Checkbox,Radio,TextField,HiddenField,ImageButton,Button,Select,Textarea,Language,BidiRtl,BidiLtr,CreateDiv,PageBreak,Smiley,About,Styles,FontSize,Font,Unlink';
+  config.removeButtons = 'Blockquote,BGColor,CopyFormatting,TextColor,bgColor,Flash,Indent,Outdent,Superscript,Subscript,SpecialChar,Cut,Copy,Paste,PasteText,PasteFromWord,Save,Templates,NewPage,Preview,Print,SelectAll,Scayt,Replace,Form,Checkbox,Radio,TextField,HiddenField,ImageButton,Button,Select,Textarea,Language,BidiRtl,BidiLtr,CreateDiv,PageBreak,Smiley,About,Styles,FontSize,Font,Unlink,OpenLink';
   config.removeDialogTabs = 'link:upload;image:Upload';
   config.image_prefillDimensions = false;
 
   config.format_small = { element: 'small' };
 
   config.format_tags = 'p;h2;h3;h4;h5;h6;pre;small;address;div';
-  config.extraPlugins = 'wordcount,autogrow,codemirror,embedjs,lineutils,widgetselection,widget,placeholder,strinsert';
+  config.extraPlugins = 'wordcount,autogrow,codemirror,embedjs,lineutils,widgetselection,widget,placeholder,strinsert,balloontoolbar,openlink,linkballoon';
   config.removePlugins = 'forms';
 
   config.autoGrow_maxHeight = 500;

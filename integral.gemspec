@@ -21,6 +21,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'carrierwave-imageoptimizer', '~> 1.4' # Image compression
   s.add_dependency 'carrierwave_backgrounder_revived', "~> 1.0.0" # Delayed file processing
   s.add_dependency 'carrierwave-aws', '~> 1.3.0' # Remote file uploading
+  # NOTE: image2 plugin for Ckeditor has been monkey patched to remove height modifications
   s.add_dependency 'ckeditor', '~> 4.3.0' # WYSIWYG Editor
   s.add_dependency 'coffee-rails', '~> 4.2.0' # Coffeescript
   s.add_dependency 'client_side_validations', '~> 11.0' # Client-side validations

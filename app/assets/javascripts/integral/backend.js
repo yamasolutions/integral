@@ -92,24 +92,20 @@ function ready() {
     var dialogName = ev.data.name;
     var dialogDefinition = ev.data.definition;
 
-    // TODO: Add Info callout
-    if ( dialogName == 'image' ) {
+    if ( dialogName == 'image2' ) {
       var infoTab = dialogDefinition.getContents('info');
-      var advancedTab = dialogDefinition.getContents('advanced');
 
-      // Remove unhelpful inputs
-      infoTab.remove('txtHeight');
-      infoTab.remove('ratioLock');
-      infoTab.remove('txtBorder');
-      infoTab.remove('txtHSpace');
-      infoTab.remove('txtVSpace');
-      //infoTab.remove('htmlPreview');
-      advancedTab.remove('linkId');
-      advancedTab.remove('cmbLangDir');
-      advancedTab.remove('txtLangCode');
-      advancedTab.remove('txtGenLongDescr');
+      // Remove unused inputs
+      infoTab.remove('height');
+      infoTab.remove('lock');
+
+      // Do not validate width input
+      infoTab.get('width').validate = function() {
+        return true;
+      }
     }
 
+    // Remove unused inputs for link
     if ( dialogName == 'link' ) {
       var advancedTab = dialogDefinition.getContents('advanced');
       var targetTab = dialogDefinition.getContents('target');

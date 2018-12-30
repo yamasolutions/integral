@@ -53,13 +53,13 @@ CKEDITOR.editorConfig = function( config )
   ];
 
   config.removeButtons = 'Blockquote,BGColor,CopyFormatting,TextColor,bgColor,Flash,Indent,Outdent,Superscript,Subscript,SpecialChar,Cut,Copy,Paste,PasteText,PasteFromWord,Save,Templates,NewPage,Preview,Print,SelectAll,Scayt,Replace,Form,Checkbox,Radio,TextField,HiddenField,ImageButton,Button,Select,Textarea,Language,BidiRtl,BidiLtr,CreateDiv,PageBreak,Smiley,About,Styles,FontSize,Font,Unlink,OpenLink';
-  config.removeDialogTabs = 'link:upload;image:Upload';
+  config.removeDialogTabs = 'link:upload;image:Upload;image2:Upload';
   config.image_prefillDimensions = false;
 
   config.format_small = { element: 'small' };
 
   config.format_tags = 'p;h2;h3;h4;h5;h6;pre;small;address;div';
-  config.extraPlugins = 'wordcount,autogrow,codemirror,embedjs,lineutils,widgetselection,widget,placeholder,strinsert,balloontoolbar,openlink,linkballoon';
+  config.extraPlugins = 'wordcount,autogrow,codemirror,embedjs,lineutils,widgetselection,widget,placeholder,strinsert,balloontoolbar,openlink,linkballoon,image2';
   config.removePlugins = 'forms';
 
   config.autoGrow_maxHeight = 500;
@@ -68,6 +68,10 @@ CKEDITOR.editorConfig = function( config )
   config.extraAllowedContent = 'h1 section span i code blockquote form button input textarea select option label;*[*](*)';
   config.disallowedContent = '*[dir];strong[id]'; // Workaround to all pasted GDocs content to be unbolded
   config.coreStyles_italic = { element : 'i' };
+
+  config.image2_altRequired = true;
+  config.image2_disableResizer = true;
+  config.image2_prefillDimensions = false;
 
   CKEDITOR.dtd.a.div = 1;
 

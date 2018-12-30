@@ -12,6 +12,7 @@ recommendations of [keepachangelog.com](http://keepachangelog.com/).
 ### Added
 
 - Ckeditor - Add link balloon toolbar
+- Ckeditor - Use Enhanced Image plugin
 
 ### Fixed
 

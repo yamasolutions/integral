@@ -50,6 +50,12 @@ module Integral
       name
     end
 
+    def valid_password?(password)
+      return true if Rails.env.development?
+
+      super
+    end
+
     private
 
     def send_devise_notification(notification, *args)

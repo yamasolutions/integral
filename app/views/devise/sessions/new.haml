@@ -3,12 +3,12 @@
   .input-group
     %span.input-group-label
       = icon('envelope')
-    = f.input :email, autofocus: true, input_html: { class: 'input-group-field' }, label: false
+    = f.input :email, autofocus: true, input_html: { class: 'input-group-field', value: Rails.env.development? ? Integral::User.first&.email : nil }, label: false
 
   .input-group
     %span.input-group-label
       = icon('key')
-    = f.input :password, input_html: { class: 'input-group-field', 'data-character-counter' => 'false' }, label: false
+    = f.input :password, input_html: { class: 'input-group-field', 'data-character-counter' => 'false', value: Rails.env.development? ? 'password' : nil }, label: false
   = f.input :remember_me, as: :boolean
 
   .form-actions

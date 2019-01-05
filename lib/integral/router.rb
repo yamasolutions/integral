@@ -67,6 +67,7 @@ module Integral
           # Page Management
           resources :pages, except: [:show] do
             member do
+              post 'duplicate'
               get 'activities', controller: 'pages'
               get 'activities/:activity_id', to: 'pages#activity', as: :activity
             end
@@ -83,6 +84,7 @@ module Integral
           if Integral.blog_enabled?
             resources :posts, except: [:show] do
               member do
+                post 'duplicate'
                 get 'activities', controller: 'posts'
                 get 'activities/:activity_id', to: 'posts#activity', as: :activity
               end
@@ -93,7 +95,7 @@ module Integral
           # List Management
           resources :lists, except: [:show] do
             member do
-              post 'clone'
+              post 'duplicate'
             end
           end
 

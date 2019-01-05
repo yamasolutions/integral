@@ -1,5 +1,11 @@
--# = content_for :actionbar do
--#   %ul.menu.horizontal
+= content_for :actionbar do
+  %ul.menu.horizontal
+    - if policy(Integral::List).duplicate?
+      %li
+        = link_to duplicate_backend_list_url(@resource.id), class: 'button white', method: :post do
+          = icon('history')
+          = t('integral.actions.clone')
+
 -#     - if policy(Integral::Version).manager?
 -#       %li
 -#         = link_to activities_backend_list_url(@resource.id), class: 'button white' do

@@ -44,7 +44,7 @@ module Integral
     alias create? manager?
     alias edit? manager?
     alias update? manager?
-    alias clone? manager?
+    alias duplicate? manager?
     alias grid? manager?
   end
 end

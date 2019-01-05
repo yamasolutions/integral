@@ -30,9 +30,8 @@ module Integral
     # Duplicates the list including all attributes, list items and list item children
     #
     # @return [List] Unsaved cloned list
-    def dup(title = '')
+    def dup
       new_list = super()
-      new_list.title = title if title.present?
 
       list_items.each do |list_item|
         new_list_item = list_item.dup

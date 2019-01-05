@@ -3,7 +3,16 @@ module Integral
     # Pages controller
     class PagesController < BaseController
       before_action :authorize_with_klass, only: %i[index new create edit update destroy]
-      before_action :set_resource, only: %i[edit update destroy show activities activity]
+      before_action :set_resource, only: %i[edit update destroy show activities activity duplicate]
+
+      # POST /:id/duplicate
+      # Duplicate a resource
+      def duplicate
+        super do |cloned_resource|
+          cloned_resource.title = "#{@resource.title} #{SecureRandom.hex[1..5]}"
+          cloned_resource.path += "-#{SecureRandom.hex[1..5]}"
+        end
+      end
 
       # @return [BasePolicy] current authorization policy
       def current_policy

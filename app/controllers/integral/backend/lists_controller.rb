@@ -2,7 +2,7 @@ module Integral
   module Backend
     # List controller
     class ListsController < BaseController
-      before_action :set_resource, only: %i[edit update destroy clone]
+      before_action :set_resource, only: %i[edit update destroy duplicate]
       before_action :authorize_with_klass
       before_action -> { set_grid }, only: [:index]
 
@@ -17,18 +17,11 @@ module Integral
         end
       end
 
-      # GET /:id/clone
-      # Clone a list
-      def clone
-        title = params[:title].present? ? params[:title] : "#{@resource.title} Copy"
-        title = "#{title} #{SecureRandom.hex[1..5]}" if Integral::List.find_by_title(title).present?
-
-        cloned_list = @resource.dup(title)
-
-        if cloned_list.save
-          respond_successfully(notification_message('creation_success'), backend_list_path(cloned_list))
-        else
-          respond_failure(notification_message('creation_failure'), :edit)
+      # POST /:id/duplicate
+      # Duplicate a resource
+      def duplicate
+        super do |cloned_resource|
+          cloned_resource.title = "#{@resource.title} #{SecureRandom.hex[1..5]}"
         end
       end
 

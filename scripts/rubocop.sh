@@ -2,7 +2,7 @@
 
 set -e
 
-ALLOWED_WARNINGS=141
+ALLOWED_WARNINGS=140
 warnings=`rubocop --format simple | grep "offenses detected" | cut -d " " -f4`
 
 if [ $warnings -gt $ALLOWED_WARNINGS ]

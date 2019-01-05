@@ -11,6 +11,7 @@ recommendations of [keepachangelog.com](http://keepachangelog.com/).
 
 ### Added
 
+- Post, Page & List cloning
 - Ckeditor - Add link balloon toolbar
 - Ckeditor - Use Enhanced Image plugin
 

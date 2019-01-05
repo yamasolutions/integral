@@ -71,15 +71,6 @@ module Integral
           end
         end
       end
-
-      context 'when title is provided' do
-        let(:new_title) { 'Some awesome title' }
-        it 'returns expect list with provided title' do
-          clone = list.dup(new_title)
-
-          expect(clone.title).to eq new_title
-        end
-      end
     end
   end
 end

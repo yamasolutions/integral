@@ -58,6 +58,8 @@ module Integral
         add_breadcrumb I18n.t('integral.navigation.create'), "new_backend_#{controller_name.singularize}_path".to_sym
         @resource = resource_klass.new(resource_params)
 
+        yield if block_given?
+
         if @resource.save
           respond_successfully(notification_message('creation_success'), self.send("edit_backend_#{controller_name.singularize}_path", @resource.id))
         else
@@ -90,6 +92,20 @@ module Integral
           flash[:error] = "#{notification_message('delete_failure')} - #{error_message}"
 
           redirect_to self.send("backend_#{controller_name}_path")
+        end
+      end
+
+      # POST /:id/duplicate
+      # Duplicate a resource
+      def duplicate
+        cloned_resource = @resource.dup
+
+        yield cloned_resource if block_given?
+
+        if cloned_resource.save
+          respond_successfully(notification_message('creation_success'), self.send("edit_backend_#{controller_name.singularize}_path", cloned_resource))
+        else
+          respond_failure(notification_message('creation_failure'), :edit)
         end
       end
 

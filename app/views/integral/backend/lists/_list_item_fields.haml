@@ -12,7 +12,7 @@
       %span.title= formatted_item.title
       %span.url= formatted_item.url
     .actions
-      = icon('edit', class: 'action', 'data-open' => "list-item-modal-#{f.object.id}", class: 'modal-trigger')
+      = icon('edit', 'data-open' => "list-item-modal-#{f.object.id}", class: 'modal-trigger')
 
       - if children_allowed
         .add-children

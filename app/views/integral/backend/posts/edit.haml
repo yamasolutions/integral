@@ -6,6 +6,11 @@
       = link_to post_url(@resource), class: 'button white' do
         = icon('eye')
         = t('integral.actions.view')
+    - if policy(Integral::Post).duplicate?
+      %li
+        = link_to duplicate_backend_post_url(@resource.id), class: 'button white', method: :post do
+          = icon('history')
+          = t('integral.actions.clone')
     - if policy(Integral::Version).manager?
       %li
         = link_to activities_backend_post_url(@resource.id), class: 'button white' do

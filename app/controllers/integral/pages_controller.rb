@@ -40,7 +40,7 @@ module Integral
 
     def canonical_url
       if Settings[:homepage_id]&.to_i == @page.id
-        "#{Rails.application.routes.default_url_options[:host]}"
+        Rails.application.routes.default_url_options[:host].to_s
       else
         "#{Rails.application.routes.default_url_options[:host]}#{@page.path}"
       end

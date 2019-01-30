@@ -78,7 +78,7 @@ module Integral
       end
 
       def white_listed_grid_params
-        [:descending, :order, :page, :user, :action, :object, :title]
+        %i[descending order page user action object title]
       end
     end
   end

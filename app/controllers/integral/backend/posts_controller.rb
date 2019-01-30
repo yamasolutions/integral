@@ -9,7 +9,9 @@ module Integral
       # Duplicate a resource
       def duplicate
         super do |cloned_resource|
-          cloned_resource.title = "#{@resource.title} #{SecureRandom.hex[1..5]}"
+          cloned_resource.title = "Copy #{@resource.title[0...Integral.title_length_maximum - 5]}"
+          cloned_resource.view_count = 0
+          cloned_resource.tag_list = @resource.tag_list_on(@resource.tag_context)
           cloned_resource.slug = @resource.slug
           cloned_resource.status = :draft
         end

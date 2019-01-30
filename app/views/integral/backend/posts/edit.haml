@@ -8,7 +8,7 @@
         = t('integral.actions.view')
     - if policy(Integral::Post).duplicate?
       %li
-        = link_to duplicate_backend_post_url(@resource.id), class: 'button white', method: :post do
+        = link_to duplicate_backend_post_url(@resource.id), class: 'button white', method: :post, data: { confirm: t('integral.actions.confirmation.clone') } do
           = icon('history')
           = t('integral.actions.clone')
     - if policy(Integral::Version).manager?

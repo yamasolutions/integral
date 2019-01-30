@@ -48,6 +48,7 @@ en:
     actions:
       confirmation:
         deletion: If you delete this item it will be gone forever. Are you sure you want to proceed?
+        clone: Are you sure you want to clone this item?
       new_page: Add new page
       new_post: Add new post
       edit_profile: Edit profile
@@ -247,13 +248,14 @@ en:
             title: 'Title'
             description: 'Description'
         notification:
+          clone_success: 'List successfully cloned.'
+          clone_failure: 'List clone failed.'
           creation_success: 'List successfully created.'
           creation_failure: 'List creation failed.'
           edit_success: 'List successfully updated.'
           edit_failure: 'Failed to update list.'
           delete_success: 'List successfully deleted.'
           delete_failure: 'Failed to delete list.'
-
       settings:
         index:
           title: Settings
@@ -306,6 +308,8 @@ en:
         activities:
           title: "Activities: %{title}"
         notification:
+          clone_success: 'Post successfully cloned.'
+          clone_failure: 'Post clone failed.'
           creation_success: 'Post successfully created.'
           creation_failure: 'Post creation failed.'
           edit_success: 'Post successfully updated.'
@@ -330,6 +334,8 @@ en:
             path: 'Path'
             last_updated_at: 'Last updated'
         notification:
+          clone_success: 'Page successfully cloned.'
+          clone_failure: 'Page clone failed.'
           creation_success: 'Page successfully created.'
           creation_failure: 'Page creation failed.'
           edit_success: 'Page successfully updated.'

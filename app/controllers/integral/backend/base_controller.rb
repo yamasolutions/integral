@@ -61,7 +61,7 @@ module Integral
         yield if block_given?
 
         if @resource.save
-          respond_successfully(notification_message('creation_success'), self.send("edit_backend_#{controller_name.singularize}_path", @resource.id))
+          respond_successfully(notification_message('creation_success'), send("edit_backend_#{controller_name.singularize}_path", @resource.id))
         else
           respond_failure(notification_message('creation_failure'), :new)
         end
@@ -77,7 +77,7 @@ module Integral
       # Updating a resource
       def update
         if @resource.update(resource_params)
-          respond_successfully(notification_message('edit_success'), self.send("edit_backend_#{controller_name.singularize}_path", @resource.id))
+          respond_successfully(notification_message('edit_success'), send("edit_backend_#{controller_name.singularize}_path", @resource.id))
         else
           respond_failure(notification_message('edit_failure'), :edit)
         end
@@ -86,12 +86,12 @@ module Integral
       # DELETE /:id
       def destroy
         if @resource.destroy
-          respond_successfully(notification_message('delete_success'), self.send("backend_#{controller_name}_path"))
+          respond_successfully(notification_message('delete_success'), send("backend_#{controller_name}_path"))
         else
           error_message = @resource.errors.full_messages.to_sentence
           flash[:error] = "#{notification_message('delete_failure')} - #{error_message}"
 
-          redirect_to self.send("backend_#{controller_name}_path")
+          redirect_to send("backend_#{controller_name}_path")
         end
       end
 
@@ -103,9 +103,9 @@ module Integral
         yield cloned_resource if block_given?
 
         if cloned_resource.save
-          respond_successfully(notification_message('creation_success'), self.send("edit_backend_#{controller_name.singularize}_path", cloned_resource))
+          respond_successfully(notification_message('clone_success'), send("edit_backend_#{controller_name.singularize}_path", cloned_resource))
         else
-          respond_failure(notification_message('creation_failure'), :edit)
+          respond_failure(notification_message('clone_failure'), :edit)
         end
       end
 
@@ -248,7 +248,7 @@ module Integral
       helper_method :activity_grid_options
 
       def white_listed_grid_params
-        raise NotImplementedError, "Specify the accepted grid parameters"
+        raise NotImplementedError, 'Specify the accepted grid parameters'
       end
 
       def authorize_with_klass

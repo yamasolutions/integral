@@ -9,7 +9,7 @@ module Integral
       # Duplicate a resource
       def duplicate
         super do |cloned_resource|
-          cloned_resource.title = "#{@resource.title} #{SecureRandom.hex[1..5]}"
+          cloned_resource.title = "Copy #{@resource.title[0...Integral.title_length_maximum - 5]}"
           cloned_resource.path += "-#{SecureRandom.hex[1..5]}"
         end
       end

@@ -452,6 +452,8 @@ en:
         html_classes: 'HTML Classes'
       user:
         locale: 'Language'
+      post:
+        user: Author
       settings:
         website_title: Website title
         contact_email: Contact form email address

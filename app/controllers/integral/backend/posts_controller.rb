@@ -17,18 +17,17 @@ module Integral
         end
       end
 
-      # POST /
-      # Post creation
-      def create
-        super do
-          @resource.user = current_user
-        end
+      # GET /new
+      # Post creation screen
+      def new
+        super
+        @resource.user = current_user
       end
 
       private
 
       def resource_params
-        permitted_post_params = %i[title slug body description tag_list image_id preview_image_id status lock_version]
+        permitted_post_params = %i[title slug body description tag_list image_id preview_image_id status lock_version user_id]
 
         permitted_post_params.concat Integral.additional_post_params
         params.require(:post).permit(*permitted_post_params)

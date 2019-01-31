@@ -15,6 +15,7 @@ recommendations of [keepachangelog.com](http://keepachangelog.com/).
 - Ckeditor - Add link balloon toolbar
 - Ckeditor - Use Enhanced Image plugin
 - User login - In development default the login form to the first user and do not validate passwords
+- Posts - Can now update author of a post
 
 ### Fixed
 

@@ -103,7 +103,7 @@ module Integral
         yield cloned_resource if block_given?
 
         if cloned_resource.save
-          respond_successfully(notification_message('clone_success'), send("edit_backend_#{controller_name.singularize}_path", cloned_resource))
+          respond_successfully(notification_message('clone_success'), send("edit_backend_#{controller_name.singularize}_path", cloned_resource.id))
         else
           respond_failure(notification_message('clone_failure'), :edit)
         end

@@ -12,6 +12,7 @@ recommendations of [keepachangelog.com](http://keepachangelog.com/).
 ### Added
 
 - Post, Page & List cloning
+- Add JSON-LD on the blog index and show pages
 - Ckeditor - Add link balloon toolbar
 - Ckeditor - Use Enhanced Image plugin
 - User login - In development default the login form to the first user and do not validate passwords

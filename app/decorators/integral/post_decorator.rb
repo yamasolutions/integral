@@ -3,6 +3,11 @@ module Integral
   class PostDecorator < Draper::Decorator
     delegate_all
 
+    # Enables pagination
+    def self.collection_decorator_class
+      PaginatingDecorator
+    end
+
     # @return [Hash] JSON-LD representing the instance
     def to_json_ld
       {

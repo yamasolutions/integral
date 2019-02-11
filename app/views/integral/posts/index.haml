@@ -1,4 +1,4 @@
-= render_posts_as_json_ld(@posts)
+= render_posts_as_json_ld(@posts.decorate)
 
 = render layout: 'integral/shared/blog_layout', locals: { title: t('.title'), subtitle: t('.subtitle'), image: image_url('integral/posts-hero-banner.jpg') } do
   %ul.post-list

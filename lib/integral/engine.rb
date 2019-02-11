@@ -97,6 +97,7 @@ module Integral
         'integral/frontend.css',
         'integral/posts-hero-banner.jpg',
         'integral/demo/*',
+        'logo.png',
 
         # Backend
         'integral/backend.js',

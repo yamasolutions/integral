@@ -25,7 +25,7 @@ module Integral
             "@type": 'Organization',
             "name": Integral::Settings.website_title
           },
-          "blogPosts": posts.decorated_collection.map(&:to_json_ld)
+          "blogPosts": posts.map(&:to_json_ld)
         }
       end
     end

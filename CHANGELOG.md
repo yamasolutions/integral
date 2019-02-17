@@ -17,11 +17,13 @@ recommendations of [keepachangelog.com](http://keepachangelog.com/).
 - Ckeditor - Use Enhanced Image plugin
 - User login - In development default the login form to the first user and do not validate passwords
 - Posts - Can now update author of a post
+- Grids - When grid filtering fails display error message to user
 
 ### Fixed
 
 - Open social links in new tab & add rel noopener to each link
 - Backend - Reduce duplication within controllers
+- Posts - Fix filtering
 
 ### Dependancies
 - Ckeditor - Update to 4.11.1

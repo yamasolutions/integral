@@ -52,13 +52,13 @@ class this.Grid
         @container.html(data.content)
 
       @gridCount.text(data.count)
+
+    @form.on "ajax:complete", (event, data, status, xhr) =>
       @container.removeClass('loading')
       @container.find('[data-grid-container]').removeClass('loading')
 
-    # @form.on "ajax:complete", (event, data, status, xhr) =>
-    #   console.log 'Complete!'
-    # @form.on "ajax:error", (event, data, status, xhr) =>
-    #   console.log 'Error!'
+    @form.on "ajax:error", (event, data, status, xhr) =>
+      toastr['error']('Unfortunately an error took place. Please try again later.')
 
   _updateSort: (order, desc)->
     @orderField.val(order)

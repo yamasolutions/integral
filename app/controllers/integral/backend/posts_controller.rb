@@ -33,6 +33,10 @@ module Integral
         params.require(:post).permit(*permitted_post_params)
       end
 
+      def white_listed_grid_params
+        %i[descending order page user action object title status]
+      end
+
       def resource_klass
         Integral::Post
       end

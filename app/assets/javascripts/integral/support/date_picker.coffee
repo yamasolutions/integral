@@ -43,16 +43,25 @@ class this.DatePicker
       maxRaw = dp[0].max
       minDate = new Date minRaw if minRaw
       maxDate = new Date maxRaw if maxRaw
+      disabledDates = dp.data('disabled-dates')
 
-      dp.pickadate
-        min: minDate
-        max: maxDate
-        disable: @getDisabledDates(dp)
-        container: @getContainer(dp)
-        closeOnSelect: true
-        format: "yyyy-mm-dd"
-        onOpen: @opts.onOpen
+
+      dp.datepicker
+        dateFormat: "yy-mm-dd"
+        minDate: minDate
+        maxDate: maxDate
+        beforeShow: @opts.onOpen
         onClose: @opts.onClose
+        # Return false to disable a specific date
+        beforeShowDay: (currentDate) =>
+          return [true] if not disabledDates
+
+          for dateStr in disabledDates.split(',')
+            parsedDate = new Date(dateStr)
+
+            return [false] if (parsedDate.getFullYear() == currentDate.getFullYear() and parsedDate.getDate() == currentDate.getDate() and parsedDate.getMonth() == currentDate.getMonth())
+
+          [true]
 
   getContainer: (dp) ->
     dp.data('date-picker-container')

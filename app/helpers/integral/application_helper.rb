@@ -6,6 +6,13 @@ module Integral
     include Integral::BlogHelper
     include Integral::GalleryHelper
 
+    # @return [String] Javascript snippet containing LD-JSON
+    def render_json_ld
+      content_tag 'script', type: 'application/ld+json' do
+        yield.to_json.html_safe
+      end
+    end
+
     # @param [String] content HTML, most likely generated from the WYSIWYG editor
     #
     # @return [String] Processed HTML. Any Integral Widgets placeholders replaced with content.

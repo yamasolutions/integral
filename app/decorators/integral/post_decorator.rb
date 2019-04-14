@@ -3,6 +3,39 @@ module Integral
   class PostDecorator < Draper::Decorator
     delegate_all
 
+    # Enables pagination
+    def self.collection_decorator_class
+      PaginatingDecorator
+    end
+
+    # @return [Hash] JSON-LD representing the instance
+    def to_json_ld
+      {
+        "@type": 'blogPosting',
+        "mainEntityOfPage": Integral::Engine.routes.url_helpers.post_url(object),
+        "headline": title,
+        "description": description,
+        "datePublished": object.published_at,
+        "dateModified": object.updated_at,
+        "author": {
+          "@type": 'Person',
+          "name": object.author&.name
+        },
+        "image": [
+          preview_image(:large),
+          image(:large)
+        ],
+        "publisher": {
+          "@type": 'Organization',
+          "name": Integral::Settings.website_title,
+          "logo": {
+            "@type": 'ImageObject',
+            "url": h.image_url('logo.png')
+          }
+        }
+      }
+    end
+
     # Tags to be used within the header of an article to describe the subject
     def header_tags
       return I18n.t('integral.posts.show.subtitle') if object.tags_on('published').empty?

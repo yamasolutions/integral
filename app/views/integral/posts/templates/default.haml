@@ -1,3 +1,4 @@
+= render_post_as_json_ld(@post)
 = link_to 'Edit', edit_backend_post_url(@post.id), class: 'button primary button--edit-resource', data: { 'turbolinks' => 'false' } if current_user.present?
 = link_to posts_url, class: 'view-all' do
   = icon('list')

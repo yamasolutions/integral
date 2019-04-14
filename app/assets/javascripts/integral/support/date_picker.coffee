@@ -10,7 +10,8 @@ class this.DatePicker
   @initDateRanges: ->
     $('[data-date-picker-end-element]').each (index, dpStartElement) ->
       $dpStartElement = $(dpStartElement)
-      $dpEndElement = $('#' + $dpStartElement.data().datePickerEndElement)
+      endSelector = "[id='" + $dpStartElement.data().datePickerEndElement + "']"
+      $dpEndElement = $(endSelector)
 
       # Passing these options is doesn't seem to be working?
       dpStart = $dpStartElement.datepicker(

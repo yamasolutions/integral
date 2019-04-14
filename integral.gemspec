@@ -61,6 +61,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'datagrid', '~> 1.5.8' # Grids
   s.add_dependency 'will_paginate', '~> 3.1' # Pagination
   s.add_dependency 'will_paginate-foundation', '~> 6.2' # Pagination for Foundation
+  s.add_dependency 'fast_jsonapi', '~> 1.5' # Object Serialization
 
   s.add_development_dependency 'database_cleaner', '~> 1.5' # Manages database test states
   s.add_development_dependency 'factory_bot_rails', '~> 4.8' # Create reusable object templates

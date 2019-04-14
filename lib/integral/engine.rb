@@ -43,6 +43,7 @@ module Integral
     require 'will_paginate-foundation'
     require 'rails-settings-cached'
     require 'gaffe'
+    require 'fast_jsonapi'
 
     isolate_namespace Integral
 

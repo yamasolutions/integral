@@ -1,38 +1,43 @@
-# Represents Date Picker (PickADate)
+# Represents Date Picker - requires jQuery UI Datepicker - https://jqueryui.com/datepicker/
 class this.DatePicker
+  @getCurrentDate: (element, dateFormat='yy-mm-dd') ->
+    date = null
+    try
+      date = $.datepicker.parseDate( dateFormat, element.value )
+    catch error
+    date
+
   @initDateRanges: ->
     $('[data-date-picker-end-element]').each (index, dpStartElement) ->
       $dpStartElement = $(dpStartElement)
-      dpStart = $dpStartElement.pickadate('picker')
       $dpEndElement = $('#' + $dpStartElement.data().datePickerEndElement)
-      dpEnd = $dpEndElement.pickadate('picker')
 
-      # Check if there’s a “from” or “to” date to start with.
-      if dpStart.get('value')
-        minimumDate = new Date(dpStart.get('select').obj.valueOf() + 86400000)
-        dpEnd.set('min', minimumDate)
-      if dpEnd.get('value')
-        maximumDate = new Date(dpEnd.get('select').obj.valueOf() - 86400000)
-        dpStart.set('max', maximumDate)
-
-      # When something is selected, update the “from” and “to” limits.
-      dpStart.on 'set', (event) =>
-        if event.select
-          minimumDate = new Date(dpStart.get('select').obj.valueOf() + 86400000)
-          dpEnd.set('min', minimumDate)
-
-      dpEnd.on 'set', (event) =>
-        if event.select
-          maximumDate = new Date(dpEnd.get('select').obj.valueOf() - 86400000)
-          dpStart.set('max', maximumDate)
-        else if 'clear' of event
-          dpStart.set('max', false)
+      # Passing these options is doesn't seem to be working?
+      dpStart = $dpStartElement.datepicker(
+        firstDay: 1
+        showAnim: ""
+      )
+      dpEnd = $dpEndElement.datepicker(
+        firstDay: 1
+        showAnim: ""
+      )
+      dpStart.datepicker("option", "firstDay", 1)
+      dpEnd.datepicker("option", "firstDay", 1)
+      dpStart.datepicker("option", "showAnim", '')
+      dpEnd.datepicker("option", "showAnim", '')
+      dpStart.on "change", (ev) =>
+        dateMinimum = DatePicker.getCurrentDate(ev.currentTarget)
+        dateMinimum.setDate(dateMinimum.getDate() + 1)
+        dpEnd.datepicker("option", "minDate", dateMinimum)
+      dpEnd.on "change", (ev) =>
+        dateMaximum = DatePicker.getCurrentDate(ev.currentTarget)
+        dateMaximum.setDate(dateMaximum.getDate() - 1)
+        dpStart.datepicker("option", "maxDate", dateMaximum)
 
   constructor: (selector, opts={}) ->
     @selector = selector
     @opts = opts
 
-    @_setLanguage()
     @_initializeDatePicker()
 
   _initializeDatePicker: ->
@@ -44,7 +49,6 @@ class this.DatePicker
       minDate = new Date minRaw if minRaw
       maxDate = new Date maxRaw if maxRaw
       disabledDates = dp.data('disabled-dates')
-
 
       dp.datepicker
         dateFormat: "yy-mm-dd"
@@ -62,31 +66,3 @@ class this.DatePicker
             return [false] if (parsedDate.getFullYear() == currentDate.getFullYear() and parsedDate.getDate() == currentDate.getDate() and parsedDate.getMonth() == currentDate.getMonth())
 
           [true]
-
-  getContainer: (dp) ->
-    dp.data('date-picker-container')
-
-  getDisabledDates: (dp) ->
-    data = dp.data('disabled-dates')
-    return [] if not data
-
-    dates = []
-    for date in data.split(',')
-      dates.push new Date(date)
-
-    dates
-
-  # TODO: Change this to I18n
-  _setLanguage: ->
-    $.extend($.fn.pickadate.defaults, {
-      monthsFull: [ 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December' ],
-      monthsShort: [ 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec' ],
-      weekdaysFull: [ 'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday' ],
-      weekdaysShort: [ 'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat' ],
-      weekdaysLetter: [ 'S', 'M', 'T', 'W', 'T', 'F', 'S' ],
-      today: 'Today',
-      clear: 'Clear',
-      close: 'Close',
-      firstDay: 1,
-    })
-

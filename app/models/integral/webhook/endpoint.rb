@@ -24,8 +24,6 @@ module Integral
       end
 
       def deliver(event)
-        require 'pry'; binding.pry
-
         Webhook::DeliveryJob.perform_later(id, event.to_json)
       end
     end

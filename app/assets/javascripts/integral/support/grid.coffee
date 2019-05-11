@@ -26,6 +26,13 @@ class this.Grid
     @container.on 'change', 'input[type=checkbox][data-filter]', (ev) =>
       @_toggleFilterValue(ev.target.dataset.filter, ev.target.dataset.value)
 
+    @container.on 'change', 'select[data-filter], input[type=text][data-filter]', (ev) =>
+      filterName = ev.target.dataset.filter
+      filter = @form.find("input[name='#{filterName}']")
+      filter.val(ev.target.value)
+
+      @_redrawGrid()
+
     @form.on 'change', 'select[data-filter]', (ev) =>
       @_redrawGrid()
 

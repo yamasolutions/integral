@@ -7,7 +7,7 @@ recommendations of [keepachangelog.com](http://keepachangelog.com/).
 
 ### Breaking Changes
 
-- None
+- Removed Pickadate - Use Jquery Datepicker instead
 
 ### Added
 
@@ -17,6 +17,7 @@ recommendations of [keepachangelog.com](http://keepachangelog.com/).
 - User login - In development default the login form to the first user and do not validate passwords
 - Posts - Can now update author of a post
 - Grids - When grid filtering fails display error message to user
+- RemoteForm now allows overriding of callbacks
 
 ### Fixed
 

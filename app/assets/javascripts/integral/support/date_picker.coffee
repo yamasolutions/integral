@@ -50,13 +50,22 @@ class this.DatePicker
       minDate = new Date minRaw if minRaw
       maxDate = new Date maxRaw if maxRaw
       disabledDates = dp.data('disabled-dates')
+      showButtonPanel = if dp.data('date-picker-button-panel') == true then true else false
+      closeText = if dp.data('date-picker-close-text') then dp.data('date-picker-close-text') else 'Close'
 
       dp.datepicker
         dateFormat: "yy-mm-dd"
         minDate: minDate
         maxDate: maxDate
         beforeShow: @opts.onOpen
-        onClose: @opts.onClose
+        onClose: (dateText, inst) =>
+          if dp.data('date-picker-clear') == true && inst.dpDiv.find('button.clicked').length > 0
+            inst.input.val('')
+            inst.input.change()
+          else
+            @opts.onClose() if @opts.close
+        showButtonPanel: showButtonPanel
+        closeText: closeText
         # Return false to disable a specific date
         beforeShowDay: (currentDate) =>
           return [true] if not disabledDates

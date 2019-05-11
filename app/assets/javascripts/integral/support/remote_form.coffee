@@ -6,26 +6,26 @@ class this.RemoteForm
   constructor: (forms, opts={}) ->
     # 'forms' refers to one or more jquery objects whose target is a 'form' tag
     @forms = forms
-    # @opts = @_mergeDefaultOpts(opts)
+    @opts = @_mergeDefaultOpts(opts)
     @_setupEvents()
 
   # Create listeners and handlers for form events
   _setupEvents: =>
     # Handle form start
-    @forms.on "ajax:beforeSend", (event, data, status, xhr) =>
-      @_handleBeforeSend(event, data)
+    @forms.on "ajax:beforeSend", (xhr, opts) =>
+      @opts.handleBeforeSend(xhr, opts)
 
     # Handle form success
     @forms.on "ajax:success", (event, data, status, xhr) =>
-      @_handleSuccess(event, data)
+      @opts.handleSuccess(event, data)
 
     # Handle form error
     @forms.on "ajax:error", (event, data, status, xhr) =>
-      @_handleError(event, data)
+      @opts.handleError(event, data)
 
     # Handle form complete
     @forms.on "ajax:complete", (event, data, status, xhr) =>
-      @_handleComplete(event, data)
+      @opts.handleComplete(event, data)
 
   # What happens before AJAX request is sent
   _handleBeforeSend: (event, data) =>
@@ -81,7 +81,11 @@ class this.RemoteForm
       window.dataLayer.push
         'event' : event
 
+  _mergeDefaultOpts: (opts) =>
+    default_opts =
+      handleBeforeSend: @_handleBeforeSend
+      handleSuccess: @_handleSuccess
+      handleError: @_handleError
+      handleComplete: @_handleComplete
 
-  # _mergeDefaultOpts: (opts) =>
-  #   # Some fancy reverse merge goes here
-  #   options =
+    $.extend({}, default_opts, opts)

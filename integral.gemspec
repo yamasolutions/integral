@@ -55,7 +55,6 @@ Gem::Specification.new do |s|
   s.add_dependency 'sass-rails', '~> 5.0' # Sass
   s.add_dependency 'simple_form', '~> 4.0' # Form builder
   s.add_dependency 'sitemap_generator', '~> 6.0.1' # Sitemap Generator
-  s.add_dependency 'slack-notifier', '~> 1.5' # Slack bot
   s.add_dependency "toastr-rails", "~> 1.0" # Javascript notification Toastr
   s.add_dependency 'turbolinks', '~> 5.0'
   s.add_dependency 'datagrid', '~> 1.5.8' # Grids

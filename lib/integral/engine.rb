@@ -35,7 +35,6 @@ module Integral
     # require 'before_render'
     require 'friendly_id'
     require 'acts-as-taggable-on'
-    require 'slack-notifier'
     require 'paranoia'
     require 'inky'
     require 'premailer/rails'

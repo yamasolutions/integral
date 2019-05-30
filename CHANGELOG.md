@@ -27,7 +27,12 @@ recommendations of [keepachangelog.com](http://keepachangelog.com/).
 - Posts - Fix filtering
 - Post cloning - Do not copy over `published_at`
 
+### Performance
+
+- Frontend Post Index - Remove N+1 for user & images
+
 ### Dependancies
+
 - Ckeditor - Update to 4.11.1
 
 ## v1.1.0 - 2018-12-24

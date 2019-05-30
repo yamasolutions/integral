@@ -25,6 +25,7 @@ recommendations of [keepachangelog.com](http://keepachangelog.com/).
 - Open social links in new tab & add rel noopener to each link
 - Backend - Reduce duplication within controllers
 - Posts - Fix filtering
+- Post cloning - Do not copy over `published_at`
 
 ### Dependancies
 - Ckeditor - Update to 4.11.1

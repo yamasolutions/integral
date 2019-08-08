@@ -16,14 +16,14 @@ CKEDITOR.editorConfig = function( config )
      pictures_path = Ckeditor::Engine.routes.url_helpers.pictures_path
   %>
   /* Filebrowser routes */
-  config.filebrowserBrowseUrl = "<%= attachment_files_path %>"
-  config.filebrowserUploadUrl = "<%= attachment_files_path %>"
-  config.filebrowserFlashUploadUrl = "<%= attachment_files_path %>"
-  config.filebrowserFlashBrowseUrl = "<%= attachment_files_path %>"
-  config.filebrowserImageBrowseLinkUrl = "<%= pictures_path %>"
-  config.filebrowserImageBrowseUrl = "<%= pictures_path %>"
-  config.filebrowserImageUploadUrl = "<%= pictures_path %>"
-  config.filebrowserImageBrowseLinkUrl = "<%= pictures_path %>"
+  config.filebrowserBrowseUrl = "<%= attachment_files_path %>";
+  config.filebrowserUploadUrl = "<%= attachment_files_path %>";
+  config.filebrowserFlashUploadUrl = "<%= attachment_files_path %>";
+  config.filebrowserFlashBrowseUrl = "<%= attachment_files_path %>";
+  config.filebrowserImageBrowseLinkUrl = "<%= pictures_path %>";
+  config.filebrowserImageBrowseUrl = "<%= pictures_path %>";
+  config.filebrowserImageUploadUrl = "<%= pictures_path %>";
+  config.filebrowserImageBrowseLinkUrl = "<%= pictures_path %>";
 
   // Toolbar groups configuration.
   config.toolbarGroups = [
@@ -52,14 +52,17 @@ CKEDITOR.editorConfig = function( config )
     { name: 'links', items: [ 'Link', 'Unlink', 'Image' ] }
   ];
 
+  config.allowedContent = true; // Allow all content - may want to disable this.
+  CKEDITOR.dtd.$removeEmpty['i'] = false; // Allow icon insertion
+  CKEDITOR.dtd.a.div = 1; // Set default container to div
+
   config.removeButtons = 'Blockquote,BGColor,CopyFormatting,TextColor,bgColor,Flash,Indent,Outdent,Superscript,Subscript,SpecialChar,Cut,Copy,Paste,PasteText,PasteFromWord,Save,Templates,NewPage,Preview,Print,SelectAll,Scayt,Replace,Form,Checkbox,Radio,TextField,HiddenField,ImageButton,Button,Select,Textarea,Language,BidiRtl,BidiLtr,CreateDiv,PageBreak,Smiley,About,Styles,FontSize,Font,Unlink,OpenLink';
-  config.removeDialogTabs = 'link:upload;image:Upload;image2:Upload';
-  config.image_prefillDimensions = false;
+  config.removeDialogTabs = 'link:upload;image2:Upload';
 
   config.format_small = { element: 'small' };
 
-  config.format_tags = 'p;h2;h3;h4;h5;h6;pre;small;address;div';
-  config.extraPlugins = 'wordcount,autogrow,codemirror,embedjs,lineutils,widgetselection,widget,placeholder,strinsert,balloontoolbar,openlink,linkballoon,image2';
+  config.format_tags = 'p;h2;h3;h4;h5;h6'
+  config.extraPlugins = 'wordcount,autogrow,codemirror,embedjs,lineutils,widgetselection,widget,strinsert,balloontoolbar,openlink,linkballoon,image2,foundation-callout';
   config.removePlugins = 'forms';
 
   config.autoGrow_maxHeight = 500;
@@ -82,11 +85,14 @@ CKEDITOR.editorConfig = function( config )
     showSearchButton: false,
     enableSearchTools: false,
     showAutoCompleteButton: false
-  }
+  };
 
   config.embedjs = {
     file: '<%= javascript_path 'ckeditor/my_javascript.js' %>'
-  }
+  };
+
+  config.scayt_autoStartup = true;
+  // config.scayt_customerId = 'xxxxxxxx-xxxxxxxxxxxx-xxxxxxxxxxxxx-xxxxxxxxxxxx';
 
   /** Static Widgets **/
 
@@ -121,7 +127,6 @@ CKEDITOR.editorConfig = function( config )
   disabledHollowButton = "<a href='https://google.com' href='_blank' class='button disabled hollow'>Disabled Hollow Button</a>";
   // Misc
   quote = "<quote>You are what you do, not what you say you'll do.</quote>";
-  imageWithCaption = "<table class='img-container'><tbody><tr><td style='text-align: center;'><img alt='' src='http://lorempixel.com/600/600/' /></td></tr><tr><td style='text-align: center;'>This is an image caption example</td></tr></tbody></table>";
 
   config.strinsert_button_label = 'Widgets';
   config.strinsert_strings = [
@@ -152,7 +157,6 @@ CKEDITOR.editorConfig = function( config )
   { 'name': 'Embeds' },
   { 'name': 'Youtube Embed', 'value': embedYoutube },
   { 'name': 'Misc' },
-  { 'name': 'Quote', 'value': quote },
-  { 'name': 'Image w/ Caption', 'value': imageWithCaption }
+  { 'name': 'Quote', 'value': quote }
   ];
 };

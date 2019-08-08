@@ -15,6 +15,8 @@ recommendations of [keepachangelog.com](http://keepachangelog.com/).
 - Add JSON-LD on the blog index and show pages
 - Ckeditor - Add link balloon toolbar
 - Ckeditor - Use Enhanced Image plugin
+- Ckeditor - Use SCAYT (spell checker) by default
+- Ckeditor - Add Foundation Callout plugin - Makes callouts widgets which are draggable and removable
 - User login - In development default the login form to the first user and do not validate passwords
 - Posts - Can now update author of a post
 - Grids - When grid filtering fails display error message to user

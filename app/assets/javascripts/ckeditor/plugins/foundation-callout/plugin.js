@@ -62,7 +62,8 @@ CKEDITOR.plugins.add( 'foundation-callout', {
     if (editor.contextMenu) {
       editor.contextMenu.addListener(function(element, selection) {
         self.TargetWidget = editor.widgets.widgetHoldingFocusedEditable || editor.widgets.focused;
-        if (self.TargetWidget != null) {
+
+        if (self.TargetWidget != null && self.TargetWidget.name == 'foundation-callout') {
           var WidgetMenuItem = editor.getMenuItem('widget');
           WidgetMenuItem.label = 'Callout';
           return {

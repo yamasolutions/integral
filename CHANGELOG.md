@@ -31,6 +31,7 @@ recommendations of [keepachangelog.com](http://keepachangelog.com/).
 - Posts - Fix filtering
 - List Management - Unescape special characters when displaying URLs of objects
 - Post cloning - Do not copy over `published_at`
+- Record Selector - Fix image not displaying correctly in details sidebar
 
 ### Performance
 

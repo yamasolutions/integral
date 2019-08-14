@@ -1,6 +1,8 @@
+:ruby
+  if list_item[:image].respond_to?(:url)
+    list_item[:image] = list_item[:image].url(:small)
+  end
+
 .cell.large-2.medium-3.small-4
   .record{ data: list_item }
-    - if list_item[:image].respond_to?(:url)
-      %img{ src: list_item[:image].url(:small) }
-    - else
-      %img{ src: list_item[:image] }
+    %img{ src: list_item[:image] }

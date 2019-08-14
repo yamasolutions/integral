@@ -10,7 +10,7 @@
       = icon('list', class: 'identifier')
     .data
       %span.title= formatted_item.title
-      %span.url= formatted_item.url
+      %span.url= CGI.unescape(formatted_item.url)
     .actions
       = icon('edit', class: 'action', 'data-open' => "list-item-modal-#{f.object.id}", class: 'modal-trigger')
 

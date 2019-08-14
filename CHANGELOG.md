@@ -27,6 +27,7 @@ recommendations of [keepachangelog.com](http://keepachangelog.com/).
 - Open social links in new tab & add rel noopener to each link
 - Backend - Reduce duplication within controllers
 - Posts - Fix filtering
+- List Management - Unescape special characters when displaying URLs of objects
 
 ### Dependancies
 - Ckeditor - Update to 4.11.1

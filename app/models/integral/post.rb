@@ -36,7 +36,7 @@ module Integral
     alias featured_image image
 
     # Scopes
-    scope :search, ->(query) { where('lower(title) LIKE ?', "%#{query.downcase}%") }
+    scope :search, ->(query) { where('lower(title) LIKE ? OR lower(slug) LIKE ?', "%#{query.downcase}%", "%#{query.downcase}%") }
 
     # @return [Array] containing available human readable statuses against there numeric value
     def self.available_statuses(opts = { reverse: false })

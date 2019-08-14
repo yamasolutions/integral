@@ -21,6 +21,8 @@ recommendations of [keepachangelog.com](http://keepachangelog.com/).
 - Posts - Can now update author of a post
 - Grids - When grid filtering fails display error message to user
 - RemoteForm now allows overriding of callbacks
+- Post searching - Backend search now searches by slug as well as title
+- Page searching - Backend search now searches by path as well as title
 
 ### Fixed
 

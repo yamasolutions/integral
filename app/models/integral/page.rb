@@ -32,7 +32,7 @@ module Integral
     validate :validate_parent_is_available
 
     # Scopes
-    scope :search, ->(search) { where('lower(title) LIKE ?', "%#{search.downcase}%") }
+    scope :search, ->(query) { where('lower(title) LIKE ? OR lower(path) LIKE ?', "%#{query.downcase}%", "%#{query.downcase}%") }
 
     # Return all available parents
     # TODO: Update parent behaviour

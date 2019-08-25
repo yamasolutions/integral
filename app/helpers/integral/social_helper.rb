@@ -36,22 +36,6 @@ module Integral
       share_url
     end
 
-    # Google Plus social sharing
-    # URL snippet built from - https://sharingbuttons.io/
-    #
-    # @param [Hash] opts the options to create the share URL
-    # @option opts [String] :url Supply URL if would like to share URL other than the current
-    #
-    # @return [String] Google Plus URL to share a page
-    def google_plus_share_url(opts = {})
-      page_url = opts.fetch(:url, request.original_url)
-
-      page_url = CGI.escape(page_url)
-      share_url = "https://plus.google.com/share?url=#{page_url}"
-
-      share_url
-    end
-
     # Linkedin social sharing
     # URL snippet built from - https://sharingbuttons.io/
     #
@@ -97,13 +81,6 @@ module Integral
     # @return [String] Youtube URL
     def youtube_url
       Settings.youtube_url
-    end
-
-    # Google Plus Profile URL set from within Backend Settings area
-    #
-    # @return [String] Youtube URL
-    def google_plus_url
-      Settings.google_plus_url
     end
 
     # Linkedin Profile URL set from within Backend Settings area

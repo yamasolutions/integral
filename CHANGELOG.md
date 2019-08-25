@@ -30,6 +30,7 @@ recommendations of [keepachangelog.com](http://keepachangelog.com/).
 - Backend - Reduce duplication within controllers
 - Posts - Fix filtering
 - List Management - Unescape special characters when displaying URLs of objects
+- Readded instagram URL editing in backend & remove Google+ 
 
 ### Dependancies
 - Ckeditor - Update to 4.11.1

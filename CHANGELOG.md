@@ -8,6 +8,7 @@ recommendations of [keepachangelog.com](http://keepachangelog.com/).
 ### Breaking Changes
 
 - Major Rails upgrade & upgraded major versions for acts-as-taggable-on, Paper Trail, rspec-rails, Devise, CoffeeScript, Client Side Validations, Haml-Rails, Factory Bot, Capybara & Rubocop
+- Bumped Ruby version to 2.6.4
 
 ### Added
 

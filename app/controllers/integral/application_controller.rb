@@ -11,13 +11,14 @@ module Integral
     # Search Engine Optimization
     # before_render :load_meta_tags
 
-    private
 
     # Override added as workaround for before_render Rails 5 incompatibility
-    def render(*args, &blk)
+    def render(*args, &block)
       before_render
       super
     end
+
+    private
 
     # Actions that should be carried out before rendering
     def before_render

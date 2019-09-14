@@ -18,6 +18,23 @@ recommendations of [keepachangelog.com](http://keepachangelog.com/).
 -
 
 ### Dependancies
+-
+
+## v1.3.0 - 2019-09-14
+
+### Breaking Changes
+
+-
+
+### Added
+
+-
+
+### Fixed
+
+-
+
+### Dependancies
 - Rails - Update to 5.2.x
 
 

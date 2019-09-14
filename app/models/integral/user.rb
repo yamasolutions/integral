@@ -19,7 +19,7 @@ module Integral
     validates :name, :email, presence: true
     validates :name, length: { minimum: 3, maximum: 25 }
 
-    has_paper_trail class_name: 'Integral::UserVersion'
+    has_paper_trail versions: { class_name: 'Integral::UserVersion' }
 
     scope :search, ->(search) { where('lower(name) LIKE ?', "%#{search.downcase}%") }
 

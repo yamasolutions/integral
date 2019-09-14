@@ -4,7 +4,7 @@ module Integral
     acts_as_paranoid # Soft-deletion
     acts_as_listable # Listable Item
 
-    has_paper_trail class_name: 'Integral::PageVersion'
+    has_paper_trail versions: { class_name: 'Integral::PageVersion' }
 
     # Validates format of a path
     # Examples:
@@ -12,7 +12,7 @@ module Integral
     # /foo, /foo/bar, /123/456
     # Bad:
     # //, foo, /foo bar, /foo?y=123, /foo$
-    PATH_REGEX = /\A\/[\/.a-zA-Z0-9-]+\z/
+    PATH_REGEX = %r{\A/[/.a-zA-Z0-9-]+\z}.freeze
 
     enum status: %i[draft published]
 
@@ -142,6 +142,7 @@ module Integral
 
       Integral.black_listed_paths.each do |black_listed_path|
         next unless path&.starts_with?(black_listed_path)
+
         valid = false
         errors.add(:path, 'Invalid path')
         break

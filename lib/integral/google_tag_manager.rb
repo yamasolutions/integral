@@ -8,8 +8,8 @@ module Integral
       # TODO: - May want to add some other check for staging environments
       return '' if !container_id.present? || !Rails.env.production?
 
-      if type == :script
-        snippet = <<-HTML
+      snippet = if type == :script
+                  <<-HTML
           <!-- Google Tag Manager -->
           <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
           new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -17,15 +17,15 @@ module Integral
           '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
           })(window,document,'script','dataLayer','#{container_id}');</script>
           <!-- End Google Tag Manager -->
-        HTML
-      else
-        snippet = <<-HTML
+                  HTML
+                else
+                  <<-HTML
           <!-- Google Tag Manager -->
           <noscript><iframe src="//www.googletagmanager.com/ns.html?id=#{container_id}"
           height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <!-- End Google Tag Manager -->
-        HTML
-      end
+                  HTML
+                end
 
       snippet.html_safe
     end

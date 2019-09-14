@@ -76,6 +76,7 @@ module Integral
     # TODO: Move this onto the model level
     def type_for_dropdown
       return list_item.type unless list_item.object?
+
       list_item.object_type.to_s
     end
 
@@ -97,6 +98,7 @@ module Integral
     # @return [String] URL of list item
     def url
       return if list_item.basic?
+
       url = provide_attr(:url)
 
       return url if url.nil? || url.empty?

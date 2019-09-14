@@ -6,7 +6,7 @@ module Integral
     acts_as_listable if Integral.blog_enabled? # Listable Item
     acts_as_taggable # Tagging
 
-    has_paper_trail class_name: 'Integral::PostVersion'
+    has_paper_trail versions: { class_name: 'Integral::PostVersion' }
 
     # Slugging
     extend FriendlyId
@@ -112,9 +112,7 @@ module Integral
     private
 
     def set_slug
-      if slug_changed? && Post.exists_by_friendly_id?(slug)
-        self.slug = resolve_friendly_id_conflict([slug])
-      end
+      self.slug = resolve_friendly_id_conflict([slug]) if slug_changed? && Post.exists?(slug: slug)
     end
 
     def set_published_at

@@ -20,7 +20,7 @@ module Integral
     has_many :list_items
 
     # Version Tracking
-    has_paper_trail class_name: 'Integral::ImageVersion'
+    has_paper_trail versions: { class_name: 'Integral::ImageVersion' }
 
     # Scopes
     scope :search, ->(query) { where('lower(title) LIKE ?', "%#{query.downcase}%") }

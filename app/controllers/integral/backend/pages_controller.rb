@@ -17,6 +17,7 @@ module Integral
       # @return [BasePolicy] current authorization policy
       def current_policy
         return policy(@page) if @page
+
         policy(Integral::Page.new)
       end
       helper_method :current_policy

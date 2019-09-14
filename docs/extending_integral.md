@@ -97,7 +97,7 @@ Update the empty `SpecialOffer` model with the following;
 # app/models/special_offer.rb
 
 class SpecialOffer < ApplicationRecord
-  has_paper_trail class_name: 'SpecialOfferVersion'
+  has_paper_trail versions: {class_name: "SpecialOfferVersion"}
 
   # Validations
   validates :title, :description, :body, :discount, presence: true

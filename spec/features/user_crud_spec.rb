@@ -24,7 +24,7 @@ module Integral
         fill_in 'Email', with: builder.email
       end
 
-      click_on 'Invite User'
+      click_on 'Create User'
 
       expect(page).to have_content I18n.t('integral.backend.users.notification.creation_success')
       expect(page).to have_content builder.name

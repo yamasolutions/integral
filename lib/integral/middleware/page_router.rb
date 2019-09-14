@@ -55,8 +55,8 @@ module Integral
 
         rewritten_path = "/pages/#{page_id}"
         env['PATH_INFO'] = rewritten_path
-      rescue StandardError => error
-        handle_rewrite_error(error)
+      rescue StandardError => e
+        handle_rewrite_error(e)
       end
 
       # Homepage ID as defined by User within backend settings

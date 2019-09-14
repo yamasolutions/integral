@@ -20,7 +20,7 @@ module Integral
     accepts_nested_attributes_for :list_items, reject_if: :all_blank, allow_destroy: true
 
     # Version Tracking
-    has_paper_trail class_name: 'Integral::ListVersion'
+    has_paper_trail versions: { class_name: 'Integral::ListVersion' }
 
     # Scopes
     scope :visible, -> { where(hidden: false) }

@@ -59,8 +59,8 @@ module Integral
       return widget_not_available_message unless widget.present?
 
       widget[1].constantize.render(options)
-    rescue StandardError => error
-      respond_with_widget_error(error)
+    rescue StandardError => e
+      respond_with_widget_error(e)
     end
 
     # Handles widget errors

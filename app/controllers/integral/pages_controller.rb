@@ -10,7 +10,7 @@ module Integral
       @meta_data = {
         page_title: @page.title,
         page_description: @page.description,
-        open_graph:  {
+        open_graph: {
           image: @page.image&.url(:large)
         }
       }

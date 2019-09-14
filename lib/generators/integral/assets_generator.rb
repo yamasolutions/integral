@@ -6,7 +6,7 @@ module Integral
     # @example Generate all Integral assets
     #   rails g integral:assets --assets 'backend frontend email'
     class AssetsGenerator < Rails::Generators::Base
-      source_root File.expand_path('../../../../app/assets', __FILE__)
+      source_root File.expand_path('../../../app/assets', __dir__)
       class_option :asset_list, aliases: '-a', type: :array, default: 'frontend'
       desc 'Copies Integral assets to your application'
 

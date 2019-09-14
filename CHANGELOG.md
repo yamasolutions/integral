@@ -18,7 +18,8 @@ recommendations of [keepachangelog.com](http://keepachangelog.com/).
 -
 
 ### Dependancies
--
+- Rails - Update to 5.2.x
+
 
 ## v1.2.0 - 2019-09-14
 

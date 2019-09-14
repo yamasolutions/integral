@@ -7,6 +7,23 @@ recommendations of [keepachangelog.com](http://keepachangelog.com/).
 
 ### Breaking Changes
 
+-
+
+### Added
+
+-
+
+### Fixed
+
+-
+
+### Dependancies
+-
+
+## v1.2.0 - 2019-09-14
+
+### Breaking Changes
+
 - Removed Pickadate - Use Jquery Datepicker instead
 
 ### Added

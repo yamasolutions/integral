@@ -3,7 +3,7 @@ jobs:
   build:
     working_directory: ~/integral
     docker:
-      - image: circleci/ruby:2.4.1-node-browsers
+      - image: circleci/ruby:2.6.4-node-browsers
         environment:
           RAILS_ENV: test
     steps:

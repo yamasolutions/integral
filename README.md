@@ -3,7 +3,7 @@
 # Integral CMS
 ![Integral CMS Features](https://media.giphy.com/media/LwzTKp4PxFpvKfxMJe/giphy.gif)
 
-Integral is a CMS for Rails 5+. The aim of Integral is to lower the barrier of entry in creating websites, using Ruby on Rails, with all the bells and whistles that users have now come to expect.
+Integral is a CMS for Rails 6+. The aim of Integral is to lower the barrier of entry in creating websites, using Ruby on Rails, with all the bells and whistles that users have now come to expect.
 Out of the box integral provides;
 * Backend features
     * Professional design
@@ -48,7 +48,7 @@ Rails.application.routes.default_url_options[:host] = 'http://localhost:3000'
 
 Voila! Start your rails server and you're ready to go! You can access the user only area at `/admin`
 
-Integral requires Rails 5.1 or higher and Ruby 2.4.1 or higher.
+Integral requires Rails 6.0 or higher and Ruby 2.6.4 or higher.
 
 ## Information
 

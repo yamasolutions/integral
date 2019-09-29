@@ -32,6 +32,12 @@
               %hr.dark
               = f.button :button if f.object.persisted?
         .cell
+          .card
+            .card-section
+              %h2= t('integral.records.attributes.category')
+              %hr.dark
+              = f.input :category_id, collection: Integral::Category.all.map{ |category| [category.title, category.id] }, label: false
+        .cell
           .card.initial-overflow
             .card-section
               %h2= t('integral.records.attributes.tags')

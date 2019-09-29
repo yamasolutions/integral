@@ -1,0 +1,5 @@
+= render layout: 'integral/shared/blog_layout', locals: { title: "##{@resource.title}", subtitle: t('.subtitle'), image: image_url('integral/posts-hero-banner.jpg')} do
+  %ul.post-list
+    - @posts.decorate.each do |post|
+      %li= render partial: 'integral/posts/item', locals: { post: post }
+  = will_paginate @posts, renderer: FoundationPagination::Rails

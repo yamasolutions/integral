@@ -11,7 +11,7 @@ recommendations of [keepachangelog.com](http://keepachangelog.com/).
 
 ### Added
 
--
+- Added Post Categories - Every post must have one category
 
 ### Fixed
 

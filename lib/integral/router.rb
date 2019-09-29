@@ -33,6 +33,7 @@ module Integral
         if Integral.blog_enabled?
           scope Integral.blog_namespace do
             resources :tags, only: %i[index show]
+            resources :categories, only: %i[show]
           end
           # Post Routing must go after tags otherwise it will override
           resources Integral.blog_namespace, only: %i[show index], as: :posts, controller: 'posts'

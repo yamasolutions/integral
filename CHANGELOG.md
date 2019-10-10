@@ -15,7 +15,7 @@ recommendations of [keepachangelog.com](http://keepachangelog.com/).
 
 ### Fixed
 
--
+- Lists - Unescape URLs within the renderer rather than on the view (handles nil cases)
 
 ### Dependancies
 -

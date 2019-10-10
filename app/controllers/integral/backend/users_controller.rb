@@ -69,6 +69,10 @@ module Integral
 
       private
 
+      def white_listed_grid_params
+        %i[descending order page user action object name status]
+      end
+
       def resource_klass
         Integral::User
       end

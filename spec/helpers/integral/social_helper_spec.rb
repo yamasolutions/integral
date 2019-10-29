@@ -68,23 +68,6 @@ module Integral
         end
       end
 
-      describe '#google_plus_share_url' do
-        let(:share_url) { 'https://plus.google.com/share?url=http%3A%2F%2Ftest.host' }
-        let(:share_url_custom) { 'https://plus.google.com/share?url=https%3Ayamasolutions.com' }
-
-        context 'when no options are provided' do
-          it 'returns default share url' do
-            expect(helper.google_plus_share_url).to eq share_url
-          end
-        end
-
-        context 'when a URL is provided' do
-          it 'returns share url with a custom url' do
-            expect(helper.google_plus_share_url(url: url)).to eq share_url_custom
-          end
-        end
-      end
-
       describe '#facebook_share_url' do
         let(:share_url) { 'https://facebook.com/sharer/sharer.php?u=http%3A%2F%2Ftest.host' }
         let(:share_url_custom) { 'https://facebook.com/sharer/sharer.php?u=https%3Ayamasolutions.com' }

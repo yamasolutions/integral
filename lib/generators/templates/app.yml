@@ -8,7 +8,6 @@ defaults: &defaults
   # github_url: https://github.com/yamasolutions/integral
   # twitter_url: https://twitter.com/yama_solutions
   # facebook_url: https://www.facebook.com/yamasolutions
-  # google_plus_url: https://plus.google.com/communities/101878695540653445908
   # linkedin_url: https://www.linkedin.com/in/barackobama/
   # youtube_url: https://www.youtube.com/channel/UCUkM9uMpWatT7gVWShgtKFw
   # instagram_url: https://www.instagram.com/jerryoftheday

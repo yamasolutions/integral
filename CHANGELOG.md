@@ -7,6 +7,49 @@ recommendations of [keepachangelog.com](http://keepachangelog.com/).
 
 ### Breaking Changes
 
+-
+
+### Added
+
+-
+
+### Fixed
+
+- Lists - Unescape URLs within the renderer rather than on the view (handles nil cases)
+- Users - Searching by name in backend
+- Post cloning - Do not copy over `published_at`
+- Record Selector - Fix image not displaying correctly in details sidebar
+
+### Performance
+
+- Frontend Post Index - Remove N+1 for user & images
+
+
+### Dependancies
+-
+
+## v1.3.0 - 2019-09-14
+
+### Breaking Changes
+
+-
+
+### Added
+
+-
+
+### Fixed
+
+-
+
+### Dependancies
+- Rails - Update to 5.2.x
+
+
+## v1.2.0 - 2019-09-14
+
+### Breaking Changes
+
 - Removed Pickadate - Use Jquery Datepicker instead
 
 ### Added
@@ -30,12 +73,8 @@ recommendations of [keepachangelog.com](http://keepachangelog.com/).
 - Backend - Reduce duplication within controllers
 - Posts - Fix filtering
 - List Management - Unescape special characters when displaying URLs of objects
-- Post cloning - Do not copy over `published_at`
-- Record Selector - Fix image not displaying correctly in details sidebar
-
-### Performance
-
-- Frontend Post Index - Remove N+1 for user & images
+- Readded instagram URL editing in backend & remove Google+
+- Move ApplicatonController's override of render to public
 
 ### Dependancies
 

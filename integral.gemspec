@@ -49,7 +49,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'parsley-rails', '~> 2.4.4' # Jquery form validation plugin
   s.add_dependency 'premailer-rails' # Stylesheet inlining for email
   s.add_dependency 'pundit', '~> 1.1' # Authorization
-  s.add_dependency 'rails', '~> 5.1'
+  s.add_dependency 'rails', '~> 5.2'
   s.add_dependency 'rails-settings-cached', '~> 0.6' # Persisted settings
   # s.add_dependency 'rails5_before_render', '~> 0.3' # Callbacks after an action before rendering
   s.add_dependency 'sass-rails', '~> 5.0' # Sass
@@ -67,14 +67,15 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'faker', '~> 1.6' # Random data generator
   s.add_development_dependency 'pry-rails', '~> 0.3' # Debugger
   s.add_development_dependency 'rails-controller-testing', '~> 1.0' # Rails controller testing
-  s.add_development_dependency 'rspec-rails', '~> 3.5' # Testing framework
+  s.add_development_dependency 'rspec-rails', '~> 3.8' # Testing framework
   s.add_development_dependency 'generator_spec', '~> 0.9' # Testing framework
   s.add_development_dependency 'shoulda-matchers', '~> 3.1' # Extra matchers for testing
-  s.add_development_dependency 'sqlite3', '~> 1.3' # Database
+  s.add_development_dependency 'sqlite3', '~> 1.4.0' # Database
 
   s.add_development_dependency 'capybara', '~> 2.10' # Acceptance testing framework
   s.add_development_dependency 'launchy', '~> 2.4' # Automatically launch test pages
   s.add_development_dependency 'poltergeist', '~> 1.11' # Headless Capybara driver for JS
+  s.add_development_dependency 'rspec-retry', '~> 0.6.1' # Retry flaky specs
 
   # CI, code coverage, analysis and documentation tools
   s.add_development_dependency 'brakeman', '~> 3.4' # Static security

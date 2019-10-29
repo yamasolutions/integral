@@ -277,14 +277,14 @@ en:
           google_tag_manager_id: GTM-xxxx
           twitter_url: https://twitter.com/rails
           facebook_url: https://www.facebook.com/groups/railsrocks
-          google_plus_url: https://plus.google.com/communities/101878695540653445908
+          instagram_url: https://www.instagram.com/jerryoftheday
+          github_url: https://github.com/yamasolutions/integral
           linkedin_url: https://www.linkedin.com/in/barackobama/
           youtube_url: https://www.youtube.com/channel/UCUkM9uMpWatT7gVWShgtKFw
-          instagram_url: jerryoftheday
           twitter_handler: rails
           facebook_app_id: 123456789
           homepage_id: 1
-        notification: 
+        notification:
           successful_update: Settings successfully updated.
       posts:
         grid:
@@ -460,9 +460,10 @@ en:
         google_tag_manager_id: Google Tag Manager ID
         twitter_url: Twitter profile URL
         facebook_url: Facebook profile URL
-        google_plus_url: Google Plus URL
         linkedin_url: LinkedIn profile URL
-        youtube_url: Youtube channel URL
+        youtube_url: YouTube channel URL
+        instagram_url: Instagram URL
+        github_url: GitHub URL
         facebook_app_id: Facebook app ID
         homepage_id: Homepage Page ID
         newsletter_api_key_id: Mailchimp API ID

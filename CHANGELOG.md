@@ -11,7 +11,8 @@ recommendations of [keepachangelog.com](http://keepachangelog.com/).
 
 ### Added
 
--
+- Gallery - Handles pausing YouTube videos on close
+- Gallery - When only one item is present no longer shows thumbnail gallery and gallery controls
 
 ### Fixed
 

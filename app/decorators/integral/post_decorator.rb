@@ -8,6 +8,7 @@ module Integral
       PaginatingDecorator
     end
 
+
     # @return [Hash] JSON-LD representing the instance
     def to_json_ld
       {
@@ -35,6 +36,13 @@ module Integral
         }
       }
     end
+
+    # @return [String] avatar image
+    def avatar
+      avatar_url = user&.avatar&.url(:thumbnail)
+      h.image_tag avatar_url, class: 'user-avatar' unless avatar_url.nil?
+    end
+
 
     # Tags to be used within the header of an article to describe the subject
     def header_tags

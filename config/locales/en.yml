@@ -76,6 +76,7 @@ en:
       copy_url: Copy URL
       copied: Copied
       search: Search
+      subscribe: Subscribe
       confirm: Confirm
       cancel: Cancel
     prompts:
@@ -135,6 +136,7 @@ en:
       home: Home
       posts: Posts
       post: Post
+      tags: Tags
       pages: Pages
       page: Page
       users: Users
@@ -155,6 +157,8 @@ en:
         subtitle: All things Integral
       show:
         subtitle: An interesting read
+        footer:
+          blurb: Have questions about this article, want to provide feedback or contact us for any reason? Get in touch with us today. We'd love to hear from you.
       item:
         read_more: Read More
     tags:
@@ -167,6 +171,7 @@ en:
         description: "All articles tagged %{tag_name} within our blog"
     blog:
       widgets:
+        most_read: Most Read Articles
         related_posts: Related Posts
         recent_posts: Recent Posts
         popular_posts: Popular Posts

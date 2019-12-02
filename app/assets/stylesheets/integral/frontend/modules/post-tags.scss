@@ -1,0 +1,19 @@
+.post-tags {
+  margin-left: 0;
+  margin-bottom: 0;
+  list-style: none;
+  li {
+    display: inline-block;
+    a {
+      @include label;
+      color: $white;
+      background-color: $dark-gray;
+      margin-bottom: 5px;
+      &:hover {
+        background-color: $primary-color;
+        cursor: pointer;
+      }
+    }
+  }
+}
+

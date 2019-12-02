@@ -1,0 +1,7 @@
+- cache [@popular_posts.map(&:id), @popular_posts.maximum(:updated_at)] do
+  .sidebar-widget
+    %h2.sidebar-widget-title= t('integral.blog.widgets.popular_posts')
+    .sidebar-articles
+      -# TODO: Use collection rendering - possibly create a post sidebar item partial?
+      - @popular_posts.decorate.each do |post|
+        = render 'integral/shared/sidebar_item', url: integral.post_url(post), image: post.image(:small), title: post.title, subtitle: t('integral.blog.posted_ago', time: time_ago_in_words(post.published_at))

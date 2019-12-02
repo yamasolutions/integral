@@ -1,0 +1,33 @@
+.piped-list {
+  @include clearfix;
+  margin-left: 0;
+  margin-bottom: 0;
+  list-style: none;
+  font-size: 14px;
+
+  > li {
+    float: left;
+    color: $dark-gray;
+
+    &:after {
+      content: "/";
+      padding: 0 8px;
+      color: $dark-gray;
+    }
+
+    &:last-child {
+      &:after {
+        content: "";
+        padding: 0;
+      }
+    }
+
+    > a {
+      color: $dark-gray;
+
+      &:hover {
+        color: $primary-color;
+      }
+    }
+  }
+}

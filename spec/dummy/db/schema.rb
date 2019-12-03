@@ -10,12 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_03_023045) do
+ActiveRecord::Schema.define(version: 2019_09_29_191412) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "ckeditor_assets", force: :cascade do |t|
+  create_table "ckeditor_assets", id: :serial, force: :cascade do |t|
     t.string "data_file_name", null: false
     t.string "data_content_type"
     t.integer "data_file_size"
@@ -30,7 +30,7 @@ ActiveRecord::Schema.define(version: 2019_12_03_023045) do
     t.index ["assetable_type", "type", "assetable_id"], name: "idx_ckeditor_assetable_type"
   end
 
-  create_table "friendly_id_slugs", force: :cascade do |t|
+  create_table "friendly_id_slugs", id: :serial, force: :cascade do |t|
     t.string "slug", null: false
     t.integer "sluggable_id", null: false
     t.string "sluggable_type", limit: 50
@@ -42,7 +42,15 @@ ActiveRecord::Schema.define(version: 2019_12_03_023045) do
     t.index ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type"
   end
 
-  create_table "integral_enquiries", force: :cascade do |t|
+  create_table "integral_categories", force: :cascade do |t|
+    t.string "title"
+    t.string "description"
+    t.string "slug"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "integral_enquiries", id: :serial, force: :cascade do |t|
     t.string "name"
     t.string "email"
     t.string "subject"
@@ -66,7 +74,7 @@ ActiveRecord::Schema.define(version: 2019_12_03_023045) do
     t.index ["item_type", "item_id"], name: "index_integral_image_versions_on_item_type_and_item_id"
   end
 
-  create_table "integral_images", force: :cascade do |t|
+  create_table "integral_images", id: :serial, force: :cascade do |t|
     t.string "title"
     t.string "description"
     t.string "file"
@@ -86,7 +94,7 @@ ActiveRecord::Schema.define(version: 2019_12_03_023045) do
     t.integer "child_id", null: false
   end
 
-  create_table "integral_list_items", force: :cascade do |t|
+  create_table "integral_list_items", id: :serial, force: :cascade do |t|
     t.integer "list_id"
     t.string "title"
     t.text "description"
@@ -103,7 +111,7 @@ ActiveRecord::Schema.define(version: 2019_12_03_023045) do
     t.datetime "updated_at"
   end
 
-  create_table "integral_list_versions", force: :cascade do |t|
+  create_table "integral_list_versions", id: :serial, force: :cascade do |t|
     t.string "item_type", null: false
     t.integer "item_id", null: false
     t.string "event", null: false
@@ -114,7 +122,7 @@ ActiveRecord::Schema.define(version: 2019_12_03_023045) do
     t.index ["item_type", "item_id"], name: "index_integral_list_versions_on_item_type_and_item_id"
   end
 
-  create_table "integral_lists", force: :cascade do |t|
+  create_table "integral_lists", id: :serial, force: :cascade do |t|
     t.string "title", null: false
     t.text "description"
     t.boolean "locked"
@@ -139,7 +147,7 @@ ActiveRecord::Schema.define(version: 2019_12_03_023045) do
     t.boolean "processed", default: false
   end
 
-  create_table "integral_page_versions", force: :cascade do |t|
+  create_table "integral_page_versions", id: :serial, force: :cascade do |t|
     t.string "item_type", null: false
     t.integer "item_id", null: false
     t.string "event", null: false
@@ -150,7 +158,7 @@ ActiveRecord::Schema.define(version: 2019_12_03_023045) do
     t.index ["item_type", "item_id"], name: "index_integral_page_versions_on_item_type_and_item_id"
   end
 
-  create_table "integral_pages", force: :cascade do |t|
+  create_table "integral_pages", id: :serial, force: :cascade do |t|
     t.string "title"
     t.string "path"
     t.text "description"
@@ -167,7 +175,7 @@ ActiveRecord::Schema.define(version: 2019_12_03_023045) do
     t.index ["image_id"], name: "index_integral_pages_on_image_id"
   end
 
-  create_table "integral_post_versions", force: :cascade do |t|
+  create_table "integral_post_versions", id: :serial, force: :cascade do |t|
     t.string "item_type", null: false
     t.integer "item_id", null: false
     t.string "event", null: false
@@ -178,7 +186,7 @@ ActiveRecord::Schema.define(version: 2019_12_03_023045) do
     t.index ["item_type", "item_id"], name: "index_integral_post_versions_on_item_type_and_item_id"
   end
 
-  create_table "integral_post_viewings", force: :cascade do |t|
+  create_table "integral_post_viewings", id: :serial, force: :cascade do |t|
     t.integer "post_id"
     t.string "ip_address"
     t.datetime "created_at", null: false
@@ -186,7 +194,7 @@ ActiveRecord::Schema.define(version: 2019_12_03_023045) do
     t.index ["post_id"], name: "index_integral_post_viewings_on_post_id"
   end
 
-  create_table "integral_posts", force: :cascade do |t|
+  create_table "integral_posts", id: :serial, force: :cascade do |t|
     t.string "title"
     t.string "description"
     t.text "body"
@@ -201,6 +209,8 @@ ActiveRecord::Schema.define(version: 2019_12_03_023045) do
     t.integer "image_id"
     t.integer "lock_version"
     t.integer "preview_image_id"
+    t.bigint "category_id"
+    t.index ["category_id"], name: "index_integral_posts_on_category_id"
     t.index ["deleted_at"], name: "index_integral_posts_on_deleted_at"
     t.index ["image_id"], name: "index_integral_posts_on_image_id"
     t.index ["preview_image_id"], name: "index_integral_posts_on_preview_image_id"
@@ -208,7 +218,7 @@ ActiveRecord::Schema.define(version: 2019_12_03_023045) do
     t.index ["user_id"], name: "index_integral_posts_on_user_id"
   end
 
-  create_table "integral_role_assignments", force: :cascade do |t|
+  create_table "integral_role_assignments", id: :serial, force: :cascade do |t|
     t.integer "user_id"
     t.integer "role_id"
     t.datetime "created_at", null: false
@@ -217,11 +227,11 @@ ActiveRecord::Schema.define(version: 2019_12_03_023045) do
     t.index ["user_id"], name: "index_integral_role_assignments_on_user_id"
   end
 
-  create_table "integral_roles", force: :cascade do |t|
+  create_table "integral_roles", id: :serial, force: :cascade do |t|
     t.string "name"
   end
 
-  create_table "integral_user_versions", force: :cascade do |t|
+  create_table "integral_user_versions", id: :serial, force: :cascade do |t|
     t.string "item_type", null: false
     t.integer "item_id", null: false
     t.string "event", null: false
@@ -232,7 +242,7 @@ ActiveRecord::Schema.define(version: 2019_12_03_023045) do
     t.index ["item_type", "item_id"], name: "index_integral_user_versions_on_item_type_and_item_id"
   end
 
-  create_table "integral_users", force: :cascade do |t|
+  create_table "integral_users", id: :serial, force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
@@ -253,8 +263,8 @@ ActiveRecord::Schema.define(version: 2019_12_03_023045) do
     t.datetime "invitation_sent_at"
     t.datetime "invitation_accepted_at"
     t.integer "invitation_limit"
-    t.integer "invited_by_id"
     t.string "invited_by_type"
+    t.integer "invited_by_id"
     t.integer "invitations_count", default: 0
     t.datetime "deleted_at"
     t.boolean "avatar_processing", default: true, null: false
@@ -276,7 +286,7 @@ ActiveRecord::Schema.define(version: 2019_12_03_023045) do
     t.index ["events"], name: "index_integral_webhook_endpoints_on_events"
   end
 
-  create_table "settings", force: :cascade do |t|
+  create_table "settings", id: :serial, force: :cascade do |t|
     t.string "var", null: false
     t.text "value"
     t.integer "thing_id"
@@ -286,19 +296,19 @@ ActiveRecord::Schema.define(version: 2019_12_03_023045) do
     t.index ["thing_type", "thing_id", "var"], name: "index_settings_on_thing_type_and_thing_id_and_var", unique: true
   end
 
-  create_table "taggings", force: :cascade do |t|
+  create_table "taggings", id: :serial, force: :cascade do |t|
     t.integer "tag_id"
-    t.integer "taggable_id"
     t.string "taggable_type"
-    t.integer "tagger_id"
+    t.integer "taggable_id"
     t.string "tagger_type"
+    t.integer "tagger_id"
     t.string "context", limit: 128
     t.datetime "created_at"
     t.index ["tag_id", "taggable_id", "taggable_type", "context", "tagger_id", "tagger_type"], name: "taggings_idx", unique: true
     t.index ["taggable_id", "taggable_type", "context"], name: "index_taggings_on_taggable_id_and_taggable_type_and_context"
   end
 
-  create_table "tags", force: :cascade do |t|
+  create_table "tags", id: :serial, force: :cascade do |t|
     t.string "name"
     t.integer "taggings_count", default: 0
     t.index ["name"], name: "index_tags_on_name", unique: true

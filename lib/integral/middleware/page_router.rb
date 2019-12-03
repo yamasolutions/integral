@@ -45,7 +45,7 @@ module Integral
       def category_identifier(path)
         return nil unless path.starts_with?("/#{Integral.blog_namespace}")
 
-        Integral::Category.select(:id, :slug).all.map {|category| [category.id, "/#{Integral.blog_namespace}/#{category.slug}" ]}.find {|category| category[1] == path}&.first
+        Integral::Category.select(:id, :slug).all.map { |category| [category.id, "/#{Integral.blog_namespace}/#{category.slug}"] }.find { |category| category[1] == path }&.first
       end
 
       # Converts the request path from human readable into something Rails router understands
@@ -62,12 +62,10 @@ module Integral
         else
           category_id = category_identifier(path)
 
-          if category_id
-            env['PATH_INFO'] = "/#{Integral.blog_namespace}/categories/#{category_id}"
-          end
+          env['PATH_INFO'] = "/#{Integral.blog_namespace}/categories/#{category_id}" if category_id
         end
-      rescue StandardError => error
-        handle_rewrite_error(error)
+      rescue StandardError => e
+        handle_rewrite_error(e)
       end
 
       # Homepage ID as defined by User within backend settings

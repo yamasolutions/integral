@@ -8,7 +8,6 @@ module Integral
       PaginatingDecorator
     end
 
-
     # @return [Hash] JSON-LD representing the instance
     def to_json_ld
       {
@@ -43,7 +42,6 @@ module Integral
       h.image_tag avatar_url, class: 'user-avatar' unless avatar_url.nil?
     end
 
-
     # Tags to be used within the header of an article to describe the subject
     def header_tags
       return I18n.t('integral.posts.show.subtitle') if object.tags_on('published').empty?
@@ -75,6 +73,7 @@ module Integral
     # Date the post was published
     def published_at
       return I18n.l(object.published_at, format: :blog) if object.published?
+
       'Not yet published'
     end
 

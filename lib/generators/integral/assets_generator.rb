@@ -6,7 +6,7 @@ module Integral
     # @example Generate all Integral assets
     #   rails g integral:assets --assets 'backend frontend email'
     class AssetsGenerator < Rails::Generators::Base
-      source_root File.expand_path('../../../../app/assets', __FILE__)
+      source_root File.expand_path('../../../app/assets', __dir__)
       class_option :asset_list, aliases: '-a', type: :array, default: 'frontend'
       desc 'Copies Integral assets to your application'
 
@@ -24,7 +24,7 @@ module Integral
         return unless options['asset_list'].include?('frontend')
 
         file 'javascripts/integral/frontend.js'
-        file 'stylesheets/integral/frontend.sass'
+        file 'stylesheets/integral/frontend.scss'
         directory 'stylesheets/integral/frontend'
       end
 

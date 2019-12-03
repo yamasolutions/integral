@@ -15,7 +15,7 @@ module Integral
 
         it 'creates frontend asset files' do
           assert_file 'app/assets/javascripts/integral/frontend.js'
-          assert_file 'app/assets/stylesheets/integral/frontend.sass'
+          assert_file 'app/assets/stylesheets/integral/frontend.scss'
           assert_directory 'app/assets/stylesheets/integral/frontend'
         end
 
@@ -39,7 +39,7 @@ module Integral
 
         it 'creates frontend asset files' do
           assert_file 'app/assets/javascripts/integral/frontend.js'
-          assert_file 'app/assets/stylesheets/integral/frontend.sass'
+          assert_file 'app/assets/stylesheets/integral/frontend.scss'
           assert_directory 'app/assets/stylesheets/integral/frontend'
         end
 

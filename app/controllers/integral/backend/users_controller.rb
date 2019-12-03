@@ -78,7 +78,9 @@ module Integral
       end
 
       def resource_params
-        return params.require(:user).permit(:name, :email, :avatar, :locale, role_ids: []) unless params[:user][:password].present?
+        unless params[:user][:password].present?
+          return params.require(:user).permit(:name, :email, :avatar, :locale, role_ids: [])
+        end
 
         params.require(:user).permit(:name, :email, :avatar, :locale, :password, :password_confirmation, role_ids: [])
       end

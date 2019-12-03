@@ -49,7 +49,10 @@ module Integral
     # Subject of the forwarding email
     # Adds the enquiry subject if it exists otherwise uses only reference
     def forwarding_subject(enquiry)
-      return "#{enquiry.reference} #{I18n.t('integral.contact_mailer.forward_enquiry.subject')}" if enquiry.subject.blank?
+      if enquiry.subject.blank?
+        return "#{enquiry.reference} #{I18n.t('integral.contact_mailer.forward_enquiry.subject')}"
+      end
+
       "#{enquiry.reference} #{I18n.t('integral.contact_mailer.forward_enquiry.subject')} - #{enquiry.subject}"
     end
   end

@@ -38,12 +38,14 @@ module Integral
     # Whether or not to display share widget
     def display_share_widget?
       return true if "#{controller_name}.#{action_name}" == 'posts.show'
+
       false
     end
 
     # Whether or not to display recent posts sidebar widget
     def display_recent_posts_widget?
       return false if "#{controller_name}.#{action_name}" == 'posts.index'
+
       true
     end
 

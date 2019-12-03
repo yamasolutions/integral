@@ -15,7 +15,9 @@ module Integral
 
       # Renders a grid from a local partial within a datagrid container
       def render_data_grid
-        return content_tag(:div, render(partial: 'grid', locals: { grid: @grid }), data: { 'grid' => true, 'form' => 'grid_form' }) unless block_given?
+        unless block_given?
+          return content_tag(:div, render(partial: 'grid', locals: { grid: @grid }), data: { 'grid' => true, 'form' => 'grid_form' })
+        end
 
         content_tag :div, data: { 'grid' => true, 'form' => 'grid_form' } do
           yield

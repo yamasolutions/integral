@@ -45,6 +45,7 @@ module Integral
     # @return [String] formatted attributes changed
     def attributes_changed
       return unless object.event == 'update'
+
       keys = ''
 
       object.changeset.each_key do |key|

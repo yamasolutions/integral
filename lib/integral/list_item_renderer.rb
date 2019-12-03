@@ -100,9 +100,9 @@ module Integral
       url = provide_attr(:url)
 
       return url if url.nil? || url.empty?
-      return url if url.match?(URI::DEFAULT_PARSER.make_regexp)
+      return CGI.unescape(url) if url.match?(URI::DEFAULT_PARSER.make_regexp)
 
-      "#{Rails.application.routes.default_url_options[:host]}#{url}"
+      CGI.unescape("#{Rails.application.routes.default_url_options[:host]}#{url}")
     end
 
     # @return [String] subtitle of list item

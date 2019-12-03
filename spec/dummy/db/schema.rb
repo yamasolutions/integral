@@ -10,7 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_11_234446) do
+ActiveRecord::Schema.define(version: 2019_12_03_023045) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "ckeditor_assets", force: :cascade do |t|
     t.string "data_file_name", null: false
@@ -57,8 +60,8 @@ ActiveRecord::Schema.define(version: 2018_10_11_234446) do
     t.integer "item_id", null: false
     t.string "event", null: false
     t.string "whodunnit"
-    t.text "object", limit: 1073741823
-    t.text "object_changes", limit: 1073741823
+    t.text "object"
+    t.text "object_changes"
     t.datetime "created_at"
     t.index ["item_type", "item_id"], name: "index_integral_image_versions_on_item_type_and_item_id"
   end
@@ -105,8 +108,8 @@ ActiveRecord::Schema.define(version: 2018_10_11_234446) do
     t.integer "item_id", null: false
     t.string "event", null: false
     t.string "whodunnit"
-    t.text "object", limit: 1073741823
-    t.text "object_changes", limit: 1073741823
+    t.text "object"
+    t.text "object_changes"
     t.datetime "created_at"
     t.index ["item_type", "item_id"], name: "index_integral_list_versions_on_item_type_and_item_id"
   end
@@ -141,8 +144,8 @@ ActiveRecord::Schema.define(version: 2018_10_11_234446) do
     t.integer "item_id", null: false
     t.string "event", null: false
     t.string "whodunnit"
-    t.text "object", limit: 1073741823
-    t.text "object_changes", limit: 1073741823
+    t.text "object"
+    t.text "object_changes"
     t.datetime "created_at"
     t.index ["item_type", "item_id"], name: "index_integral_page_versions_on_item_type_and_item_id"
   end
@@ -169,8 +172,8 @@ ActiveRecord::Schema.define(version: 2018_10_11_234446) do
     t.integer "item_id", null: false
     t.string "event", null: false
     t.string "whodunnit"
-    t.text "object", limit: 1073741823
-    t.text "object_changes", limit: 1073741823
+    t.text "object"
+    t.text "object_changes"
     t.datetime "created_at"
     t.index ["item_type", "item_id"], name: "index_integral_post_versions_on_item_type_and_item_id"
   end
@@ -223,8 +226,8 @@ ActiveRecord::Schema.define(version: 2018_10_11_234446) do
     t.integer "item_id", null: false
     t.string "event", null: false
     t.string "whodunnit"
-    t.text "object", limit: 1073741823
-    t.text "object_changes", limit: 1073741823
+    t.text "object"
+    t.text "object_changes"
     t.datetime "created_at"
     t.index ["item_type", "item_id"], name: "index_integral_user_versions_on_item_type_and_item_id"
   end
@@ -263,6 +266,14 @@ ActiveRecord::Schema.define(version: 2018_10_11_234446) do
     t.index ["invitations_count"], name: "index_integral_users_on_invitations_count"
     t.index ["invited_by_id"], name: "index_integral_users_on_invited_by_id"
     t.index ["reset_password_token"], name: "index_integral_users_on_reset_password_token", unique: true
+  end
+
+  create_table "integral_webhook_endpoints", force: :cascade do |t|
+    t.string "target_url", null: false
+    t.string "events", null: false, array: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["events"], name: "index_integral_webhook_endpoints_on_events"
   end
 
   create_table "settings", force: :cascade do |t|

@@ -12,11 +12,11 @@ FactoryBot.define do
   factory :integral_user, class: Integral::User, aliases: [:user] do
     name
     email
-    password               "password"
-    password_confirmation  "password"
+    password               { "password" }
+    password_confirmation  { "password" }
 
     factory :integral_admin_user do
-      admin 1
+      admin { 1 }
     end
 
     factory :settings_manager do
@@ -45,14 +45,14 @@ FactoryBot.define do
   end
 
   factory :role, class: Integral::Role do
-    name 'some_role'
+    name { 'some_role' }
   end
 
   factory :image, class: Integral::Image do
     title
     description
-    width 1
-    height 2
+    width { 1 }
+    height { 2 }
     file { Rack::Test::UploadedFile.new(File.join(Integral::Engine.root, 'spec', 'support', 'image.jpg')) }
   end
 
@@ -92,7 +92,7 @@ FactoryBot.define do
   end
 
   factory :integral_list_item_object, class: 'Integral::Object' do
-    object_type 0
+    object_type { 0 }
     object { create(:integral_post) }
   end
 

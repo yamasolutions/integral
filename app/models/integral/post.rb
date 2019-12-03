@@ -2,6 +2,8 @@ module Integral
   # Represents a user post
   class Post < ApplicationRecord
     include ActionView::Helpers::DateHelper
+    include Webhook::Observable
+
     acts_as_paranoid # Soft-deletion
     acts_as_listable if Integral.blog_enabled? # Listable Item
     acts_as_taggable # Tagging
@@ -31,6 +33,8 @@ module Integral
     # Callbacks
     before_save :set_published_at
     before_save :set_tags_context
+    after_update :deliver_published_webhook_on_update
+    after_create :deliver_published_webhook_on_create
 
     # Aliases
     alias author user
@@ -112,6 +116,10 @@ module Integral
 
     private
 
+    def webhook_payload
+      Integral::PostSerializer.new(self).serializable_hash
+    end
+
     def set_slug
       if slug_changed? && Post.exists_by_friendly_id?(slug)
         self.slug = resolve_friendly_id_conflict([slug])
@@ -145,6 +153,14 @@ module Integral
       end
       contexts.delete(tag_context)
       contexts
+    end
+
+    def deliver_published_webhook_on_update
+      deliver_webhook(:published) if status_changed? && published?
+    end
+
+    def deliver_published_webhook_on_create
+      deliver_webhook(:published) if published?
     end
   end
 end

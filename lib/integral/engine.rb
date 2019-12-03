@@ -35,7 +35,6 @@ module Integral
     # require 'before_render'
     require 'friendly_id'
     require 'acts-as-taggable-on'
-    require 'slack-notifier'
     require 'paranoia'
     require 'inky'
     require 'premailer/rails'
@@ -43,6 +42,7 @@ module Integral
     require 'will_paginate-foundation'
     require 'rails-settings-cached'
     require 'gaffe'
+    require 'fast_jsonapi'
 
     isolate_namespace Integral
 

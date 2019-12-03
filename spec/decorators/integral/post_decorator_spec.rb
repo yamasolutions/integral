@@ -48,7 +48,7 @@ module Integral
 
       context 'when tags exist' do
         it 'returns tags' do
-          expect(subject.header_tags).to eq 'foo-tag | bar-tag'
+          expect(subject.header_tags).to eq 'bar-tag | foo-tag'
         end
       end
     end

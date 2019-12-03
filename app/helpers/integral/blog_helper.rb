@@ -51,5 +51,15 @@ module Integral
     def display_popular_posts_widget?
       Integral::Post.published.count > 4
     end
+
+    # Whether or not to display most read widget
+    def display_most_read_posts_widget?
+      Integral::Post.published.count > 10
+    end
+
+    # TODO: Change this to use GA API through a GoogleAnalyticsService
+    def most_read_posts
+      @popular_posts.decorate
+    end
   end
 end

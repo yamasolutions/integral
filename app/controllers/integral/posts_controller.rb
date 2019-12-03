@@ -9,10 +9,12 @@ module Integral
     # List blog posts
     def index
       add_breadcrumb I18n.t('integral.breadcrumbs.blog'), nil
+      @latest_post = Integral::Post.published.order('published_at DESC').first.decorate
       @posts = Integral::Post.published.includes(:image, :user).order('published_at DESC').paginate(page: params[:page])
+      @posts = @posts.where.not(id: @latest_post.id) if @latest_post
     end
 
-    # GET /blog.slug
+    # GET /<post.slug>
     # Presents blog postings
     def show
       add_breadcrumb I18n.t('integral.breadcrumbs.blog'), :posts_url

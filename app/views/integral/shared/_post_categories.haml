@@ -1,0 +1,15 @@
+.grid-container
+  %h2.blog-subheading= t('integral.blog.widgets.categories')
+  .scroll-container{ 'data-item-width' => 250 }
+    .grid-x.grid-margin-x.scroll-wrapper
+      - categories = ['Category 1', 'Category 2', 'Category 3']
+      - categories.each do |category|
+        .cell.medium-3
+          .list-widget
+            .list-widget-image
+              = link_to root_path do
+                .list-widget-tag= category
+            %ul.no-bullet
+              - Integral::Post.all.limit(4).decorate.each do |article|
+                %li= link_to article.title, integral.posts_path(article)
+

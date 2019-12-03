@@ -1,7 +1,17 @@
 = render_posts_as_json_ld(@posts.decorate)
 
-= render layout: 'integral/shared/blog_layout', locals: { title: t('.title'), subtitle: t('.subtitle'), image: image_url('integral/posts-hero-banner.jpg') } do
-  %ul.post-list
-    - @posts.decorate.each do |post|
-      %li= render partial: 'integral/posts/item', locals: { post: post }
-  = will_paginate @posts, renderer: FoundationPagination::Rails
+= render partial: 'integral/shared/breadcrumbs'
+.grid-container
+  %h1= t('.title')
+  .grid-x.grid-padding-x
+    .cell.small-12.large-9{ 'data-post-list' => true }
+      - if @latest_post.present?
+        = render partial: 'latest_post', locals: { post: @latest_post }
+      = render partial: @posts.decorate, cached: true
+      = render partial: 'most_read_section' if display_most_read_posts_widget?
+      .center= will_paginate @posts, renderer: FoundationPagination::Rails
+    .cell.small-12.large-3
+      = render partial: 'integral/shared/blog_sidebar'
+= render partial: 'integral/shared/post_categories'
+= render partial: 'integral/shared/share_modal'
+

@@ -33,6 +33,39 @@ function ready() {
   new RemoteForm($('.remote-form'));
   new DatePicker('.datepicker');
   GoogleAnalytics.trackRead();
+
+  // Move most read posts widget to middle of post listing (can't do this serverside due to caching)
+  $mostReadWidget = $('[data-most-read-posts]');
+  if ($mostReadWidget.length == 1) {
+    $('[data-most-read-posts]').insertAfter('[data-post-list] div:nth-child(5)');
+  }
+
+  // Scroll Container
+  // TODO
+  // in future allow to configure each scroll-container how it activiates
+  // also update when changing size
+  $(".scroll-container").each(function( index ) {
+    container = $(this);
+    wrapper = container.find('.scroll-wrapper');
+    visibleChildren = wrapper.children(':visible');
+    //elementWidth = '250';
+    elementWidth = parseInt(container.data('item-width'))
+
+    validSizes = ['small', 'medium']
+    //if (Foundation.MediaQuery.current == 'small') {
+    if (validSizes.includes(Foundation.MediaQuery.current)) {
+
+      visibleChildren.each(function(index) {
+        $(this).css('width', elementWidth);
+        $(this).css('max-width', 'unset');
+      });
+
+      firstChild = visibleChildren.first()
+      wrapperWidth = (elementWidth + (parseInt(firstChild.css('marginLeft')) + parseInt(firstChild.css('marginRight')))) * visibleChildren.size();
+      widthCss = wrapperWidth + 'px';
+      wrapper.css('width', widthCss);
+    }
+  });
 };
 
 // Initial Page load event handler

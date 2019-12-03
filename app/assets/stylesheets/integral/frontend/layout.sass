@@ -8,7 +8,7 @@
 main
   position: relative
 
-header
+.body-header
   position: sticky
   z-index: 999
   top: 0
@@ -20,7 +20,7 @@ header
     @include breakpoint(small down)
       @include top-bar-unstack
 
-header, .off-canvas
+.body-header, .off-canvas
   ul.menu a
     color: $black
     font-weight: bold
@@ -47,7 +47,7 @@ header, .off-canvas
     display: block
     margin: 2rem 0
 
-footer
+.body-footer
   background-color: #212121
   color: $white
   padding: 2rem 0

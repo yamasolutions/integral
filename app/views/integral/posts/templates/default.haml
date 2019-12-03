@@ -1,37 +1,44 @@
 = render_post_as_json_ld(@post)
-= link_to 'Edit', edit_backend_post_url(@post.id), class: 'button primary button--edit-resource', data: { 'turbolinks' => 'false' } if current_user.present?
-= link_to posts_url, class: 'view-all' do
-  = icon('list')
-  VIEW ALL BLOG POSTS
-= render layout: 'integral/shared/blog_layout', locals: { title: @post.title, subtitle: @post.header_tags, image: @post.image(:large) } do
-  %p
-    %span.post-date= @post.published_at
-  %article#post-content.wysiwyg-content
-    = @post.body.html_safe
+-# = link_to 'Edit', edit_backend_post_url(@post.id), class: 'button primary button--edit-resource', data: { 'turbolinks' => 'false' } if current_user.present?
+-# = link_to posts_url, class: 'view-all' do
+-#   = icon('list')
+-#   VIEW ALL BLOG POSTS
 
-  .share-widget
-    %p
-      %span{ 'data-open' => 'share-modal' }= t('integral.actions.share')
-      = link_to facebook_share_url, target: :blank do
-        = icon('facebook')
-      = link_to twitter_share_url(message: @post.title), target: :blank do
-        = icon('twitter')
-      = link_to linkedin_share_url(message: @post.title), target: :blank do
-        = icon('linkedin')
 
-  %ul.tag-list.left
-    - @post.tags_on(@post.tag_context).each do |tag|
-      %li.post-tag
-        = link_to tag_url(tag.name) do
-          = tag.name
+= render partial: 'integral/shared/breadcrumbs'
+.grid-container
+  .grid-x.grid-padding-x
+    .cell.small-12.large-9
+      %article.article
+        %header
+          %h1
+            = @post.title
+            - if user_signed_in?
+              %span.label.entity-status{ class: @post.status }= @post.status
+              %span.small= link_to 'Edit', integral.edit_backend_post_url(@post.id), class: "button medium", data: { 'turbolinks' => 'false' }
+          .grid-x
+            .cell.small-8
+              .article-author
+                %span= @post.avatar
+                = @post.author.name
+              %ul.list-unstyled.piped-list
+                %li= @post.published_at
+                %li= link_to 'Category', root_url
+            .cell.small-4.text-right
+              %button.button{ 'data-open' => 'share-modal' }
+                = icon('share', class: 'show-for-medium')
+                SHARE
 
-  - if @related_posts.present?
-    %section.related-posts
-      %h3= t('integral.blog.widgets.related_posts')
-      .grid-x.grid-padding-x
-        - Integral::PostDecorator.decorate_collection(@related_posts).each do |p|
-          .cell.medium-4
-            = link_to integral.post_url(p) do
-              = image_tag p.image(:medium)
-              %h5= p.title
-            %span.subtitle= p.published_at
+        %section.wysiwyg-content
+          = @post.body.html_safe
+        = render partial: 'integral/posts/article_footer'
+      .hide-for-large= render partial: 'similar_posts'
+
+    .cell.small-12.large-3
+      = render partial: 'integral/shared/blog_sidebar'
+
+.grid-container.show-for-large
+  = render partial: 'similar_posts'
+= render partial: 'integral/shared/post_categories'
+= render partial: 'integral/shared/share_modal'
+= render partial: 'integral/shared/subscribe_modal'

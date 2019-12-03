@@ -1,0 +1,11 @@
+.horizontal-post
+  .grid-x.grid-padding-x
+    .cell.small-4
+      = link_to integral.post_url(post) do
+        = image_tag post.image
+    .cell.small-8.horizontal-post-body
+      %h3= link_to post.title, integral.post_url(post)
+      %p.show-for-medium= post.description
+      %ul.list-unstyled.piped-list
+        %li= post.published_at
+        %li= link_to 'Category', root_path

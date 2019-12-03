@@ -11,12 +11,20 @@ recommendations of [keepachangelog.com](http://keepachangelog.com/).
 
 ### Added
 
--
+- Add webhook management for Post creation, updates, deletion and publication
 
 ### Fixed
 
 - Lists - Unescape URLs within the renderer rather than on the view (handles nil cases)
 - Users - Searching by name in backend
+- Post cloning - Do not copy over `published_at`
+- Record Selector - Fix image not displaying correctly in details sidebar
+- Lists are touched when a list item is removed
+
+### Performance
+
+- Frontend Post Index - Remove N+1 for user & images
+
 
 ### Dependancies
 -
@@ -70,6 +78,7 @@ recommendations of [keepachangelog.com](http://keepachangelog.com/).
 - Move ApplicatonController's override of render to public
 
 ### Dependancies
+
 - Ckeditor - Update to 4.11.1
 
 ## v1.1.0 - 2018-12-24

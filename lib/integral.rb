@@ -5,7 +5,6 @@ require 'integral/version'
 require 'integral/router'
 require 'integral/middleware/page_router'
 require 'integral/engine'
-require 'integral/slack_bot'
 require 'integral/button_link_renderer'
 require 'integral/google_tag_manager'
 require 'integral/foundation_builder'
@@ -117,10 +116,6 @@ module Integral
   #
   mattr_accessor :editable_persisted_images
   @@editable_persisted_images = false
-
-  #
-  mattr_accessor :slack_web_hook_url
-  @@slack_web_hook_url = nil
 
   #
   mattr_accessor :description_length_maximum

@@ -8,7 +8,7 @@ jobs:
           RAILS_ENV: test
           PG_HOST: localhost
           PG_USER: ubuntu
-      - image: postgres:9.6-jessie
+      - image: postgres:9.6.7
         environment:
           POSTGRES_USER: ubuntu
           POSTGRES_DB: integral_test

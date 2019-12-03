@@ -9,6 +9,7 @@ module Integral
 
     # Associations
     has_many :posts
+    belongs_to :image, class_name: 'Integral::Image', optional: true
 
     # Validations
     # validates_format_of :slug, :with => /\A[a-z0-9]+\z/i - Need to allow hypthens

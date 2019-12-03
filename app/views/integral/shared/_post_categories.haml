@@ -2,14 +2,17 @@
   %h2.blog-subheading= t('integral.blog.widgets.categories')
   .scroll-container{ 'data-item-width' => 250 }
     .grid-x.grid-margin-x.scroll-wrapper
-      - categories = ['Category 1', 'Category 2', 'Category 3']
-      - categories.each do |category|
+      - Integral::Category.where(id: Integral::Post.published.select(:category_id).uniq.map(&:category_id)).each do |category|
         .cell.medium-3
           .list-widget
             .list-widget-image
-              = link_to root_path do
-                .list-widget-tag= category
+              = link_to integral.category_path(category.slug) do
+                - if category.image.present?
+                  = image_tag category.image.url
+                - else
+                  = image_tag image_url('integral/image-not-set.png')
+                .list-widget-tag= category.title
             %ul.no-bullet
-              - Integral::Post.all.limit(4).decorate.each do |article|
-                %li= link_to article.title, integral.posts_path(article)
+              - category.posts.published.limit(4).decorate.each do |post|
+                %li= link_to post.title, integral.post_path(post)
 

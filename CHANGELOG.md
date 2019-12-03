@@ -11,7 +11,7 @@ recommendations of [keepachangelog.com](http://keepachangelog.com/).
 
 ### Added
 
--
+- Add webhook management for Post creation, updates, deletion and publication
 
 ### Fixed
 

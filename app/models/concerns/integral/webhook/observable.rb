@@ -1,5 +1,6 @@
 module Integral
   module Webhook
+    # Helper to deliver webhooks for each of the 3 major model lifestyle events - creation, update and deletion
     module Observable
       extend ActiveSupport::Concern
       include Webhook::Delivery

@@ -2,8 +2,9 @@ require 'net/http'
 
 module Integral
   module Webhook
+    # Handles the delivery of a webhook event payload to a webhook endpoint
     class DeliveryJob < ApplicationJob
-
+      # Delivers webhook payload to endpoint
       def perform(endpoint_id, payload)
         return unless endpoint = Webhook::Endpoint.find(endpoint_id)
 

@@ -1,4 +1,5 @@
 module Integral
+  # Used too transform Integral::Post records into JSON format
   class PostSerializer
     include FastJsonapi::ObjectSerializer
 
@@ -9,7 +10,7 @@ module Integral
     end
 
     attribute :tags do |post|
-      post.tags.map { |tag| tag.name }.join(',')
+      post.tags.map(&:name).join(',')
     end
 
     attribute :featured_image do |post|

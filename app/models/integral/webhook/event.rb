@@ -1,5 +1,7 @@
 module Integral
+  # Webhook Implementation source from - https://benediktdeicke.com/2017/09/sending-webhooks-with-rails/
   module Webhook
+    # An event instance which a Webhook::Endpoint might be listening too, for example a post publication, creation or deletion
     class Event
       attr_reader :event_name, :payload
 
@@ -8,7 +10,8 @@ module Integral
         @payload = payload
       end
 
-      def as_json(*args)
+      # Adds the event_name to the JSON representation
+      def as_json(*_args)
         payload[:event_name] = event_name
         payload
       end

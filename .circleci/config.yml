@@ -6,12 +6,13 @@ jobs:
       - image: circleci/ruby:2.4.1-node-browsers
         environment:
           RAILS_ENV: test
-          PG_HOST: localhost
-          PG_USER: ubuntu
+          PGHOST: localhost
+          PGUSER: integral
       - image: postgres:9.6.7
         environment:
-          POSTGRES_USER: ubuntu
+          POSTGRES_USER: integral
           POSTGRES_DB: integral_test
+          POSTGRES_PASSWORD: ""
     steps:
       - checkout
 

@@ -4,4 +4,4 @@
     %ul.post-tags
       - @blog_tags.each do |tag|
         %li= link_to tag.name, tag_url(tag.name)
-  = link_to 'View All', root_url, class: 'sidebar-widget-link'
+  = link_to 'View All', integral.tags_url, class: 'sidebar-widget-link'

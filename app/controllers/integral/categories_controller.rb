@@ -10,7 +10,8 @@ module Integral
 
       @meta_data = {
         page_title: @resource.title,
-        page_description: @resource.description
+        page_description: @resource.description,
+        image: @resource&.image&.url
       }
 
       @posts = Integral::Post.published.where(category_id: @resource.id).paginate(page: params[:page])

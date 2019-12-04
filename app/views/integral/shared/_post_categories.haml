@@ -6,7 +6,7 @@
         .cell.medium-3
           .list-widget
             .list-widget-image
-              = link_to integral.category_path(category.slug) do
+              = link_to category_path(category) do
                 - if category.image.present?
                   = image_tag category.image.url
                 - else

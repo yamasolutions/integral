@@ -13,14 +13,14 @@ module Integral
     # @param posts [Integral::Post] collection of posts to convert to JSON-LD
     #
     # @return [String] Javascript snippet containing JSON-LD of the provided posts
-    def render_posts_as_json_ld(posts)
+    def render_posts_as_json_ld(posts, title: t('.title'), url: request.original_url, description: t('.description'))
       render_json_ld do
         {
           "@context": 'http://schema.org',
           "@type": 'Blog',
-          "name": t('.title'),
-          "url": request.original_url,
-          "description": t('.description'),
+          "name": title,
+          "url": url,
+          "description": description,
           "publisher": {
             "@type": 'Organization',
             "name": Integral::Settings.website_title

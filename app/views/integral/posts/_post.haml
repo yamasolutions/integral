@@ -8,4 +8,4 @@
       %p.show-for-medium= post.description
       %ul.list-unstyled.piped-list
         %li= post.published_at
-        %li= link_to post.category.title, integral.category_path(post.category.slug)
+        %li= link_to post.category.title, category_path(post.category)

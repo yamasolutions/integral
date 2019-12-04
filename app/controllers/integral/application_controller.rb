@@ -17,6 +17,11 @@ module Integral
       super
     end
 
+    helper_method :category_path
+    def category_path(category)
+      "/#{Integral.blog_namespace}/#{category.slug}"
+    end
+
     private
 
     # Actions that should be carried out before rendering

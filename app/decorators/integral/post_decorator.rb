@@ -2,6 +2,7 @@ module Integral
   # Page view-level logic
   class PostDecorator < Draper::Decorator
     delegate_all
+    decorates_association :category
 
     # Enables pagination
     def self.collection_decorator_class

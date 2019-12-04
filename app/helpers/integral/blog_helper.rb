@@ -1,6 +1,10 @@
 module Integral
   # Blog Helper which contains methods used through the blog
   module BlogHelper
+    def featured_categories
+      @featured_categories ||= Integral::Category.where(id: Integral::Post.published.select(:category_id).uniq.map(&:category_id))
+    end
+
     # @param post [Integral::Post] post to convert to JSON-LD
     #
     # @return [String] Javascript snippet containing JSON-LD of the provided post

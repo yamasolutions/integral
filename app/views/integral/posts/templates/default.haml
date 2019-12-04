@@ -18,12 +18,11 @@
                 = @post.author.name
               %ul.list-unstyled.piped-list
                 %li= @post.published_at
-                %li= link_to 'Category', root_url
+                %li= link_to @post.category.title, category_path(@post.category)
             .cell.small-4.text-right
               %button.button{ 'data-open' => 'share-modal' }
                 = icon('share', class: 'show-for-medium')
-                SHARE
-
+                = t('integral.actions.share')
         %section.wysiwyg-content
           = @post.body.html_safe
         = render partial: 'integral/posts/article_footer'

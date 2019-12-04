@@ -8,7 +8,7 @@ module Integral
     friendly_id :title
 
     # Associations
-    has_many :posts
+    has_many :posts # TODO: Touch the posts on change
     belongs_to :image, class_name: 'Integral::Image', optional: true
 
     # Validations

@@ -1,3 +1,3 @@
-= render layout: 'integral/shared/blog_layout', locals: { title: "##{@tag.name}" } do
+= render layout: 'integral/shared/blog/layout', locals: { title: "##{@tag.name}" } do
   = render partial: @tagged_posts.decorate, cached: true
   .center= will_paginate @tagged_posts, renderer: FoundationPagination::Rails

@@ -1,5 +1,5 @@
 = render_posts_as_json_ld(@posts.decorate, title: @resource.title, url: category_path(@resource), description: @resource.description)
 
-= render layout: 'integral/shared/blog_layout', locals: { title: @resource.title } do
+= render layout: 'integral/shared/blog/layout', locals: { title: @resource.title } do
   = render partial: @posts.decorate, cached: true
   .center= will_paginate @posts, renderer: FoundationPagination::Rails

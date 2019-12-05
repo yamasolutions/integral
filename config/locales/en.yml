@@ -92,6 +92,7 @@ en:
       archived: Archived
     records:
       attributes:
+        category: Category
         locale: Language
         image: Image
         featured_image: Featured Image

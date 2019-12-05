@@ -1,0 +1,10 @@
+.cell.small-12.large-3
+  - if display_newsletter_signup_widget?
+    = render partial: 'integral/shared/sidebar/newsletter_signup'
+
+  - if display_recent_posts_widget?
+    = render partial: 'integral/shared/sidebar/recent_posts'
+
+  - if display_popular_posts_widget?
+    = render partial: 'integral/shared/sidebar/popular_posts'
+  = render partial: 'integral/shared/sidebar/popular_tags'

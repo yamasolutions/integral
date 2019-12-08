@@ -226,25 +226,34 @@ function ready() {
   };
 
   // Material Tags
-  $("input[data-role=materialtags]").each(function( index ) {
-    suggestableInput = $(this)
-      typeaheadSuggestions = suggestableInput.data('typeahead').split(' ')
+  $("[data-suggest-tags]").each(function( index ) {
+    suggestableInput = $(this);
+    typeaheadSuggestions = suggestableInput.data('suggestTagsTypeahead').split(' ');
+    freeInput = suggestableInput.data('suggestTagsFreeInput');
 
-      // Initialize suggest engine
-      suggestEngine = new Bloodhound({
-        datumTokenizer: Bloodhound.tokenizers.whitespace,
-        queryTokenizer: Bloodhound.tokenizers.whitespace,
-        local: typeaheadSuggestions
-      });
+    if (typeof freeInput === 'undefined') {
+      freeInput = true;
+    }
+
+    // Initialize suggest engine
+    suggestEngine = new Bloodhound({
+      datumTokenizer: Bloodhound.tokenizers.whitespace,
+      queryTokenizer: Bloodhound.tokenizers.whitespace,
+      local: typeaheadSuggestions
+    });
 
     // Initialize materialtags
     suggestableInput.materialtags({
+      freeInput: freeInput,
       typeaheadjs: {
         source: function(query, cb) {
           suggestEngine.search(query, function(suggestions) {
             cb(filterSuggestions(suggestableInput, suggestions));
           });
-        }
+        },
+        // TODO: These two options don't currently work but would be nice to add in
+        autoselect: true,
+        highlight: true
       }
     });
   });

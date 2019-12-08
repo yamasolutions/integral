@@ -1,3 +1,4 @@
+/* Modified Version of - https://github.com/henrychavez/materialize-tags/blob/1.0.0/src/materialize-tags.js */
 (function ($)
 {
     "use strict";
@@ -440,50 +441,50 @@
 
                 switch (event.which)
                 {
-                    // BACKSPACE
-                    case 8:
-                        if (doGetCaretPosition($input[0]) === 0)
-                        {
-                            var prev = $inputWrapper.prev();
-                            if (prev)
-                            {
-                                self.remove(prev.data('item'));
-                            }
-                        }
-                        break;
-
-                    // DELETE
-                    case 46:
-                        if (doGetCaretPosition($input[0]) === 0)
-                        {
-                            var next = $inputWrapper.next();
-                            if (next)
-                            {
-                                self.remove(next.data('item'));
-                            }
-                        }
-                        break;
-
-                    // LEFT ARROW
-                    case 37:
-                        // Try to move the input before the previous tag
-                        var $prevTag = $inputWrapper.prev();
-                        if ($input.val().length === 0 && $prevTag[0])
-                        {
-                            $prevTag.before($inputWrapper);
-                            $input.focus();
-                        }
-                        break;
-                    // RIGHT ARROW
-                    case 39:
-                        // Try to move the input after the next tag
-                        var $nextTag = $inputWrapper.next();
-                        if ($input.val().length === 0 && $nextTag[0])
-                        {
-                            $nextTag.after($inputWrapper);
-                            $input.focus();
-                        }
-                        break;
+                    // // BACKSPACE
+                    // case 8:
+                    //     if (doGetCaretPosition($input[0]) === 0)
+                    //     {
+                    //         var prev = $inputWrapper.prev();
+                    //         if (prev)
+                    //         {
+                    //             self.remove(prev.data('item'));
+                    //         }
+                    //     }
+                    //     break;
+                    //
+                    // // DELETE
+                    // case 46:
+                    //     if (doGetCaretPosition($input[0]) === 0)
+                    //     {
+                    //         var next = $inputWrapper.next();
+                    //         if (next)
+                    //         {
+                    //             self.remove(next.data('item'));
+                    //         }
+                    //     }
+                    //     break;
+                    //
+                    // // LEFT ARROW
+                    // case 37:
+                    //     // Try to move the input before the previous tag
+                    //     var $prevTag = $inputWrapper.prev();
+                    //     if ($input.val().length === 0 && $prevTag[0])
+                    //     {
+                    //         $prevTag.before($inputWrapper);
+                    //         $input.focus();
+                    //     }
+                    //     break;
+                    // // RIGHT ARROW
+                    // case 39:
+                    //     // Try to move the input after the next tag
+                    //     var $nextTag = $inputWrapper.next();
+                    //     if ($input.val().length === 0 && $nextTag[0])
+                    //     {
+                    //         $nextTag.after($inputWrapper);
+                    //         $input.focus();
+                    //     }
+                    //     break;
                     default:
                     // ignore
                 }
@@ -513,6 +514,10 @@
                     $input.val('');
                     (self.$input.typeahead) && self.$input.typeahead("val","");
                     event.preventDefault();
+                }
+
+                if (!self.options.freeInput && keyCombinationInList(event, self.options.confirmKeys)) {
+                  event.preventDefault();
                 }
 
                 // Reset internal input's size

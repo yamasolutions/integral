@@ -12,6 +12,7 @@ recommendations of [keepachangelog.com](http://keepachangelog.com/).
 ### Added
 
 - Add webhook management for Post creation, updates, deletion and publication
+- Updated Suggest Tags input to accept freeInput option (defaults to true) - when set to false only provided typeahead tags are valid
 
 ### Fixed
 

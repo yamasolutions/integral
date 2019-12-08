@@ -418,7 +418,7 @@ en:
         description: "Summarise the content. This will be displayed in search results and is an important part of on-page SEO. <a target='_blank' href='https://moz.com/learn/seo/meta-description'>Learn More.</a>"
         path: Path to the record, this will be appended onto the website domain to create a URL. Example - /company/privacy-policy
         parent: "You can arrange your pages in hierarchies by selecting a top level page for your other pages. <a target='_blank' href='https://en.wikipedia.org/wiki/Breadcrumb_(navigation)#Websites'>Learn More.</a>"
-        #tag_list: Use key terms to summarise your content and seperate words with '-', i.e. internet-marketing-tips
+        tag_list: Use key terms to summarise your content and seperate words with '-', i.e. internet-marketing-tips
         template: Layout which will be used to render the page.
 
       image:

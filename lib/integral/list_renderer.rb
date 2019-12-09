@@ -79,6 +79,7 @@ module Integral
     def html_id
       return list.html_id if list.html_id.present?
       return opts[:html_id] if opts[:html_id].present?
+
       ''
     end
 

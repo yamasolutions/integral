@@ -48,9 +48,9 @@ module Integral
         @resource = User.invite!(resource_params, current_user)
 
         if @resource.errors.present?
-          respond_failure I18n.t('integral.backend.users.notification.creation_failure'), 'new'
+          respond_failure(notification_message('creation_failure'), 'new')
         else
-          respond_successfully I18n.t('integral.backend.users.notification.creation_success'), backend_user_path(@resource)
+          respond_successfully(notification_message('creation_success'), backend_user_path(@resource))
         end
       end
 
@@ -61,9 +61,9 @@ module Integral
         authorized_user_params.delete(:role_ids) unless policy(current_user).manager?
 
         if @resource.update(authorized_user_params)
-          respond_successfully I18n.t('integral.backend.users.notification.edit_success'), backend_user_path(@resource)
+          respond_successfully(notification_message('edit_success'), backend_user_path(@resource))
         else
-          respond_failure I18n.t('integral.backend.users.notification.edit_failure'), 'edit'
+          respond_failure(notification_message('edit_failure'), 'edit')
         end
       end
 
@@ -78,7 +78,9 @@ module Integral
       end
 
       def resource_params
-        return params.require(:user).permit(:name, :email, :avatar, :locale, role_ids: []) unless params[:user][:password].present?
+        unless params[:user][:password].present?
+          return params.require(:user).permit(:name, :email, :avatar, :locale, role_ids: [])
+        end
 
         params.require(:user).permit(:name, :email, :avatar, :locale, :password, :password_confirmation, role_ids: [])
       end

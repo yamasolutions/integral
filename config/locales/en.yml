@@ -180,6 +180,21 @@ en:
           submit: Sign Up
           success: Great choice! Stay tuned for some quality content direct to your inbox.
     backend:
+      titles:
+        new: "New %{type_singular}"
+        create: "Create %{type_singular}"
+        edit: "Edit %{type_singular}"
+        update: "Update %{type_singular}"
+        index: "%{type_plural}"
+      notifications:
+        clone_success: "%{type} successfully cloned."
+        clone_failure: "%{type} clone failed."
+        creation_success: "%{type} successfully created."
+        creation_failure: "%{type} creation failed."
+        edit_success: "%{type} successfully updated."
+        edit_failure: "%{type} update failed."
+        delete_success: "%{type} successfully deleted."
+        delete_failure: "%{type} deletion failed."
       graphs:
         data_unavailable: Data Unavailable
       cards:
@@ -247,15 +262,6 @@ en:
           columns:
             title: 'Title'
             description: 'Description'
-        notification:
-          clone_success: 'List successfully cloned.'
-          clone_failure: 'List clone failed.'
-          creation_success: 'List successfully created.'
-          creation_failure: 'List creation failed.'
-          edit_success: 'List successfully updated.'
-          edit_failure: 'Failed to update list.'
-          delete_success: 'List successfully deleted.'
-          delete_failure: 'Failed to delete list.'
       settings:
         index:
           title: Settings
@@ -307,15 +313,6 @@ en:
           title: 'New Post'
         activities:
           title: "Activities: %{title}"
-        notification:
-          clone_success: 'Post successfully cloned.'
-          clone_failure: 'Post clone failed.'
-          creation_success: 'Post successfully created.'
-          creation_failure: 'Post creation failed.'
-          edit_success: 'Post successfully updated.'
-          edit_failure: 'Failed to update post.'
-          delete_success: 'Post successfully deleted.'
-          delete_failure: 'Failed to delete post.'
       pages:
         templates:
           default: Default
@@ -333,15 +330,6 @@ en:
             description: 'Description'
             path: 'Path'
             last_updated_at: 'Last updated'
-        notification:
-          clone_success: 'Page successfully cloned.'
-          clone_failure: 'Page clone failed.'
-          creation_success: 'Page successfully created.'
-          creation_failure: 'Page creation failed.'
-          edit_success: 'Page successfully updated.'
-          edit_failure: 'Failed to update page.'
-          delete_success: 'Page successfully deleted.'
-          delete_failure: 'Failed to delete page.'
         edit:
           title: 'Editing page - %{title}'
         new:
@@ -355,15 +343,6 @@ en:
           title: 'Image listing'
           no_images_available: 'No images available. Try uploading some!'
           new_image: 'New image'
-        notification:
-          creation_success: 'Image successfully created.'
-          creation_failure: 'Image creation failed.'
-          edit_success: 'Image successfully updated.'
-          edit_failure: 'Failed to update Image.'
-          delete_success: 'Image successfully deleted.'
-          delete_failure: 'Failed to delete image.'
-        edit:
-          title: 'Editing image - %{name}'
       users:
         available_locales:
           en: English
@@ -371,13 +350,6 @@ en:
         status:
           draft: 'Draft'
           published: 'Published'
-        notification:
-          creation_success: 'User has been invited.'
-          creation_failure: 'User creation failed.'
-          edit_success: 'User successfully updated.'
-          edit_failure: 'Failed to update user.'
-          delete_success: 'User successfully deleted.'
-          delete_failure: 'Failed to delete user.'
         prompts:
           select_language: 'Select language..'
         grid:

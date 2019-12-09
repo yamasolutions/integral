@@ -6,7 +6,7 @@ module Integral
     # @example Generate all Integral views
     #   rails g integral:views --views 'backend frontend devise mailer'
     class ViewsGenerator < Rails::Generators::Base
-      source_root File.expand_path('../../../../app/views', __FILE__)
+      source_root File.expand_path('../../../app/views', __dir__)
       class_option :views, aliases: '-v', type: :array, default: 'frontend'
       desc 'Copies Integral views to your application'
 

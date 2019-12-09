@@ -24,6 +24,7 @@ module Integral
         data = process_data
 
         return respond_with_chart(data) if data_available?(data)
+
         respond_with_no_data_available
       end
 
@@ -64,6 +65,7 @@ module Integral
           data = data.map(&:uniq).uniq
 
           return true if data.length > 1
+
           data = data.first
         end
 

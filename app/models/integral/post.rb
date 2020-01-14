@@ -2,6 +2,8 @@ module Integral
   # Represents a user post
   class Post < ApplicationRecord
     include ActionView::Helpers::DateHelper
+    include LazyContentable
+
     acts_as_paranoid # Soft-deletion
     acts_as_listable if Integral.blog_enabled? # Listable Item
     acts_as_taggable # Tagging

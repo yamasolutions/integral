@@ -7,12 +7,6 @@ class this.Gallery
       url = event.currentTarget.dataset.url
       @open_or_create_gallery(target, url)
 
-    # Install YouTube library
-    tag = document.createElement('script')
-    tag.src = "https://www.youtube.com/iframe_api"
-    firstScriptTag = document.getElementsByTagName('script')[0]
-    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag)
-
   # Open Gallery or create new one
   @open_or_create_gallery: (id, url) =>
     return Gallery.handleError() if id == undefined
@@ -51,21 +45,21 @@ class this.Gallery
   _setupGallery: (data) =>
     # Copy gallery into Modal
     @$container.find('.content').html(data)
-    galleryContent = @$container.find('.content')
+    @$galleryContent = @$container.find('.content')
 
     @_setupYoutube()
 
-    mainSwiper = galleryContent.find('.main-swiper')
+    @$mainSwiper = @$galleryContent.find('.main-swiper')
     # Setup galleries (when present)
-    if mainSwiper.length > 0
-      projectGalleryTop = new Swiper(mainSwiper[0], {
+    if @$mainSwiper.length > 0
+      projectGalleryTop = new Swiper(@$mainSwiper[0], {
         spaceBetween: 10,
         navigation: {
           nextEl: '.swiper-button-next',
           prevEl: '.swiper-button-prev',
         },
       })
-      projectGalleryThumbs = new Swiper(galleryContent.find('.thumb-swiper'), {
+      projectGalleryThumbs = new Swiper(@$galleryContent.find('.thumb-swiper'), {
         spaceBetween: 10,
         centeredSlides: true,
         slidesPerView: 'auto',
@@ -75,24 +69,10 @@ class this.Gallery
       projectGalleryTop.controller.control = projectGalleryThumbs
       projectGalleryThumbs.controller.control = projectGalleryTop
 
-    # Set main swiper size
-    revealHeight = @$container.height()
-    if mainSwiper.length > 0
-      thumbSwiperHeight = galleryContent.find('.thumb-swiper').height()
-      revealAvailableHeight = revealHeight - thumbSwiperHeight
-      mainSwiper.height(revealAvailableHeight)
-    else
-      galleryContent.height(revealHeight)
+    @_setSwiperSize()
 
     window.addEventListener 'resize', =>
-      # TODO: Tidy up this duplication
-      revealHeight = @$container.height()
-      if mainSwiper.length > 0
-        thumbSwiperHeight = galleryContent.find('.thumb-swiper').height()
-        revealAvailableHeight = revealHeight - thumbSwiperHeight
-        mainSwiper.height(revealAvailableHeight)
-      else
-        galleryContent.height(revealHeight)
+      @_setSwiperSize()
 
     # Listen for arrow keys
     $(document).keydown (event) =>
@@ -108,21 +88,37 @@ class this.Gallery
 
     # Show/hide content and placeholder
     @$container.find('.placeholder').css('display', 'none')
-    galleryContent.css('visibility', 'initial')
+    @$galleryContent.css('visibility', 'initial')
 
-  # We could lazy load YT library here and check if any embeds actually exist but then we have to wait for the YT library to download and replace the iframe.
+  _setSwiperSize: =>
+    revealHeight = @$container.height()
+    if @$mainSwiper.length > 0
+      thumbSwiperHeight = @$galleryContent.find('.thumb-swiper').height()
+      revealAvailableHeight = revealHeight - thumbSwiperHeight
+      @$mainSwiper.height(revealAvailableHeight)
+    else
+      @$galleryContent.height(revealHeight)
+
   _setupYoutube: =>
     embeds = @$container.find('iframe')
     if embeds.length > 0
-      console.log("Youtube embeds exist #{embeds.length}")
-      embeds.each (index, element) =>
-        player = new YT.Player element#,
-          # videoId: 'mNzvpFcJXU4', // This is provided by the URL in the element
-          # playerVars:
-          #   'origin': 'http://localhost:3000',
-          #   'host': 'https://www.youtube.com'
-        @youtubeEmbeds.push player
+      if typeof YT == 'undefined'
+        # Download YT script and wait until API is ready
+        # TODO: Clean up wait hack
+        console.log('Downloading YT script')
+        $.getScript "https://www.youtube.com/iframe_api", =>
+          setTimeout =>
+            @_setupEmbeds(embeds)
+          , 1500
+      else
+        @_setupEmbeds(embeds)
 
-        @$container.on 'closed.zf.reveal', =>
-          @youtubeEmbeds.forEach (element) =>
-            element.pauseVideo()
+  _setupEmbeds: (embeds) =>
+    embeds.each (index, element) =>
+      player = new YT.Player(element)
+      @youtubeEmbeds.push(player)
+
+      @$container.on 'closed.zf.reveal', =>
+        @youtubeEmbeds.forEach (element) =>
+          element.pauseVideo()
+

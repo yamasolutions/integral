@@ -7,7 +7,7 @@ module Integral
 
       let(:title) { 'foobar title' }
       let(:description) { Faker::Lorem.paragraph(8)[0..150] }
-      let(:body) { Faker::Lorem.paragraph(8)[0..150] }
+      let(:body) { "<p>#{Faker::Lorem.paragraph(8)[0..150]}</p>" }
       let(:path) { '/foo/bar' }
       let(:page_params) { { title: title, description: description, path: path, body: body } }
       let(:user) { create(:page_manager) }

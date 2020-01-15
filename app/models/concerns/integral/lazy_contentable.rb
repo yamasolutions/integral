@@ -1,41 +1,44 @@
 # Adds lazy content behaviour to a model
-module Integral::LazyContentable
-  extend ActiveSupport::Concern
+module Integral
+  # Enable lazy loading WYSIWYG content
+  module LazyContentable
+    extend ActiveSupport::Concern
 
-  included do
-    before_save :lazyload_content
-  end
-
-  # @return [String] body HTML ready for WYSIWYG editor
-  def editor_body
-    html = Nokogiri::HTML(body)
-
-    # Remove image lazyloading
-    html.css('img.lazyload').each do |element|
-      element.attributes['src'].value = element.attributes['data-src'].value
+    included do
+      before_save :lazyload_content
     end
 
-    html.css('body').inner_html
-  end
+    # @return [String] body HTML ready for WYSIWYG editor
+    def editor_body
+      html = Nokogiri::HTML(body)
 
-  private
+      # Remove image lazyloading
+      html.css('img.lazyload').each do |element|
+        element.attributes['src'].value = element.attributes['data-src'].value
+      end
 
-  def lazyload_content
-    html = Nokogiri::HTML(body)
-
-    # Add lazyloading to tagged images
-    html.css('img.lazyload').each do |element|
-      element['data-src'] = element.attributes['src'].value
-      element.attributes['src'].value = ''
+      html.css('body').inner_html
     end
 
-    # Add lazy loading to oEmbeds
-    html.css('div[data-oembed-url]').each do |element|
-      next if element.css('blockquote.lazyload').any?
+    private
 
-      blockquote = element.css('blockquote').first
+    def lazyload_content
+      html = Nokogiri::HTML(body)
 
-      if blockquote.present?
+      # Add lazyloading to tagged images
+      html.css('img.lazyload').each do |element|
+        element['data-src'] = element.attributes['src'].value
+        element.attributes['src'].value = ''
+      end
+
+      # Add lazy loading to oEmbeds
+      html.css('div[data-oembed-url]').each do |element|
+        next if element.css('blockquote.lazyload').any?
+
+        blockquote = element.css('blockquote').first
+
+        next unless blockquote.present?
+
         blockquote['class'] = "#{blockquote.attributes['class']} lazyload"
 
         if element['data-oembed-url'].starts_with?('https://www.instagram.com')
@@ -44,8 +47,8 @@ module Integral::LazyContentable
           blockquote['data-twitter'] = 'twitter'
         end
       end
-    end
 
-    self.body = html.css('body').inner_html
+      self.body = html.css('body').inner_html
+    end
   end
 end

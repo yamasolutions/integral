@@ -67,6 +67,7 @@ module Integral
     # Date the post was published
     def published_at
       return I18n.l(object.published_at, format: :blog) if object.published?
+
       'Not yet published'
     end
 

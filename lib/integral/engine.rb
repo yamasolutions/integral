@@ -35,7 +35,6 @@ module Integral
     # require 'before_render'
     require 'friendly_id'
     require 'acts-as-taggable-on'
-    require 'slack-notifier'
     require 'paranoia'
     require 'inky'
     require 'premailer/rails'
@@ -43,6 +42,7 @@ module Integral
     require 'will_paginate-foundation'
     require 'rails-settings-cached'
     require 'gaffe'
+    require 'fast_jsonapi'
 
     isolate_namespace Integral
 
@@ -73,7 +73,7 @@ module Integral
     # Allows engine factories to be reused by application
     initializer 'model_core.factories', after: 'factory_bot.set_factory_paths' do
       if defined?(FactoryBot)
-        FactoryBot.definition_file_paths << File.expand_path('../../../spec/factories', __FILE__)
+        FactoryBot.definition_file_paths << File.expand_path('../../spec/factories', __dir__)
       end
     end
 

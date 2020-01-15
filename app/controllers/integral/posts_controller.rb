@@ -9,7 +9,7 @@ module Integral
     # List blog posts
     def index
       add_breadcrumb I18n.t('integral.breadcrumbs.blog'), nil
-      @posts = Integral::Post.published.order('published_at DESC').paginate(page: params[:page])
+      @posts = Integral::Post.published.includes(:image, :user).order('published_at DESC').paginate(page: params[:page])
     end
 
     # GET /blog.slug
@@ -21,7 +21,7 @@ module Integral
       @meta_data = {
         page_title: @post.title,
         page_description: @post.description,
-        open_graph:  {
+        open_graph: {
           image: @post.preview_image(:large)
         }
       }

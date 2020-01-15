@@ -2,8 +2,8 @@ module Integral
   # Handles listable behaviour
   module ActsAsListable
     class << self
-       # Keeps a track of listable objects
-       attr_writer :objects
+      # Keeps a track of listable objects
+      attr_writer :objects
      end
 
     # Accessor for listable objects

@@ -60,7 +60,6 @@ module Integral
             end
 
             it { expect(response.status).to eq 302 }
-            it { expect(flash[:alert]).to eq I18n.t('errors.unauthorized') }
           end
 
           context 'when user has required privileges' do
@@ -109,7 +108,6 @@ module Integral
             end
 
             it { expect(response.status).to eq 302 }
-            it { expect(flash[:alert]).to eq I18n.t('errors.unauthorized') }
           end
 
 
@@ -154,7 +152,6 @@ module Integral
             end
 
             it { expect(response.status).to eq 302 }
-            it { expect(flash[:alert]).to eq I18n.t('errors.unauthorized') }
           end
 
           context 'when user has required privileges' do
@@ -195,7 +192,6 @@ module Integral
             end
 
             it { expect(response.status).to eq 302 }
-            it { expect(flash[:alert]).to eq I18n.t('errors.unauthorized') }
           end
 
           context 'when user has required privileges' do
@@ -206,7 +202,6 @@ module Integral
 
             context 'when valid parameters supplied' do
               it { expect(response).to redirect_to(backend_img_index_path) }
-              it { expect(flash[:notice]).to eq I18n.t('integral.backend.images.notification.edit_success') }
               it { expect(image.title).to eql title }
               it { expect(image.description).to eql description }
             end
@@ -243,7 +238,6 @@ module Integral
             end
 
             it { expect(response.status).to eq 302 }
-            it { expect(flash[:alert]).to eq I18n.t('errors.unauthorized') }
           end
 
           context 'when user has required privileges' do
@@ -253,7 +247,6 @@ module Integral
             end
 
             it { expect(image.reload.deleted?).to be true }
-            it { expect(flash[:notice]).to eq I18n.t('integral.backend.images.notification.delete_success') }
             it { expect(response).to redirect_to backend_img_index_path }
           end
 
@@ -265,7 +258,6 @@ module Integral
             end
 
             it { expect(image.reload.deleted?).to eq false }
-            it { expect(flash[:error]).to eq I18n.t('integral.backend.images.notification.delete_failure') }
             it { expect(response).to redirect_to backend_img_index_path }
           end
         end

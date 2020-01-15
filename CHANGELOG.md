@@ -14,11 +14,22 @@ recommendations of [keepachangelog.com](http://keepachangelog.com/).
 - Gallery - Handles pausing YouTube videos on close
 - Gallery - When only one item is present no longer shows thumbnail gallery and gallery controls
 - LazyLoading - Automatically mark Twitter & Instgram oEmbeds as Lazy Loads and handle lazy loading images with the 'lazyload' class
+- Add webhook management for Post creation, updates, deletion and publication
+- Updated Suggest Tags input to accept freeInput option (defaults to true) - when set to false only provided typeahead tags are valid
+- Set default title and notifications to Integral Backend CRUD endpoints
 
 ### Fixed
 
 - Lists - Unescape URLs within the renderer rather than on the view (handles nil cases)
 - Users - Searching by name in backend
+- Post cloning - Do not copy over `published_at`
+- Record Selector - Fix image not displaying correctly in details sidebar
+- Lists are touched when a list item is removed
+
+### Performance
+
+- Frontend Post Index - Remove N+1 for user & images
+
 
 ### Dependancies
 -
@@ -72,6 +83,7 @@ recommendations of [keepachangelog.com](http://keepachangelog.com/).
 - Move ApplicatonController's override of render to public
 
 ### Dependancies
+
 - Ckeditor - Update to 4.11.1
 
 ## v1.1.0 - 2018-12-24

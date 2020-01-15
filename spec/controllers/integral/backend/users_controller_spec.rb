@@ -85,7 +85,6 @@ module Integral
             it 'redirects to the saved user' do
               post :create, params: { user: user_params }
 
-              expect(flash[:notice]).to eql(I18n.t('integral.backend.users.notification.creation_success'))
               expect(response).to redirect_to backend_user_path(User.last)
             end
 
@@ -116,7 +115,6 @@ module Integral
             it 'renders new template' do
               post :create, params: { user: user_params.merge!(email: '') }
 
-              expect(flash[:error]).to eq("#{I18n.t('integral.backend.users.notification.creation_failure')} - #{assigns[:resource].errors.full_messages.to_sentence}")
               expect(response).to render_template("new")
             end
           end
@@ -265,7 +263,6 @@ module Integral
             let(:user) { create :user }
 
             it { expect(response.status).to eq 302 }
-            it { expect(flash[:alert]).to eq I18n.t('errors.unauthorized') }
           end
 
           context 'when user does not have required privileges to update roles' do
@@ -282,7 +279,6 @@ module Integral
           context 'when user has required privileges' do
             context 'when valid parameters supplied' do
               it { expect(response).to redirect_to(backend_user_path(actionable_user)) }
-              it { expect(flash[:notice]).to eql(I18n.t('integral.backend.users.notification.edit_success')) }
               it { expect(assigns[:resource].name).to eql name }
               it { expect(assigns[:resource].email).to eql email }
               it { expect(assigns[:resource].password).to eql password }
@@ -295,7 +291,6 @@ module Integral
               it { expect(assigns[:resource].name).not_to eql name }
               it { expect(assigns[:resource].email).not_to eql email }
 
-              it { expect(flash[:error]).to eql("#{I18n.t('integral.backend.users.notification.edit_failure')} - #{assigns[:resource].errors.full_messages.to_sentence}") }
               it { expect(response).to render_template 'edit' }
             end
           end
@@ -324,7 +319,6 @@ module Integral
           end
 
           it { expect(user.reload.deleted?).to be true }
-          it { expect(flash[:notice]).to eql(I18n.t('integral.backend.users.notification.delete_success')) }
           it { expect(response).to redirect_to backend_users_path }
         end
       end

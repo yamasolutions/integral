@@ -121,7 +121,7 @@ class this.RecordSelector
 
   # Update details sidebar panel
   _updateDetails: ->
-    @container.find('.sidebar img').attr('src', @selectedData.image)
+    @container.find('.sidebar img').attr('src', @selectedData.image || '')
     @container.find('.sidebar .title').text(@selectedData.title)
     @container.find('.sidebar .description').text(@selectedData.description)
 

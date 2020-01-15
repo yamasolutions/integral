@@ -55,12 +55,12 @@ Gem::Specification.new do |s|
   s.add_dependency 'sass-rails', '~> 5.0' # Sass
   s.add_dependency 'simple_form', '~> 4.0' # Form builder
   s.add_dependency 'sitemap_generator', '~> 6.0.1' # Sitemap Generator
-  s.add_dependency 'slack-notifier', '~> 1.5' # Slack bot
   s.add_dependency "toastr-rails", "~> 1.0" # Javascript notification Toastr
   s.add_dependency 'turbolinks', '~> 5.0'
   s.add_dependency 'datagrid', '~> 1.5.8' # Grids
   s.add_dependency 'will_paginate', '~> 3.1' # Pagination
   s.add_dependency 'will_paginate-foundation', '~> 6.2' # Pagination for Foundation
+  s.add_dependency 'fast_jsonapi', '~> 1.5' # Object Serialization
 
   s.add_development_dependency 'database_cleaner', '~> 1.5' # Manages database test states
   s.add_development_dependency 'factory_bot_rails', '~> 4.8' # Create reusable object templates
@@ -70,7 +70,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'rspec-rails', '~> 3.8' # Testing framework
   s.add_development_dependency 'generator_spec', '~> 0.9' # Testing framework
   s.add_development_dependency 'shoulda-matchers', '~> 3.1' # Extra matchers for testing
-  s.add_development_dependency 'sqlite3', '~> 1.4.0' # Database
+  s.add_development_dependency 'pg', '~> 0.21' # Database
 
   s.add_development_dependency 'capybara', '~> 2.10' # Acceptance testing framework
   s.add_development_dependency 'launchy', '~> 2.4' # Automatically launch test pages

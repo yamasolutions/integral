@@ -14,6 +14,7 @@ module Integral
           cloned_resource.tag_list = @resource.tag_list_on(@resource.tag_context)
           cloned_resource.slug = @resource.slug
           cloned_resource.status = :draft
+          cloned_resource.published_at = nil
         end
       end
 

@@ -8,14 +8,20 @@ module Integral
       # @return [String] title provided through yield or i18n scoped to controller namespace & action
       def page_title
         return content_for(:title) if content_for?(:title)
+        return t("devise.#{controller_name}.#{action_name}.title") if devise_controller?
 
         # Scope is set to current controller namespace & action
-        t('title', scope: "#{controller_path.tr('/', '.')}.#{action_name}")
+        t('title', scope: "#{controller_path.tr('/', '.')}.#{action_name}",
+                   default: I18n.t("integral.backend.titles.#{action_name}",
+                                   type_singular: resource_klass.model_name.human,
+                                   type_plural: resource_klass.model_name.plural.capitalize))
       end
 
       # Renders a grid from a local partial within a datagrid container
       def render_data_grid
-        return content_tag(:div, render(partial: 'grid', locals: { grid: @grid }), data: { 'grid' => true, 'form' => 'grid_form' }) unless block_given?
+        unless block_given?
+          return content_tag(:div, render(partial: 'grid', locals: { grid: @grid }), data: { 'grid' => true, 'form' => 'grid_form' })
+        end
 
         content_tag :div, data: { 'grid' => true, 'form' => 'grid_form' } do
           yield

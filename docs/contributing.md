@@ -1,6 +1,6 @@
 # Contributing
 
-We'd love your help with Integral. Their are many ways you can contribute such as;
+We'd love your help with Integral. There are many ways you can contribute such as;
 1. Bug reporting & QA
 2. Contributing bug fixes or new features
 3. Assistance maintaining, improving and expanding documentation

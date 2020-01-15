@@ -2,14 +2,13 @@ module Integral
   # Represents an item within a particular list
   class ListItem < ApplicationRecord
     after_initialize :set_defaults
-    before_save :touch_list
     after_touch :touch_list
 
     # Default scope orders by priority and includes children
     default_scope { includes(:children).includes(:image).order(:priority) }
 
     # Associations
-    belongs_to :list, optional: true
+    belongs_to :list, optional: true, touch: true
     belongs_to :image, optional: true
     has_and_belongs_to_many(:children,
                             -> { order(:priority) },

@@ -33,103 +33,78 @@ module Integral
     yield(self)
   end
 
-  #
   mattr_accessor :backend_namespace
   @@backend_namespace = 'admin'
 
-  #
   mattr_accessor :backend_locales
   @@backend_locales = [:en]
 
-  #
   mattr_accessor :additional_settings_params
   @@additional_settings_params = []
 
-  #
   mattr_accessor :additional_widgets
   @@additional_widgets = []
 
-  #
   mattr_accessor :additional_post_params
   @@additional_post_params = []
 
-  #
   mattr_accessor :additional_page_params
   @@additional_page_params = []
 
-  #
   mattr_accessor :gtm_container_id
   @@gtm_container_id = ''
 
-  #
   mattr_accessor :blog_enabled
   @@blog_enabled = true
 
-  #
   mattr_accessor :blog_namespace
   @@blog_namespace = 'blog'
 
-  #
   mattr_accessor :black_listed_paths
   @@black_listed_paths = ['/admin']
 
-  #
   mattr_accessor :root_path
   @@root_path = nil
 
-  #
   mattr_accessor :frontend_parent_controller
   @@frontend_parent_controller = 'Integral::ApplicationController'
 
-  #
   mattr_accessor :editor_image_size_limit
   @@editor_image_size_limit = [1600, 1600]
 
-  #
   mattr_accessor :image_thumbnail_size
   @@image_thumbnail_size = [50, 50]
 
-  #
   mattr_accessor :image_small_size
   @@image_small_size = [500, 500]
 
-  #
   mattr_accessor :image_medium_size
   @@image_medium_size = [800, 800]
 
-  #
   mattr_accessor :image_large_size
   @@image_large_size = [1600, 1600]
 
-  #
   mattr_accessor :additional_page_templates
   @@additional_page_templates = []
 
-  #
   mattr_accessor :compression_enabled
   @@compression_enabled = true
 
-  #
   mattr_accessor :image_compression_quality
   @@image_compression_quality = 85
 
-  #
   mattr_accessor :editable_persisted_images
   @@editable_persisted_images = false
 
-  #
   mattr_accessor :description_length_maximum
   @@description_length_maximum = 300
 
-  #
   mattr_accessor :description_length_minimum
   @@description_length_minimum = 50
 
-  #
   mattr_accessor :title_length_maximum
   @@title_length_maximum = 60
 
-  #
   mattr_accessor :title_length_minimum
   @@title_length_minimum = 4
 

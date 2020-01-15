@@ -1,6 +1,8 @@
 module Integral
   # Represents a public viewable page
   class Page < ApplicationRecord
+    include LazyContentable
+
     acts_as_paranoid # Soft-deletion
     acts_as_listable # Listable Item
 

@@ -9,6 +9,10 @@
 //= require toastr
 //= require rails.validations
 //= require rails.validations.simple_form
+//= require integral/support/lib/lazysizes
+//= require integral/support/ls.twitter
+//= require integral/support/ls.instagram
+//= require integral/support/date_picker
 //= require integral/support/date_picker
 //= require integral/support/click_to_copy
 //= require integral/support/google_analytics

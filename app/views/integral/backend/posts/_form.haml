@@ -18,7 +18,7 @@
         .cell
           .card
             .card-section
-              = f.input :body, as: :ckeditor, input_html: { id: 'resource_body_editor', ckeditor: { language: current_user.locale }, data: { 'ckeditor-class' => 'integral-post' } }
+              = f.input :body, as: :ckeditor, input_html: { value: @resource.editor_body, id: 'resource_body_editor', ckeditor: { language: current_user.locale }, data: { 'ckeditor-class' => 'integral-post' } }
 
     .cell.small-12.medium-3
       .grid-y

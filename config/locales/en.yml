@@ -318,6 +318,8 @@ en:
           default: Default
         prompts:
           choose_template: Choose Template
+        activities:
+          title: Page Activity
         index:
           title: 'Page listing'
           non_available: 'No pages available. Try creating one!'

@@ -2,6 +2,7 @@ module Integral
   # Represents a user post
   class Post < ApplicationRecord
     include ActionView::Helpers::DateHelper
+    include LazyContentable
     include Webhook::Observable
 
     acts_as_paranoid # Soft-deletion

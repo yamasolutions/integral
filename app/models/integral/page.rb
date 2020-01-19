@@ -16,7 +16,7 @@ module Integral
     # //, foo, /foo bar, /foo?y=123, /foo$
     PATH_REGEX = %r{\A/[/.a-zA-Z0-9-]+\z}.freeze
 
-    enum status: %i[draft published]
+    enum status: %i[draft published archived]
 
     # Associations
     belongs_to :parent, class_name: 'Integral::Page', optional: true
@@ -35,6 +35,8 @@ module Integral
 
     # Scopes
     scope :search, ->(query) { where('lower(title) LIKE ? OR lower(path) LIKE ?', "%#{query.downcase}%", "%#{query.downcase}%") }
+    # TODO: Remove this on Rails 6 upgrade
+    scope :not_archived, -> { where.not(status: :archived) }
 
     # Return all available parents
     # TODO: Update parent behaviour
@@ -129,7 +131,8 @@ module Integral
     def self.available_statuses
       [
         ['Draft', 0],
-        ['Published', 1]
+        ['Published', 1],
+        ['Archived', 2]
       ]
     end
 

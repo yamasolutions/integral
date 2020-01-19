@@ -9,8 +9,9 @@
             %span.label= t("integral.records.status.#{record.status}")
           %td= l(record.updated_at, format: :long)
           %td.actions
-            = link_to record.path do
-              = icon('eye')
+            - unless record.archived?
+              = link_to record.path do
+                = icon('eye')
             - if policy(Integral::Page).update?
               = link_to edit_backend_page_url(record) do
                 = icon('edit')

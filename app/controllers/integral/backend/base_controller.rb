@@ -200,7 +200,8 @@ module Integral
       def notification_message(type_namespace, object_namespace = nil)
         object_namespace = controller_name if object_namespace.nil?
 
-        I18n.t("integral.backend.#{object_namespace}.notification.#{type_namespace}")
+        I18n.t("integral.backend.#{object_namespace}.notification.#{type_namespace}",
+               default: I18n.t("integral.backend.notifications.#{type_namespace}", type: resource_klass.model_name.human))
       end
 
       def set_grid
@@ -209,6 +210,7 @@ module Integral
         end
       end
 
+      helper_method :resource_klass
       def resource_klass
         controller_name.classify.constantize
       end

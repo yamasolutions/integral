@@ -28,7 +28,7 @@ module Integral
 
       click_on 'Create Page'
 
-      expect(page).to have_content I18n.t('integral.backend.pages.notification.creation_success')
+      expect(page).to have_content I18n.t('integral.backend.notifications.creation_success', type: Integral::Page.model_name.human)
     end
 
     it "can update a page" do
@@ -45,7 +45,7 @@ module Integral
 
       first(:button, 'Update Page').click
 
-      expect(page).to have_content I18n.t('integral.backend.pages.notification.edit_success')
+      expect(page).to have_content I18n.t('integral.backend.notifications.edit_success', type: Integral::Page.model_name.human)
     end
 
     it "can delete a page" do
@@ -53,7 +53,7 @@ module Integral
       find('tbody tr:first-of-type a:nth-of-type(3)').click
       all('.reveal.dialog a')[1].click
 
-      expect(page).to have_content I18n.t('integral.backend.pages.notification.delete_success')
+      expect(page).to have_content I18n.t('integral.backend.notifications.delete_success', type: Integral::Page.model_name.human)
     end
 
     # it "can view a page" do

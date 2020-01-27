@@ -32,7 +32,7 @@ module Integral
 
       click_on 'Create Post'
 
-      expect(page).to have_content I18n.t('integral.backend.posts.notification.creation_success')
+      expect(page).to have_content I18n.t('integral.backend.notifications.creation_success', type: Integral::Post.model_name.human)
     end
 
     it "can update a post" do
@@ -48,7 +48,7 @@ module Integral
 
       first(:button, 'Update Post').click
 
-      expect(page).to have_content I18n.t('integral.backend.posts.notification.edit_success')
+      expect(page).to have_content I18n.t('integral.backend.notifications.edit_success', type: Integral::Post.model_name.human)
     end
 
     it "can delete a post" do
@@ -56,7 +56,7 @@ module Integral
       find('tbody tr:first-of-type a:nth-of-type(3)').click
       all('.reveal.dialog a')[1].click
 
-      expect(page).to have_content I18n.t('integral.backend.posts.notification.delete_success')
+      expect(page).to have_content I18n.t('integral.backend.notifications.delete_success', type: Integral::Post.model_name.human)
     end
 
     # it "can view a post" do

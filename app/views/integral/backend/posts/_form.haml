@@ -18,7 +18,7 @@
         .cell
           .card
             .card-section
-              = f.input :body, as: :ckeditor, input_html: { id: 'resource_body_editor', ckeditor: { language: current_user.locale }, data: { 'ckeditor-class' => 'integral-post' } }
+              = f.input :body, as: :ckeditor, input_html: { value: @resource.editor_body, id: 'resource_body_editor', ckeditor: { language: current_user.locale }, data: { 'ckeditor-class' => 'integral-post' } }
 
     .cell.small-12.medium-3
       .grid-y
@@ -42,8 +42,7 @@
             .card-section
               %h2= t('integral.records.attributes.tags')
               %hr.dark
-              = f.input :tag_list, label: false, input_html: { value: @resource.tag_list_on(@resource.tag_context).join(','), data: { role: "materialtags", typeahead: Integral::Post.tag_counts.collect(&:name).join(' ') } }
-              %label.small Seperate tags with spaces
+              = f.input :tag_list, label: false, input_html: { value: @resource.tag_list_on(@resource.tag_context).join(','), data: { suggest_tags: true, suggest_tags_typeahead: Integral::Post.tag_counts.collect(&:name).join(' ') } }
         .cell
           .card
             .card-section

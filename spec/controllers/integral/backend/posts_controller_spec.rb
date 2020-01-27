@@ -7,7 +7,7 @@ module Integral
 
       let(:title) { 'foobar title' }
       let(:slug) { 'foobar-title' }
-      let(:body) { 'foobar body.' }
+      let(:body) { '<p>foobar body.</p>' }
       let(:description) { Faker::Lorem.paragraph(8)[0..150] }
       let(:tag_list) { 'foo,bar,tags' }
       let(:post_params) { { title: title, body: body, description: description, tag_list: tag_list, slug: slug, user_id: user.id } }

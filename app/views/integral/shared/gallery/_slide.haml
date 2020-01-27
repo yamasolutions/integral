@@ -1,5 +1,5 @@
 - if type == 'Integral::Link'
-  .responsive-embed.widescreen
-    %iframe{ src: url, frameborder: '0',  allow: 'autoplay; encrypted-media', allowfullscreen: true }
+  -# Assumes url is a YouTube embed URL i.e -> https://www.youtube.com/embed/mNzvpFcJXU
+  %iframe{ src: "#{url}?enablejsapi=1", frameborder: '0',  allow: 'autoplay; encrypted-media', allowfullscreen: true }
 - else
   = image_tag image

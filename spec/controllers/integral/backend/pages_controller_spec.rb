@@ -7,7 +7,7 @@ module Integral
 
       let(:title) { 'foobar title' }
       let(:description) { Faker::Lorem.paragraph(8)[0..150] }
-      let(:body) { Faker::Lorem.paragraph(8)[0..150] }
+      let(:body) { "<p>#{Faker::Lorem.paragraph(8)[0..150]}</p>" }
       let(:path) { '/foo/bar' }
       let(:page_params) { { title: title, description: description, path: path, body: body } }
       let(:user) { create(:page_manager) }
@@ -34,7 +34,6 @@ module Integral
             end
 
             it { expect(response.status).to eq 302 }
-            it { expect(flash[:alert]).to eq I18n.t('errors.unauthorized') }
           end
 
           context 'when user has required privileges' do
@@ -75,7 +74,6 @@ module Integral
             end
 
             it { expect(response.status).to eq 302 }
-            it { expect(flash[:alert]).to eq I18n.t('errors.unauthorized') }
           end
 
           context 'when user has required privileges' do
@@ -124,7 +122,6 @@ module Integral
             end
 
             it { expect(response.status).to eq 302 }
-            it { expect(flash[:alert]).to eq I18n.t('errors.unauthorized') }
           end
 
 
@@ -169,7 +166,6 @@ module Integral
             end
 
             it { expect(response.status).to eq 302 }
-            it { expect(flash[:alert]).to eq I18n.t('errors.unauthorized') }
           end
 
           context 'when user has required privileges' do
@@ -210,7 +206,6 @@ module Integral
             end
 
             it { expect(response.status).to eq 302 }
-            it { expect(flash[:alert]).to eq I18n.t('errors.unauthorized') }
           end
 
           context 'when user has required privileges' do
@@ -221,7 +216,6 @@ module Integral
 
             context 'when valid parameters supplied' do
               it { expect(response).to redirect_to(edit_backend_page_path(assigns[:resource])) }
-              it { expect(flash[:notice]).to eq I18n.t('integral.backend.pages.notification.edit_success') }
               it { expect(page.title).to eql title }
               it { expect(page.description).to eql description }
               it { expect(page.path).to eql path }
@@ -231,7 +225,6 @@ module Integral
             context 'when invalid parameters supplied' do
               let(:title) { '' }
 
-              it { expect(flash[:error]).to eq "#{I18n.t('integral.backend.pages.notification.edit_failure')} - #{assigns[:resource].errors.full_messages.to_sentence}" }
               it { expect(page.title).not_to eql title }
               it { expect(page.description).not_to eql description }
               it { expect(response).to render_template 'edit' }
@@ -261,7 +254,6 @@ module Integral
             end
 
             it { expect(response.status).to eq 302 }
-            it { expect(flash[:alert]).to eq I18n.t('errors.unauthorized') }
           end
 
           context 'when user has required privileges' do
@@ -271,7 +263,6 @@ module Integral
             end
 
             it { expect(page.reload.deleted?).to be true }
-            it { expect(flash[:notice]).to eq I18n.t('integral.backend.pages.notification.delete_success') }
             it { expect(response).to redirect_to backend_pages_path }
           end
 
@@ -283,7 +274,6 @@ module Integral
             end
 
             it { expect(page.reload.deleted?).to be false }
-            it { expect(flash[:error]).to eq "#{I18n.t('integral.backend.pages.notification.delete_failure')} - " }
             it { expect(response).to redirect_to backend_pages_path }
           end
         end
@@ -310,7 +300,6 @@ module Integral
             end
 
             it { expect(response.status).to eq 302 }
-            it { expect(flash[:alert]).to eq I18n.t('errors.unauthorized') }
           end
 
           context 'when user has required privileges' do
@@ -347,7 +336,6 @@ module Integral
             end
 
             it { expect(response.status).to eq 302 }
-            it { expect(flash[:alert]).to eq I18n.t('errors.unauthorized') }
           end
 
           context 'when user has required privileges' do

@@ -39,7 +39,7 @@ module Integral
         return dynamic_homepage if path == '/' && Integral.dynamic_homepage_enabled?
 
         # TODO: Speed this up by adding an index & unique constraint on path attribute
-        Integral::Page.find_by_path(path)&.id
+        Integral::Page.not_archived.find_by_path(path)&.id
       end
 
       def category_identifier(path)

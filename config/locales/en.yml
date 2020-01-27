@@ -171,6 +171,7 @@ en:
         subtitle: Related Articles
         description: "All articles tagged %{tag_name} within our blog"
     blog:
+      posted_ago: "Published %{time} ago"
       widgets:
         most_read: Most Read Articles
         related_posts: Related Posts

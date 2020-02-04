@@ -29,7 +29,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'cocoon', '~> 1.2' # Nested forms
   s.add_dependency 'diffy', '~> 3.1' # View differences
   s.add_dependency 'gibbon', '~> 3.3' # Mailchimp API Wrapper
-  s.add_dependency 'devise', '~> 4.5.0' # Authentication
+  s.add_dependency 'devise', '>= 4.5', '< 4.8' # Authentication
   s.add_dependency 'devise_invitable', '~> 1.7' # Invitable authentication
   s.add_dependency 'draper', '~> 3.0' # Object decoration
   s.add_dependency 'font-awesome-sass', '~> 4.3' # Grid Icons

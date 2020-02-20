@@ -8,6 +8,7 @@ module Integral
     acts_as_paranoid # Soft-deletion
     acts_as_listable if Integral.blog_enabled? # Listable Item
     acts_as_taggable # Tagging
+    acts_as_auditable # Lighthouse auditing
 
     has_paper_trail class_name: 'Integral::PostVersion'
 
@@ -51,6 +52,14 @@ module Integral
       ]
 
       opts[:reverse] ? statuses.each(&:reverse!) : statuses
+    end
+
+    def self.auditable_scope
+      published
+    end
+
+    def auditable_path
+      Engine.routes.url_helpers.post_path(slug)
     end
 
     # Increments the view count of the post if a PostViewing is successfully added

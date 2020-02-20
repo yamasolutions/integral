@@ -29,8 +29,8 @@ module Integral
         end
 
         if params[:object]
-          audit.auditable_id = object.id
-          audit.auditable_type = object.class
+          audit.auditable_id = params[:object].id
+          audit.auditable_type = params[:object].class
         end
 
         audit.save!

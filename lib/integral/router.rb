@@ -99,6 +99,9 @@ module Integral
             end
           end
 
+          # Audit Management
+          resources :audits, only: [:index]
+
           # Settings Management
           resources :settings, only: %i[index create]
         end

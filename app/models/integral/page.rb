@@ -5,6 +5,7 @@ module Integral
 
     acts_as_paranoid # Soft-deletion
     acts_as_listable # Listable Item
+    acts_as_auditable # Lighthouse auditing
 
     has_paper_trail class_name: 'Integral::PageVersion'
 
@@ -49,6 +50,14 @@ module Integral
       end
 
       Page.published.where.not(id: unavailable_ids).order(:title)
+    end
+
+    def self.auditable_scope
+      published
+    end
+
+    def auditable_path
+      path
     end
 
     # @return [Hash] the instance as a list item

@@ -8,7 +8,7 @@ module Integral
     class Audit < ApplicationRecord
       self.table_name = 'integral_lighthouse_audits'
 
-      belongs_to :auditable, polymorphic: true
+      belongs_to :auditable, polymorphic: true, optional: true
 
       validates :url, :response, presence: true
 

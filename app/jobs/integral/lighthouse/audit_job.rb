@@ -5,6 +5,8 @@ module Integral
     # https://developers.google.com/web/tools/lighthouse
     # https://github.com/GoogleChrome/lighthouse/blob/master/docs/readme.md
     class AuditJob < ApplicationJob
+      queue_as :audit_queue
+
       # Perform Lighthouse audit
       def perform(url, object: nil, emulated_form_factor: :mobile, categories: [:performance], throttling_method: :simulate)
         script = "yarn --silent lighthouse #{url} --output json --only-categories=#{categories.join} --quiet --no-enable-error-reporting --emulated-form-factor #{emulated_form_factor} --throttling-method #{throttling_method}"

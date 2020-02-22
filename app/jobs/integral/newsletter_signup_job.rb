@@ -1,8 +1,6 @@
 module Integral
   # Carry out actual newsletter signing up process
   class NewsletterSignupJob < ApplicationJob
-    queue_as :default
-
     rescue_from(Gibbon::MailChimpError) do |e|
       error_msg = "NewsletterSignupJob - Error when signing visitor up to Newsletter: #{e.message}"
       Rails.logger.error(error_msg)

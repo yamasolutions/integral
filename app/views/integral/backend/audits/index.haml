@@ -13,7 +13,7 @@
           = f.hidden_field(:page, value: grid_options[:page], class: 'page-field')
 
           %ul.align-right.menu.filters
-            -# %li= f.input :auditable_type, collection: ['Post', 'Page'], label: t('integral.records.attributes.type'), wrapper_html: { class: 'filter' }, input_html: { 'data-filter' => true }, required: false
+            %li= f.input :auditable_type, collection: Integral::ActsAsAuditable.objects.map {|object| [object.model_name.human, object] }, label: t('integral.records.attributes.type'), wrapper_html: { class: 'filter' }, input_html: { 'data-filter' => true }, required: false
             %li= f.input :title, placeholder: t('integral.actions.search'), wrapper_html: { class: 'filter search' }, hint: false, label: false
 
     = render partial: 'grid'

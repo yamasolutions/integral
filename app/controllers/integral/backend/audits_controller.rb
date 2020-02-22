@@ -5,7 +5,7 @@ module Integral
       private
 
       def white_listed_grid_params
-        %i[descending order page user action object title]
+        %i[descending order page user action object title auditable_type]
       end
 
       def resource_klass

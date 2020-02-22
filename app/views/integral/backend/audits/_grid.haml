@@ -1,10 +1,16 @@
 = render_data_grid do
-  = render layout: 'integral/backend/shared/grid', locals: { grid: @grid, options: { columns: [:url, :performance_score, :created_at, :actions], order: true }} do |grid|
+  = render layout: 'integral/backend/shared/grid', locals: { grid: @grid, options: { columns: [:url, :performance_score, :auditable, :created_at, :actions], order: true }} do |grid|
     - if grid.assets.any?
       - grid.assets.decorate.each do |record|
         %tr
-          %td= record.url.truncate(30)
+          %td= link_to record.formatted_url, record.url, title: record.url
           %td= record.performance_score
+          %td
+            - if record.auditable.present?
+              = link_to record.auditable.backend_url, title: record.auditable.title do
+                = record.auditable.object.class.model_name.human
+                \ -
+                = record.auditable.title.truncate(30)
           -# %td
           -#   - if record.user.present?
           -#     = image_tag record.user.avatar.url(:thumbnail), alt: record.user.name, class: 'avatar'

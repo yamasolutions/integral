@@ -110,5 +110,20 @@ FactoryBot.define do
     subject { Faker::Book.title }
     message { Faker::Lorem.paragraph(8)[50..150] }
   end
+
+  factory :integral_lighthouse_audit, class: 'Integral::Lighthouse::Audit' do
+    url
+    emulated_form_factor { 'mobile' }
+    throttling_method { 'simulate' }
+    categories { '' }
+    performance_score { rand }
+    accessibility_score { rand }
+    best_practices_score { rand }
+    pwa_score { rand }
+    seo_score { rand }
+    response { { foo: :bar } }
+    # auditable_id { '' }
+    # auditable_type { '' }
+  end
 end
 

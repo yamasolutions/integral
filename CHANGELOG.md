@@ -19,6 +19,7 @@ recommendations of [keepachangelog.com](http://keepachangelog.com/).
 - Updated Suggest Tags input to accept freeInput option (defaults to true) - when set to false only provided typeahead tags are valid
 - Set default title and notifications to Integral Backend CRUD endpoints
 - Pages - Added 'Archived' status
+- Remote Form - Added reset-on-success option to allow preventing the reseting of forms
 
 ### Fixed
 

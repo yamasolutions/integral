@@ -52,8 +52,10 @@ class this.RemoteForm
 
     @broadcastEvent(target)
 
-    # Reset form
-    target[0].reset()
+    # Reset form if configured
+    resetOnSuccess = target.data('remote-form-reset-on-success')
+    resetOnSuccess = @opts.resetOnSuccess if resetOnSuccess == undefined
+    target[0].reset() if resetOnSuccess == true
 
     return Turbolinks.visit(data.redirect_url) if data.redirect_url
     return @successMessage(data.message) if data.message
@@ -87,5 +89,6 @@ class this.RemoteForm
       handleSuccess: @_handleSuccess
       handleError: @_handleError
       handleComplete: @_handleComplete
+      resetOnSuccess: true
 
     $.extend({}, default_opts, opts)

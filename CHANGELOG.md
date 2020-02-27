@@ -20,6 +20,7 @@ recommendations of [keepachangelog.com](http://keepachangelog.com/).
 - Set default title and notifications to Integral Backend CRUD endpoints
 - Pages - Added 'Archived' status
 - Remote Form - Added reset-on-success option to allow preventing the reseting of forms
+- Swiper List Page Widget - Add optional 'html_classes' option
 
 ### Fixed
 

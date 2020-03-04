@@ -20,11 +20,9 @@
           .card
             .card-section
               - if @resource.persisted?
-                = image_tag @resource.url
+                = image_tag decorated_resource.url('400x400x')
               - if !@resource.persisted? || Integral.editable_persisted_images
                 = f.input :file, :wrapper_html => { :class => "file-field" }, validate: { presence: true }, input_html: { accept: "image/*" }
-              - else
-                = f.input :file, as: :string, label: false, disabled: true
         - if @resource.persisted?
           .cell
             .grid-x.grid-padding-x

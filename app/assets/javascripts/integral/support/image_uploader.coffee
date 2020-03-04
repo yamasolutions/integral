@@ -53,7 +53,7 @@ class this.ImageUploader
 
   _handleFormError: =>
     @resetForm()
-    toastr['success']('An error occured when uploading the image')
+    toastr['error']('An error occured when uploading the image')
 
   _handleModalClosure: =>
     @resetForm()

@@ -17,10 +17,6 @@ Gem::Specification.new do |s|
   s.add_dependency 'active_record_union', '~> 1.3.0' # Table Unions - Used joining Versioning tables
   s.add_dependency 'acts-as-taggable-on', '~> 6.0' # Tagging
   s.add_dependency 'breadcrumbs_on_rails', '~> 3.0' # Breadcrumbs
-  s.add_dependency 'carrierwave', '~> 1.0' # File uploader
-  s.add_dependency 'carrierwave-imageoptimizer', '~> 1.4' # Image compression
-  s.add_dependency 'carrierwave_backgrounder_revived', "~> 1.0.0" # Delayed file processing
-  s.add_dependency 'carrierwave-aws', '~> 1.3.0' # Remote file uploading
   # NOTE: image2 plugin for Ckeditor has been monkey patched to remove height modifications
   s.add_dependency 'ckeditor', '~> 4.3.0' # WYSIWYG Editor
   s.add_dependency 'coffee-rails', '~> 4.2.0' # Coffeescript
@@ -43,6 +39,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'inky-rb' # , "~> 0.6" #  Responsive email-ready HTML helpers
   s.add_dependency 'meta-tags', '~> 2.4' # Meta Tag Management (SEO)
   s.add_dependency 'mini_magick', '~> 4.6' # File manipulation
+  s.add_dependency 'image_processing', '~> 1.10.3' # File manipulation
   s.add_dependency 'nprogress-rails', '~> 0.2.0'
   s.add_dependency 'paper_trail', '~> 9.0' # Audit trail
   s.add_dependency 'paranoia', '~> 2.0' # Soft-delete records

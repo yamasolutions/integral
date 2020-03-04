@@ -14,11 +14,15 @@ module Integral
     end
 
     attribute :featured_image do |post|
-      post&.featured_image&.url(:large)
+      if post.featured_image&.file&.attached?
+        Rails.application.routes.url_helpers.rails_representation_url(post.featured_image.file.variant(resize: "1200x1200").processed)
+      end
     end
 
     attribute :preview_image do |post|
-      post&.preview_image&.url(:large)
+      if post.preview_image&.file&.attached?
+        Rails.application.routes.url_helpers.rails_representation_url(post.preview_image.file.variant(resize: "1200x1200").processed)
+      end
     end
   end
 end

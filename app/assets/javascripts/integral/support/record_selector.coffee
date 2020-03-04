@@ -76,8 +76,8 @@ class this.RecordSelector
         # Copy placeholder, set attributes & fire click event
         new_item = @placeholder.clone().prependTo(@recordsContainer.find('.grid-x'))
         new_item.find('.record').data(record)
-        new_item.find('.record').data('image', record.image.url)
-        new_item.find('img').attr('src', record.image.url)
+        new_item.find('.record').data('image', record.image)
+        new_item.find('img').attr('src', record.image)
         new_item.find('.subtitle').text(record.subtitle)
         new_item.find('.title').text(record.title)
         new_item.find('.record').trigger('click')

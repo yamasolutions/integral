@@ -5,6 +5,14 @@ module Integral
     module BaseHelper
       include Integral::SupportHelper
 
+      def decorated_resource
+        @decorated_resource ||= @resource.decorate unless @resource.nil?
+      end
+
+      def decorated_current_user
+        @decorated_current_user ||= UserDecorator.decorate(current_user) unless current_user.nil?
+      end
+
       # @return [String] title provided through yield or i18n scoped to controller namespace & action
       def page_title
         return content_for(:title) if content_for?(:title)

@@ -44,9 +44,7 @@
             .card-section
               %h2= t('integral.records.attributes.avatar')
               %hr.dark
-              - if @resource.avatar.present?
-                = image_tag @resource.avatar.url(:medium)
-                = f.input :avatar, as: :string, disabled: true, label: false
+              = image_tag decorated_resource.avatar_url, class: 'avatar'
               = f.input :avatar, label: false
         .cell
           .card

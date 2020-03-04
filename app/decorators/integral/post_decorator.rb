@@ -3,6 +3,7 @@ module Integral
   class PostDecorator < Draper::Decorator
     delegate_all
     decorates_association :category
+    decorates_association :user
 
     # Enables pagination
     def self.collection_decorator_class

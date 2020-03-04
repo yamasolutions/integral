@@ -20,7 +20,10 @@ module Integral
         if remote_request?
           if @resource.save
             flash.now[:notice] = notification_message('creation_success')
-            render json: @resource.to_list_item, status: :created
+            list_item = @resource.to_list_item
+            list_item[:image] = view_context.rails_representation_url(list_item[:image].variant(resize: '400x400').processed)
+
+            render json: list_item, status: :created
           else
             flash.now[:error] = notification_message('creation_failure')
             head :unprocessable_entity

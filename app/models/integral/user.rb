@@ -4,9 +4,6 @@ module Integral
     # Soft-deletion
     acts_as_paranoid
 
-    mount_uploader :avatar, AvatarUploader
-    process_in_background :avatar
-
     # Included devise modules. Others available are:
     # :confirmable, :timeoutable, :omniauthable, registerable and lockable
     devise :invitable, :database_authenticatable, :recoverable, :rememberable, :trackable, :validatable
@@ -14,6 +11,7 @@ module Integral
     # Relations
     has_many :role_assignments
     has_many :roles, through: :role_assignments
+    has_one_attached :avatar
 
     # Validations
     validates :name, :email, presence: true

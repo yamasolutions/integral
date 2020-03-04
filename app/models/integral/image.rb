@@ -10,25 +10,15 @@ module Integral
     validates :title, presence: true, length: { minimum: 5, maximum: 50 }
     validates :description, length: { maximum: 160 }
 
-    mount_uploader :file, ImageUploader
-    process_in_background :file
-
-    # Delegations
-    delegate :url, to: :file
-
     # Associations
     has_many :list_items
+    has_one_attached :file
 
     # Version Tracking
     has_paper_trail class_name: 'Integral::ImageVersion'
 
     # Scopes
     scope :search, ->(query) { where('lower(title) LIKE ?', "%#{query.downcase}%") }
-
-    # @return [String] represents the dimensions of the original image
-    def dimensions
-      "#{width}x#{height}px" if width && height
-    end
 
     # @return [Hash] the instance as a list item
     def to_list_item
@@ -54,14 +44,6 @@ module Integral
 
     def touch_list_items
       list_items.find_each(&:touch)
-    end
-
-    # Override CarrierwaveBackgrounder Method
-    #
-    # CarrierwaveBackgrounder should not be attempting to process images when processing is
-    # disabled through Carrierwave
-    def enqueue_file_background_job?
-      !remove_file? && !process_file_upload && file_updated? && ImageUploader.enable_processing
     end
   end
 end

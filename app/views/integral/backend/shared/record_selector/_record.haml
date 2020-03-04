@@ -1,6 +1,10 @@
 :ruby
-  if list_item[:image].respond_to?(:url)
-    list_item[:image] = list_item[:image].url(:small)
+  if list_item[:image].respond_to?(:attached?)
+    if list_item[:image].attached?
+      list_item[:image] = rails_representation_url(list_item[:image].variant(resize: '400x400').processed)
+    else
+      list_item[:image] = ''
+    end
   end
 
 .cell.large-2.medium-3.small-4

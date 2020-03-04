@@ -30,19 +30,6 @@ config.action_mailer.smtp_settings = {
 }
 ```
 
-### File uploading (Carrierwave) setup
-
-Integral uses [Carrierwave](https://github.com/carrierwaveuploader/carrierwave) to manage file uploading and assumes you will be storing the files on [Amazon S3](https://aws.amazon.com/s3/).
-
-To configure file uploading set the following environmental variables;
-* ``` AWS_S3_BUCKET_NAME ```
-* ``` AWS_ACCESS_KEY_ID ```
-* ``` AWS_SECRET_ACCESS_KEY ```
-* ``` AWS_REGION ```
-
-This information can be found on your Amazon S3 account.
-
-If you are not using Amazon S3 you can change the Carrierwave config file ```config/initializers/carrierwave.rb```. This file was automatically copied in when you installed Integral. You'll also want to update ```config/sitemap.rb``` as the sitemap generator assumes you're using S3.
 
 ### Set host
 Set the website URL, used (unsurprisingly) within URL generation.
@@ -62,8 +49,6 @@ By default all jobs will run asynchronously, which means when someone uploads a 
 
 Integral does not impose a specific queue adapter as this will vary between applications. If you have a small application and want to get started as soon as possible we recommend [Delayed Jobs](https://github.com/collectiveidea/delayed_job).
 
-Note: When you decide on a queue adapter you'll need to update the [Carrierwave Backgrounder](https://github.com/patricklindsay/carrierwave_backgrounder) config at `config/initializers/carrierwave_backgrounder.rb`
-
 ### Site Security
 It goes without saying but we'll say it anyway - Make sure to enable (and force) SSL for all your applications.
 ```
@@ -81,6 +66,18 @@ User-agent: *
 Disallow: /admin
 Sitemap: https://s3.eu-west-2.amazonaws.com/yama-solutions/sitemaps/sitemap.xml
 ```
+
+Integral assumes you will be storing the files on [Amazon S3](https://aws.amazon.com/s3/).
+
+To configure file uploading set the following environmental variables;
+* ``` AWS_S3_BUCKET_NAME ```
+* ``` AWS_ACCESS_KEY_ID ```
+* ``` AWS_SECRET_ACCESS_KEY ```
+* ``` AWS_REGION ```
+
+This information can be found on your Amazon S3 account.
+
+If you are not using Amazon S3 you'll want to update ```config/sitemap.rb```
 
 ### Error monitoring
 Never miss an error - install an error tracking management tool such as [Rollbar](https://rollbar.com) or [HoneyBadger](https://www.honeybadger.io/)

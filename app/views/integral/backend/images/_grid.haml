@@ -4,7 +4,7 @@
       - grid.assets.decorate.each do |record|
         %tr
           %td
-            = image_tag record.file.url(:small), class: :preview
+            %image{ src: record.url, class: :preview }
             = record.title.truncate(30)
           %td= l(record.updated_at, format: :long)
           %td.actions

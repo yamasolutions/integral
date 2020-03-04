@@ -6,7 +6,7 @@
           %td= record.title.truncate(30)
           %td
             - if record.user.present?
-              = image_tag record.user.avatar.url(:thumbnail), alt: record.user.name, class: 'avatar'
+              = image_tag record.user.avatar_url, alt: record.user.name, class: 'avatar'
               = record.user.name
             - else
               "#{record.user_id} [Deleted]"

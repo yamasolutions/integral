@@ -4,7 +4,7 @@
       - grid.assets.decorate.each do |record|
         %tr
           %td
-            = image_tag record.avatar.url(:thumbnail), class: :avatar
+            = image_tag record.avatar_url, class: :avatar
             = record.name.truncate(30)
           %td= record.email
           %td= l(record.updated_at, format: :long)

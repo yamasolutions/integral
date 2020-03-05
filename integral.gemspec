@@ -18,7 +18,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'acts-as-taggable-on', '~> 6.0' # Tagging
   s.add_dependency 'breadcrumbs_on_rails', '~> 3.0' # Breadcrumbs
   # NOTE: image2 plugin for Ckeditor has been monkey patched to remove height modifications
-  s.add_dependency 'ckeditor', '~> 4.3.0' # WYSIWYG Editor
+  s.add_dependency 'ckeditor', '~> 5.0.0' # WYSIWYG Editor
   s.add_dependency 'coffee-rails', '~> 4.2.0' # Coffeescript
   s.add_dependency 'client_side_validations', '~> 11.0' # Client-side validations
   s.add_dependency 'client_side_validations-simple_form', '~> 6.5' # Simpleform for CSV

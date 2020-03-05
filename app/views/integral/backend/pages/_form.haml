@@ -18,8 +18,9 @@
         .cell
           .card
             .card-section
-              = f.input :body, as: :ckeditor, input_html: { value: @resource.editor_body, id: 'resource_body_editor', ckeditor: { language: current_user.locale }, data: { 'ckeditor-class' => @resource.template } }
-
+              -# TODO: Move this upto Ckeditor, using below as template
+              -# = f.input :body, as: :ckeditor, input_html: { value: @resource.editor_body, class: '', id: 'resource_body_editor', ckeditor: { language: current_user.locale, body_class: @resource.template }}
+              = f.input :body, as: :text, input_html: { value: @resource.editor_body, id: 'resource_body_editor', ckeditor: { language: current_user.locale }, data: { controller: 'ckeditor', ckeditor_custom_config: asset_url(Ckeditor.js_config_url), ckeditor_body_class: @resource.template }, class: '' }
     .cell.small-12.medium-4.large-3
       .grid-y
         .cell

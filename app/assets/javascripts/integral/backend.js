@@ -21,7 +21,6 @@
 //= require rails.validations.simple_form
 //= require parsley
 //= require cocoon
-//= require ckeditor/loader
 //= require i18n
 //= require i18n/translations
 //= require_directory ./support
@@ -179,23 +178,6 @@ function ready() {
 
   // Set the locale for clientside validations
   I18n.locale = $('body').data('locale') || 'en';
-
-  // CKEditor Initialization
-  // TODO: Fork Ckeditor and remove obtrusive JS causing the below to throw warnings
-  for(name in CKEDITOR.instances) {
-    CKEDITOR.instances[name].destroy(true);
-  }
-
-  $('.ckeditor textarea').each(function() {
-    editor = $(this);
-    options = {
-      "language": I18n.locale,
-      "bodyClass": editor.data('ckeditor-class'),
-      "toolbar": editor.data('ckeditor-toolbar') || 'default'
-    }
-
-    CKEDITOR.replace(editor.attr('id'), options);
-  });
 
   // Populate CKeditor with example content
   $(".ckeditor .populate-button").on( "click", function(ev) {

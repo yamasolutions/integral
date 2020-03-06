@@ -1,8 +1,8 @@
-# CKEditor Attachment file
-class Ckeditor::AttachmentFile < Ckeditor::Asset
-  mount_uploader :data, CkeditorAttachmentFileUploader, mount_on: :data_file_name
+# frozen_string_literal: true
 
-  # Sets the URL of the thumbnail(?)
+class Ckeditor::AttachmentFile < Ckeditor::Asset
+  # for validation, see https://github.com/igorkasyanchuk/active_storage_validations
+
   def url_thumb
     @url_thumb ||= Ckeditor::Utils.filethumb(filename)
   end

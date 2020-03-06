@@ -1,8 +1,10 @@
-# CKEditor base asset file
+# frozen_string_literal: true
+
 class Ckeditor::Asset < ActiveRecord::Base
   include Ckeditor::Orm::ActiveRecord::AssetBase
+  include Ckeditor::Backend::ActiveStorage
 
-  delegate :url, :current_path, :content_type, to: :data
+  attr_accessor :data
 
-  validates_presence_of :data
+  has_one_attached :storage_data
 end

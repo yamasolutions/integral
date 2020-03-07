@@ -1,0 +1,57 @@
+/* Default CKEditor Stylesheet
+ *
+ * Override this file to create your own customised styles for Ckeditor content
+ *
+ */
+
+@import 'integral/frontend'
+
+.cke_widget_placeholder
+  width: 95%
+  padding: 3em
+  margin: 0 auto
+  background-color: #f5f5f5
+  border-style: dashed
+  .cke_placeholder
+    background-color: transparent
+    outline: none !important
+  .cke_widget_drag_handler_container
+    visibility: hidden
+
+p.integral-widget
+  background-color: #f4f4f4
+  text-align: center
+  padding: 3rem 0
+  text-transform: uppercase
+  font-weight: bold
+  font-family: sans-serif
+  box-shadow: 0px 0px 5px 3px rgba(213,213,213,0.5)
+  cursor: not-allowed
+
+.cke_widget_embed [data-oembed-url*="instagram.com"]
+  blockquote
+    &:before, &:after
+      content: ''
+.cke_widget_embed [data-oembed-url*="twitter.com"]
+  padding: 1rem
+  padding-top: 3rem
+  background: linear-gradient(90deg, #71c6f4, #0d70a5)
+  &:before
+    @include font-awesome('\f099')
+    top: 1rem
+    right: 50%
+    position: absolute
+    font-size: 1.25rem
+    line-height: 2.2rem
+    color: #2196F3
+    background-color: $white
+    width: 2rem
+    height: 2rem
+    text-align: center
+    border-radius: 50%
+  blockquote
+    background-color: transparent
+    border: none
+    &:before, &:after
+      content: ''
+

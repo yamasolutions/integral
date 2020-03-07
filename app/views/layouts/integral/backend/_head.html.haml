@@ -11,6 +11,8 @@
   %link{ href: 'https://fonts.googleapis.com/css?family=Nunito:400,600', rel: 'stylesheet', type: 'text/css' }
 
   = stylesheet_link_tag    'integral/backend', media: 'all', 'data-turbolinks-track' => true
+  -# We prebuild the pack as Rails does not currently support Webpacker for Engines
+  = javascript_include_tag 'integral/backend-pack', 'data-turbolinks-track' => true
   = javascript_include_tag 'integral/backend', 'data-turbolinks-track' => true
 
   = csrf_meta_tags

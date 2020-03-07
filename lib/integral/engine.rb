@@ -101,6 +101,7 @@ module Integral
 
         # Backend
         'integral/backend.js',
+        'integral/backend-pack.js',
         'integral/backend.css',
         'integral/backend/logo.png',
         'integral/backend/data-unavailable.png',

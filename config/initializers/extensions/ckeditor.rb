@@ -1,12 +1,31 @@
 module Ckeditor
   # Patch CKEditor to add populate with demo content button
   TextArea.class_eval do
-    def render(input)
-      render_populate_button = ck_options['example_content'].nil? ? true : ck_options['example_content']
 
+    def initialize(template, options)
+      @template = template
+      @options = options.stringify_keys
+
+      @options['class'].delete(:ckeditor)
+      @options['data'] = {} if @options['data'].nil?
+      @options['data']['controller'] = 'ckeditor'
+
+      @options['ckeditor'] = @options['ckeditor'].stringify_keys || {}
+      @render_example_content = @options['ckeditor']['example_content'] || false
+
+      if @options['data']['ckeditor-custom-config'].blank? && Ckeditor.js_config_url.present?
+        @options['data']['ckeditor-custom-config'] = template.asset_path(Ckeditor.js_config_url)
+      end
+
+      @options['data']['ckeditor-toolbar'] = @options['ckeditor']['toolbar']
+      @options['data']['ckeditor-language'] = @options['ckeditor']['language']
+      @options['data']['ckeditor-body-class'] = @options['ckeditor']['body_class']
+      @options['ckeditor'] = nil
+    end
+
+    def render(input)
       output_buffer << input
-      output_buffer << javascript_tag(Utils.js_replace(options['id'], ck_options))
-      output_buffer << populate_button if render_populate_button
+      output_buffer << populate_button if render_populate_button?
       output_buffer
     end
 
@@ -26,6 +45,9 @@ module Ckeditor
         File.read(File.join(Integral::Engine.root.join('public', 'integral', 'ckeditor_demo_content.html')))
       end
     end
+
+    def render_populate_button?
+      @render_example_content
+    end
   end
 end
-

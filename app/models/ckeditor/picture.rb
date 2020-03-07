@@ -1,21 +1,18 @@
-# CKEditor picture
+# frozen_string_literal: true
+
 class Ckeditor::Picture < Ckeditor::Asset
   mount_uploader :data, CkeditorPictureUploader, mount_on: :data_file_name
   process_in_background :data
 
-  # Integral does not create a content version so this is basically an alias method for CKEditor
-  #
-  # @return [String] URL of picture
   def url_content
+    # rails_representation_url(storage_data.variant(resize: '800>').processed, only_path: true) # TODO: AS-SWITCH
     url
   end
 
-  # Before the picture is processed in the background thumbnail URL may not be available
-  #
-  # @return [String] URL of picture
   def url_thumb
     return url(:thumb) if url(:thumb)
 
+    # rails_representation_url(storage_data.variant(resize: '118x100').processed, only_path: true)  # TODO: AS-SWITCH
     url
   end
 end

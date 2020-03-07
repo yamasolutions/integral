@@ -1,0 +1,24 @@
+{
+  "devDependencies": {
+    "babel-core": "^6.25.0",
+    "babel-loader": "^7.1.1",
+    "babel-preset-env": "^1.6.0",
+    "ckeditor4": "^4.14.0",
+    "eslint": "^4.3.0",
+    "eslint-plugin-import": "^2.7.0",
+    "rollup": "^0.58.2",
+    "rollup-plugin-babel": "^3.0.4",
+    "rollup-plugin-commonjs": "^9.1.0",
+    "rollup-plugin-node-resolve": "^3.3.0",
+    "rollup-plugin-uglify": "^3.0.0",
+    "stimulus": "^1.1.1",
+    "webpack-cli": "^3.3.11"
+  },
+  "dependencies": {
+    "copy-webpack-plugin": "^5.1.1",
+    "webpack": "^4.42.0"
+  },
+  "scripts": {
+    "build": "webpack -p"
+  }
+}

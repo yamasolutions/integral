@@ -11,7 +11,7 @@ module Ckeditor
       @options['data']['controller'] = 'ckeditor'
 
       @options['ckeditor'] = @options['ckeditor'].stringify_keys || {}
-      @render_example_content = @options['ckeditor']['example_content'] || false
+      @render_example_content = @options['ckeditor']['example_content'].nil? ? true : @options['ckeditor']['example_content']
 
       if @options['data']['ckeditor-custom-config'].blank? && Ckeditor.js_config_url.present?
         @options['data']['ckeditor-custom-config'] = template.asset_path(Ckeditor.js_config_url)

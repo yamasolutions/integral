@@ -24,7 +24,7 @@ namespace :integral do
       carry_out_tasks klass, {} do |asset|
         if asset.send(uploader).present? && !asset.send(attachment).attached?
           asset.send(attachment).attach(io: open(asset.send(uploader).url), filename: asset.send(uploader).file.path.split("/").last)
-          puts "AS attachment created for #{klass}##{image.id}"
+          puts "AS attachment created for #{klass}##{asset.id}"
         end
       end
     end

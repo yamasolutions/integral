@@ -1,3 +1,5 @@
+require 'open-uri'
+
 namespace :integral do
   namespace :datafixes do
     desc 'Converts Integral Image assets to AS'

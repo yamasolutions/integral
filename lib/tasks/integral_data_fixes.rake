@@ -20,7 +20,7 @@ namespace :integral do
 
     def convert_uploaders_to_attachments(klass, uploader, attachment)
       carry_out_tasks klass, {} do |asset|
-        unless asset.send(attachment).attached?
+        if asset.send(uploader).present? && !asset.send(attachment).attached?
           asset.send(attachment).attach(io: File.open(asset.send(uploader).url))
           puts "AS attachment created for #{klass}##{image.id}"
         end

@@ -11,7 +11,7 @@ namespace :integral do
     desc 'Converts ckeditor assets to AS'
     task :convert_ckeditor_assets, [:amount] => [:environment] do |_t, args|
       puts 'Converting Ckeditor Assets to AS'
-      convert_uploaders_to_attachments(Ckeditor::Assets, :data, :storage_data)
+      convert_uploaders_to_attachments(Ckeditor::Asset, :data, :storage_data)
     end
 
     desc 'Converts user avatar assets to AS'

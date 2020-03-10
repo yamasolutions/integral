@@ -18,6 +18,7 @@ module Integral
 
     # Associations
     has_many :list_items
+    has_one_attached :file_as
 
     # Version Tracking
     has_paper_trail class_name: 'Integral::ImageVersion'

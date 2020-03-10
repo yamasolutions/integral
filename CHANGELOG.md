@@ -12,6 +12,7 @@ recommendations of [keepachangelog.com](http://keepachangelog.com/).
 ### Added
 
 - Bump Ckeditor gem to 5.1 to include AS adapter & load Ckeditor through NPM
+- Active Storage - Add rake tasks to convert all image assets to Active Storage. As of next version Carrierwave uploaders will be removed & AS will be used
 - Added Post Categories & category listing pages - Every post must have one category
 - Gallery - Handles pausing YouTube videos on close
 - Gallery - When only one item is present no longer shows thumbnail gallery and gallery controls

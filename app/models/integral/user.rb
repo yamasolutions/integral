@@ -14,6 +14,7 @@ module Integral
     # Relations
     has_many :role_assignments
     has_many :roles, through: :role_assignments
+    has_one_attached :avatar_as
 
     # Validations
     validates :name, :email, presence: true

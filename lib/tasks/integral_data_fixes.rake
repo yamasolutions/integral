@@ -3,19 +3,19 @@ namespace :integral do
     desc 'Converts Integral Image assets to AS'
     task :convert_image_assets, [:amount] => [:environment] do |_t, args|
       puts 'Converting Integral Image Assets to AS'
-      convert_ckeditor_assets(Integral::Image, :file, :file_as)
+      convert_uploaders_to_attachments(Integral::Image, :file, :file_as)
     end
 
     desc 'Converts ckeditor assets to AS'
     task :convert_ckeditor_assets, [:amount] => [:environment] do |_t, args|
       puts 'Converting Ckeditor Assets to AS'
-      convert_ckeditor_assets(Ckeditor::Assets, :data, :storage_data)
+      convert_uploaders_to_attachments(Ckeditor::Assets, :data, :storage_data)
     end
 
     desc 'Converts user avatar assets to AS'
     task :convert_user_avatar_assets, [:amount] => [:environment] do |_t, args|
       puts 'Converting Ckeditor Assets to AS'
-      convert_ckeditor_assets(Integral::User, :avatar, :avatar_as)
+      convert_uploaders_to_attachments(Integral::User, :avatar, :avatar_as)
     end
 
     def convert_uploaders_to_attachments(klass, uploader, attachment)

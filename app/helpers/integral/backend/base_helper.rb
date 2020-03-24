@@ -55,6 +55,14 @@ module Integral
       end
 
       # Donut Graph - At a Glance
+      def dataset_at_a_glance_posts
+        [
+          { scope: Integral::Post.published, label: 'Published' },
+          { scope: Integral::Post.draft, label: 'Draft ' }
+        ]
+      end
+
+      # Donut Graph - At a Glance
       def dataset_dashboard_atg
         data = [
           { scope: Integral::Page, label: 'Total Pages' },

@@ -19,7 +19,7 @@ module Integral
       # GET /:id/edit
       # Category update screen
       def edit
-        render json: { content: render_to_string(partial: "integral/backend/categories/modal", locals: { category: @resource, title: 'Edit Category', modal_id: "modal--category-edit-#{@resource.id}" }) }
+        render json: { content: render_to_string(partial: 'integral/backend/categories/modal', locals: { category: @resource, title: 'Edit Category', modal_id: "modal--category-edit-#{@resource.id}" }) }
       end
 
       # POST /

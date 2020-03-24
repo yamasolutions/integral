@@ -79,6 +79,7 @@ en:
       subscribe: Subscribe
       confirm: Confirm
       cancel: Cancel
+      view_all: View All
     prompts:
       select_image: Select Image..
       select_type: Select Type..

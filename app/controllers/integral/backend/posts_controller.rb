@@ -27,8 +27,7 @@ module Integral
 
       # GET /
       # Post dashboard screen
-      def index
-      end
+      def index; end
 
       private
 

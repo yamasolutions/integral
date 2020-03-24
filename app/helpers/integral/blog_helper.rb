@@ -1,6 +1,7 @@
 module Integral
   # Blog Helper which contains methods used through the blog
   module BlogHelper
+    # @return [Relation] featured categories - currently all which have posts associated to them
     def featured_categories
       @featured_categories ||= Integral::Category.where(id: Integral::Post.published.select(:category_id).uniq.map(&:category_id))
     end

@@ -1,33 +1,80 @@
 .grid-x.grid-padding-x
   .cell.large-6
-    .card
-      .card-section
-        .card-action-title
-          %h2 Categories
-          %button.button.hollow{ 'data-open' => 'new_category_modal' } Create
-        %table
-          - Integral::Category.all.decorate.each do |category|
-            %tr
-              %td= category.title
-              %td
-                %span.badge= category.posts.count
-              %td
-                %button.button--action-pane{ 'data-toggle' => "dropdown-pane-actions-category-#{category.id}" }
-                  = icon('ellipsis-v')
-                .dropdown-pane.dropdown-pane--actions{ id: "dropdown-pane-actions-category-#{category.id}", data: { dropdown: true, position: :bottom, alignment: :right, close_on_click: 'true' } }
-                  %ul.menu.vertical
-                    %li
-                      %button{ data: { modal_url: edit_backend_category_url(category.id), button_edit_category: "modal--category-edit-#{category.id}" } }
-                        = icon('ellipsis-v')
-                        = t('integral.actions.edit')
-                      -# = link_to edit_backend_category_url(category.id), data: { 'button-edit-category' => "modal--category-edit-#{category.id}" }, remote: true do
-                      -#   = icon('ellipsis-v')
-                      -#   = t('integral.actions.edit')
+    .grid-x.grid-padding-x
+      .cell
+        .card
+          .card-section
+            .card-action-title
+              %h2 Recent Posts
+            %table.hover
+              - Integral::Post.published.limit(5).decorate.each do |record|
+                %tr
+                  %td= record.title
+                  %td
+                    - if record.user.present?
+                      = image_tag record.user.avatar.url(:thumbnail), alt: record.user.name, class: 'avatar'
+                      = record.user.name
+                    - else
+                      "#{record.user_id} [Deleted]"
+                  %td
+                    = link_to edit_backend_post_url(record.id), class: 'button--action-pane' do
+                      = icon('eye')
 
-                    %li
-                      %button.disabled
-                        = icon('ellipsis-v')
-                        = t('integral.actions.delete')
+            = link_to t('integral.actions.view_all'), list_backend_posts_url, class: 'button clear expanded'
+
+      .cell
+        .card
+          .card-section
+            .card-action-title
+              %h2 Categories
+              %button.button.hollow{ 'data-open' => 'new_category_modal' } Create
+            %table.hover
+              - Integral::Category.all.decorate.each do |category|
+                %tr
+                  %td= category.title
+                  %td
+                    %span.badge= category.posts.count
+                  %td
+                    %button.button--action-pane{ 'data-toggle' => "dropdown-pane-actions-category-#{category.id}" }
+                      = icon('ellipsis-v')
+                    .dropdown-pane.dropdown-pane--actions{ id: "dropdown-pane-actions-category-#{category.id}", data: { dropdown: true, position: :bottom, alignment: :right, close_on_click: 'true' } }
+                      %ul.menu.vertical
+                        %li
+                          %button{ data: { modal_url: edit_backend_category_url(category.id), button_edit_category: "modal--category-edit-#{category.id}" } }
+                            = icon('ellipsis-v')
+                            = t('integral.actions.edit')
+                          -# = link_to edit_backend_category_url(category.id), data: { 'button-edit-category' => "modal--category-edit-#{category.id}" }, remote: true do
+                          -#   = icon('ellipsis-v')
+                          -#   = t('integral.actions.edit')
+
+                        %li
+                          %button.disabled
+                            = icon('ellipsis-v')
+                            = t('integral.actions.delete')
+
+  .cell.large-6
+    .grid-x.grid-padding-x
+      .cell
+        = render partial: 'integral/backend/shared/cards/at_a_glance', locals: { dataset: dataset_at_a_glance_posts }
+
+      - user_ids = Integral::Post.published.pluck(:user_id).tally
+      .cell.large-6
+        .card
+          .card-section
+            .card-action-title
+              %h2 Top Authors
+            .stat-table
+              .stat-table-heading
+                .stat-table-header Total Authors
+                .stat-table-header-count= user_ids.count
+              %table.unstriped.hover
+                - Integral::User.where(id: user_ids.keys).decorate.each do |record|
+                  %tr
+                    %td
+                      = image_tag record.avatar.url(:thumbnail), alt: record.name, class: 'avatar'
+                      = record.name
+                    %td
+                      %span.badge.secondary= user_ids[record.id]
 
 = render partial: 'integral/backend/categories/modal', locals: { title: 'Category Creation' }
 

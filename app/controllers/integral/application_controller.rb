@@ -18,6 +18,8 @@ module Integral
     end
 
     helper_method :category_path
+
+    # @return [String] path to category page
     def category_path(category)
       "/#{Integral.blog_namespace}/#{category.slug}"
     end

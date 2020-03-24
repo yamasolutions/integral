@@ -151,6 +151,7 @@ en:
       log_out: Logout
       my_account: Account & Profile
       settings: Settings
+      listing: Listing
 
     posts:
       index:
@@ -193,6 +194,7 @@ en:
         edit: "Edit %{type_singular}"
         update: "Update %{type_singular}"
         index: "%{type_plural}"
+        list: "%{type_singular} Listing"
       notifications:
         clone_success: "%{type} successfully cloned."
         clone_failure: "%{type} clone failed."
@@ -309,7 +311,6 @@ en:
             views: 'Views'
             status: 'Status'
         index:
-          title: 'Posts'
           new_post: 'Create post'
           published_count: "%{count} published"
           drafts_count: "%{count} drafted"
@@ -470,3 +471,9 @@ en:
         someone_invited_you: "%{name} has invited you to %{url}, you can accept it through the link below."
   ckeditor:
     populate_editor: Populate editor with example content.
+
+  activerecord:
+    models:
+      integral/post:
+        one: Post
+        other: Posts

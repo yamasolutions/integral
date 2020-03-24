@@ -84,6 +84,7 @@ module Integral
           # Post Management
           if Integral.blog_enabled?
             resources :posts, except: [:show] do
+              get 'list', on: :collection
               member do
                 post 'duplicate'
                 get 'activities', controller: 'posts'
@@ -91,6 +92,7 @@ module Integral
               end
               # resources :comments, only: [:create, :destroy]
             end
+            resources :categories, only: %i[create edit update]
           end
 
           # List Management

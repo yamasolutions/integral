@@ -13,8 +13,8 @@ module Integral
         # Scope is set to current controller namespace & action
         t('title', scope: "#{controller_path.tr('/', '.')}.#{action_name}",
                    default: I18n.t("integral.backend.titles.#{action_name}",
-                                   type_singular: resource_klass.model_name.human,
-                                   type_plural: resource_klass.model_name.plural.capitalize))
+                                   type_singular: resource_klass.model_name.human.capitalize,
+                                   type_plural: resource_klass.model_name.human(count: 2).capitalize))
       end
 
       # Renders a grid from a local partial within a datagrid container

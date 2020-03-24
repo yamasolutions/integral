@@ -211,7 +211,7 @@
   .top-bar {
     .create-dropdown {
       padding: 1em 0;
-      width: 10em;
+      width: auto;
       background-color: $white;
       &:after {
         content: ' ';

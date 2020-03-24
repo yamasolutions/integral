@@ -770,3 +770,58 @@ table
 
 .help-text
   margin-bottom: 0
+
+.card-action-title
+  display: flex
+  justify-content: space-between
+
+
+.button--action-pane
+  cursor: pointer
+  &:hover, &.hover
+    color: $primary-color
+
+.dropdown-pane--actions
+  padding: 0
+  background-color: transparent
+  box-shadow: none
+  width: auto
+  padding-top: 20px
+  .menu
+    padding: .5rem 0
+    background-color: $white
+    box-shadow: 1px 6px 15px 0 rgba(35, 52, 69, 0.15)
+    &:after
+      content: ' '
+      position: absolute
+      right: 0
+      top: -2.2em
+      height: 2.2em
+      width: 70%
+    &:before
+      content: ' '
+      width: 20px
+      height: 20px
+      border-radius: 0 0 0.5em 0
+      background: linear-gradient(-45deg, #ffffff 50%, transparent 50%)
+      position: absolute
+      margin: 0
+      right: 5px
+      transform: rotate(225deg) skewX(8deg) skewY(8deg)
+      top: -5px
+    i
+      width: 30px
+      text-align: center
+    a, button
+      display: block
+      width: 100%
+      padding: .75rem 1rem
+      color: $secondary-color
+      text-align: left
+      cursor: pointer
+      &.disabled
+        opacity: 0.25
+        cursor: not-allowed
+      &:hover
+        background-color: scale-color($primary-color, $lightness: 95%)
+

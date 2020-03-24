@@ -8,9 +8,11 @@ recommendations of [keepachangelog.com](http://keepachangelog.com/).
 ### Breaking Changes
 
 - If any Post or Page content contains images with class of 'lazyload' you'll need to use the #editor_body method when instaniating Ckeditor (this method handles converting the data-src back to regular src)
+- Ruby version must be >= 1.7.0
 
 ### Added
 
+- Added Post dashboard
 - Added Post Categories & category listing pages - Every post must have one category
 - Gallery - Handles pausing YouTube videos on close
 - Gallery - When only one item is present no longer shows thumbnail gallery and gallery controls

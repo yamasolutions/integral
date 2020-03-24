@@ -49,4 +49,4 @@ jobs:
       - run: bundle exec rake app:ckeditor:nondigest
 
       # Run the tests
-      - run: bundle exec fudge build
+      - run: bundle exec rspec spec/

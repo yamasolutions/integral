@@ -10,7 +10,7 @@ module Integral
       sign_in(create(:post_manager))
       within(".app-dashboard-sidebar-inner li.is-dropdown-submenu-parent") do
         click_on 'Posts'
-        click_on 'Dashboard'
+        click_on 'Listing'
       end
     end
 
@@ -47,6 +47,7 @@ module Integral
       end
 
       first(:button, 'Update Post').click
+      sleep 1
 
       expect(page).to have_content I18n.t('integral.backend.notifications.edit_success', type: Integral::Post.model_name.human)
     end

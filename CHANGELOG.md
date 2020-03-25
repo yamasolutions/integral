@@ -11,6 +11,7 @@ recommendations of [keepachangelog.com](http://keepachangelog.com/).
 
 ### Added
 
+- Added Post dashboard
 - Added Post Categories & category listing pages - Every post must have one category
 - Gallery - Handles pausing YouTube videos on close
 - Gallery - When only one item is present no longer shows thumbnail gallery and gallery controls

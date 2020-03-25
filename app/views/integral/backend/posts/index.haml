@@ -60,7 +60,8 @@
       .cell
         = render partial: 'integral/backend/shared/cards/at_a_glance', locals: { dataset: dataset_at_a_glance_posts }
 
-      - user_ids = Integral::Post.published.group(:user_id).count
+      - user_ids = Integral::Post.published.group(:user_id).count.sort_by(&:last).reverse.to_h
+      - post_users = Integral::User.where(id: user_ids.keys).decorate.sort_by { |prod| user_ids.keys.index(prod.id) }
       .cell.large-6
         .card
           .card-section
@@ -71,7 +72,7 @@
                 .stat-table-header Total Authors
                 .stat-table-header-count= user_ids.count
               %table.unstriped.hover
-                - Integral::User.where(id: user_ids.keys).decorate.each do |record|
+                - post_users.each do |record|
                   %tr
                     %td
                       = image_tag record.avatar.url(:thumbnail), alt: record.name, class: 'avatar'

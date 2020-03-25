@@ -109,12 +109,21 @@ module Integral
       # DELETE /:id
       def destroy
         if @resource.destroy
-          respond_successfully(notification_message('delete_success'), send("backend_#{controller_name}_path"))
+          respond_to do |format|
+            format.html { respond_successfully(notification_message('delete_success'), send("backend_#{controller_name}_path")) }
+            format.js { head :no_content }
+          end
         else
-          error_message = @resource.errors.full_messages.to_sentence
-          flash[:error] = "#{notification_message('delete_failure')} - #{error_message}"
+          respond_to do |format|
+            format.html do
+              error_message = @resource.errors.full_messages.to_sentence
+              flash[:error] = "#{notification_message('delete_failure')} - #{error_message}"
 
-          redirect_to send("backend_#{controller_name}_path")
+              redirect_to send("backend_#{controller_name}_path")
+            end
+            format.js { head :unprocessable_entity }
+          end
+
         end
       end
 

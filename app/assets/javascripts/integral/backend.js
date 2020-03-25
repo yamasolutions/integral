@@ -53,6 +53,14 @@ function ready() {
   new RemoteForm($('.remote-form'));
   Grid.init();
 
+  $("[data-button-delete-category]").on("ajax:success", function(ev) {
+    $(ev.currentTarget).closest('tr').fadeOut();
+  });
+
+  $("[data-button-delete-category]").on("ajax:error", function(ev) {
+    toastr["error"](I18n.t('integral.remote_form.error'));
+  });
+
   $("#new_category_modal").on("open.zf.reveal", function(ev) {
     $(ev.currentTarget).find('form').enableClientSideValidations();
   });

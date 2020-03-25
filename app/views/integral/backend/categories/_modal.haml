@@ -10,7 +10,6 @@
     .modal-header
       %h4= title
     .modal-content.padded
-      = f.hidden_field :remote, as: :hidden, value: 'true'
       = f.input :title, wrapper_html: { class: 'alternative' }, input_html: { id: slug_id }
       = f.input :slug, wrapper_html: { class: 'alternative' }, input_html: { data: { slugify: "##{slug_id}" } }
       = f.input :description, as: :text, wrapper_html: { class: 'alternative' }

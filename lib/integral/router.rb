@@ -92,7 +92,7 @@ module Integral
               end
               # resources :comments, only: [:create, :destroy]
             end
-            resources :categories, only: %i[create edit update]
+            resources :categories, only: %i[create edit update destroy]
           end
 
           # List Management

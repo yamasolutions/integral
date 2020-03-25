@@ -14,7 +14,7 @@ recommendations of [keepachangelog.com](http://keepachangelog.com/).
 
 - Improved default frontend blog styling
 - Added backend Posts dashboard
-- Added Post category creation & category listing pages - Every post must have one category
+- Added Post category management & category listing pages - Every post must have one category
 - Gallery - Handles pausing YouTube videos on close
 - Gallery - When only one item is present no longer shows thumbnail gallery and gallery controls
 - LazyLoading - Automatically mark Twitter & Instgram oEmbeds as Lazy Loads and handle lazy loading images with the 'lazyload' class

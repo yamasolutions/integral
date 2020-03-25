@@ -211,7 +211,7 @@
   .top-bar {
     .create-dropdown {
       padding: 1em 0;
-      width: auto;
+      min-width: 10em;
       background-color: $white;
       &:after {
         content: ' ';
@@ -232,6 +232,9 @@
         right: 0.5em;
         transform: rotate(225deg) skewX(8deg) skewY(8deg);
         top: -0.1em;
+      }
+      li {
+        display: block;
       }
       i {
         width: 30px;

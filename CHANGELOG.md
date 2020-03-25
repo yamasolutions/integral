@@ -8,11 +8,13 @@ recommendations of [keepachangelog.com](http://keepachangelog.com/).
 ### Breaking Changes
 
 - If any Post or Page content contains images with class of 'lazyload' you'll need to use the #editor_body method when instaniating Ckeditor (this method handles converting the data-src back to regular src)
+- All Posts must be associated to an Integral::Category through the `category` association
 
 ### Added
 
-- Added Post dashboard
-- Added Post Categories & category listing pages - Every post must have one category
+- Improved default frontend blog styling
+- Added backend Posts dashboard
+- Added Post category creation & category listing pages - Every post must have one category
 - Gallery - Handles pausing YouTube videos on close
 - Gallery - When only one item is present no longer shows thumbnail gallery and gallery controls
 - LazyLoading - Automatically mark Twitter & Instgram oEmbeds as Lazy Loads and handle lazy loading images with the 'lazyload' class

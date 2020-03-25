@@ -17,7 +17,7 @@ module Integral
         # TODO: Move most of these options up to SwiperListRenderer as defaults (?)
         list_opts = {
           item_renderer: Integral::PartialListItemRenderer,
-          html_classes: '',
+          html_classes: options[:html_classes],
           item_renderer_opts: {
             partial_path: options[:slide_view_path],
             wrapper_element: 'div',
@@ -32,7 +32,8 @@ module Integral
       # Default widget options
       def self.default_options
         {
-          slide_view_path: 'integral/shared/record_card'
+          slide_view_path: 'integral/shared/record_card',
+          html_classes: ''
         }
       end
     end

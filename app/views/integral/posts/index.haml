@@ -1,7 +1,8 @@
 = render_posts_as_json_ld(@posts.decorate)
 
-= render layout: 'integral/shared/blog_layout', locals: { title: t('.title'), subtitle: t('.subtitle'), image: image_url('integral/posts-hero-banner.jpg') } do
-  %ul.post-list
-    - @posts.decorate.each do |post|
-      %li= render partial: 'integral/posts/item', locals: { post: post }
-  = will_paginate @posts, renderer: FoundationPagination::Rails
+= render layout: 'integral/shared/blog/layout', locals: { title: t('.title') } do
+  - if @latest_post.present?
+    = render partial: 'latest_post', locals: { post: @latest_post }
+  = render partial: @posts.decorate, cached: true
+  = render partial: 'most_read_section' if display_most_read_posts_widget?
+  .center= will_paginate @posts, renderer: FoundationPagination::Rails

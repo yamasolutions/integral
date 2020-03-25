@@ -1,0 +1,11 @@
+.cell.small-3.flex-container
+  .card.post-card
+    = link_to integral.post_url(post) do
+      = image_tag post.image(:medium), class: 'post-card-image'
+      .card-section
+        %h3= post.title
+        %p= post.description
+        %ul.list-unstyled.piped-list
+          %li= post.published_at
+          -# %li= link_to 'Category', root_url
+          %li= post.category.title

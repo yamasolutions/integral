@@ -1,5 +1,5 @@
-= render layout: 'integral/shared/blog_layout', locals: { title: t('.title'), subtitle: t('.subtitle'), image: image_url('integral/posts-hero-banner.jpg')} do
-  %ul.tag-list
+= render layout: 'integral/shared/blog/layout', locals: { title: t('.title') } do
+  %ul.post-tags.text-center
     - @tags.each do |tag|
       %li
         = link_to tag_url(tag.name) do

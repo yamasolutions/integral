@@ -1,0 +1,7 @@
+.sidebar-widget
+  %h2.sidebar-widget-title= t('integral.blog.widgets.popular_tags')
+  .sidebar-tags
+    %ul.post-tags
+      - @blog_tags.each do |tag|
+        %li= link_to tag.name, tag_url(tag.name)
+  = link_to 'View All', integral.tags_url, class: 'sidebar-widget-link'

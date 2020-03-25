@@ -22,13 +22,13 @@
 
     -# Off Canvas - Main Content
     .off-canvas-content{ 'data-off-canvas-content' => true }
-      %header
+      %header.body-header
         = render partial: 'layouts/integral/frontend/header'
 
       %main
         = yield
 
-      %footer
+      %footer.body-footer
         = render partial: 'layouts/integral/frontend/footer'
 
     = render partial: 'integral/shared/share_modal'

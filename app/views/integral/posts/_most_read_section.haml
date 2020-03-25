@@ -1,0 +1,8 @@
+.inline-articles{ 'data-most-read-posts' => true}
+  %h2= t('integral.blog.widgets.most_read')
+  .grid-x.grid-padding-x
+    - most_read_posts.each do |post|
+      .cell.small-6.medium-3
+        = link_to post do
+          = image_tag post.image(:medium)
+          .inline-articles-title= post.title

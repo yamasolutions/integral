@@ -29,6 +29,29 @@ module Integral
       # GET /
       # Lists all resources
       def index
+        # TODO: This default behaviour will switch to 'list' action
+
+        respond_to do |format|
+          format.html do
+            set_grid
+          end
+
+          format.json do
+            if params[:gridview].present?
+              set_grid
+              render json: { content: render_to_string(partial: "integral/backend/#{controller_name}/grid", locals: { grid: @grid }) }
+            else
+              respond_to_record_selector
+            end
+          end
+        end
+      end
+
+      # GET /list
+      # Lists all resources
+      def list
+        add_breadcrumb I18n.t('integral.navigation.list'), "new_backend_#{controller_name.singularize}_path".to_sym
+
         respond_to do |format|
           format.html do
             set_grid

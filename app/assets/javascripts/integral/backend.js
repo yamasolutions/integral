@@ -50,7 +50,30 @@ function ready() {
   new ChartManager();
   NotificationManager.flash();
   ImageUploader.init();
+  new RemoteForm($('.remote-form'));
   Grid.init();
+
+  $("#new_category_modal").on("open.zf.reveal", function(ev) {
+    $(ev.currentTarget).find('form').enableClientSideValidations();
+  });
+
+  $("[data-button-edit-category]").on( "click", function(ev) {
+    modalId = '#' + ev.currentTarget.dataset.buttonEditCategory;
+    modalUrl = ev.currentTarget.dataset.modalUrl;
+
+    if ($(modalId).length == 0) {
+      $.ajax({url: modalUrl, success: function(response){
+        $('body').append(response.content);
+        modal = $(modalId);
+        modal.foundation().foundation('open');
+        modal.find('form').enableClientSideValidations();
+        new RemoteForm(modal.find('form'));
+        SlugGenerator.check_for_slugs();
+      }});
+    } else {
+      $(modalId).foundation('open');
+    }
+  });
 
   if (($('body.lists.new').length > 0) || ($('body.lists.show').length > 0) || ($('body.lists.edit').length > 0)) {
     new List();

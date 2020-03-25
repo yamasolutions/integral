@@ -33,6 +33,9 @@
         %li
           = link_to new_backend_post_url do
             %span= t('integral.actions.create')
+      %li
+        = link_to list_backend_posts_url do
+          %span= t('integral.navigation.listing')
 
 - if policy(Integral::List).index?
   %li

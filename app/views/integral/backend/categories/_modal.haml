@@ -1,0 +1,26 @@
+:ruby
+  category ||= Integral::Category.new
+  modal_id ||= 'new_category_modal'
+  slug_id = "category_title_#{(Time.now.to_f * 1000).to_i}"
+
+.reveal{ data: { 'reveal' => true, 'multiple-opened' => 'true' }, id: modal_id }
+  %button.close-button{ type: 'button', data: { close: '' }, aria: { label: "Close" }}
+    %span{ aria: { hidden: 'true' } } &times;
+  = simple_form_for [:backend, category], validate: true, remote: true, html: { class: 'remote-form' } do |f|
+    .modal-header
+      %h4= title
+    .modal-content.padded
+      = f.hidden_field :remote, as: :hidden, value: 'true'
+      = f.input :title, wrapper_html: { class: 'alternative' }, input_html: { id: slug_id }
+      = f.input :slug, wrapper_html: { class: 'alternative' }, input_html: { data: { slugify: "##{slug_id}" } }
+      = f.input :description, as: :text, wrapper_html: { class: 'alternative' }
+      %hr
+      %h2= t('integral.records.attributes.featured_image')
+      .grid-x
+        .cell.medium-6
+          = render partial: 'integral/backend/shared/image_preview', locals: { f:f, image_attr: :image }
+
+    .modal-footer
+      = f.button :button, class: 'button'
+
+

@@ -22,6 +22,7 @@ module Integral
 
     # Associations
     belongs_to :user
+    belongs_to :category
     belongs_to :image, class_name: 'Integral::Image', optional: true
     belongs_to :preview_image, class_name: 'Integral::Image', optional: true
 

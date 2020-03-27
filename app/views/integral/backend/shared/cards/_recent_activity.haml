@@ -1,10 +1,12 @@
 - classes ||= ''
+- title ||= t('integral.backend.cards.recent_activity')
+- activities ||= recent_site_activities
 
 .card
   .card-section
-    %h2= t('integral.backend.cards.site_activity')
+    %h2= title
     .timeline{ class: classes }
-      - @recent_activity.each do |activity|
+      - activities.each do |activity|
         .timeline-item
           .timeline-icon
             = icon(activity.item_icon)

@@ -59,6 +59,10 @@ module Integral
       "#{whodunnit_name} #{event_verb.downcase} #{item_title}"
     end
 
+    def item
+      @item ||= item_type.constantize.unscoped.find(item_id)
+    end
+
     # @return [String] formatted title
     def item_title
       decorated_item&.title
@@ -75,7 +79,7 @@ module Integral
     end
 
     # @return [String] formatted item type
-    def item_type
+    def model_name
       object.item_type.constantize.model_name.human
     end
 

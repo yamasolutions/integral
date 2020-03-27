@@ -6,7 +6,13 @@ module Integral
       include Datagrid
 
       scope do
-        Integral::UserVersion.all.union(Integral::PageVersion.all).union(Integral::PostVersion.all).union(Integral::ListVersion.all).union(Integral::ImageVersion.all).order('created_at DESC')
+        # TODO - Be nice to be able to write this so that it loops over 'tracked' models - meaning the host app doesn't need to override this file when the track new (non integral) models
+        Integral::UserVersion.select(:id, :item_type, :item_id, :event, :whodunnit, :created_at).all.
+          union(Integral::PageVersion.select(:id, :item_type, :item_id, :event, :whodunnit, :created_at).all).
+          union(Integral::PostVersion.select(:id, :item_type, :item_id, :event, :whodunnit, :created_at).all).
+          union(Integral::ListVersion.select(:id, :item_type, :item_id, :event, :whodunnit, :created_at).all).
+          union(Integral::ImageVersion.select(:id, :item_type, :item_id, :event, :whodunnit, :created_at).all).
+          order('created_at DESC')
       end
 
       filter(:user, multiple: true) do |value|

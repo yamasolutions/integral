@@ -44,6 +44,10 @@ module Integral
         authorize Version
       end
 
+      def resource_klass
+        Integral::Version
+      end
+
       def grid_options
         grid_params = params[:grid].present? ? params[:grid].permit(:descending, :order, :page, :user, :action, :object) : {}
         grid_params.delete_if { |_k, v| v.empty? }

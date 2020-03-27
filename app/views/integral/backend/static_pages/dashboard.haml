@@ -7,11 +7,17 @@
         = render partial: 'integral/backend/shared/cards/welcome'
       - if Integral.blog_enabled?
         .cell.small-12.medium-6.flex-container
-          = render partial: 'integral/backend/static_pages/card', locals: { title: t('.recent_post'), record: Integral::Post.published.last }
+          = render partial: 'integral/backend/shared/cards/object', locals: { title: t('.recent_post'), record: Integral::Post.published.last }
+
       .cell.small-12.medium-6.flex-container
-        = render partial: 'integral/backend/static_pages/card', locals: { title: t('.recent_page'), record: Integral::Page.published.last }
+        = render partial: 'integral/backend/shared/cards/activity', locals: { title: t('.recent_post'), record: Integral::Post.published.last, classes: 'timeline--compressed' }
+ 
+      .cell.small-12.medium-6.flex-container
+        = render partial: 'integral/backend/shared/cards/object', locals: { title: t('.recent_page'), record: Integral::Page.published.last }
   .cell.large-6
     .grid-x.grid-padding-x
+      .cell.small-12
+        = render partial: 'integral/backend/shared/cards/activity', locals: { title: t('.recent_post'), record: Integral::Post.published.last }
       .cell.small-12
         = render partial: 'integral/backend/shared/cards/at_a_glance', locals: { dataset: dataset_dashboard_atg }
 

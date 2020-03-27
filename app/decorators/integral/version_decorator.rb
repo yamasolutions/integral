@@ -13,9 +13,18 @@ module Integral
       h.t("integral.actions.#{object.event}")
     end
 
+    # @return [String] formatted event verb (past)
+    def event_verb
+      h.t("integral.actions.tense.past.#{object.event}")
+    end
+
     # @return [String] Item URL
     def item_url
       decorated_item&.backend_url
+    end
+
+    def whodunnit_url
+      Integral::Engine.routes.url_helpers.backend_user_url(whodunnit.id) if whodunnit.present?
     end
 
     # @return [Integral::User] who carried out the version (if one exists)
@@ -27,6 +36,29 @@ module Integral
       @user = Integral::User.unscoped.find_by_id(object.whodunnit)&.decorate
     end
 
+    # @return [String] image linked to whodunnit
+    def whodunnit_avatar_url
+      if whodunnit.present?
+        whodunnit.avatar.url(:thumbnail)
+      else
+        ActionController::Base.helpers.asset_path('integral/defaults/user_avatar.jpg')
+      end
+    end
+
+    # @return [String] name linked to whodunnit
+    def whodunnit_name
+      if whodunnit.present?
+        whodunnit.name
+      else
+        'System'
+      end
+    end
+
+    # @return [String] title - [user] [action] [object]
+    def title
+      "#{whodunnit_name} #{event_verb.downcase} #{item_title}"
+    end
+
     # @return [String] formatted title
     def item_title
       decorated_item&.title
@@ -35,6 +67,11 @@ module Integral
     # @return [Object] Associated Item
     def decorated_item
       @decorated_item ||= item&.decorate
+    end
+
+    # @return [String] Font Awesome icon
+    def item_icon
+      'ellipsis-v'
     end
 
     # @return [String] formatted item type

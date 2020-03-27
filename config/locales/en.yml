@@ -4,7 +4,7 @@ en:
       default: "%d %B"
   time:
     formats:
-      default: "%B %d, %Y at %l:%M%P"
+      default: "%b %d %Y, %l:%M %P"
       blog: "%B %d, %Y"
       twelve_hour: "%I:%M %p"
 
@@ -46,6 +46,12 @@ en:
       forward_enquiry:
         subject: Website Enquiry
     actions:
+      tense:
+        past:
+          update: Updated
+          create: Created
+          delete: Deleted
+          published: Published
       confirmation:
         deletion: If you delete this item it will be gone forever. Are you sure you want to proceed?
         clone: Are you sure you want to clone this item?
@@ -80,6 +86,7 @@ en:
       confirm: Confirm
       cancel: Cancel
       view_all: View All
+      view_more: View More
     prompts:
       select_image: Select Image..
       select_type: Select Type..
@@ -208,6 +215,7 @@ en:
       graphs:
         data_unavailable: Data Unavailable
       cards:
+        site_activity: Site Activity
         at_a_glance: At a glance
         last_week: Last week
       shared:

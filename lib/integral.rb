@@ -87,6 +87,9 @@ module Integral
   mattr_accessor :additional_page_templates
   @@additional_page_templates = []
 
+  mattr_accessor :additional_version_classes
+  @@additional_version_classes = []
+
   mattr_accessor :compression_enabled
   @@compression_enabled = true
 

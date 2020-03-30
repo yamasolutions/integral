@@ -712,17 +712,6 @@ table
       background-color: rgba(212, 223, 239, 0.3)
       font-size: 0.9em
       padding: 0.5em 1em
-    .actions
-      a
-        color: $body-font-color-secondary
-        border-radius: 50%
-        padding: 0.4em 0.25em
-        &:hover
-          background-color: $primary-color
-          color: $white
-        .fa
-          width: 2em
-          text-align: center
     tr.empty-grid
       &:hover
         background-color: transparent
@@ -778,8 +767,11 @@ table
 
 .button--action-pane
   cursor: pointer
+  border-radius: 50%
+  padding: .25rem
   &:hover, &.hover
-    color: $primary-color
+    color: $white
+    background-color: $primary-color
 
 .dropdown-pane--actions
   padding: 0
@@ -840,3 +832,5 @@ table
 .stat-table-header
   font-size: .8rem
 
+.tr--clickable
+  cursor: pointer

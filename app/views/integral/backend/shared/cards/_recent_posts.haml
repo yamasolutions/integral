@@ -13,6 +13,6 @@
             - else
               "#{record.user_id} [Deleted]"
           %td
-            = link_to edit_backend_post_url(record.id), class: 'button--action-pane' do
+            = link_to backend_post_url(record.id), class: 'button--action-pane' do
               = icon('eye')
     = link_to t('integral.actions.view_all'), list_backend_posts_url, class: 'button clear expanded'

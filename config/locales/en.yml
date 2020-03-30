@@ -89,6 +89,7 @@ en:
       cancel: Cancel
       view_all: View All
       view_more: View More
+      open_in_new_tab: Open in new tab
     prompts:
       select_image: Select Image..
       select_type: Select Type..

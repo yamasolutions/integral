@@ -53,6 +53,21 @@ function ready() {
   new RemoteForm($('.remote-form'));
   Grid.init();
 
+  // Hijack context menu click for rows which have a URL
+  $("tr[data-href]").on("contextmenu", function(ev) {
+    $('#' + ev.currentTarget.dataset.contextMenu).foundation('open');
+
+    return false;
+  });
+
+  // Capture clicks on rows which have a URL and visit that URL
+  $("tr[data-href]").on("click", function(ev) {
+    // Do not follow if the click is within a data-toggle
+    if (($(ev.target).closest('[data-toggle]').length == 0) && ($(ev.target).closest('[data-dropdown]').length == 0)) {
+      document.location = $(ev.currentTarget).data('href');
+    }
+  });
+
   $("[data-button-delete-category]").on("ajax:success", function(ev) {
     $(ev.currentTarget).closest('tr').fadeOut();
   });

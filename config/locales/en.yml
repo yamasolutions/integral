@@ -61,6 +61,7 @@ en:
       add_image: Add Image
       add_image_or_video: Add an image or video
       view_main_site: View main site
+      view_on_site: View on site
       create: Create
       clone: Clone
       save: Save
@@ -72,6 +73,7 @@ en:
       view: View
       view_record: View Record
       view_user: View User
+      view_history: View history
       read_more: Read more..
       reply: Reply
       log_out: Logout

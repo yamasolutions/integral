@@ -26,6 +26,12 @@ module Integral
       include Pundit
       rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
+      # GET /:id
+      # Show resource
+      def show
+        add_breadcrumb I18n.t('integral.actions.view'), "backend_#{controller_name.singularize}_path".to_sym
+      end
+
       # GET /
       # Lists all resources
       def index

@@ -83,7 +83,7 @@ module Integral
 
           # Post Management
           if Integral.blog_enabled?
-            resources :posts, except: [:show] do
+            resources :posts do
               get 'list', on: :collection
               member do
                 post 'duplicate'

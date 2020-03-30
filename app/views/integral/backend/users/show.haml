@@ -1,6 +1,6 @@
 = content_for :title, t('.title', name: @resource.name)
 .grid-x.grid-padding-x
-  .cell.small-12.medium-6
+  .cell.medium-6
     .grid-y
       .cell
         .card.profile
@@ -24,13 +24,7 @@
                 .roles
                   - @resource.roles.each do |role|
                     .label= role.label
-      -# .cell
-      -#   .card
-      -#     .card-section
-      -#       Creates Graph
-  -# .cell.small-12.medium-6
-  -#   .grid-y
-  -#     .cell
-  -#       .card
-  -#         .card-section
-  -#           %h2 Activity
+
+  .cell.medium-6
+    .grid-y
+      .cell= render_card(:recent_activity, { activities: recent_activities(user: @resource.id) })

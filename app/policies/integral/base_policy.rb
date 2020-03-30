@@ -39,6 +39,7 @@ module Integral
 
     alias destroy? manager?
     alias index? manager?
+    alias list? manager?
     alias show? manager?
     alias new? manager?
     alias create? manager?

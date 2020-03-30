@@ -5,27 +5,32 @@
 .card
   .card-section
     %h2= title
-    .timeline{ class: classes }
-      - activities.each do |activity|
-        .timeline-item
-          .timeline-icon
-            = icon(activity.item_icon)
-          .timeline-content
-            .timeline-content-header
-              %p.timeline-content-event= activity.event
-              - if activity.whodunnit.present?
-                = link_to activity.whodunnit_url, class: 'timeline-content-user' do
-                  = image_tag activity.whodunnit_avatar_url, class: :avatar
-                  %span= activity.whodunnit_name.truncate(30)
-              - else
-                %p.timeline-content-user
-                  = image_tag activity.whodunnit_avatar_url, class: :avatar
-                  %span= activity.whodunnit_name.truncate(30)
-            %p.timeline-content-date= l(activity.created_at)
-            %p.timeline-content-title
-              = activity.whodunnit_name
-              = activity.event_verb.downcase
-              = link_to activity.item_title, activity.item_url
-            %hr
-    %button.button.clear.expanded
-      = t('integral.actions.view_more')
+    - if activities.present?
+      .timeline{ class: classes }
+        - activities.each do |activity|
+          .timeline-item
+            .timeline-icon
+              = icon(activity.item_icon)
+            .timeline-content
+              .timeline-content-header
+                %p.timeline-content-event= activity.event
+                - if activity.whodunnit.present?
+                  = link_to activity.whodunnit_url, class: 'timeline-content-user' do
+                    = image_tag activity.whodunnit_avatar_url, class: :avatar
+                    %span= activity.whodunnit_name.truncate(30)
+                - else
+                  %p.timeline-content-user
+                    = image_tag activity.whodunnit_avatar_url, class: :avatar
+                    %span= activity.whodunnit_name.truncate(30)
+              %p.timeline-content-date= l(activity.created_at)
+              %p.timeline-content-title
+                = activity.whodunnit_name
+                = activity.event_verb.downcase
+                = link_to activity.item_title, activity.item_url
+              %hr
+      %button.button.clear.expanded
+        = t('integral.actions.view_more')
+    - else
+      = t('integral.backend.graphs.data_unavailable')
+      = image_tag image_path('integral/backend/data-unavailable.png'), class: 'data-unavailable'
+

@@ -1,0 +1,13 @@
+#activity-placeholder.large.reveal{ data: {reveal: true }}
+  %button.close-button{ data: { close: '' }, aria: { label: "Close modal" }}
+    %span{ aria: { hidden: true } } &times;
+  .modal-header
+    %h4{data: {title: true }}
+  .timeline{data: {timeline: true }}
+  = simple_form_for :grid, url: widget_backend_activities_url, method: :post, remote: true, html: { 'data-recent-activity-form' => true } do |f|
+    = f.hidden_field(:created_at, value: '')
+    = f.hidden_field(:user, value: '')
+    = f.hidden_field(:object, value: '')
+    = f.hidden_field(:item_id, value: '')
+    = f.button(:submit, t('integral.actions.view_more'), class: 'button clear expanded')
+

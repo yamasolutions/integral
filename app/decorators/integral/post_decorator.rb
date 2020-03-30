@@ -81,7 +81,7 @@ module Integral
     # @return [String] URL to backend post page
     def backend_url
       if Integral.blog_enabled?
-        Integral::Engine.routes.url_helpers.edit_backend_post_url(object.id)
+        Integral::Engine.routes.url_helpers.backend_post_url(object.id)
       else
         ''
       end

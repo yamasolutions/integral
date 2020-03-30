@@ -66,7 +66,8 @@ module Integral
           resources :images, as: :img
 
           # Page Management
-          resources :pages, except: [:show] do
+          resources :pages do
+            get 'list', on: :collection
             member do
               post 'duplicate'
               get 'activities', controller: 'pages'

@@ -27,4 +27,4 @@
 
   .cell.medium-6
     .grid-y
-      .cell= render_card(:recent_activity, { activities: recent_activities(user: @resource.id) })
+      .cell= render_card(:recent_activity, { grid: recent_activity_grid(user: @resource.id) })

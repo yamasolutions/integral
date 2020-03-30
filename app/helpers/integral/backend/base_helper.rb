@@ -11,25 +11,29 @@ module Integral
       end
 
       # @return [Array] returns array of VersionDecorators subclassed depending on the Version subclass
-      def recent_user_activities
-        @recent_user_activities ||= begin
+      def recent_user_activity_grid
+        @recent_user_activity_grid ||= begin
                                       options = { user: current_user.id }
                                       options[:object] = resource_klass.to_s if resource_klass.present?
                                       options[:item_id] = @resource.id if @resource.present?
 
-                                      recent_activities(options)
+                                      recent_activity_grid(options)
                                     end
       end
 
       # @return [Array] returns array of VersionDecorators subclassed depending on the Version subclass
-      def recent_site_activities
-        @recent_site_activities ||= begin
+      def recent_site_activity_grid
+        @recent_site_activity_grid ||= begin
                                       options = {}
                                       options[:object] = resource_klass.to_s if resource_klass.present?
                                       options[:item_id] = @resource.id if @resource.present?
 
-                                      recent_activities(options)
+                                      recent_activity_grid(options)
                                     end
+      end
+
+      def recent_activity_grid(options)
+        Integral::Grids::ActivitiesGrid.new(options)
       end
 
       # @return [String] title provided through yield or i18n scoped to controller namespace & action
@@ -90,6 +94,15 @@ module Integral
       end
 
       # Donut Graph - At a Glance
+      def dataset_at_a_glance_pages
+        [
+          { scope: Integral::Page.published, label: 'Published' },
+          { scope: Integral::Page.draft, label: 'Draft ' },
+          { scope: Integral::Page.archived, label: 'Archived ' }
+        ]
+      end
+
+      # Donut Graph - At a Glance
       def dataset_dashboard_atg
         data = [
           { scope: Integral::Page, label: 'Total Pages' },
@@ -113,14 +126,6 @@ module Integral
 
         data.prepend(scope: Integral::Post, label: 'Posts') if Integral.blog_enabled?
         data
-      end
-
-      # @return [Array] returns array of VersionDecorators subclassed depending on the Version subclass
-      def recent_activities(options = {})
-        Integral::Grids::ActivitiesGrid.new(options).assets.limit(5).map do |version|
-          # Rails casts all the versions to UserVersion - need to recast before decorating
-          version.becomes(version.item_type.constantize.paper_trail.version_class).decorate
-        end
       end
     end
   end

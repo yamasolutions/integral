@@ -6,11 +6,11 @@
       - if @resource.archived?
         %button.button.white.disabled{ data: { tooltip: true, click_open: 'false' }, title: 'Archived pages cannot be viewed' }
           = icon('eye')
-          = t('integral.actions.view')
+          = t('integral.actions.view_on_site')
       - else
         = link_to @resource.path, class: 'button white' do
           = icon('eye')
-          = t('integral.actions.view')
+          = t('integral.actions.view_on_site')
 
     - if policy(Integral::Page).duplicate?
       %li

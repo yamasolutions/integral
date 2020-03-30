@@ -31,6 +31,10 @@ module Integral
         where(item_id: value)
       end
 
+      filter(:created_at) do |value|
+        where("created_at < ?", value)
+      end
+
       column(:date, order: :created_at)
       column(:user, order: :whodunnit)
       column(:action, order: :event)

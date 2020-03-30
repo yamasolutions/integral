@@ -29,6 +29,7 @@ module Integral
       # GET /:id
       # Show resource
       def show
+        add_breadcrumb I18n.t('integral.navigation.list'), "list_backend_#{controller_name}_path".to_sym
         add_breadcrumb I18n.t('integral.actions.view'), "backend_#{controller_name.singularize}_path".to_sym
       end
 
@@ -99,6 +100,7 @@ module Integral
       # GET /:id/edit
       # Resource edit screen
       def edit
+        add_breadcrumb I18n.t('integral.actions.view'), "backend_#{controller_name.singularize}_path".to_sym
         add_breadcrumb I18n.t('integral.navigation.edit'), "edit_backend_#{controller_name.singularize}_path".to_sym
       end
 
@@ -251,6 +253,13 @@ module Integral
       helper_method :resource_klass
       def resource_klass
         controller_name.classify.constantize
+      end
+
+      helper_method :cast_activities
+      def cast_activities(activites)
+        activites.map do |version|
+          version.becomes(version.item_type.constantize.paper_trail.version_class).decorate
+        end
       end
 
       def resource_grid_klass

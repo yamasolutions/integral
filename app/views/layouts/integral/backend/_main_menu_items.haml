@@ -18,6 +18,10 @@
         %li
           = link_to new_backend_page_url do
             %span= t('integral.actions.create')
+      %li
+        = link_to list_backend_pages_url do
+          %span= t('integral.navigation.listing')
+
 
 - if policy(Integral::Post).index? && Integral.blog_enabled?
   %li

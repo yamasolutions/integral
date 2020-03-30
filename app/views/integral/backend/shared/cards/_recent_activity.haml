@@ -1,35 +1,19 @@
 - classes ||= ''
 - title ||= t('integral.backend.cards.recent_activity')
-- activities ||= recent_site_activities
+- grid ||= recent_site_activity_grid
+- activities = cast_activities(grid.assets.limit(5))
 
 .card
   .card-section
     %h2= title
     - if activities.present?
       .timeline{ class: classes }
-        - activities.each do |activity|
-          .timeline-item
-            .timeline-icon
-              = icon(activity.item_icon)
-            .timeline-content
-              .timeline-content-header
-                %p.timeline-content-event= activity.event
-                - if activity.whodunnit.present?
-                  = link_to activity.whodunnit_url, class: 'timeline-content-user' do
-                    = image_tag activity.whodunnit_avatar_url, class: :avatar
-                    %span= activity.whodunnit_name.truncate(30)
-                - else
-                  %p.timeline-content-user
-                    = image_tag activity.whodunnit_avatar_url, class: :avatar
-                    %span= activity.whodunnit_name.truncate(30)
-              %p.timeline-content-date= l(activity.created_at)
-              %p.timeline-content-title
-                = activity.whodunnit_name
-                = activity.event_verb.downcase
-                = link_to activity.item_title, activity.item_url
-              %hr
-      %button.button.clear.expanded
-        = t('integral.actions.view_more')
+        = render partial: 'integral/backend/activities/activity', collection: activities
+
+      - if grid.assets.count > 5
+        %button.button.clear.expanded{ data: { recent_activity: true, recent_activity_created_at: activities.last.created_at.utc, recent_activity_user: grid.user, recent_activity_object: grid.object, recent_activity_item_id: grid.item_id, container_id: "modal--recent-activity-#{SecureRandom.hex}", recent_activity_title: title } }
+          = t('integral.actions.view_more')
+
     - else
       = t('integral.backend.graphs.data_unavailable')
       = image_tag image_path('integral/backend/data-unavailable.png'), class: 'data-unavailable'

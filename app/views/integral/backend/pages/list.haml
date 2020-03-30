@@ -1,0 +1,22 @@
+.card.listing
+  .card-section
+    %h2.show-for-small-only= page_title
+    - if policy(Integral::Page).create?
+      = link_to t('integral.actions.create'), new_backend_page_url, class: 'button hollow show-for-small-only create'
+
+    .top-bar
+      - if policy(Integral::Page).create?
+        .top-bar-left.hide-for-small-only
+          = link_to t('integral.actions.create'), new_backend_page_url, class: 'button hollow'
+      .top-bar-right
+        = simple_form_for :grid, url: backend_pages_url, method: :get, remote: true, html: { id: :grid_form, 'data-type' => :json } do |f|
+          = hidden_field_tag(:gridview, true)
+          = f.hidden_field(:descending, value: @grid.descending, class: 'desc-field')
+          = f.hidden_field(:order, value: @grid.order, class: 'order-field')
+          = f.hidden_field(:page, value: grid_options[:page], class: 'page-field')
+
+          %ul.align-right.menu.filters
+            %li= f.input :status, collection: Integral::Page.available_statuses, label: t('integral.records.attributes.status'), wrapper_html: { class: 'filter' }, input_html: { 'data-filter' => true }, required: false
+            %li= f.input :title, placeholder: t('integral.actions.search'), wrapper_html: { class: 'filter search' }, hint: false, label: false
+
+    = render partial: 'grid'

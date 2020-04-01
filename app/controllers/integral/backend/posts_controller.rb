@@ -2,8 +2,8 @@ module Integral
   module Backend
     # Post management
     class PostsController < BaseController
-      before_action :authorize_with_klass
-      before_action :set_resource, except: %i[new index list]
+      before_action :authorize_with_klass, except: %i[activities activity]
+      before_action :set_resource, except: %i[create new index list]
 
       # POST /:id/duplicate
       # Duplicate a resource

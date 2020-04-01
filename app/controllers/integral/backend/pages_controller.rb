@@ -2,8 +2,8 @@ module Integral
   module Backend
     # Pages controller
     class PagesController < BaseController
-      before_action :authorize_with_klass, only: %i[index new create edit update destroy]
-      before_action :set_resource, only: %i[edit update destroy show activities activity duplicate]
+      before_action :authorize_with_klass, except: %i[activities activity]
+      before_action :set_resource, except: %i[create new index list]
 
       # POST /:id/duplicate
       # Duplicate a resource

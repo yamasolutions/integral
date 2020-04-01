@@ -3,7 +3,7 @@ require 'rails_helper'
 module Integral
   describe VersionDecorator do
     let(:item) { create(:integral_post) }
-    let(:resource) { double(event: :update, whodunnit: '', item: item, item_type: 'Integral::Post', id: 1) }
+    let(:resource) { double(event: :update, whodunnit: '', item: item, item_type: 'Integral::Post', id: 1, item_id: item.id) }
 
     subject { described_class.new(resource) }
 
@@ -21,7 +21,7 @@ module Integral
 
     describe '#item_url' do
       it 'returns backend view URL of item' do
-        expect(subject.item_url).to eq Integral::Engine.routes.url_helpers.edit_backend_post_url(item.id)
+        expect(subject.item_url).to eq Integral::Engine.routes.url_helpers.backend_post_url(item.id)
       end
     end
 
@@ -37,9 +37,9 @@ module Integral
       end
     end
 
-    describe '#item_type' do
+    describe '#model_name' do
       it 'returns formatted item type' do
-        expect(subject.item_type).to eq 'Post'
+        expect(subject.model_name).to eq 'Post'
       end
     end
 

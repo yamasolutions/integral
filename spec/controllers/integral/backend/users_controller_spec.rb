@@ -43,9 +43,6 @@ module Integral
 
           context 'when user has the require roles' do
             before do
-              expect(controller).to receive(:add_breadcrumb).with(I18n.t('integral.breadcrumbs.dashboard'), :backend_dashboard_path)
-              expect(controller).to receive(:add_breadcrumb).with(I18n.t('integral.breadcrumbs.users'), :backend_users_path)
-
               get :index
             end
 
@@ -147,10 +144,6 @@ module Integral
 
           context 'when user has required roles' do
             before do
-              expect(controller).to receive(:add_breadcrumb).with(I18n.t('integral.breadcrumbs.dashboard'), :backend_dashboard_path)
-              expect(controller).to receive(:add_breadcrumb).with(I18n.t('integral.breadcrumbs.users'), :backend_users_path)
-              expect(controller).to receive(:add_breadcrumb).with(presented_user.name, :backend_user_path)
-
               get :show, params: { id: presented_user.id }
             end
 
@@ -185,10 +178,6 @@ module Integral
 
           context 'when user has required roles' do
             before do
-              expect(controller).to receive(:add_breadcrumb).with(I18n.t('integral.breadcrumbs.dashboard'), :backend_dashboard_path)
-              expect(controller).to receive(:add_breadcrumb).with(I18n.t('integral.breadcrumbs.users'), :backend_users_path)
-              expect(controller).to receive(:add_breadcrumb).with(I18n.t('integral.breadcrumbs.new'), :new_backend_user_path)
-
               get :new
             end
 
@@ -225,11 +214,6 @@ module Integral
 
           context 'when the user has the required roles' do
             before do
-              expect(controller).to receive(:add_breadcrumb).with(I18n.t('integral.breadcrumbs.dashboard'), :backend_dashboard_path)
-              expect(controller).to receive(:add_breadcrumb).with(I18n.t('integral.breadcrumbs.users'), :backend_users_path)
-              expect(controller).to receive(:add_breadcrumb).with(user.name, :backend_user_path)
-              expect(controller).to receive(:add_breadcrumb).with(I18n.t('integral.breadcrumbs.edit'), :edit_backend_user_path)
-
               get :edit, params: { id: user.id }
             end
 

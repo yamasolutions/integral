@@ -1,23 +1,34 @@
-require 'rails_helper'
+require "rails_helper"
 
 module Integral
-  describe "Post CRUD", :type => :feature do
-    let!(:image) { create(:image) }
+  describe "Post CRUD", type: :system do
     let!(:post) { create(:integral_post) }
     let(:builder) { build(:integral_post) }
 
     before do
       sign_in(create(:post_manager))
-      within(".app-dashboard-sidebar-inner li.is-dropdown-submenu-parent") do
-        click_on 'Posts'
-        click_on 'Listing'
-      end
+    end
+
+    it "can view the posts dashboard" do
+      visit backend_posts_path
+
+      expect(page).to have_content 'Posts'
+    end
+
+    it "can view the posts list" do
+      visit list_backend_posts_path
+
+      expect(page).to have_content 'Post Listing'
+    end
+
+    it "can view a post" do
+      visit backend_post_path(post)
+
+      expect(page).to have_content post.title
     end
 
     it "can create a post" do
-      within(".card.listing") do
-        click_on 'Create'
-      end
+      visit new_backend_post_path
 
       fill_in 'Title', with: builder.title
       fill_in 'Description', with: builder.description
@@ -31,13 +42,13 @@ module Integral
       fill_in_ckeditor 'resource_body_editor', with: builder.body
 
       click_on 'Create Post'
+      sleep 1
 
       expect(page).to have_content I18n.t('integral.backend.notifications.creation_success', type: Integral::Post.model_name.human)
     end
 
     it "can update a post" do
-      sleep 1
-      find('tbody tr:first-of-type a:nth-of-type(2)').click
+      visit edit_backend_post_path(post)
 
       within("#resource_form") do
         fill_in 'Title', with: builder.title
@@ -53,18 +64,12 @@ module Integral
     end
 
     it "can delete a post" do
-      sleep 1
-      find('tbody tr:first-of-type a:nth-of-type(3)').click
-      all('.reveal.dialog a')[1].click
+      visit backend_post_path(post)
+
+      click_on 'Delete'
+      click_on 'Confirm'
 
       expect(page).to have_content I18n.t('integral.backend.notifications.delete_success', type: Integral::Post.model_name.human)
     end
-
-    # it "can view a post" do
-    #   sleep 1
-    #   all('tbody tr.odd a')[0].trigger 'click'
-    #
-    #   expect(page).to have_content post.title
-    # end
   end
 end

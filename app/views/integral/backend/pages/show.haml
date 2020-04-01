@@ -19,17 +19,17 @@
                       = link_to @resource.path do
                         = icon('eye')
                         = t('integral.actions.view_on_site')
-                  - if policy(Integral::Post).manager?
+                  - if policy(Integral::Page).manager?
                     .cell
                       = link_to edit_backend_page_url(@resource.id) do
                         = icon('edit')
                         = t('integral.actions.edit')
-                  - if policy(Integral::Post).duplicate?
+                  - if policy(Integral::Page).duplicate?
                     .cell
                       = link_to duplicate_backend_page_url(@resource.id) do
                         = icon('clone')
                         = t('integral.actions.clone')
-                  - if policy(Integral::Post).manager?
+                  - if policy(Integral::Page).manager?
                     .cell
                       = link_to backend_page_url(@resource.id), method: :delete, data: { confirm: t('integral.actions.confirmation.deletion') } do
                         = icon('remove')

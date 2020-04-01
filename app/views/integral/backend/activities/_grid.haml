@@ -1,4 +1,4 @@
-= render layout: 'integral/backend/shared/grid', locals: { grid: grid, options: { columns: [:date, :user, :action, :object, :instance, :attributes_changed, :actions] }} do
+= render layout: 'integral/backend/shared/grid', locals: { grid: grid, options: { columns: [:date, :user, :action, :object, :instance, :actions] }} do
   - if grid.assets.any?
     - grid.assets.decorate.each do |activity|
       %tr
@@ -15,7 +15,6 @@
         %td
           = link_to activity.item_url do
             = activity.item_title
-        %td= activity.attributes_changed
         %td.actions
           = link_to activity.url do
             = icon('eye')

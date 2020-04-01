@@ -54,10 +54,10 @@ module Integral
       end
     end
 
-    # @return [String] title - [user] [action] [object]
-    def title
-      "#{whodunnit_name} #{event_verb.downcase} #{item_title}"
-    end
+    # # @return [String] title - [user] [action] [object]
+    # def title
+    #   "#{whodunnit_name} #{event_verb.downcase} #{item_title}"
+    # end
 
     def item
       @item ||= item_type.constantize.unscoped.find(item_id)
@@ -83,17 +83,19 @@ module Integral
       object.item_type.constantize.model_name.human
     end
 
-    # @return [String] formatted attributes changed
-    def attributes_changed
-      return unless object.event == 'update'
-
-      keys = ''
-
-      object.changeset.each_key do |key|
-        # next if ['updated_at', 'lock_version'].include? key
-        keys += "#{key}, "
-      end
-      keys[0..-3]
-    end
+    # Currently not possible to show this as changeset isn't available in the query resultset for performance reasons - One possible solution would be to create a Grid class for each Version - rather than unioning all the tables it only includes it's own
+    #
+    # # @return [String] formatted attributes changed
+    # def attributes_changed
+    #   return unless object.event == 'update'
+    #
+    #   keys = ''
+    #
+    #   object.changeset.each_key do |key|
+    #     # next if ['updated_at', 'lock_version'].include? key
+    #     keys += "#{key}, "
+    #   end
+    #   keys[0..-3]
+    # end
   end
 end

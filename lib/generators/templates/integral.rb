@@ -61,10 +61,10 @@ Integral.configure do |config|
   #
   # config.additional_page_templates = [:full_width]
 
-  # Add additional version classes to include within activity tracking
+  # Add additional tracked classes to include within activity tracking
   # Default is []
   #
-  # config.additional_version_classes = [MyCustomClassVersion]
+  # config.additional_tracked_classes = [MyCustomClass]
 
   # Configure what page paths are protected from user entry to prevent accidentally overriding
   # config.black_listed_paths = [

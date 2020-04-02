@@ -8,15 +8,15 @@
 
 ## Adding a custom field
 
-Below are step by step instructions on how to add a custom field to an Integral Page or Post. A [code sample][code-sample-custom-field] is available or [deploy the demo application with Heroku][heroku-deploy-custom-field].
+Below are step by step instructions on how to add a custom field to an Integral Page or Post. A [code sample][code-sample-custom-field] is available, you can also [deploy a demo application with Heroku][heroku-deploy-custom-field].
 
-User story - As a page manager I want to be able to add a custom link to particular pages. I want to do be able to add, update and remove the link in the same screen I manage the pages.
+User story - As a page manager I want to be able to add a custom link to particular frontend pages. I want to be able to add, update and remove the link in the same backend screen I manage the pages.
 
 We'll make this possible in 2 steps;
 1. Update the database to store the links
 2. Provide logged in users with a method of updating the links
 
-First we'll create the migration to store a link within the Pages table;
+First we'll create the migration to store a link within the `integral_pages` table;
 
 ```
 bundle exec rails generate migration addCustomUrlToIntegralPages custom_url:string
@@ -24,7 +24,7 @@ bundle exec rails generate migration addCustomUrlToIntegralPages custom_url:stri
 
 Run `bundle exec rails db:migrate`. You can now set a link to a particular page - test it yourself using the `rails console`.
 
-Now we want provide users a method of updating the links themselves, we'll break this down into 2 steps;
+Now we need to provide users a way of updating the links themselves, we'll break this down into 2 steps;
 1. Tell the backend pages controller to allow the `custom_url` attribute to be set
 2. Update the backend page form to include a `custom_url` text field.
 
@@ -49,16 +49,16 @@ If you want to add a custom field to another object for example an Enquiry or Li
 
 ## Adding a custom object
 
-Below are step by step instructions on how to add a custom object to an Integral application. A [code sample][code-sample-custom-object] is available or [deploy the demo application with Heroku][heroku-deploy-custom-object].
+Below are step by step instructions on how to add a custom object to an Integral application. A [code sample][code-sample-custom-object] is available, you can also [deploy a demo application with Heroku][heroku-deploy-custom-object].
 
 User stories;
-* As a user I want to be able to manage special offers the same way I manage pages or posts.
+* As a user I want to be able to manage special offers through Integral backend the same way I manage pages or posts
 * As a visitor I want to be able to view special offers
 
 We'll make this possible in 3 steps;
 1. Update the database to store special offers
 2. Allow visitors to view special offers
-3. Provide logged in users with a method of managing special offers
+3. Provide logged in users with a way of managing special offers
 
 ### Data storage & visitor access
 
@@ -238,22 +238,12 @@ mv app/views/integral/backend/posts/ app/views/integral/backend/special_offers
 3. Make any changes necessary such as updating the form to only contain fields relating to `special_offers`
 4. Remove the additional Integral backend views which were generated that you are not using
 
-Now the only thing that is missing is special offer activity management. To add special offer activities to the activities page we're going to override the `ActivitiesGrid`
+To add special offer activities to the activities page and recent activity widget we're going to update the Integral config file;
 
 ```
-# app/extensions/lib/integral/grids/activities_grid_decorator.rb
+# config/initializers/integral.rb
 
-module Integral
-  # Grids
-  module Grids
-    # Override the versions which are displayed in the activity listing grid
-    ActivitiesGrid.class_eval do
-      scope do
-        Integral::UserVersion.all.union(Integral::PageVersion.all).union(Integral::PostVersion.all).union(Integral::ListVersion.all).union(Integral::ImageVersion.all).union(SpecialOfferVersion.all).order('created_at DESC')
-      end
-    end
-  end
-end
+config.additional_tracked_classes = [SpecialOffer]
 ```
 
 Lastly we need to update the decorator;

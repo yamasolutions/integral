@@ -28,7 +28,7 @@ Integral::ListRenderer.render(list)
 => "<ul><li><a>Avatar</a></li><li><a>Titanic</a></li><li><a>Star Wars: The Force Awakens</a></li></ul>"
 ```
 
-You can pass [options to the ListRenderer](https://integralrails.com), for example to change this to an ordered list;
+You can pass options to the ListRenderer, for example to change this to an ordered list;
 ```
 Integral::ListRenderer.render(list, wrapper_element: 'ol')
 => "<ol><li><a>Avatar</a></li><li><a>Titanic</a></li><li><a>Star Wars: The Force Awakens</a></li></ol>")

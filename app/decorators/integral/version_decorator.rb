@@ -54,11 +54,6 @@ module Integral
       end
     end
 
-    # # @return [String] title - [user] [action] [object]
-    # def title
-    #   "#{whodunnit_name} #{event_verb.downcase} #{item_title}"
-    # end
-
     def item
       @item ||= item_type.constantize.unscoped.find(item_id)
     end

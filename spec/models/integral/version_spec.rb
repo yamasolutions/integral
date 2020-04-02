@@ -2,8 +2,8 @@ require 'rails_helper'
 
 module Integral
   describe Version do
-    let(:available_objects) { [["Post", Integral::Post], ["Page", Integral::Page], ["List", Integral::List], ["Image", Integral::Image],["User", Integral::User]] }
-    let(:available_actions) { [["Update", "update"], ["Create", "create"], ["Delete", "destroy"]] }
+    let(:available_objects) { [["Post", Integral::Post], ["Category", Integral::Category], ["Page", Integral::Page], ["List", Integral::List], ["Image", Integral::Image],["User", Integral::User]]}
+    let(:available_actions) { [["Update", "update"], ["Create", "create"], ["Delete", "destroy"], ["Publish", "publish"]] }
 
     describe '.available_objects' do
       it 'returns array with readable object names and object' do

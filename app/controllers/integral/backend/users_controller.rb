@@ -2,9 +2,9 @@ module Integral
   module Backend
     # Users controller
     class UsersController < BaseController
-      before_action :set_resource, only: %i[edit update destroy show activities activity]
+      before_action :set_resource, except: %i[create new index list]
+      before_action :authorize_with_klass, except: %i[activities activity show edit update]
       before_action :authorize_with_instance, only: %i[show edit update]
-      before_action :authorize_with_klass, only: %i[index new create destroy]
       before_action -> { set_grid }, only: [:index]
 
       # GET /

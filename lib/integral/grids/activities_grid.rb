@@ -9,6 +9,7 @@ module Integral
         fields = [:id, :item_type, :item_id, :event, :whodunnit, :created_at]
         scope = Integral::PageVersion.select(fields).all
         [Integral::PostVersion,
+         Integral::CategoryVersion,
          Integral::ListVersion,
          Integral::ImageVersion,
          Integral::UserVersion].concat(Integral.additional_version_classes).each do |version|

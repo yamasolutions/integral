@@ -161,7 +161,7 @@ module Integral
         end
 
         respond_to do |format|
-          format.html
+          format.html { render template: 'integral/backend/activities/shared/index', locals: { form_url: send("activities_backend_#{controller_name.singularize}_url", @resource.id) } }
           format.json { render json: { content: render_to_string(partial: 'integral/backend/activities/shared/grid', locals: { grid: @grid }) } }
         end
       end
@@ -174,6 +174,8 @@ module Integral
         add_breadcrumb I18n.t('integral.actions.view')
 
         @activity = resource_version_klass.find(params[:activity_id]).decorate
+
+        render template: 'integral/backend/activities/shared/show', locals: { record: @resource.decorate }
       end
 
       private
@@ -271,7 +273,9 @@ module Integral
       end
 
       def set_resource
-        @resource = resource_klass.find(params[:id])
+        scope = ['activities', 'activity'].include?(action_name) ? resource_klass.unscoped : resource_klass
+
+        @resource = scope.find(params[:id])
       end
 
       def grid_options

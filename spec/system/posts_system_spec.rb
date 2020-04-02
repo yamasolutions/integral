@@ -58,7 +58,7 @@ module Integral
       end
 
       first(:button, 'Update Post').click
-      sleep 1
+      sleep 2
 
       expect(page).to have_content I18n.t('integral.backend.notifications.edit_success', type: Integral::Post.model_name.human)
     end

@@ -15,7 +15,7 @@ module Integral
       expect(page).to have_content 'Users'
     end
 
-    xit "can view the users list" do
+    it "can view the users list" do
       visit list_backend_users_path
 
       expect(page).to have_content 'User Listing'
@@ -52,9 +52,10 @@ module Integral
     end
 
     it "can delete a user" do
-      visit backend_users_path
+      visit list_backend_users_path
 
-      find('tbody tr:nth-of-type(2) a:nth-of-type(3)').click
+      find('tbody tr:nth-of-type(2) button').click
+      find('[data-dropdown] [data-confirm]').click
 
       click_on 'Confirm'
 

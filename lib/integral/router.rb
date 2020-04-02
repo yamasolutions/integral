@@ -60,7 +60,13 @@ module Integral
           get 'account', to: 'users#account'
 
           # User Management
-          resources :users
+          resources :users do
+            get 'list', on: :collection
+            member do
+              get 'activities', controller: 'users'
+              get 'activities/:activity_id', to: 'users#activity', as: :activity
+            end
+          end
 
           # Image Management
           resources :images, as: :img
@@ -94,7 +100,12 @@ module Integral
               end
               # resources :comments, only: [:create, :destroy]
             end
-            resources :categories, only: %i[create edit update destroy]
+            resources :categories, only: %i[create edit update destroy] do
+              member do
+                get 'activities', controller: 'categories'
+                get 'activities/:activity_id', to: 'categories#activity', as: :activity
+              end
+            end
           end
 
           # List Management

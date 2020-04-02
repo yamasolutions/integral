@@ -264,6 +264,9 @@ en:
       activities:
         index:
           title: Website Activity
+        shared:
+          index:
+            title: "Activities: %{title}"
       lists:
         items:
           type:
@@ -332,8 +335,6 @@ en:
           title: 'Edit Post'
         new:
           title: 'New Post'
-        activities:
-          title: "Activities: %{title}"
       pages:
         templates:
           default: Default

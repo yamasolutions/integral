@@ -10,7 +10,7 @@ module Integral
 
     # @return [String] URL to backend list page
     def backend_url
-      Integral::Engine.routes.url_helpers.backend_list_url(self)
+      Integral::Engine.routes.url_helpers.edit_backend_list_url(self)
     end
 
     # @return [String] formatted title

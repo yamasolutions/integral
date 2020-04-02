@@ -2,18 +2,35 @@
   = render layout: 'integral/backend/shared/grid', locals: { grid: @grid, options: { columns: [:name, :email, :updated_at, :actions], order: true }} do |grid|
     - if grid.assets.any?
       - grid.assets.decorate.each do |record|
-        %tr
+        %tr.tr--clickable{ data: { href: backend_user_url(record.id), context_menu: "dropdown-pane-actions-user-#{record.id}" }}
           %td
             = image_tag record.avatar.url(:thumbnail), class: :avatar
             = record.name.truncate(30)
           %td= record.email
           %td= l(record.updated_at, format: :long)
           %td.actions
-            = link_to backend_user_url(record) do
-              = icon('eye')
-            = link_to edit_backend_user_url(record) do
-              = icon('edit')
-            = link_to backend_user_url(record), method: :delete, data: { confirm: t('integral.actions.confirmation.deletion') } do
-              = icon('remove')
+            %button.button--action-pane{ 'data-toggle' => "dropdown-pane-actions-user-#{record.id}" }
+              = icon('ellipsis-v')
+            .dropdown-pane.dropdown-pane--actions{ id: "dropdown-pane-actions-user-#{record.id}", data: { dropdown: true, position: :bottom, alignment: :right, close_on_click: 'true' } }
+              %ul.menu.vertical
+                - if policy(Integral::User).manager?
+                  %li
+                    = link_to edit_backend_user_url(record.id) do
+                      = icon('edit')
+                      = t('integral.actions.edit')
+                %li
+                  = link_to backend_user_url(record.id), target: :blank do
+                    = icon('external-link')
+                    = t('integral.actions.open_in_new_tab')
+                -# - if policy(Integral::Version).manager?
+                -#   %li
+                -#     = link_to activities_backend_post_url(record.id) do
+                -#       = icon('history')
+                -#       = t('integral.actions.view_history')
+                - if policy(Integral::User).manager?
+                  %li
+                    = link_to backend_user_url(record.id), method: :delete, data: { confirm: t('integral.actions.confirmation.deletion') } do
+                      = icon('remove')
+                      = t('integral.actions.delete')
     - else
       = render partial: 'integral/backend/shared/empty_grid'

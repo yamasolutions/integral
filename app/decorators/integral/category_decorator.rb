@@ -3,6 +3,16 @@ module Integral
   class CategoryDecorator < Draper::Decorator
     delegate_all
 
+    # @return [String] URL to backend activity
+    def activity_url(activity_id)
+      Integral::Engine.routes.url_helpers.activity_backend_category_url(object.id, activity_id)
+    end
+
+    # @return [String] URL to backend Image page
+    def backend_url
+      Integral::Engine.routes.url_helpers.backend_posts_url
+    end
+
     # @return [Relation] posts associated to the category
     def posts(limit = nil)
       object.posts.published.order('published_at DESC').limit(limit).decorate

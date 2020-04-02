@@ -12,6 +12,9 @@ recommendations of [keepachangelog.com](http://keepachangelog.com/).
 
 ### Added
 
+- Add user, post and page dashboards
+- Add recent activity cards on main backend and object dashboards
+- Add post and page backend show pages
 - Improved default frontend blog styling
 - Added backend Posts dashboard
 - Added Post category management & category listing pages - Every post must have one category
@@ -24,6 +27,7 @@ recommendations of [keepachangelog.com](http://keepachangelog.com/).
 - Pages - Added 'Archived' status
 - Remote Form - Added reset-on-success option to allow preventing the reseting of forms
 - Swiper List Page Widget - Add optional 'html_classes' option
+- Add `render_card` backend helper
 
 ### Fixed
 
@@ -36,7 +40,7 @@ recommendations of [keepachangelog.com](http://keepachangelog.com/).
 ### Performance
 
 - Frontend Post Index - Remove N+1 for user & images
-
+- Backend activities - Improved grid search by removing changeset from query
 
 ### Dependancies
 -

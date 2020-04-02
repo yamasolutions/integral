@@ -2,21 +2,45 @@
   = render layout: 'integral/backend/shared/grid', locals: { grid: @grid, options: { columns: [:title, :path, :status, :updated_at, :actions], order: true }} do |grid|
     - if grid.assets.any?
       - grid.assets.decorate.each do |record|
-        %tr
+        %tr.tr--clickable{ data: { href: backend_page_url(record.id), context_menu: "dropdown-pane-actions-page-#{record.id}" }}
           %td= record.title.truncate(30)
           %td= record.path
           %td
             %span.label= t("integral.records.status.#{record.status}")
           %td= l(record.updated_at, format: :long)
           %td.actions
-            - unless record.archived?
-              = link_to record.path do
-                = icon('eye')
-            - if policy(Integral::Page).update?
-              = link_to edit_backend_page_url(record) do
-                = icon('edit')
-            - if policy(Integral::Page).destroy?
-              = link_to backend_page_url(record), method: :delete, data: { confirm: t('integral.actions.confirmation.deletion') } do
-                = icon('remove')
+            %button.button--action-pane{ 'data-toggle' => "dropdown-pane-actions-page-#{record.id}" }
+              = icon('ellipsis-v')
+            .dropdown-pane.dropdown-pane--actions{ id: "dropdown-pane-actions-page-#{record.id}", data: { dropdown: true, position: :bottom, alignment: :right, close_on_click: 'true' } }
+              %ul.menu.vertical
+                - if policy(Integral::Page).update?
+                  %li
+                    = link_to edit_backend_page_url(record.id) do
+                      = icon('edit')
+                      = t('integral.actions.edit')
+                - unless record.archived?
+                  %li
+                    = link_to record.path do
+                      = icon('eye')
+                      = t('integral.actions.view_on_site')
+                %li
+                  = link_to backend_page_url(record.id), target: :blank do
+                    = icon('external-link')
+                    = t('integral.actions.open_in_new_tab')
+                - if policy(Integral::Page).duplicate?
+                  %li
+                    = link_to duplicate_backend_page_url(record.id), method: :post, data: { confirm: t('integral.actions.confirmation.clone') } do
+                      = icon('clone')
+                      = t('integral.actions.clone')
+                - if policy(Integral::Version).manager?
+                  %li
+                    = link_to activities_backend_page_url(record.id) do
+                      = icon('history')
+                      = t('integral.actions.view_history')
+                - if policy(Integral::Page).destroy?
+                  %li
+                    = link_to backend_page_url(record.id), method: :delete, data: { confirm: t('integral.actions.confirmation.deletion') } do
+                      = icon('remove')
+                      = t('integral.actions.delete')
     - else
       = render partial: 'integral/backend/shared/empty_grid'

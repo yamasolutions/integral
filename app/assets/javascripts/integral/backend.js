@@ -53,6 +53,57 @@ function ready() {
   new RemoteForm($('.remote-form'));
   Grid.init();
 
+  // Recent activity 'view more' behaviour
+  $("[data-recent-activity]").on("click", function(ev) {
+    $button = $(ev.currentTarget);
+    modalId = $button.data('container-id');
+
+    $modal = $('#' + modalId);
+    if ($modal.length > 0) {
+      $modal.foundation('open');
+    } else {
+      $modal = $('#activity-placeholder').clone().appendTo('body')
+      $form = $modal.find('form')
+      $modal.attr('id', modalId)
+      $modal.foundation()
+
+      // Populate modal with content & filters
+      $modal.find('[data-title]').html($button.data('recent-activity-title'))
+      $modal.find('[data-timeline]').html($button.closest('.card').find('.timeline').html())
+      $form.find("input[name='grid[user]']").val($button.data('recent-activity-user'))
+      $form.find("input[name='grid[object]']").val($button.data('recent-activity-object'))
+      $form.find("input[name='grid[created_at]']").val($button.data('recent-activity-created-at'))
+      $form.find("input[name='grid[item_id]']").val($button.data('recent-activity-item-id'))
+
+      $form.on( "ajax:success", function(event, response) {
+        if (response.last_created_at != null) {
+          $modal.find('[data-timeline]').append(response.content)
+          $form.find("input[name='grid[created_at]']").val(response.last_created_at)
+        } else {
+          $form.find("input[type='submit']").hide()
+        }
+      });
+
+      $modal.foundation('open')
+      $form.submit()
+    }
+  });
+
+  // Hijack context menu click for rows which have a URL
+  $("tr[data-href]").on("contextmenu", function(ev) {
+    $('#' + ev.currentTarget.dataset.contextMenu).foundation('open');
+
+    return false;
+  });
+
+  // Capture clicks on rows which have a URL and visit that URL
+  $("tr[data-href]").on("click", function(ev) {
+    // Do not follow if the click is within a data-toggle
+    if (($(ev.target).closest('[data-toggle]').length == 0) && ($(ev.target).closest('[data-dropdown]').length == 0)) {
+      document.location = $(ev.currentTarget).data('href');
+    }
+  });
+
   $("[data-button-delete-category]").on("ajax:success", function(ev) {
     $(ev.currentTarget).closest('tr').fadeOut();
   });

@@ -1,7 +1,7 @@
 module Integral
   # Represents a user post category
   class Category < ApplicationRecord
-    # has_paper_trail class_name: 'Integral::CategoryVersion'
+    has_paper_trail class_name: 'Integral::CategoryVersion'
 
     # Slugging
     extend FriendlyId

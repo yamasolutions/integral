@@ -26,6 +26,13 @@ module Integral
       include Pundit
       rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
+      # GET /:id
+      # Show resource
+      def show
+        add_breadcrumb I18n.t('integral.navigation.list'), "list_backend_#{controller_name}_path".to_sym
+        add_breadcrumb I18n.t('integral.actions.view'), "backend_#{controller_name.singularize}_path".to_sym
+      end
+
       # GET /
       # Lists all resources
       def index
@@ -93,6 +100,7 @@ module Integral
       # GET /:id/edit
       # Resource edit screen
       def edit
+        add_breadcrumb I18n.t('integral.actions.view'), "backend_#{controller_name.singularize}_path".to_sym
         add_breadcrumb I18n.t('integral.navigation.edit'), "edit_backend_#{controller_name.singularize}_path".to_sym
       end
 
@@ -153,7 +161,7 @@ module Integral
         end
 
         respond_to do |format|
-          format.html
+          format.html { render template: 'integral/backend/activities/shared/index', locals: { form_url: send("activities_backend_#{controller_name.singularize}_url", @resource.id) } }
           format.json { render json: { content: render_to_string(partial: 'integral/backend/activities/shared/grid', locals: { grid: @grid }) } }
         end
       end
@@ -166,6 +174,8 @@ module Integral
         add_breadcrumb I18n.t('integral.actions.view')
 
         @activity = resource_version_klass.find(params[:activity_id]).decorate
+
+        render template: 'integral/backend/activities/shared/show', locals: { record: @resource.decorate }
       end
 
       private
@@ -247,6 +257,13 @@ module Integral
         controller_name.classify.constantize
       end
 
+      helper_method :cast_activities
+      def cast_activities(activites)
+        activites.map do |version|
+          version.becomes(version.item_type.constantize.paper_trail.version_class).decorate
+        end
+      end
+
       def resource_grid_klass
         "Integral::Grids::#{controller_name.classify.pluralize}Grid".constantize
       end
@@ -256,7 +273,9 @@ module Integral
       end
 
       def set_resource
-        @resource = resource_klass.find(params[:id])
+        scope = ['activities', 'activity'].include?(action_name) ? resource_klass.unscoped : resource_klass
+
+        @resource = scope.find(params[:id])
       end
 
       def grid_options

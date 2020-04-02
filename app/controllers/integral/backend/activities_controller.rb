@@ -2,8 +2,15 @@ module Integral
   module Backend
     # Activity management
     class ActivitiesController < BaseController
-      before_action :authorize_with_klass
+      before_action :authorize_with_klass, except: [:widget]
       before_action -> { set_grid }
+
+      def widget
+        activities = cast_activities(@grid.assets.limit(10))
+        last_created_at = activities.last.created_at.utc if activities.present?
+
+        render json: { content: render_to_string(partial: 'integral/backend/activities/activity', collection: activities), last_created_at: last_created_at }
+      end
 
       # POST /grid
       # AJAX grid for activities
@@ -44,8 +51,12 @@ module Integral
         authorize Version
       end
 
+      def resource_klass
+        Integral::Version
+      end
+
       def grid_options
-        grid_params = params[:grid].present? ? params[:grid].permit(:descending, :order, :page, :user, :action, :object) : {}
+        grid_params = params[:grid].present? ? params[:grid].permit(:descending, :order, :page, :user, :action, :object, :created_at, :item_id) : {}
         grid_params.delete_if { |_k, v| v.empty? }
         { 'order' => 'date', 'page' => 1, descending: true }.merge(grid_params)
       end

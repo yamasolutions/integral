@@ -40,9 +40,6 @@ module Integral
             let(:pages_sorted) { Page.all.order('created_at DESC') }
 
             before do
-              expect(controller).to receive(:add_breadcrumb).with(I18n.t('integral.breadcrumbs.dashboard'), :backend_dashboard_path)
-              expect(controller).to receive(:add_breadcrumb).with(I18n.t('integral.breadcrumbs.pages'), :backend_pages_path)
-
               get :index
             end
 
@@ -128,9 +125,6 @@ module Integral
           context 'when user has required privileges' do
             before do
               allow(Integral::Page).to receive(:new).and_return :foo
-              expect(controller).to receive(:add_breadcrumb).with(I18n.t('integral.breadcrumbs.dashboard'), :backend_dashboard_path)
-              expect(controller).to receive(:add_breadcrumb).with(I18n.t('integral.breadcrumbs.pages'), :backend_pages_path)
-              expect(controller).to receive(:add_breadcrumb).with(I18n.t('integral.breadcrumbs.new'), :new_backend_page_path)
 
               get :new
             end
@@ -170,9 +164,6 @@ module Integral
 
           context 'when user has required privileges' do
             before do
-              expect(controller).to receive(:add_breadcrumb).with(I18n.t('integral.breadcrumbs.dashboard'), :backend_dashboard_path)
-              expect(controller).to receive(:add_breadcrumb).with(I18n.t('integral.breadcrumbs.pages'), :backend_pages_path)
-              expect(controller).to receive(:add_breadcrumb).with(I18n.t('integral.breadcrumbs.edit'), :edit_backend_page_path)
               get :edit, params: { id: page.id }
             end
 

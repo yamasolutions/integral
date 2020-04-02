@@ -1,3 +1,4 @@
+- content_for :title, t('.title', title: @resource.title)
 .card.listing
   .card-section
     = simple_form_for :grid, url: form_url, method: :get, remote: true, html: { id: :grid_form, 'data-type' => :json } do |f|

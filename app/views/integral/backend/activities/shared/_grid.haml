@@ -1,5 +1,5 @@
 = render_data_grid do
-  = render layout: 'integral/backend/shared/grid', locals: { grid: grid, options: { columns: [:date, :user, :action, :attributes_changed, :actions], order: true }} do |grid|
+  = render layout: 'integral/backend/shared/grid', locals: { grid: grid, options: { columns: [:date, :user, :action, :actions], order: true }} do |grid|
     - if grid.assets.any?
       - grid.assets.decorate.each do |activity|
         %tr
@@ -12,7 +12,8 @@
                   = activity.whodunnit.name
           %td
             %span.label= activity.event
-          %td= activity.attributes_changed
+          -# Currently not possible to show this as changeset isn't available in the query resultset for performance reasons - One possible solution would be to create a Grid class for each Version - rather than unioning all the tables it only includes it's own
+          -# %td= activity.attributes_changed
           %td.actions
             = link_to activity.url do
               = icon('eye')

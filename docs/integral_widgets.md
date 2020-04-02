@@ -1,6 +1,6 @@
 # Integral Widgets
 
-Integral widgets are placed within the [WYSIWYG editor](https://integralrails.com) to embed dynamic content.
+Integral widgets are placed within the [WYSIWYG editor](https://github.com/yamasolutions/integral/blob/master/docs/wysiwyg_editor.md) to embed dynamic content.
 
 Currently there are two widgets;
 * Recent Posts

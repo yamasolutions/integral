@@ -10,6 +10,12 @@ If you're looking for the fastest way to get your application available at a par
 
 ## Essential production setup
 
+### Set host
+Set the website host, used within URL generation.
+```
+Rails.application.routes.default_url_options[:host] = 'https://example.org'
+```
+
 ### Connect Mail
 Rails has a great guide all about [Action Mailer & How to send email with Rails](https://guides.rubyonrails.org/action_mailer_basics.html). User invites and enquiry auto replies are two features which require Action Mailer to be setup.
 
@@ -43,12 +49,6 @@ To configure file uploading set the following environmental variables;
 This information can be found on your Amazon S3 account.
 
 If you are not using Amazon S3 you can change the Carrierwave config file ```config/initializers/carrierwave.rb```. This file was automatically copied in when you installed Integral. You'll also want to update ```config/sitemap.rb``` as the sitemap generator assumes you're using S3.
-
-### Set host
-Set the website URL, used (unsurprisingly) within URL generation.
-```
-Rails.application.routes.default_url_options[:host] = 'https://example.org'
-```
 
 
 ## Suggested additional setup

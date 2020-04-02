@@ -4,7 +4,7 @@ en:
       default: "%d %B"
   time:
     formats:
-      default: "%B %d, %Y at %l:%M%P"
+      default: "%b %d %Y, %l:%M %P"
       blog: "%B %d, %Y"
       twelve_hour: "%I:%M %p"
 
@@ -46,6 +46,12 @@ en:
       forward_enquiry:
         subject: Website Enquiry
     actions:
+      tense:
+        past:
+          update: Updated
+          create: Created
+          publish: Published
+          destroy: Deleted
       confirmation:
         deletion: If you delete this item it will be gone forever. Are you sure you want to proceed?
         clone: Are you sure you want to clone this item?
@@ -55,6 +61,8 @@ en:
       add_image: Add Image
       add_image_or_video: Add an image or video
       view_main_site: View main site
+      view_on_site: View on site
+      publish: Publish
       create: Create
       clone: Clone
       save: Save
@@ -66,6 +74,7 @@ en:
       view: View
       view_record: View Record
       view_user: View User
+      view_history: View history
       read_more: Read more..
       reply: Reply
       log_out: Logout
@@ -80,6 +89,8 @@ en:
       confirm: Confirm
       cancel: Cancel
       view_all: View All
+      view_more: View More
+      open_in_new_tab: Open in new tab
     prompts:
       select_image: Select Image..
       select_type: Select Type..
@@ -208,6 +219,8 @@ en:
       graphs:
         data_unavailable: Data Unavailable
       cards:
+        your_activity: Your Activity
+        recent_activity: Recent Activity
         at_a_glance: At a glance
         last_week: Last week
       shared:
@@ -252,6 +265,9 @@ en:
       activities:
         index:
           title: Website Activity
+        shared:
+          index:
+            title: "Activities: %{title}"
       lists:
         items:
           type:
@@ -320,8 +336,6 @@ en:
           title: 'Edit Post'
         new:
           title: 'New Post'
-        activities:
-          title: "Activities: %{title}"
       pages:
         templates:
           default: Default

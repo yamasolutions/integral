@@ -3,6 +3,8 @@
   * Red: Small Screens
   * Orange: Medium Screens
   * Green: Large and above
+  * Blue: Xlarge Screens
+  * Black: XXlarge and above
   */
 .query-indicator
   display: block
@@ -22,4 +24,8 @@
     background-color: #ffa500
   @include breakpoint(large)
     background-color: #008000
+  @include breakpoint(xlarge)
+    background-color: #1b8ecf
+  @include breakpoint(xxlarge)
+    background-color: #0c1116
 

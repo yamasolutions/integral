@@ -9,7 +9,7 @@ module Integral
     describe '#backend_url' do
       context 'when blog enabled' do
         it 'provides the URL' do
-          expect(subject.backend_url).to eq "http://test.somehost.com/admin/posts/#{post.id}/edit"
+          expect(subject.backend_url).to eq "http://test.somehost.com/admin/posts/#{post.id}"
         end
       end
 

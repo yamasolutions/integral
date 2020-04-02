@@ -20,14 +20,10 @@ Great, we can always use help developing Integral! Simply fork the repo to get s
 To test Integral run the following command;
 
 ```
-bundle exec fudge build
+bundle exec rspec spec
 ```
 
 The test suite will run the following;
-* [YARDoc](https://yardoc.org/) - Check all code is documented
-* [Flay](https://github.com/seattlerb/flay) & [Flog](https://github.com/seattlerb/flog) - Check for code duplication & complexity
-* [Brakeman](https://github.com/presidentbeef/brakeman) - Run a static analysis security vulnerability scanner
-* [Rubocop](http://batsov.com/rubocop/) - Run a Ruby static code analyzer, based on the community Ruby style guide.
 * [Rspec](http://rspec.info/) - Test suite
 
 If any of the above fail the build will fail.

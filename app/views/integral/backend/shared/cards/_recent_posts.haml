@@ -1,0 +1,18 @@
+.card
+  .card-section
+    .card-action-title
+      %h2 Recent Posts
+    %table.hover
+      - Integral::Post.published.limit(5).decorate.each do |record|
+        %tr
+          %td= record.title
+          %td
+            - if record.user.present?
+              = image_tag record.user.avatar.url(:thumbnail), alt: record.user.name, class: 'avatar'
+              = record.user.name
+            - else
+              "#{record.user_id} [Deleted]"
+          %td
+            = link_to backend_post_url(record.id), class: 'button--action-pane' do
+              = icon('eye')
+    = link_to t('integral.actions.view_all'), list_backend_posts_url, class: 'button clear expanded'

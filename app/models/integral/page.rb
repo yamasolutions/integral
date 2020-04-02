@@ -33,6 +33,9 @@ module Integral
     validate :validate_path_is_not_black_listed
     validate :validate_parent_is_available
 
+    # Callbacks
+    before_save :set_paper_trail_event
+
     # Scopes
     scope :search, ->(query) { where('lower(title) LIKE ? OR lower(path) LIKE ?', "%#{query.downcase}%", "%#{query.downcase}%") }
     # TODO: Remove this on Rails 6 upgrade
@@ -126,6 +129,12 @@ module Integral
     end
 
     private
+
+    def set_paper_trail_event
+      if persisted? && published? && status_changed?
+        self.paper_trail_event = :publish
+      end
+    end
 
     # @return [Array] containing available human readable statuses against there numeric value
     def self.available_statuses

@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 module Integral
-  describe "the signin process", :type => :feature do
+  describe "the signin process", type: :system do
     it "signs a user in" do
       sign_in
 

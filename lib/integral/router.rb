@@ -60,13 +60,20 @@ module Integral
           get 'account', to: 'users#account'
 
           # User Management
-          resources :users
+          resources :users do
+            get 'list', on: :collection
+            member do
+              get 'activities', controller: 'users'
+              get 'activities/:activity_id', to: 'users#activity', as: :activity
+            end
+          end
 
           # Image Management
           resources :images, as: :img
 
           # Page Management
-          resources :pages, except: [:show] do
+          resources :pages do
+            get 'list', on: :collection
             member do
               post 'duplicate'
               get 'activities', controller: 'pages'
@@ -77,13 +84,14 @@ module Integral
           # Activity Management
           resources :activities, only: %i[index show] do
             collection do
+              post 'widget'
               post 'grid'
             end
           end
 
           # Post Management
           if Integral.blog_enabled?
-            resources :posts, except: [:show] do
+            resources :posts do
               get 'list', on: :collection
               member do
                 post 'duplicate'
@@ -92,7 +100,12 @@ module Integral
               end
               # resources :comments, only: [:create, :destroy]
             end
-            resources :categories, only: %i[create edit update destroy]
+            resources :categories, only: %i[create edit update destroy] do
+              member do
+                get 'activities', controller: 'categories'
+                get 'activities/:activity_id', to: 'categories#activity', as: :activity
+              end
+            end
           end
 
           # List Management

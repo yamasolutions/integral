@@ -10,7 +10,7 @@ module Integral
     def self.available_actions
       available = []
 
-      %w[update create destroy].each do |item|
+      %w[update create destroy publish].each do |item|
         available << [I18n.t("integral.actions.#{item}"), item]
       end
 
@@ -21,7 +21,7 @@ module Integral
     def self.available_objects
       available = []
 
-      [Integral::Post, Integral::Page, Integral::List, Integral::Image, Integral::User].each do |item|
+      [Integral::Post, Integral::Category, Integral::Page, Integral::List, Integral::Image, Integral::User].concat(Integral.additional_tracked_classes).each do |item|
         available << [item.model_name.human, item]
       end
 

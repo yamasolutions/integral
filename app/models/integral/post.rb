@@ -33,6 +33,7 @@ module Integral
 
     # Callbacks
     before_save :set_published_at
+    before_save :set_paper_trail_event
     before_save :set_tags_context
     after_update :deliver_published_webhook_on_update
     after_create :deliver_published_webhook_on_create
@@ -128,7 +129,15 @@ module Integral
     end
 
     def set_published_at
-      self.published_at = Time.now if published? && published_at.nil?
+      if published? && published_at.nil?
+        self.published_at = Time.now
+      end
+    end
+
+    def set_paper_trail_event
+      if persisted? && published? && status_changed?
+        self.paper_trail_event = :publish
+      end
     end
 
     # Set the context of tags so that draft and archived tags are not displayed publicly

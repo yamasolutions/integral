@@ -25,7 +25,7 @@
                         = t('integral.actions.edit')
                   - if policy(Integral::Post).duplicate?
                     .cell
-                      = link_to duplicate_backend_post_url(@resource.id) do
+                      = link_to duplicate_backend_post_url(@resource.id), method: :post, data: { confirm: t('integral.actions.confirmation.clone') } do
                         = icon('clone')
                         = t('integral.actions.clone')
                   - if policy(Integral::Post).manager?

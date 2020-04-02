@@ -14,7 +14,7 @@
             .grid-x.actions
               .cell.xlarge-8.xxlarge-6
                 .grid-x.small-up-2
-                  - if @resource.archived?
+                  - unless @resource.archived?
                     .cell
                       = link_to @resource.path do
                         = icon('eye')
@@ -26,7 +26,7 @@
                         = t('integral.actions.edit')
                   - if policy(Integral::Page).duplicate?
                     .cell
-                      = link_to duplicate_backend_page_url(@resource.id) do
+                      = link_to duplicate_backend_page_url(@resource.id), method: :post, data: { confirm: t('integral.actions.confirmation.clone') } do
                         = icon('clone')
                         = t('integral.actions.clone')
                   - if policy(Integral::Page).manager?

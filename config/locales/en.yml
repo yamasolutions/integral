@@ -50,7 +50,7 @@ en:
         past:
           update: Updated
           create: Created
-          published: Published
+          publish: Published
           destroy: Deleted
       confirmation:
         deletion: If you delete this item it will be gone forever. Are you sure you want to proceed?
@@ -62,6 +62,7 @@ en:
       add_image_or_video: Add an image or video
       view_main_site: View main site
       view_on_site: View on site
+      publish: Publish
       create: Create
       clone: Clone
       save: Save

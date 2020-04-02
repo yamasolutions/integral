@@ -10,7 +10,7 @@ module Integral
     def self.available_actions
       available = []
 
-      %w[update create destroy].each do |item|
+      %w[update create destroy publish].each do |item|
         available << [I18n.t("integral.actions.#{item}"), item]
       end
 

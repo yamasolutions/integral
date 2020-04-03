@@ -10,7 +10,7 @@
     > h1 {
       border: 0;
       font-size: 24px;
-      color: #3B3B3B;
+      color: $black;
       padding: 0;
 
       @include breakpoint(medium) {

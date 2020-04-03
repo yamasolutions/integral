@@ -16,7 +16,7 @@
     = render 'layouts/integral/frontend/admin_bar' if user_signed_in?
 
     -# Off Canvas - Mobile Menu
-    #offCanvas.off-canvas.position-left{ 'data-off-canvas' => true }
+    #offCanvas.off-canvas.position-right{ 'data-off-canvas' => true }
       = link_to site_title, root_url, class: 'site-title'
       = render_list(main_menu_list, { html_classes: 'menu vertical'})
 

@@ -1,0 +1,115 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Dynamic Widgets · Integral CMS</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="Integral widgets are placed within the [WYSIWYG editor](https://github.com/yamasolutions/integral/blob/master/docs/wysiwyg_editor.md) to embed dynamic content."/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Dynamic Widgets · Integral CMS"/><meta property="og:type" content="website"/><meta property="og:url" content="https://yamasolutions.github.io/integral/"/><meta property="og:description" content="Integral widgets are placed within the [WYSIWYG editor](https://github.com/yamasolutions/integral/blob/master/docs/wysiwyg_editor.md) to embed dynamic content."/><meta name="twitter:card" content="summary"/><link rel="shortcut icon" href="/integral/img/favicon.ico"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,400i,700&amp;display=swap"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><script src="/integral/js/scrollSpy.js"></script><link rel="stylesheet" href="/integral/css/main.css"/><script src="/integral/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/integral/"><img class="logo" src="/integral/img/favicon.ico" alt="Integral CMS"/><h2 class="headerTitleWithLogo">Integral CMS</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="https://integralrails.com" target="_self">Integral</a></li><li class="siteNavGroupActive"><a href="/integral/docs/introduction" target="_self">Documentation</a></li><li class=""><a href="https://integralrails.com/blog" target="_self">Blog</a></li><li class=""><a href="https://heroku.com/deploy?template=https://github.com/yamasolutions/integral-sample" target="_blank">Deploy Now</a></li><li class=""><a target="_self"></a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><div class="hamburger-menu"><div class="line1"></div><div class="line2"></div><div class="line3"></div></div></div><h2><i>›</i><span>Using Integral</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle">Getting Started</h3><ul class=""><li class="navListItem"><a class="navItem" href="/integral/docs/introduction">Introduction</a></li><li class="navListItem"><a class="navItem" href="/integral/docs/installing-integral">Install Integral CMS</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Using Integral</h3><ul class=""><li class="navListItem"><a class="navItem" href="/integral/docs/integral-pages">Pages</a></li><li class="navListItem"><a class="navItem" href="/integral/docs/integral-lists">Lists</a></li><li class="navListItem navListItemActive"><a class="navItem" href="/integral/docs/integral-widgets">Dynamic Widgets</a></li><li class="navListItem"><a class="navItem" href="/integral/docs/wysiwyg-editor">WYSIWYG Editor</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Deployment</h3><ul class=""><li class="navListItem"><a class="navItem" href="/integral/docs/deploying-to-production">Deploying to Production</a></li><li class="navListItem"><a class="navItem" href="/integral/docs/heroku-deployment">Deploying with Heroku</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Extending Integral</h3><ul class=""><li class="navListItem"><a class="navItem" href="/integral/docs/extending-integral">Extending Integral</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Contributing</h3><ul class=""><li class="navListItem"><a class="navItem" href="/integral/docs/contributing">Contributing</a></li></ul></div></div></section></div><script>
+            var coll = document.getElementsByClassName('collapsible');
+            var checkActiveCategory = true;
+            for (var i = 0; i < coll.length; i++) {
+              var links = coll[i].nextElementSibling.getElementsByTagName('*');
+              if (checkActiveCategory){
+                for (var j = 0; j < links.length; j++) {
+                  if (links[j].classList.contains('navListItemActive')){
+                    coll[i].nextElementSibling.classList.toggle('hide');
+                    coll[i].childNodes[1].classList.toggle('rotate');
+                    checkActiveCategory = false;
+                    break;
+                  }
+                }
+              }
+
+              coll[i].addEventListener('click', function() {
+                var arrow = this.childNodes[1];
+                arrow.classList.toggle('rotate');
+                var content = this.nextElementSibling;
+                content.classList.toggle('hide');
+              });
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              var headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                var el = event.target;
+                while(el !== headings){
+                  if (el.tagName === 'A') {
+                    document.body.classList.remove('tocActive');
+                    break;
+                  } else{
+                    el = el.parentNode;
+                  }
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer docsContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 id="__docusaurus" class="postHeaderTitle">Dynamic Widgets</h1></header><article><div><span><p>Integral widgets are placed within the <a href="https://github.com/yamasolutions/integral/blob/master/docs/wysiwyg_editor.md">WYSIWYG editor</a> to embed dynamic content.</p>
+<p>Currently there are two widgets;</p>
+<ul>
+<li>Recent Posts</li>
+<li>Swiper List</li>
+</ul>
+<h2><a class="anchor" aria-hidden="true" id="how-the-dynamic-content-is-rendered"></a><a href="#how-the-dynamic-content-is-rendered" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>How the dynamic content is rendered</h2>
+<p>Take for example an Integral page, this has a <code>body</code> attribute which stores raw HTML which can be updated by editing the WYSIWYG editor.</p>
+<p>To output the raw HTML from the editor as is, we could do <code>page.body.html_safe</code> within a view.</p>
+<p>This would work well, however we want to embed dynamic data. So instead we first pass the raw HTML through a renderer helper, <code>Integral::ContentRenderer.render(page.body)</code>.</p>
+<p>This renderer parses the html to check if there are any widget placeholders present, if there are placeholders present it will replace the placeholder with dynamic content generated from the placeholder data.</p>
+<p>For example, the placeholder below will be replaced with a collection of recent posts tagged with <code>integral-how-to</code>.</p>
+<pre><code class="hljs">&lt;p <span class="hljs-attribute">class</span>=<span class="hljs-string">'integral-widget'</span> <span class="hljs-attribute">data-widget-type</span>=<span class="hljs-string">'recent_posts'</span> <span class="hljs-attribute">data-widget-value-tagged</span>=<span class="hljs-string">'integral-how-to'</span>&gt;
+</code></pre>
+<p>Note: Within frontend views you can use the <code>render_content</code> helper rather than calling <code>Integral::ContentRenderer</code> directly</p>
+<pre><code class="hljs">render<span class="hljs-constructor">_content(<span class="hljs-params">page</span>.<span class="hljs-params">body</span>)</span>
+</code></pre>
+<h2><a class="anchor" aria-hidden="true" id="types-of-widgets"></a><a href="#types-of-widgets" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Types of widgets</h2>
+<h3><a class="anchor" aria-hidden="true" id="recent-posts"></a><a href="#recent-posts" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Recent Posts</h3>
+<p>As mentioned, the recent posts widget outputs a collection of the most recent published posts. Options for this widget are;</p>
+<ul>
+<li><code>tagged</code> - Scope the posts to a particular tag, default is blank</li>
+<li><code>amount</code> - Limit the amount of posts to display, default is 2</li>
+</ul>
+<pre><code class="hljs">&lt;p <span class="hljs-attribute">class</span>=<span class="hljs-string">'integral-widget'</span> <span class="hljs-attribute">data-widget-type</span>=<span class="hljs-string">'recent_posts'</span> <span class="hljs-attribute">data-widget-value-tagged</span>=<span class="hljs-string">'integral-how-to'</span> <span class="hljs-attribute">data-widget-value-amount</span>=<span class="hljs-string">'4'</span>&gt;
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="swiper-list"></a><a href="#swiper-list" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Swiper List</h3>
+<p>As mentioned, the recent posts widget outputs a collection of the most recent published posts. Options for this widget are;</p>
+<ul>
+<li><code>tagged</code> - Scope the posts to a particular tag, default is blank</li>
+<li><code>amount</code> - Limit the amount of posts to display, default is 2</li>
+</ul>
+<pre><code class="hljs css language-html"><span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">class</span>=<span class="hljs-string">'integral-widget'</span> <span class="hljs-attr">data-widget-type</span>=<span class="hljs-string">'swiper_list'</span> <span class="hljs-attr">data-widget-value-slide-view-path</span>=<span class="hljs-string">'shared/testimonial'</span>&gt;</span>
+</code></pre>
+<h2><a class="anchor" aria-hidden="true" id="creating-a-custom-widget"></a><a href="#creating-a-custom-widget" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Creating a custom widget</h2>
+<ol>
+<li>Create your custom Integral widget class. All this needs to do is implement <code>.render</code> which returns a string</li>
+</ol>
+<pre><code class="hljs css language-ruby"><span class="hljs-comment"># lib/cool_widget.rb</span>
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">CoolWidget</span></span>
+  <span class="hljs-comment"># Renders something dynamic and cool</span>
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">self</span>.<span class="hljs-title">render</span><span class="hljs-params">(options = {})</span></span>
+    <span class="hljs-string">'&lt;p&gt;Cool widget HTML&lt;/p&gt;'</span>
+  <span class="hljs-keyword">end</span>
+<span class="hljs-keyword">end</span>
+</code></pre>
+<ol start="2">
+<li>Add your custom widget to the Integral config at <code>config/initializers/integral.rb</code></li>
+</ol>
+<pre><code class="hljs"><span class="hljs-built_in">config</span>.additional_widgets = <span class="hljs-string">[['cool_widget', 'CoolWidget']]</span>
+</code></pre>
+<ol start="3">
+<li>Add a placeholder to the widget within the WYSIWYG editor</li>
+</ol>
+<pre><code class="hljs css language-html"><span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">class</span>=<span class="hljs-string">'integral-widget'</span> <span class="hljs-attr">data-widget-type</span>=<span class="hljs-string">'cool_widget'</span>&gt;</span>
+</code></pre>
+<p>Done! You can also pass options to the widget, for an example check out how <code>RecentPosts</code> and <code>SwiperList</code> work.</p>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/integral/docs/integral-lists"><span class="arrow-prev">← </span><span>Lists</span></a><a class="docs-next button" href="/integral/docs/wysiwyg-editor"><span>WYSIWYG Editor</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#how-the-dynamic-content-is-rendered">How the dynamic content is rendered</a></li><li><a href="#types-of-widgets">Types of widgets</a><ul class="toc-headings"><li><a href="#recent-posts">Recent Posts</a></li><li><a href="#swiper-list">Swiper List</a></li></ul></li><li><a href="#creating-a-custom-widget">Creating a custom widget</a></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/integral/" class="nav-home"><img src="/integral/img/favicon.ico" alt="Integral CMS" width="66" height="58"/></a><div><h5>Docs</h5><a href="/integral/docs/introduction">Introduction</a><a href="/integral/docs/integral-pages">Using Integral</a><a href="/integral/docs/deploying-to-production">Deployment</a><a href="/integral/docs/extending-integral">Extending Integral</a><a href="/integral/docs/contributing">Contributing</a></div><div><h5>Quick Links</h5><a href="https://integralrails.com">Integral CMS</a><a href="https://integralrails.com/docs">Documentation</a><a href="https://integralrails.com/blog">Blog</a><a href="https://heroku.com/deploy?template=https://github.com/yamasolutions/integral-sample" target="_blank">Deploy Now</a></div><div><h5>More</h5><a href="https://github.com/yamasolutions/integral" target="_blank">GitHub</a><a class="github-button" href="https://github.com/yamasolutions/integral" data-icon="octicon-star" data-count-href="/facebook/docusaurus/stargazers" data-show-count="true" data-count-aria-label="# stargazers on GitHub" aria-label="Star this project on GitHub">Star</a></div></section><section class="copyright">Copyright © 2020 Integral CMS</section></footer></div></body></html>

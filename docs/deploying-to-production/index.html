@@ -1,0 +1,134 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Deploying to Production · Integral CMS</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="This guide discusses two things;"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Deploying to Production · Integral CMS"/><meta property="og:type" content="website"/><meta property="og:url" content="https://yamasolutions.github.io/integral/"/><meta property="og:description" content="This guide discusses two things;"/><meta name="twitter:card" content="summary"/><link rel="shortcut icon" href="/integral/img/favicon.ico"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,400i,700&amp;display=swap"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><script src="/integral/js/scrollSpy.js"></script><link rel="stylesheet" href="/integral/css/main.css"/><script src="/integral/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/integral/"><img class="logo" src="/integral/img/favicon.ico" alt="Integral CMS"/><h2 class="headerTitleWithLogo">Integral CMS</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="https://integralrails.com" target="_self">Integral</a></li><li class="siteNavGroupActive"><a href="/integral/docs/introduction" target="_self">Documentation</a></li><li class=""><a href="https://integralrails.com/blog" target="_self">Blog</a></li><li class=""><a href="https://heroku.com/deploy?template=https://github.com/yamasolutions/integral-sample" target="_blank">Deploy Now</a></li><li class=""><a target="_self"></a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><div class="hamburger-menu"><div class="line1"></div><div class="line2"></div><div class="line3"></div></div></div><h2><i>›</i><span>Deployment</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle">Getting Started</h3><ul class=""><li class="navListItem"><a class="navItem" href="/integral/docs/introduction">Introduction</a></li><li class="navListItem"><a class="navItem" href="/integral/docs/installing-integral">Install Integral CMS</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Using Integral</h3><ul class=""><li class="navListItem"><a class="navItem" href="/integral/docs/integral-pages">Pages</a></li><li class="navListItem"><a class="navItem" href="/integral/docs/integral-lists">Lists</a></li><li class="navListItem"><a class="navItem" href="/integral/docs/integral-widgets">Dynamic Widgets</a></li><li class="navListItem"><a class="navItem" href="/integral/docs/wysiwyg-editor">WYSIWYG Editor</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Deployment</h3><ul class=""><li class="navListItem navListItemActive"><a class="navItem" href="/integral/docs/deploying-to-production">Deploying to Production</a></li><li class="navListItem"><a class="navItem" href="/integral/docs/heroku-deployment">Deploying with Heroku</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Extending Integral</h3><ul class=""><li class="navListItem"><a class="navItem" href="/integral/docs/extending-integral">Extending Integral</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Contributing</h3><ul class=""><li class="navListItem"><a class="navItem" href="/integral/docs/contributing">Contributing</a></li></ul></div></div></section></div><script>
+            var coll = document.getElementsByClassName('collapsible');
+            var checkActiveCategory = true;
+            for (var i = 0; i < coll.length; i++) {
+              var links = coll[i].nextElementSibling.getElementsByTagName('*');
+              if (checkActiveCategory){
+                for (var j = 0; j < links.length; j++) {
+                  if (links[j].classList.contains('navListItemActive')){
+                    coll[i].nextElementSibling.classList.toggle('hide');
+                    coll[i].childNodes[1].classList.toggle('rotate');
+                    checkActiveCategory = false;
+                    break;
+                  }
+                }
+              }
+
+              coll[i].addEventListener('click', function() {
+                var arrow = this.childNodes[1];
+                arrow.classList.toggle('rotate');
+                var content = this.nextElementSibling;
+                content.classList.toggle('hide');
+              });
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              var headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                var el = event.target;
+                while(el !== headings){
+                  if (el.tagName === 'A') {
+                    document.body.classList.remove('tocActive');
+                    break;
+                  } else{
+                    el = el.parentNode;
+                  }
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer docsContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 id="__docusaurus" class="postHeaderTitle">Deploying to Production</h1></header><article><div><span><p>This guide discusses two things;</p>
+<ul>
+<li><a href="#essential-production-setup">Essential setup</a> - Tasks that you will need to perform to ensure all Integral features run properly in production</li>
+<li><a href="#suggested-additional-setup">Suggested setup</a> - Tasks that we recommend any production application performs</li>
+</ul>
+<p>This isn't a guide on how to make your application accessible on the internet at a particular URL. There are many ways to do this, whether its doing it all yourself by setting up a server on something like <a href="https://digitalocean.com">Digitalocean</a> or by using a platform as a service such as <a href="https://heroku.com">Heroku</a>.</p>
+<p>Once you've complete the essential setup below, if you're looking for the fastest way to get your application available at a particular URL checkout our guide on <a href="https://github.com/yamasolutions/integral/blob/master/docs/heroku.md">deploying with Heroku</a>.</p>
+<h2><a class="anchor" aria-hidden="true" id="essential-production-setup"></a><a href="#essential-production-setup" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Essential production setup</h2>
+<h3><a class="anchor" aria-hidden="true" id="set-host"></a><a href="#set-host" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Set host</h3>
+<p>Set the website host, used within URL generation.</p>
+<pre><code class="hljs">Rails<span class="hljs-selector-class">.application</span><span class="hljs-selector-class">.routes</span><span class="hljs-selector-class">.default_url_options</span>[:host] = <span class="hljs-string">'https://example.org'</span>
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="connect-mail"></a><a href="#connect-mail" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Connect Mail</h3>
+<p>Rails has a great guide all about <a href="https://guides.rubyonrails.org/action_mailer_basics.html">Action Mailer &amp; How to send email with Rails</a>. User invites and enquiry auto replies are two features which require Action Mailer to be setup.</p>
+<p>Setting up Rails to send emails with Gmail is a simple as adding the snippet below to your production config file and setting the apprioprate environment variables.</p>
+<pre><code class="hljs"><span class="hljs-comment"># config/environments/production.rb</span>
+
+config.action_mailer.delivery_method = <span class="hljs-symbol">:smtp</span>
+config.action_mailer.default_url_options = { <span class="hljs-symbol">host:</span> Rails.application.routes.default_url_options[<span class="hljs-symbol">:host</span>] }
+config.action_mailer.smtp_settings = {
+  <span class="hljs-symbol">address:</span>              ENV[<span class="hljs-string">'SMTP_ADDRESS'</span>] <span class="hljs-params">||</span> <span class="hljs-string">'smtp.gmail.com'</span>,
+  <span class="hljs-symbol">port:</span>                 ENV[<span class="hljs-string">'SMTP_PORT'</span>] <span class="hljs-params">||</span> <span class="hljs-number">587</span>,
+  <span class="hljs-symbol">user_name:</span>            ENV[<span class="hljs-string">'SMTP_USER_NAME'</span>],
+  <span class="hljs-symbol">password:</span>             ENV[<span class="hljs-string">'SMTP_PASSWORD'</span>],
+  <span class="hljs-symbol">authentication:</span>       <span class="hljs-string">'plain'</span>,
+  <span class="hljs-symbol">enable_starttls_auto:</span> <span class="hljs-literal">true</span>
+}
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="file-uploading-carrierwave-setup"></a><a href="#file-uploading-carrierwave-setup" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>File uploading (Carrierwave) setup</h3>
+<p>Integral uses <a href="https://github.com/carrierwaveuploader/carrierwave">Carrierwave</a> to manage file uploading and assumes you will be storing the files on <a href="https://aws.amazon.com/s3/">Amazon S3</a>.</p>
+<p>To configure file uploading set the following environmental variables;</p>
+<ul>
+<li><code>AWS_S3_BUCKET_NAME</code></li>
+<li><code>AWS_ACCESS_KEY_ID</code></li>
+<li><code>AWS_SECRET_ACCESS_KEY</code></li>
+<li><code>AWS_REGION</code></li>
+</ul>
+<p>This information can be found on your Amazon S3 account.</p>
+<p>If you are not using Amazon S3 you can change the Carrierwave config file <code>config/initializers/carrierwave.rb</code>. This file was automatically copied in when you installed Integral. You'll also want to update <code>config/sitemap.rb</code> as the sitemap generator assumes you're using S3.</p>
+<h2><a class="anchor" aria-hidden="true" id="suggested-additional-setup"></a><a href="#suggested-additional-setup" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Suggested additional setup</h2>
+<h3><a class="anchor" aria-hidden="true" id="background-jobs"></a><a href="#background-jobs" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Background Jobs</h3>
+<p>By default all jobs will run asynchronously, which means when someone uploads a file or a person sends an enquiry those tasks (image processing &amp; email creation) will run straight away therefore blocking the application from processing anymore requests until they're finished. More info;</p>
+<ul>
+<li><a href="https://edgeguides.rubyonrails.org/active_job_basics.html">How Rails handles background jobs</a></li>
+<li><a href="https://github.com/collectiveidea/delayed_job">A comparison of queue adapters</a></li>
+</ul>
+<p>Integral does not impose a specific queue adapter as this will vary between applications. If you have a small application and want to get started as soon as possible we recommend <a href="https://github.com/collectiveidea/delayed_job">Delayed Jobs</a>.</p>
+<p>Note: When you decide on a queue adapter you'll need to update the <a href="https://github.com/patricklindsay/carrierwave_backgrounder">Carrierwave Backgrounder</a> config at <code>config/initializers/carrierwave_backgrounder.rb</code></p>
+<h3><a class="anchor" aria-hidden="true" id="site-security"></a><a href="#site-security" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Site Security</h3>
+<p>It goes without saying but we'll say it anyway - Make sure to enable (and force) SSL for all your applications.</p>
+<pre><code class="hljs"><span class="hljs-attr">config.force_ssl</span> = <span class="hljs-literal">true</span>
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="sitemap-generation"></a><a href="#sitemap-generation" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Sitemap generation</h3>
+<p>Setup a CRON job or if you're using Heroku install the <a href="https://elements.heroku.com/addons/scheduler">Heroku Scheduler</a> addon to regularly update the sitemap.
+<code>rake sitemap:refresh</code></p>
+<p>Remember to update your <code>robots.txt</code> with where the sitemap is located</p>
+<pre><code class="hljs"><span class="hljs-meta"># public/robots.txt</span>
+User-agent: *
+<span class="hljs-symbol">Disallow:</span> /admin
+<span class="hljs-symbol">Sitemap:</span> https:<span class="hljs-comment">//s3.eu-west-2.amazonaws.com/yama-solutions/sitemaps/sitemap.xml</span>
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="error-monitoring"></a><a href="#error-monitoring" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Error monitoring</h3>
+<p>Never miss an error - install an error tracking management tool such as <a href="https://rollbar.com">Rollbar</a> or <a href="https://www.honeybadger.io/">HoneyBadger</a></p>
+<h3><a class="anchor" aria-hidden="true" id="performance-monitoring"></a><a href="#performance-monitoring" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Performance monitoring</h3>
+<p>Monitor performance &amp; analysis slow responses - install a performance monitoring tool such as <a href="https://newrelic.com/">NewRelic</a> or <a href="https://scoutapp.com/">Scout</a></p>
+<h3><a class="anchor" aria-hidden="true" id="request-throttling"></a><a href="#request-throttling" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Request Throttling</h3>
+<p>Protect your Rails and Rack apps from bad clients. <a href="https://github.com/kickstarter/rack-attack">Rack Attack</a> lets you easily decide when to allow, block and throttle requests.</p>
+<h3><a class="anchor" aria-hidden="true" id="content-delivery-network-cdn"></a><a href="#content-delivery-network-cdn" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Content Delivery Network (CDN)</h3>
+<p>Setting up a CDN in Rails is super easy and can really help performance on websites, espically those with a large amount of media. Check out <a href="https://aws.amazon.com/cloudfront">Amazon Cloudfront</a>.</p>
+<h3><a class="anchor" aria-hidden="true" id="analytics-tools"></a><a href="#analytics-tools" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Analytics tools</h3>
+<p>Other tools worth checking out</p>
+<ul>
+<li><a href="https://search.google.com/search-console">Google Search Console</a></li>
+<li><a href="https://analytics.google.com">Google Analytics</a></li>
+<li><a href="https://pingdom.com">Pingdom</a> - Uptime monitoring</li>
+<li><a href="https://semrush.com">SEMRush</a> - Internet marketing</li>
+</ul>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/integral/docs/wysiwyg-editor"><span class="arrow-prev">← </span><span>WYSIWYG Editor</span></a><a class="docs-next button" href="/integral/docs/heroku-deployment"><span>Deploying with Heroku</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#essential-production-setup">Essential production setup</a><ul class="toc-headings"><li><a href="#set-host">Set host</a></li><li><a href="#connect-mail">Connect Mail</a></li><li><a href="#file-uploading-carrierwave-setup">File uploading (Carrierwave) setup</a></li></ul></li><li><a href="#suggested-additional-setup">Suggested additional setup</a><ul class="toc-headings"><li><a href="#background-jobs">Background Jobs</a></li><li><a href="#site-security">Site Security</a></li><li><a href="#sitemap-generation">Sitemap generation</a></li><li><a href="#error-monitoring">Error monitoring</a></li><li><a href="#performance-monitoring">Performance monitoring</a></li><li><a href="#request-throttling">Request Throttling</a></li><li><a href="#content-delivery-network-cdn">Content Delivery Network (CDN)</a></li><li><a href="#analytics-tools">Analytics tools</a></li></ul></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/integral/" class="nav-home"><img src="/integral/img/favicon.ico" alt="Integral CMS" width="66" height="58"/></a><div><h5>Docs</h5><a href="/integral/docs/introduction">Introduction</a><a href="/integral/docs/integral-pages">Using Integral</a><a href="/integral/docs/deploying-to-production">Deployment</a><a href="/integral/docs/extending-integral">Extending Integral</a><a href="/integral/docs/contributing">Contributing</a></div><div><h5>Quick Links</h5><a href="https://integralrails.com">Integral CMS</a><a href="https://integralrails.com/docs">Documentation</a><a href="https://integralrails.com/blog">Blog</a><a href="https://heroku.com/deploy?template=https://github.com/yamasolutions/integral-sample" target="_blank">Deploy Now</a></div><div><h5>More</h5><a href="https://github.com/yamasolutions/integral" target="_blank">GitHub</a><a class="github-button" href="https://github.com/yamasolutions/integral" data-icon="octicon-star" data-count-href="/facebook/docusaurus/stargazers" data-show-count="true" data-count-aria-label="# stargazers on GitHub" aria-label="Star this project on GitHub">Star</a></div></section><section class="copyright">Copyright © 2020 Integral CMS</section></footer></div></body></html>

@@ -1,0 +1,9 @@
+{
+  "docs": {
+    "Getting Started": ["introduction", "installing-integral"],
+    "Using Integral": ["integral-pages", "integral-lists", "integral-widgets", "wysiwyg-editor"],
+    "Deployment": ["deploying-to-production", "heroku-deployment"],
+    "Extending Integral": ["extending-integral"],
+    "Contributing": ["contributing"]
+  }
+}

@@ -1,4 +1,8 @@
-# Extending Integral
+---
+id: extending-integral
+title: Extending Integral
+sidebar_label: Extending Integral
+---
 
 * [Adding a custom field](#adding-a-custom-field)
 * [Adding a custom object](#adding-a-custom-object)

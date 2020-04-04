@@ -1,4 +1,8 @@
-# Integral Widgets
+---
+id: integral-widgets
+title: Dynamic Widgets
+sidebar_label: Dynamic Widgets
+---
 
 Integral widgets are placed within the [WYSIWYG editor](https://github.com/yamasolutions/integral/blob/master/docs/wysiwyg_editor.md) to embed dynamic content.
 
@@ -45,14 +49,14 @@ As mentioned, the recent posts widget outputs a collection of the most recent pu
 * `tagged` - Scope the posts to a particular tag, default is blank
 * `amount` - Limit the amount of posts to display, default is 2
 
-```
+```html
 <p class='integral-widget' data-widget-type='swiper_list' data-widget-value-slide-view-path='shared/testimonial'>
 ```
 
 ## Creating a custom widget
 
 1. Create your custom Integral widget class. All this needs to do is implement `.render` which returns a string
-```
+```ruby
 # lib/cool_widget.rb
 
 class CoolWidget
@@ -70,7 +74,7 @@ config.additional_widgets = [['cool_widget', 'CoolWidget']]
 
 3. Add a placeholder to the widget within the WYSIWYG editor
 
-```
+```html
 <p class='integral-widget' data-widget-type='cool_widget'>
 ```
 

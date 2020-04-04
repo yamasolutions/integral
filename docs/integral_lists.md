@@ -1,4 +1,8 @@
-# Integral Lists
+---
+id: integral-lists
+title: Lists
+sidebar_label: Lists
+---
 
 Lists are used within Integral to organise data such as links, images, posts etc. Lists are most useful when they represent data that users will frequently want to change, for instance a menu (list of links) or a gallery (list of images).
 

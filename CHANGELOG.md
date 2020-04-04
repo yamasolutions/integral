@@ -42,7 +42,7 @@ recommendations of [keepachangelog.com](http://keepachangelog.com/).
 - Frontend Post Index - Remove N+1 for user & images
 - Backend activities - Improved grid search by removing changeset from query
 
-### Dependancies
+### Dependencies
 -
 
 ## v1.3.0 - 2019-09-14

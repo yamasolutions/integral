@@ -1,5 +1,12 @@
-# Integral Pages
+---
+id: integral-pages
+title: Pages
+sidebar_label: Pages
+---
 
+Pages are easy to create and super powerful. Whether you're just wanting to create a simple about-us page with text or you're wanting to create a multimedia landing page with images, social embeds and videos - Pages are able to do it all.
+
+## Features
 With integral pages you're able to set the exact path where you want the page to display. For example if you have a business which has multiple locations and you want to create a landing pages for all the locations as well as a page for each location you can do the following;
 ```
 FactoryBot.create(:integral_page, path: '/locations')
@@ -10,10 +17,10 @@ FactoryBot.create(:integral_page, path: '/locations/ireland')
 
 Other page features include;
 * WYSIWYG Editor
+* Custom templates
 * SEO Ready
 * Drafting & archiving
 * Cloning
-* Custom templates
 * Breadcrumbs
 * Setting a main image
 * Activity tracking

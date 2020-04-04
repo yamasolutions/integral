@@ -1,4 +1,8 @@
-# Deploying to Production
+---
+id: deploying-to-production
+title: Deploying to Production
+sidebar_label: Deploying to Production
+---
 
 This guide discusses two things;
 * [Essential setup](#essential-production-setup) - Tasks that you will need to perform to ensure all Integral features run properly in production
@@ -6,7 +10,7 @@ This guide discusses two things;
 
 This isn't a guide on how to make your application accessible on the internet at a particular URL. There are many ways to do this, whether its doing it all yourself by setting up a server on something like [Digitalocean](https://digitalocean.com) or by using a platform as a service such as [Heroku](https://heroku.com).
 
-If you're looking for the fastest way to get your application available at a particular URL checkout our guide on [deploying with Heroku](https://github.com/yamasolutions/integral/blob/master/docs/heroku.md).
+Once you've complete the essential setup below, if you're looking for the fastest way to get your application available at a particular URL checkout our guide on [deploying with Heroku](https://github.com/yamasolutions/integral/blob/master/docs/heroku.md).
 
 ## Essential production setup
 

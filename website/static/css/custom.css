@@ -1,0 +1,123 @@
+@media only screen and (max-device-width: 735px) {
+  .docs-prev, .docs-next {
+    width: 100%;
+  }
+  .docs-next {
+    text-align: right;
+  }
+}
+
+@media only screen and (min-device-width: 360px) and (max-device-width: 736px) {
+}
+
+@media only screen and (min-width: 1024px) {
+  .fixedHeaderContainer {
+    padding: 1rem 0 !important;
+  }
+  .navigationSlider .slidingNav ul li a {
+    color: #0a0a0a !important;
+    text-transform: uppercase;
+    font-weight: bold;
+    padding: 0.7rem 1rem;
+  }
+
+  .navigationSlider .slidingNav ul li a:hover {
+    color: #03a9f4 !important;
+    background-color: transparent;
+  }
+  .navigationSlider .slidingNav ul li a:focus {
+    color: #03a9f4 !important;
+    background-color: transparent;
+  }
+
+  .navigationSlider .slidingNav ul li.siteNavItemActive a {
+    color: #03a9f4 !important;
+    background-color: #fff !important;
+  }
+
+  .navigationSlider .slidingNav ul li.siteNavGroupActive a {
+    color: #03a9f4 !important;
+    background-color: #fff !important;
+  }
+
+  .navigationSlider .slidingNav ul li:nth-child(4) a {
+    background-color: #03a9f4;
+    color: #fff !important;
+    border-radius: 2px;
+    padding: .75rem 1.5rem;
+    font-size: .75rem;
+  }
+  .navigationSlider .slidingNav ul li:nth-child(4) a:hover {
+    background-color: #0789c4;
+  }
+
+  .toc .toggleNav .navGroup .navGroupCategoryTitle {
+    font-size: 1rem;
+  }
+  .toc .toggleNav .navGroup .navListItem .navItem {
+    font-size: .8rem;
+  }
+}
+
+@media only screen and (max-width: 1023px) {
+}
+
+@media only screen and (min-width: 1400px) {
+}
+
+@media only screen and (min-width: 1500px) {
+}
+
+/* Currently have no (decent) icon - Hide icon styles */
+.fixedHeaderContainer header img {
+  display: none !important;
+}
+.fixedHeaderContainer header .headerTitleWithLogo {
+  display: block !important;
+}
+
+.nav-home {
+  display: none !important;
+}
+/* Currently have no (decent) icon - Hide icon styles */
+
+
+.fixedHeaderContainer {
+  /* position: sticky; */
+  /* z-index: 999; */
+  /* top: 0; */
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #dee1e1;
+  background-color: #fefefe;
+  font-size: 0.9em;
+}
+
+.headerTitleWithLogo {
+  color: #03a9f4;
+}
+
+body {
+  font-family: "Montserrat", sans-serif;
+}
+
+article {
+  font-size: .8rem;
+}
+
+article h2 {
+  font-size: 1.25rem;
+  margin: 1.5rem 0;
+}
+
+article h3 {
+  font-size: 1rem;
+  margin: 1.5rem 0;
+}
+
+h1 {
+  font-size: 1.5rem;
+}
+
+.button.docs-next, .button.docs-prev {
+  text-transform: initial;
+}

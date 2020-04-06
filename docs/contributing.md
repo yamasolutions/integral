@@ -1,4 +1,8 @@
-# Contributing
+---
+id: contributing
+title: Contributing
+sidebar_label: Contributing
+---
 
 We'd love your help with Integral. There are many ways you can contribute such as;
 1. Bug reporting & QA

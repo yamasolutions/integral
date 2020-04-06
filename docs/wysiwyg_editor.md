@@ -1,4 +1,9 @@
-# WYSIWYG Editor
+---
+id: wysiwyg-editor
+title: WYSIWYG Editor
+sidebar_label: WYSIWYG Editor
+---
+
 [CKeditor 4](https://ckeditor.com/ckeditor-4/) is the visual editor used to create content. This is provided through the [ckeditor-rails gem](https://github.com/galetahub/ckeditor). Editor features include;
 * Easily create rich content such as headings, links, images & tables
 * Embed iFrames to include things like YouTube videos & Flickr albums

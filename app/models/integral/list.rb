@@ -1,6 +1,7 @@
 module Integral
   # Represents a generic list such as a gallery or menu
   class List < ApplicationRecord
+    include Notification::Subscribable
     default_scope { includes(:list_items) }
 
     # Soft-deletion

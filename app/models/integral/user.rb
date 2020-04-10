@@ -1,8 +1,9 @@
 module Integral
   # User model used to represent a authenticated user
   class User < ApplicationRecord
-    # Soft-deletion
-    acts_as_paranoid
+    include Notification::Subscribable
+
+    acts_as_paranoid # Soft-deletion
 
     mount_uploader :avatar, AvatarUploader
     process_in_background :avatar
@@ -14,6 +15,9 @@ module Integral
     # Relations
     has_many :role_assignments
     has_many :roles, through: :role_assignments
+    # TODO: Rename
+    has_many :self_notification_subscriptions, class_name: "Integral::Notification::Subscription"
+    has_many :notifications, class_name: "Integral::Notification::Notification", foreign_key: :recipient_id
 
     # Validations
     validates :name, :email, presence: true

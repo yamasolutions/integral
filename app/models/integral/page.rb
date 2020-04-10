@@ -2,6 +2,7 @@ module Integral
   # Represents a public viewable page
   class Page < ApplicationRecord
     include LazyContentable
+    include Notification::Subscribable
 
     acts_as_paranoid # Soft-deletion
     acts_as_listable # Listable Item
@@ -35,6 +36,7 @@ module Integral
 
     # Callbacks
     before_save :set_paper_trail_event
+    before_save :set_integral_notification_action
 
     # Scopes
     scope :search, ->(query) { where('lower(title) LIKE ? OR lower(path) LIKE ?', "%#{query.downcase}%", "%#{query.downcase}%") }
@@ -133,6 +135,12 @@ module Integral
     def set_paper_trail_event
       if persisted? && published? && status_changed?
         self.paper_trail_event = :publish
+      end
+    end
+
+    def set_integral_notification_action
+      if persisted? && published? && status_changed?
+        self.integral_notification_action = :publish
       end
     end
 

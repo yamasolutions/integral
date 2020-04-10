@@ -5,6 +5,10 @@ module Integral
     module BaseHelper
       include Integral::SupportHelper
 
+      def recent_user_notifications
+        @recent_user_notifications ||= current_user.notifications.recent
+      end
+
       # @return [String] Integral card
       def render_card(partial, locals = {})
         render(partial: "integral/backend/shared/cards/#{partial}", locals: locals)

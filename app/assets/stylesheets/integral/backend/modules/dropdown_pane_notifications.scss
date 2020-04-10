@@ -1,0 +1,141 @@
+.dropdown-pane--notifications {
+  width: 340px;
+  padding: 0;
+  &:before {
+    content: ' ';
+    width: 2.5em;
+    height: 1.5em;
+    border-radius: 0 0 0.5em 0;
+    background: linear-gradient(-45deg, #1b8ecf 50%, transparent 50%);
+    position: absolute;
+    margin: 0;
+    right: 0.5em;
+    transform: rotate(225deg) skewX(8deg) skewY(8deg);
+  }
+  &:after {
+    content: ' ';
+    position: absolute;
+    right: 0;
+    top: -2.2em;
+    height: 2.2em;
+    width: 70%;
+  }
+  hr {
+    margin: .5rem 0;
+  }
+  ul {
+    li {
+      // &:last-of-type {
+      //   margin-bottom: 0 !important;
+      // }
+      a {
+        padding: 0;
+      }
+    }
+  }
+
+  .section {
+    padding: .5rem 0;
+    &:first-of-type {
+      border-radius: 5px 5px 0 0;
+      background-color: $primary-color;
+      color: $white;
+      .title {
+        font-size: 1.3em;
+        display: block;
+      }
+      .subtitle {
+        font-size: 0.85em;
+        display: block;
+      }
+    }
+  }
+}
+
+.notification-list {
+  &::before {
+    background: $light-gray;
+    content: '';
+    height: 100%;
+    left: 1rem;
+    position: absolute;
+    top: 0;
+    width: 2px;
+  }
+}
+
+
+.notification {
+  position: relative;
+  padding: .25rem 0;
+  padding-bottom: .5rem;
+  margin: 0 !important;
+
+  &.unread {
+    background-color: transparentize($primary-color, 0.95);
+
+    .notification-icon {
+      background-color: $primary-color;
+    }
+  }
+
+  &-icon {
+    background: $light-gray;
+    border-radius: 50%;
+    height: 6px;
+    width: 6px;
+    left: 1rem;
+    top: 15px;
+    margin-left: -2px;
+    overflow: hidden;
+    position: absolute;
+
+    i {
+      width: 100%;
+      font-size: 1.25rem;
+      color: $white;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      text-align: center;
+    }
+
+    &.unread {
+      background: $primary-color;
+    }
+  }
+
+  &-content {
+    padding-left: 2rem;
+    padding-right: 1rem;
+  }
+
+  &-title {
+    display: block;
+    font-size: .9rem;
+  }
+  &-action {
+    text-transform: uppercase;
+    color: $primary-color;
+    font-size: .7rem;
+  }
+
+  &-created-at {
+    color: $dark-gray;
+    font-size: .8rem;
+  }
+
+  &-whodunnit {
+    display: block;
+    font-size: .8rem;
+    opacity: .5;
+    &:hover {
+      opacity: 1;
+    }
+    img {
+      width: 15px;
+      height: 15px;
+    }
+  }
+}
+

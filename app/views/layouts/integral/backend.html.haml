@@ -39,8 +39,46 @@
                     = icon('eye')
                     = t('integral.actions.view_main_site')
                 %li
+                  %button.button-notifications-dropdown{ type: 'button', data: { toggle: 'notifications-dropdown'}}
+                    - if current_user.notifications.unread.any?
+                      = icon('bell')
+                    - else
+                      = icon('bell-o')
+                  #notifications-dropdown.dropdown-pane.dropdown-pane--notifications{ data: { dropdown: true, hover: 'false', 'hover-pane'=> 'true', 'v-offset'=> '35', 'hover-delay'=> 50 }}
+                    .section.text-center
+                      %span.title
+                        = current_user.notifications.unread.count
+                        Unread
+                      %span.subtitle User Notifications
+                    .section
+                      %ul.menu.vertical.notification-list
+                        - recent_user_notifications.decorate.each do |notification|
+                          %li.notification{ class: notification.unread? ? 'unread' : '' }
+                            .notification-icon
+                              -#= icon('home')
+                            .notification-content
+                              .align-justify.flex-container
+                                %span.notification-action= notification.action
+                                %span.notification-whodunnit
+                                  - if notification.whodunnit.present?
+                                    = link_to notification.whodunnit_url do
+                                      = image_tag notification.whodunnit_avatar_url, class: :avatar
+                                      %span= notification.whodunnit_name.truncate(30)
+                                  - else
+                                    = image_tag notification.whodunnit_avatar_url, class: :avatar
+                                    %span= notification.whodunnit_name.truncate(30)
+                              .align-justify.flex-container
+                                = link_to backend_account_url, class: 'notification-title' do
+                                  = notification.subscribable.title.truncate(40)
+                                %span.notification-created-at= time_ago_in_words(notification.created_at, scope: 'datetime.distance_in_words.short')
+                      - if current_user.notifications.count > 5
+                        %hr
+                        %button.button.clear.expanded
+                          = t('integral.actions.view_more')
+
+                %li
                   %button.button.clear.avatar{ type: 'button', data: { toggle: 'profile-dropdown'}}= image_tag(current_user.avatar.url(:thumbnail), class: 'avatar')
-                  #profile-dropdown.dropdown-pane{ data: { dropdown: true, hover: 'true', 'hover-pane'=> 'true', 'v-offset'=> '35', 'hover-delay'=> 50 }}
+                  #profile-dropdown.dropdown-pane.dropdown-pane--profile{ data: { dropdown: true, hover: 'true', 'hover-pane'=> 'true', 'v-offset'=> '35', 'hover-delay'=> 50 }}
                     .section
                       = image_tag(current_user.avatar.url(:thumbnail), class: 'avatar')
                       %span.name= current_user.name

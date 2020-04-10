@@ -1,3 +1,5 @@
+return if Rails.env.test?
+
 PaperTrail.enabled = false
 
 # Create User Roles

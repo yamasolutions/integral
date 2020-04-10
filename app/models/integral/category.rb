@@ -1,6 +1,7 @@
 module Integral
   # Represents a user post category
   class Category < ApplicationRecord
+    include Notification::Subscribable
     has_paper_trail class_name: 'Integral::CategoryVersion'
 
     # Slugging

@@ -1,10 +1,11 @@
 = render_data_grid do
-  = render layout: 'integral/backend/shared/grid', locals: { grid: @grid, options: { columns: [:title, :updated_at, :actions], order: true }} do |grid|
+  = render layout: 'integral/backend/shared/grid', locals: { grid: @grid, options: { columns: [:title, :description, :updated_at, :actions], order: true }} do |grid|
     - if grid.assets.any?
       - grid.assets.decorate.each do |record|
         %tr
           %td= record.title
           %td= record.description
+          %td= record.updated_at
           %td.actions
             = link_to edit_backend_list_url(record) do
               = icon('edit')

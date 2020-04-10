@@ -78,6 +78,12 @@ FactoryBot.define do
     status { rand(0..1) }
   end
 
+  factory :integral_notification_subscription, class: 'Integral::Notification::Subscription' do
+    state { [:subscribe, :unsubscribe].sample }
+    association(:subscribable, factory: :integral_post)
+    user
+  end
+
   factory :integral_category, class: 'Integral::Category', aliases: [:category] do
     title
     description

@@ -4,6 +4,7 @@ module Integral
     include ActionView::Helpers::DateHelper
     include LazyContentable
     include Webhook::Observable
+    include Notification::Subscribable
 
     acts_as_paranoid # Soft-deletion
     acts_as_listable if Integral.blog_enabled? # Listable Item

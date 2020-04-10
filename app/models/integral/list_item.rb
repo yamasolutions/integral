@@ -22,6 +22,8 @@ module Integral
     # Callbacks
     after_initialize :set_defaults
     after_commit :touch_parent, on: :update
+    after_destroy :touch_parent
+    after_touch :touch_list
 
     # @return [Array] list of types available for a list item
     def self.types_collection
@@ -69,6 +71,10 @@ module Integral
     def touch_parent
       parent = parents.first
       parent.touch if parent.present? && parent.persisted?
+    end
+
+    def touch_list
+      list.touch if list.present? && list.persisted?
     end
 
     def validate_child_absence

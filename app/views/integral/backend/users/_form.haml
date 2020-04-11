@@ -52,6 +52,11 @@
           .card
             .card-section
               = f.input :locale, collection: Integral::User.available_locales, prompt: t('integral.backend.users.prompts.select_language'), include_blank: false
+        .cell
+          .card
+            .card-section
+              = f.input :notify_me
+
 
     .cell.small-12
       = f.button :button

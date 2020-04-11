@@ -11,6 +11,10 @@ module Integral
       def unread?
         read_at.nil?
       end
+
+      def to_partial_path
+        'integral/backend/notifications/notification'
+      end
     end
   end
 end

@@ -20,7 +20,13 @@
                 %p
                   = icon('calendar')
                   = t('.member_since', start_date: l(@resource.created_at))
-
+                %p
+                  - if @resource.notify_me?
+                    = icon('bell')
+                    = 'Notified about everything'
+                  - else
+                    = icon('bell-o')
+                    = 'Notified about only things that have been subscribed too'
                 .roles
                   - @resource.roles.each do |role|
                     .label= role.label

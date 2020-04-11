@@ -37,7 +37,10 @@ module Integral
 
         top_level_notification_subscription_user_ids = Integral::User.where(notify_me: true).where.not(id: object_notification_subscription_user_ids + class_notification_subscription_user_ids).pluck(:id)
 
-        User.find((object_notification_subscriptions['subscribe']&.map(&:user_id) || []) + (class_notification_subscriptions['subscribe']&.map(&:user_id) || []) + top_level_notification_subscription_user_ids)
+        notifiable_user_ids = (object_notification_subscriptions['subscribe']&.map(&:user_id) || []) + (class_notification_subscriptions['subscribe']&.map(&:user_id) || []) + top_level_notification_subscription_user_ids
+        notifiable_user_ids -= [PaperTrail.request.whodunnit]
+
+        User.find(notifiable_user_ids)
       end
 
       private
@@ -45,6 +48,7 @@ module Integral
       # TODO: Put this inside a Job (?)
       # TODO: How to create multiple in one go but still run callbacks?
       # TODO: Should pass through the created_at time otherwise the notification sets it when the notiifcation was created, rather than when the action was committed
+      # TODO: Add authorization
       def create_notifications(action)
         notifiable_users.each do |notifiable|
           Integral::Notification::Notification.create!(subscribable: self, recipient: notifiable, action: (integral_notification_action || action), actor_id: PaperTrail.request.whodunnit)

@@ -462,6 +462,8 @@ en:
       list:
         title: This is only used for internal reference.
         description: This is only used for internal reference.
+      user:
+        notify_me: Subscribe to be notified whenever there is a change to any resource. Otherwise be notified about followed resources only.
     inputs:
       file:
         button_label: 'File'
@@ -511,6 +513,9 @@ en:
         create: 'Invite %{model}'
 
   devise:
+    invitations:
+      edit:
+        title: Set password
     passwords:
       edit:
         title: Change your password

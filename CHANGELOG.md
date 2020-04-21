@@ -7,7 +7,8 @@ recommendations of [keepachangelog.com](http://keepachangelog.com/).
 
 ### Added
 
--
+- CharactorCounter can now be added to inputs which do not have a maxlength set
+- List Management - Added CharactorCounter to list item fields
 
 ### Fixed
 

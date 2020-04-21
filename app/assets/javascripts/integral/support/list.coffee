@@ -64,6 +64,7 @@ class this.List
     # Initialize new ListItem
     list_item = new ListItem(@, new_item)
     modal.foundation()
+    modal.find('input, textarea').characterCounter()
 
     @_initializeSortable()
     @_calculateListItemPriorities()

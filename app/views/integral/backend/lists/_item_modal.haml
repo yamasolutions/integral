@@ -23,15 +23,15 @@
               Override defaults
               = icon('chevron-down')
       .cell
-        = f.input :title, wrapper_html: { class: 'alternative' }, input_html: { class: formatted_item.title_required? ? 'title-field required' : 'title-field' }
+        = f.input :title, wrapper_html: { class: 'alternative' }, input_html: { 'data-character-counter' => 'true', class: formatted_item.title_required? ? 'title-field required' : 'title-field' }
       .cell.medium-8.link-attribute{ class: f.object.basic? || !f.object.persisted? ? 'hide' : '' }
         = f.input :url, wrapper_html: { class: "alternative" }, input_html: { class: 'url-field' }
       .cell.medium-4.link-attribute.align-self-middle.flex-container{ class: f.object.basic? || !f.object.persisted? ? 'hide' : '' }
         = f.input :target, as: :boolean, checked_value: '_blank', unchecked_value: '_self', input_html: { class: 'target-field' }, wrapper_html: { class: 'alternative' }
       .cell
-        = f.input :subtitle, wrapper_html: { class: 'alternative' }, as: :string
+        = f.input :subtitle, input_html: { 'data-character-counter' => 'true' }, wrapper_html: { class: 'alternative' }, as: :string
       .cell.medium-8
-        = f.input :description, wrapper_html: { class: 'alternative' }, as: :string, hint: false
+        = f.input :description, input_html: { 'data-character-counter' => 'true' }, wrapper_html: { class: 'alternative' }, as: :string, hint: false
       .cell.medium-4
         = f.input :image_id, as: :hidden, input_html: { class: 'image-field', data: { image_present: formatted_item.non_object_image?, fallback_image: formatted_item.fallback_image } }
         .image-preview.center

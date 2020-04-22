@@ -11,6 +11,8 @@ module Integral
     # :confirmable, :timeoutable, :omniauthable, registerable and lockable
     devise :invitable, :database_authenticatable, :recoverable, :rememberable, :trackable, :validatable
 
+    enum status: %i[pending active blocked]
+
     # Relations
     has_many :role_assignments
     has_many :roles, through: :role_assignments
@@ -54,6 +56,14 @@ module Integral
       return true if Rails.env.development?
 
       super
+    end
+
+    def active_for_authentication?
+      super && !blocked?
+    end
+
+    def inactive_message
+      blocked? ? :blocked : super
     end
 
     private

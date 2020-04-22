@@ -13,6 +13,7 @@
           = f.hidden_field(:page, value: grid_options[:page], class: 'page-field')
 
           %ul.align-right.menu.filters
+            %li= f.input :status, collection: Integral::User.available_statuses, label: t('integral.records.attributes.status'), wrapper_html: { class: 'filter' }, input_html: { 'data-filter' => true }, required: false
             %li= f.input :name, placeholder: t('integral.actions.search'), wrapper_html: { class: 'filter search' }, hint: false, label: false
 
     = render partial: 'grid'

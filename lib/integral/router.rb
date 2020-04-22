@@ -75,6 +75,8 @@ module Integral
           resources :pages do
             get 'list', on: :collection
             member do
+              put 'block'
+              put 'unblock'
               post 'duplicate'
               get 'activities', controller: 'pages'
               get 'activities/:activity_id', to: 'pages#activity', as: :activity

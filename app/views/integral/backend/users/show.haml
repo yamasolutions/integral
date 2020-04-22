@@ -20,7 +20,9 @@
                 %p
                   = icon('calendar')
                   = t('.member_since', start_date: l(@resource.created_at))
-
+                %p
+                  = icon('user')
+                  = t("integral.statuses.#{@resource.status}")
                 .roles
                   - @resource.roles.each do |role|
                     .label= role.label

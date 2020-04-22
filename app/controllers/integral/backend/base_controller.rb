@@ -180,6 +180,13 @@ module Integral
 
       private
 
+      # Redirect user to integral dashboard after successful signup
+      def after_accept_path_for(user)
+        user.active!
+
+        integral.backend_dashboard_path
+      end
+
       # Redirect user to integral dashboard after successful login
       def after_sign_in_path_for(_resource)
         integral.backend_dashboard_path

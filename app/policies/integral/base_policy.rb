@@ -38,6 +38,8 @@ module Integral
     end
 
     alias destroy? manager?
+    alias block? manager?
+    alias unblock? manager?
     alias index? manager?
     alias list? manager?
     alias show? manager?

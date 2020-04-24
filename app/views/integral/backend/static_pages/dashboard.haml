@@ -8,8 +8,8 @@
       - if Integral.blog_enabled? & Integral::Post.published.last.present?
         .cell.medium-6.flex-container= render_card(:object, { title: t('.recent_post'), record: Integral::Post.published.last })
 
-      .cell.medium-6.flex-container= render_card(:recent_user_activity)
       .cell.medium-6.flex-container= render_card(:object, { title: t('.recent_page'), record: Integral::Page.published.last })
+      .cell.xlarge-6.flex-container= render_card(:recent_user_activity)
   .cell.large-6
     -# Right Column
     .grid-x.grid-padding-x

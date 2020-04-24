@@ -28,12 +28,12 @@ function updateCounter(){
   var maxLength = $(this).attr('maxlength');
   var actualLength = this.value.length;
 
-  if (typeof maxlength !== 'undefined') {
+  if (maxLength === undefined) {
+    var formattedCount = actualLength;
+  } else {
     var isValidLength = actualLength <= maxLength;
     var formattedCount = actualLength + '/' + maxLength;
     addInputStyle(isValidLength, $(this));
-  } else {
-    var formattedCount = actualLength;
   }
 
   $(this).parent().find('span[class="character-counter"]').html(formattedCount);

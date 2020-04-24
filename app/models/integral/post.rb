@@ -21,7 +21,7 @@ module Integral
     self.per_page = 8 if respond_to? :per_page
 
     # Associations
-    belongs_to :user
+    belongs_to :user, -> { with_deleted }
     belongs_to :category
     belongs_to :image, class_name: 'Integral::Image', optional: true
     belongs_to :preview_image, class_name: 'Integral::Image', optional: true

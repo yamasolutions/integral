@@ -63,6 +63,8 @@ module Integral
           resources :users do
             get 'list', on: :collection
             member do
+              put 'block'
+              put 'unblock'
               get 'activities', controller: 'users'
               get 'activities/:activity_id', to: 'users#activity', as: :activity
             end
@@ -75,8 +77,6 @@ module Integral
           resources :pages do
             get 'list', on: :collection
             member do
-              put 'block'
-              put 'unblock'
               post 'duplicate'
               get 'activities', controller: 'pages'
               get 'activities/:activity_id', to: 'pages#activity', as: :activity

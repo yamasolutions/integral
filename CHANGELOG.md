@@ -9,6 +9,9 @@ recommendations of [keepachangelog.com](http://keepachangelog.com/).
 
 - CharactorCounter can now be added to inputs which do not have a maxlength set
 - List Management - Added CharactorCounter to list item fields
+- Added User statuses - pending, active & blocked
+- User managers can now block other users from logging in and accessing any backend functionality
+- Devise Emails now use the Integral mailer layout
 
 ### Fixed
 
@@ -20,8 +23,6 @@ recommendations of [keepachangelog.com](http://keepachangelog.com/).
 
 - If any Post or Page content contains images with class of 'lazyload' you'll need to use the `#editor_body` method when instaniating Ckeditor otherwise the lazyload images will not appear within the editor
 - All Posts must be associated to an Integral::Category through the `category` association
-- Added User statuses - pending, active & blocked
-- User managers can now block other users from logging in and accessing any backend functionality
 
 ### Added
 

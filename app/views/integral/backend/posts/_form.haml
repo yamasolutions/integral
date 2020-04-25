@@ -36,7 +36,7 @@
             .card-section
               %h2= t('integral.records.attributes.category')
               %hr.dark
-              = f.input :category_id, collection: Integral::Category.all.map{ |category| [category.title, category.id] }, label: false
+              = f.input :category_id, collection: Integral::Category.all.map{ |category| [category.title, category.id] }, label: false, include_blank: false
         .cell
           .card.initial-overflow
             .card-section

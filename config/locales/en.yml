@@ -55,6 +55,8 @@ en:
       confirmation:
         deletion: If you delete this item it will be gone forever. Are you sure you want to proceed?
         clone: Are you sure you want to clone this item?
+        block: Are you sure you want to block this user?
+        unblock: Are you sure you want to unblock this user?
       new_page: Add new page
       new_post: Add new post
       edit_profile: Edit profile
@@ -63,6 +65,8 @@ en:
       view_main_site: View main site
       view_on_site: View on site
       publish: Publish
+      block: Block
+      unblock: Unblock
       create: Create
       clone: Clone
       save: Save
@@ -102,6 +106,9 @@ en:
       draft: Draft
       published: Published
       archived: Archived
+      blocked: Blocked
+      pending: Pending
+      active: Active
     records:
       attributes:
         category: Category
@@ -473,6 +480,12 @@ en:
         create: 'Invite %{model}'
 
   devise:
+    failure:
+      user:
+        blocked: User account is no longer active.
+    invitations:
+      edit:
+        title: Set your password
     passwords:
       edit:
         title: Change your password

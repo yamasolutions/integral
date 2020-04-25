@@ -55,7 +55,7 @@ module Integral
       visit list_backend_users_path
 
       find('tbody tr:nth-of-type(2) button').click
-      find('[data-dropdown] [data-confirm]').click
+      all('[data-dropdown] [data-confirm]').last.click
 
       click_on 'Confirm'
 

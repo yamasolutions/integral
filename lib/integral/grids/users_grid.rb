@@ -13,7 +13,12 @@ module Integral
         search(value)
       end
 
+      filter(:status, multiple: true) do |value|
+        where(status: value)
+      end
+
       column(:name, order: :name)
+      column(:status, order: :status)
       column(:email, order: :email)
       column(:updated_at, order: :updated_at)
       column(:actions)

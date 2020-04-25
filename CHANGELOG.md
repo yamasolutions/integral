@@ -9,6 +9,9 @@ recommendations of [keepachangelog.com](http://keepachangelog.com/).
 
 - CharactorCounter can now be added to inputs which do not have a maxlength set
 - List Management - Added CharactorCounter to list item fields
+- Added User statuses - pending, active & blocked
+- User managers can now block other users from logging in and accessing any backend functionality
+- Devise Emails now use the Integral mailer layout
 
 ### Fixed
 

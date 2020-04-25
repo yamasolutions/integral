@@ -67,6 +67,26 @@ module Integral
         end
       end
 
+      # PUT /:id/block
+      # Block a user
+      def block
+        if @resource.blocked!
+          respond_successfully(notification_message('edit_success'), backend_user_path(@resource))
+        else
+          respond_failure(notification_message('edit_failure'), 'edit')
+        end
+      end
+
+      # PUT /:id/unblock
+      # Unblock a user
+      def unblock
+        if @resource.active!
+          respond_successfully(notification_message('edit_success'), backend_user_path(@resource))
+        else
+          respond_failure(notification_message('edit_failure'), 'edit')
+        end
+      end
+
       private
 
       def white_listed_grid_params

@@ -61,6 +61,10 @@ module Integral
         { 'order' => 'date', 'page' => 1, descending: true }.merge(grid_params)
       end
       helper_method :grid_options
+
+      def render_default_action_bar?
+        false
+      end
     end
   end
 end

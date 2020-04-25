@@ -27,6 +27,10 @@ module Integral
 
       private
 
+      def render_default_action_bar?
+        false
+      end
+
       def white_listed_grid_params
         %i[descending order page user action object title]
       end

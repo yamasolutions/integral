@@ -259,6 +259,16 @@ module Integral
         end
       end
 
+      helper_method :render_default_action_bar?
+      def render_default_action_bar?
+        action_name == 'index'
+      end
+
+      helper_method :new_backend_resource_url
+      def new_backend_resource_url
+        send("new_backend_#{resource_klass.model_name.singular_route_key}_url")
+      end
+
       helper_method :resource_klass
       def resource_klass
         controller_name.classify.constantize

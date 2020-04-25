@@ -60,6 +60,10 @@ module Integral
 
       private
 
+      def render_default_action_bar?
+        false
+      end
+
       def resource_klass
         Integral::Image
       end

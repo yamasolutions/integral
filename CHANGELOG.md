@@ -12,6 +12,7 @@ recommendations of [keepachangelog.com](http://keepachangelog.com/).
 - Added User statuses - pending, active & blocked
 - User managers can now block other users from logging in and accessing any backend functionality
 - Devise Emails now use the Integral mailer layout
+- Default action bar content for post, page & user dashboard which has a create button
 
 ### Fixed
 

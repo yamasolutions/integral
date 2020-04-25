@@ -16,7 +16,7 @@ recommendations of [keepachangelog.com](http://keepachangelog.com/).
 
 ### Fixed
 
--
+- Admin bar - Add white background and bring to front
 
 ## v1.4.0 - 2020-04-17
 

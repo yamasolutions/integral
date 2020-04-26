@@ -18,6 +18,9 @@ recommendations of [keepachangelog.com](http://keepachangelog.com/).
 
 - Admin bar - Add white background and bring to front
 
+### Dependancies
+- Bump Foundation to 6.6.2
+
 ## v1.4.0 - 2020-04-17
 
 ### Breaking Changes

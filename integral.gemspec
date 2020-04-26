@@ -33,7 +33,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'devise_invitable', '~> 1.7' # Invitable authentication
   s.add_dependency 'draper', '~> 3.0' # Object decoration
   s.add_dependency 'font-awesome-sass', '~> 4.3' # Grid Icons
-  s.add_dependency 'foundation-rails', '~> 6.4.1' # Foundation UI Framework
+  s.add_dependency 'foundation-rails', '~> 6.6.2' # Foundation UI Framework
   s.add_dependency 'friendly_id', '~> 5.2' # Slugging
   s.add_dependency 'gaffe', '~> 1.2' # Custom error pages
   s.add_dependency "groupdate", "~> 3.0" # Group By

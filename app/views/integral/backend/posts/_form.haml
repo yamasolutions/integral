@@ -18,7 +18,7 @@
             %hr.dark
             = f.button :button if f.object.persisted?
         = f.input :category_id, collection: Integral::Category.all.map{ |category| [category.title, category.id] }, include_blank: false
-        = f.input :tag_list, input_html: { value: @resource.tag_list_on(@resource.tag_context).join(','), data: { suggest_tags: true, suggest_tags_typeahead: resource_klass.tag_counts.collect(&:name).join(' ') } }
+        = f.input :tag_list, input_html: { value: @resource.tag_list_on(@resource.tag_context).join(','), data: { suggest_tags: true, suggest_tags_typeahead: resource_klass.tags_on('published').map(&:name).join(' ') } }
         = f.association :user
         = render partial: 'integral/backend/shared/image_preview', locals: { f:f, image_attr: :image }
         = render partial: 'integral/backend/shared/image_preview', locals: { f:f, image_attr: :preview_image }

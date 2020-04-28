@@ -17,6 +17,7 @@ recommendations of [keepachangelog.com](http://keepachangelog.com/).
 ### Fixed
 
 - Admin bar - Add white background and bring to front
+- Backend posts form - Existing tag suggestions appear when typing in input
 
 ### Dependancies
 - Bump Foundation to 6.6.2

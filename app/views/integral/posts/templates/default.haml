@@ -9,7 +9,7 @@
           %h1
             = @post.title
             - if user_signed_in?
-              %span.label.entity-status{ class: @post.status }= @post.status
+              %span.label.entity-status{ class: @post.draft? ? 'warning' : '' }= @post.status
               %span.small= link_to 'Edit', integral.edit_backend_post_url(@post.id), class: "button medium", data: { 'turbolinks' => 'false' }
           .grid-x
             .cell.medium-8

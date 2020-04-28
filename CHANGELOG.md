@@ -17,7 +17,8 @@ recommendations of [keepachangelog.com](http://keepachangelog.com/).
 ### Fixed
 
 - Admin bar - Add white background and bring to front
-- Backend posts form - Existing tag suggestions appear when typing in input
+- Backend posts form - Existing tag suggestions were not appearing when typing in input
+- Image Uploader - Initial uploaded image was not displaying
 
 ### Dependancies
 - Bump Foundation to 6.6.2

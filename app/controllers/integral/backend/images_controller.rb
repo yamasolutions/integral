@@ -3,7 +3,7 @@ module Integral
     # Images controller
     class ImagesController < BaseController
       before_action :authorize_with_klass
-      before_action :set_resource, except: %i[index new list]
+      before_action :set_resource, except: %i[create index new list]
 
       # GET /new
       # Image creation form

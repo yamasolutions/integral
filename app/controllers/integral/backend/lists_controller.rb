@@ -2,7 +2,7 @@ module Integral
   module Backend
     # List controller
     class ListsController < BaseController
-      before_action :set_resource, except: %i[index new list]
+      before_action :set_resource, except: %i[create index new list]
       before_action :authorize_with_klass
       before_action -> { set_grid }, only: [:index]
 

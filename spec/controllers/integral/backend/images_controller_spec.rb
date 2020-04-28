@@ -150,9 +150,6 @@ module Integral
 
           context 'when user has required privileges' do
             before do
-              expect(controller).to receive(:add_breadcrumb).with(I18n.t('integral.breadcrumbs.dashboard'), :backend_dashboard_path)
-              expect(controller).to receive(:add_breadcrumb).with(I18n.t('integral.breadcrumbs.images'), :backend_img_index_path)
-              expect(controller).to receive(:add_breadcrumb).with(I18n.t('integral.breadcrumbs.edit'), :edit_backend_img_path)
               get :edit, params: { id: image.id }
             end
 

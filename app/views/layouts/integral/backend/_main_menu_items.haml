@@ -69,6 +69,7 @@
       = link_to t('integral.navigation.dashboard'), backend_img_index_url, wrapper: :li
       - if policy(Integral::Image).create?
         = link_to t('integral.actions.create'), new_backend_img_url, wrapper: :li
+      = link_to t('integral.navigation.listing'), list_backend_img_index_url, wrapper: :li
 
 - if policy(current_user).manager?
   %li

@@ -29,35 +29,20 @@ module Integral
       # GET /:id
       # Show resource
       def show
-        add_breadcrumb I18n.t('integral.navigation.list'), "list_backend_#{controller_name}_path".to_sym
-        add_breadcrumb I18n.t('integral.actions.view'), "backend_#{controller_name.singularize}_path".to_sym
+        add_breadcrumb I18n.t('integral.navigation.list'), list_backend_resources_url
+        add_breadcrumb I18n.t('integral.actions.view')
       end
 
       # GET /
       # Lists all resources
       def index
-        # TODO: This default behaviour will switch to 'list' action
-
-        respond_to do |format|
-          format.html do
-            set_grid
-          end
-
-          format.json do
-            if params[:gridview].present?
-              set_grid
-              render json: { content: render_to_string(partial: "integral/backend/#{controller_name}/grid", locals: { grid: @grid }) }
-            else
-              respond_to_record_selector
-            end
-          end
-        end
       end
 
       # GET /list
       # Lists all resources
       def list
-        add_breadcrumb I18n.t('integral.navigation.list'), "new_backend_#{controller_name.singularize}_path".to_sym
+        # add_breadcrumb I18n.t('integral.navigation.list'), "new_backend_#{controller_name.singularize}_path".to_sym
+        add_breadcrumb I18n.t('integral.navigation.list'), list_backend_resources_url
 
         respond_to do |format|
           format.html do
@@ -100,8 +85,8 @@ module Integral
       # GET /:id/edit
       # Resource edit screen
       def edit
-        add_breadcrumb I18n.t('integral.actions.view'), "backend_#{controller_name.singularize}_path".to_sym
-        add_breadcrumb I18n.t('integral.navigation.edit'), "edit_backend_#{controller_name.singularize}_path".to_sym
+        add_breadcrumb I18n.t('integral.actions.view'), backend_resource_url(@resource)
+        add_breadcrumb I18n.t('integral.actions.edit')
       end
 
       # PUT /:id

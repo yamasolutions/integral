@@ -1,32 +1,18 @@
 = content_for :actionbar do
   %ul.menu.horizontal
     - if policy(Integral::List).duplicate?
-      %li
-        = link_to duplicate_backend_list_url(@resource.id), class: 'button white', method: :post, data: { confirm: t('integral.actions.confirmation.clone') } do
-          = icon('history')
-          = t('integral.actions.clone')
-
--#     - if policy(Integral::Version).manager?
--#       %li
--#         = link_to activities_backend_list_url(@resource.id), class: 'button white' do
--#           = icon('history')
--#           = t('integral.navigation.activity')
+      = link_to t('integral.actions.clone'), duplicate_backend_list_url(@resource.id), class: 'button white', method: :post, data: { confirm: t('integral.actions.confirmation.clone') }, icon: :history, wrapper: :li
 
 = simple_form_for [:backend, @resource], validate: true, html: { class: 'are-you-sure', 'data-confirm-dirty-form' => true, 'data-list-item-limit' => @resource.list_item_limit, id: :list_form } do |f|
   = f.input :lock_version, as: :hidden
-  .grid-x.grid-padding-x
+  .grid-x
     .cell.medium-6.flex-container
-      .card
-        .card-section
-          = f.input :title, hint: false, disabled: f.object.locked?
+      .card= f.input :title, hint: false, disabled: f.object.locked?
     .cell.medium-6.flex-container
-      .card
-        .card-section
-          = f.input :description, hint: false, disabled: f.object.locked?
+      .card= f.input :description, hint: false, disabled: f.object.locked?
     .cell
       = render partial: 'integral/backend/lists/manager', locals: { f: f, locked: f.object.locked? }
-    .cell
-      = f.button :button
+    .cell= f.button :button
 
 -# Image Selector
 = render partial: 'integral/backend/shared/record_selector/modal', locals: { search_path: backend_img_index_path, title: t('integral.prompts.select_image'), name: 'Image', create_modal: '#new_image_modal', initialize: true }

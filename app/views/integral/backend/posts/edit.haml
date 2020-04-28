@@ -2,7 +2,7 @@
 
 = content_for :actionbar do
   %ul.menu.horizontal
-    = link_to t('integral.actions.view_on_site'), post_url(@resource), class: 'button white', icon: :eye
+    = link_to t('integral.actions.view_on_site'), post_url(@resource), class: 'button white', icon: :eye, wrapper: :li
     - if policy(resource_klass).duplicate?
       = link_to t('integral.actions.clone'), duplicate_backend_resource_url(@resource.id), class: 'button white', method: :post, data: { confirm: t('integral.actions.confirmation.clone') }, icon: :history, wrapper: :li
     - if policy(Integral::Version).manager?

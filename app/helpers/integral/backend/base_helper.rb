@@ -16,7 +16,7 @@ module Integral
         end
 
         if html_options[:wrapper]
-          wrapper = html_options[:wrapper]
+          wrapper = html_options.delete(:wrapper)
           if wrapper == :cell
             content_tag(:div, super(name, options, html_options, &block), class: 'cell')
           else

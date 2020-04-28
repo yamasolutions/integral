@@ -837,3 +837,18 @@ table
 
 .tr--clickable
   cursor: pointer
+
+.grid-x
+  > .cell
+    @include xy-cell-gutters($gutter-type: padding) //($gutters, $gutter-type, $gutter-position, $breakpoint, $vertical)
+
+.grid-y
+  > .input, > .image-select
+    @include card-container($card-background, $card-font-color, $card-margin-bottom, $card-border, $card-border-radius, $card-shadow)
+    @include card-section
+
+.card
+  @include card-section
+
+.card-unpadded
+  @include card-container($card-background, $card-font-color, $card-margin-bottom, $card-border, $card-border-radius, $card-shadow)

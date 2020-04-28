@@ -5,6 +5,28 @@ module Integral
     module BaseHelper
       include Integral::SupportHelper
 
+      # Handles extra optional options to `link_to` - Font awesome icons & wrapper
+      def link_to(name = nil, options = nil, html_options = nil, &block)
+        return super if block_given?
+        return super if html_options.nil?
+
+        if html_options[:icon]
+          name = content_tag(:span, name)
+          name.prepend(icon(html_options.delete(:icon)))
+        end
+
+        if html_options[:wrapper]
+          wrapper = html_options[:wrapper]
+          if wrapper == :cell
+            content_tag(:div, super(name, options, html_options, &block), class: 'cell')
+          else
+            content_tag(wrapper, super(name, options, html_options, &block))
+          end
+        else
+          super(name, options, html_options, &block)
+        end
+      end
+
       # @return [String] Integral card
       def render_card(partial, locals = {})
         render(partial: "integral/backend/shared/cards/#{partial}", locals: locals)

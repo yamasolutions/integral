@@ -67,7 +67,7 @@ module Integral
           format.json do
             if params[:gridview].present?
               set_grid
-              render json: { content: render_to_string(partial: "integral/backend/#{controller_name}/grid", locals: { grid: @grid }) }
+              render json: { content: render_to_string(partial: "integral/backend/shared/grid/grid", locals: { grid: @grid }) }
             else
               respond_to_record_selector
             end
@@ -267,6 +267,31 @@ module Integral
       helper_method :new_backend_resource_url
       def new_backend_resource_url
         send("new_backend_#{resource_klass.model_name.singular_route_key}_url")
+      end
+
+      helper_method :list_backend_resources_url
+      def list_backend_resources_url
+        send("list_backend_#{resource_klass.model_name.route_key}_url")
+      end
+
+      helper_method :backend_resource_url
+      def backend_resource_url(resource)
+        send("backend_#{resource_klass.model_name.singular_route_key}_url", resource)
+      end
+
+      helper_method :edit_backend_resource_url
+      def edit_backend_resource_url(resource)
+        send("edit_backend_#{resource_klass.model_name.singular_route_key}_url", resource)
+      end
+
+      helper_method :duplicate_backend_resource_url
+      def duplicate_backend_resource_url(resource)
+        send("duplicate_backend_#{resource_klass.model_name.singular_route_key}_url", resource)
+      end
+
+      helper_method :activities_backend_resource_url
+      def activities_backend_resource_url(resource)
+        send("activities_backend_#{resource_klass.model_name.singular_route_key}_url", resource)
       end
 
       helper_method :resource_klass

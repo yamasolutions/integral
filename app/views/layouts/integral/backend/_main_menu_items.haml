@@ -1,101 +1,86 @@
-%li
-  = link_to backend_dashboard_url do
-    = icon('home')
-    %span= t('integral.navigation.dashboard')
+= link_to t('integral.navigation.dashboard'), backend_dashboard_url, wrapper: :li, icon: :home
+
+-# Default is
+-# Link to dashboard
+-# List
+-#   link to dashboard
+-#   link to creation
+-#   link to listing
+-#
+-# Possibly add a concern or something like
+-# Integral::Listable
+-#
+-# default is [:index, :new, :list]
+-# custom is [:index, :new, list: { path: 'zyz', label: 'zyz' }]
+-#
+-#
+-# Need a way of
+-#   registering a model with the menu - Some kind of concern or in the Initializer
+-#     Could change initializer method from tracked_objects to custom_objects - this automatically adds behaviour like tracking and menu registration
+-#     i.e. config.custom_objects = [SpecialOffer, Event, Review]
+-#   setting the icon - Get it from the decorator? - change icon method location from version to normal decorator and possibly add override
+-#   customizing the paths labels & order of menu items - self.backend_main_menu_items -> [:index, :new, list: { path: 'zyz', label: 'zyz' }]
+-#   handling authorization
+-#
+-#   OVERALL INTEGRAL ARCHITECTURE
+-#   If we're going to be creating 'integral objects' should they use basic inheritance or some kind of concern ?
+-#   If they use a concern does that mean we don't need the initializer config like custom_objects?
+
+-# COULD USE THIS LIST GENERATOR FOR;
+-# - Main Menu
+-# Create Menu
+-# Dropdown pane menus (grid)
+
 
 - if policy(Integral::Page).index?
   %li
-    = link_to backend_pages_url do
-      = icon('file')
-      %span= t('integral.navigation.pages')
+    = link_to t('integral.navigation.pages'), backend_pages_url, icon: :file
     %ul
       %li= t('integral.navigation.pages')
-      %li
-        = link_to backend_pages_url do
-          %span= t('integral.navigation.dashboard')
-
+      = link_to t('integral.navigation.dashboard'), backend_pages_url, wrapper: :li
       - if policy(Integral::Page).create?
-        %li
-          = link_to new_backend_page_url do
-            %span= t('integral.actions.create')
-      %li
-        = link_to list_backend_pages_url do
-          %span= t('integral.navigation.listing')
-
+        = link_to t('integral.actions.create'), new_backend_page_url, wrapper: :li
+      = link_to t('integral.navigation.listing'), list_backend_pages_url, wrapper: :li
 
 - if policy(Integral::Post).index? && Integral.blog_enabled?
   %li
-    = link_to backend_posts_url do
-      = icon('rss')
-      %span= t('integral.navigation.posts')
+    = link_to t('integral.navigation.posts'), backend_posts_url, icon: :rss
     %ul
       %li= t('integral.navigation.posts')
-      %li
-        = link_to backend_posts_url do
-          %span= t('integral.navigation.dashboard')
+      = link_to t('integral.navigation.dashboard'), backend_posts_url, wrapper: :li
       - if policy(Integral::Post).create?
-        %li
-          = link_to new_backend_post_url do
-            %span= t('integral.actions.create')
-      %li
-        = link_to list_backend_posts_url do
-          %span= t('integral.navigation.listing')
+        = link_to t('integral.actions.create'), new_backend_post_url, wrapper: :li
+      = link_to t('integral.navigation.listing'), list_backend_posts_url, wrapper: :li
 
 - if policy(Integral::List).index?
   %li
-    = link_to backend_lists_url do
-      = icon('list')
-      %span= t('integral.navigation.lists')
+    = link_to t('integral.navigation.lists'), backend_lists_url, icon: :list
     %ul
       %li= t('integral.navigation.lists')
-      %li
-        = link_to backend_lists_url do
-          %span= t('integral.navigation.dashboard')
+      = link_to t('integral.navigation.dashboard'), backend_lists_url, wrapper: :li
       - if policy(Integral::List).create?
-        %li
-          = link_to new_backend_list_url do
-            %span= t('integral.actions.create')
+        = link_to t('integral.actions.create'), new_backend_list_url, wrapper: :li
 
 - if policy(Integral::Image).manager?
   %li
-    = link_to backend_img_index_url do
-      = icon('picture-o')
-      %span= t('integral.navigation.images')
+    = link_to t('integral.navigation.images'), backend_img_index_url, icon: 'picture-o'
     %ul
       %li= t('integral.navigation.images')
-      %li
-        = link_to backend_img_index_url do
-          %span= t('integral.navigation.dashboard')
+      = link_to t('integral.navigation.dashboard'), backend_img_index_url, wrapper: :li
       - if policy(Integral::Image).create?
-        %li
-          = link_to new_backend_img_url do
-            %span= t('integral.actions.create')
+        = link_to t('integral.actions.create'), new_backend_img_url, wrapper: :li
 
 - if policy(current_user).manager?
   %li
-    = link_to backend_users_url do
-      = icon('users')
-      %span=t('integral.navigation.users')
+    = link_to t('integral.navigation.users'), backend_users_url, icon: :users
     %ul
       %li= t('integral.navigation.users')
-      %li
-        = link_to backend_users_url do
-          %span= t('integral.navigation.dashboard')
-      %li
-        = link_to new_backend_user_url do
-          %span= t('integral.actions.create')
-      %li
-        = link_to list_backend_users_url do
-          %span= t('integral.navigation.listing')
+      = link_to t('integral.navigation.dashboard'), backend_users_url, wrapper: :li
+      = link_to t('integral.actions.create'), new_backend_user_url, wrapper: :li
+      = link_to t('integral.navigation.listing'), list_backend_users_url, wrapper: :li
 
 - if policy(Integral::Version).manager?
-  %li
-    = link_to backend_activities_url do
-      = icon('crosshairs')
-      %span=t('integral.navigation.activities')
+  = link_to t('integral.navigation.activities'), backend_activities_url, icon: :crosshairs, wrapper: :li
 
 - if current_user.admin?
-  %li
-    = link_to backend_settings_url do
-      = icon('cog')
-      %span=t('integral.navigation.settings')
+  = link_to t('integral.navigation.settings'), backend_settings_url, icon: :cog, wrapper: :li

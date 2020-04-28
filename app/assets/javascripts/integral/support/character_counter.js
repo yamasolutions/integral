@@ -51,6 +51,7 @@ function addCounterElement($input) {
     .css('float','right')
     .css('font-size','12px')
     .css('margin-top', '-.5rem')
+    .css('align-self', 'flex-end')
     .css('height', 1);
 
   $input.after($counterElement);

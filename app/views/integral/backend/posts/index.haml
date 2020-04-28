@@ -1,14 +1,14 @@
-.grid-x.grid-padding-x
+.grid-x
   -# Left Column
   .cell.large-6
-    .grid-x.grid-padding-x
+    .grid-x
       .cell= render_card(:recent_posts)
       .cell= render_card(:categories)
       .cell= render_card(:at_a_glance, { dataset: dataset_at_a_glance_posts })
 
   -# Right Column
   .cell.large-6
-    .grid-x.grid-padding-x
+    .grid-x
       .cell= render_card(:recent_activity)
       .cell.xlarge-6= render_card(:recent_user_activity)
       .cell.large-6= render_card(:top_post_authors)

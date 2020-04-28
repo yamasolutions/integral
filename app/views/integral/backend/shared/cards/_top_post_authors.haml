@@ -1,19 +1,18 @@
 - user_ids = Integral::Post.published.group(:user_id).count.sort_by(&:last).reverse.to_h
 - post_users = Integral::User.where(id: user_ids.keys).decorate.sort_by { |prod| user_ids.keys.index(prod.id) }
 .card
-  .card-section
-    .card-action-title
-      %h2 Top Authors
-    .stat-table
-      .stat-table-heading
-        .stat-table-header Total Authors
-        .stat-table-header-count= user_ids.count
-      %table.unstriped.hover
-        - post_users.each do |record|
-          %tr
-            %td
-              = image_tag record.avatar.url(:thumbnail), alt: record.name, class: 'avatar'
-              = record.name
-            %td
-              %span.badge.secondary= user_ids[record.id]
+  .card-action-title
+    %h2 Top Authors
+  .stat-table
+    .stat-table-heading
+      .stat-table-header Total Authors
+      .stat-table-header-count= user_ids.count
+    %table.unstriped.hover
+      - post_users.each do |record|
+        %tr
+          %td
+            = image_tag record.avatar.url(:thumbnail), alt: record.name, class: 'avatar'
+            = record.name
+          %td
+            %span.badge.secondary= user_ids[record.id]
 

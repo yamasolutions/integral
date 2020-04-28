@@ -1,0 +1,22 @@
+-# TODO: Improve this to handle empty grid also
+- options ||= local_assigns.fetch(:options, { order: true, columns: [] })
+
+= render_data_grid do
+  %table.integral-grid.wice-grid.table-striped.hover
+    %thead
+      %tr
+        - grid.html_columns(*options[:columns]).uniq { |col| col.name }.sort_by{ |item| options[:columns].index item.name }.each do |column|
+          %th{ class: datagrid_column_classes(grid, column) }
+            - if column.supports_order? && options[:order]
+              %button{ data: { sort: column.name, desc: (!grid.descending).to_s }}
+                = column.header
+            - else
+              = column.header
+    %tbody
+      - if grid.assets.any?
+        = render partial: "#{self.controller._prefixes.first}/grid/row_content", collection: grid.assets.decorate, layout: 'integral/backend/shared/grid/row_layout', as: :resource
+      - else
+        = render partial: 'integral/backend/shared/grid/empty'
+
+  = render partial: 'integral/backend/shared/grid/pagination', locals: { records: grid.assets }
+  = icon('spinner', class: 'fa-pulse fa-3x fa-fw load-indicator')

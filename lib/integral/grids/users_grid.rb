@@ -18,8 +18,8 @@ module Integral
       end
 
       column(:name, order: :name)
-      column(:status, order: :status)
       column(:email, order: :email)
+      column(:status, order: :status)
       column(:updated_at, order: :updated_at)
       column(:actions)
     end

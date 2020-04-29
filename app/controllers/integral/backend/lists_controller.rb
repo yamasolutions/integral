@@ -4,7 +4,6 @@ module Integral
     class ListsController < BaseController
       before_action :set_resource, except: %i[create index new list]
       before_action :authorize_with_klass
-      before_action -> { set_grid }, only: [:index]
 
       # GET /
       # Lists all lists

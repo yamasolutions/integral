@@ -5,7 +5,6 @@ module Integral
       before_action :set_resource, except: %i[create new index list account]
       before_action :authorize_with_klass, except: %i[activities activity show edit update account]
       before_action :authorize_with_instance, only: %i[show edit update]
-      before_action -> { set_grid }, only: [:index]
 
       # GET /
       # Lists all users

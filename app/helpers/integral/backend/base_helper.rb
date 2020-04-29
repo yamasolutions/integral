@@ -27,6 +27,11 @@ module Integral
         end
       end
 
+      # @return [String] Resource Grid
+      def render_resource_grid(locals = {})
+        render(partial: "integral/backend/shared/grid/grid", locals: locals)
+      end
+
       # @return [String] Integral card
       def render_card(partial, locals = {})
         render(partial: "integral/backend/shared/cards/#{partial}", locals: locals)

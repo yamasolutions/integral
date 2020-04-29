@@ -1,4 +1,4 @@
-%tr.tr--clickable{ data: { href: backend_resource_url(resource.id), context_menu: "dropdown-pane-actions-page-#{resource.id}" }}
+%tr.tr--clickable{ data: { href: backend_resource_url(resource), context_menu: "dropdown-pane-actions-page-#{resource.id}" }}
   = yield
   %td.actions
     %button.button--action-pane{ 'data-toggle' => "dropdown-pane-actions-page-#{resource.id}" }

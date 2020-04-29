@@ -86,10 +86,9 @@ module Integral
           end
 
           # Activity Management
-          resources :activities, only: %i[index show] do
+          resources :activities, only: %i[index] do
             collection do
               post 'widget'
-              post 'grid'
             end
           end
 

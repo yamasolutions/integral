@@ -45,14 +45,11 @@ module Integral
         add_breadcrumb I18n.t('integral.navigation.list'), list_backend_resources_url
 
         respond_to do |format|
-          format.html do
-            set_grid
-          end
+          format.html
 
           format.json do
             if params[:gridview].present?
-              set_grid
-              render json: { content: render_to_string(partial: "integral/backend/shared/grid/grid", locals: { grid: @grid }) }
+              render json: { content: render_to_string(partial: "integral/backend/shared/grid/grid") }
             else
               respond_to_record_selector
             end
@@ -138,7 +135,7 @@ module Integral
       def activities
         authorize Version
 
-        add_breadcrumb I18n.t('integral.navigation.edit'), "edit_backend_#{controller_name.singularize}_path".to_sym
+        add_breadcrumb I18n.t('integral.navigation.edit'), edit_backend_resource_url(@resource)
         add_breadcrumb I18n.t('integral.navigation.activity')
 
         @grid = Integral::Grids::ActivitiesGrid.new(activity_grid_options.except('page')) do |scope|
@@ -146,8 +143,8 @@ module Integral
         end
 
         respond_to do |format|
-          format.html { render template: 'integral/backend/activities/shared/index', locals: { form_url: send("activities_backend_#{controller_name.singularize}_url", @resource.id) } }
-          format.json { render json: { content: render_to_string(partial: 'integral/backend/activities/shared/grid', locals: { grid: @grid }) } }
+          format.html { render template: 'integral/backend/activities/shared/index', locals: { form_url: activities_backend_resource_url(@resource) } }
+          format.json { render json: { content: render_to_string(partial: 'integral/backend/activities/shared/grid', locals: { resource_grid: @grid }) } }
         end
       end
 
@@ -155,7 +152,7 @@ module Integral
       def activity
         authorize Version
 
-        add_breadcrumb I18n.t('integral.navigation.activity'), "activities_backend_#{controller_name.singularize}_url".to_sym
+        add_breadcrumb I18n.t('integral.navigation.activity'), activities_backend_resource_url(@resource)
         add_breadcrumb I18n.t('integral.actions.view')
 
         @activity = resource_version_klass.find(params[:activity_id]).decorate
@@ -238,8 +235,9 @@ module Integral
                default: I18n.t("integral.backend.notifications.#{type_namespace}", type: resource_klass.model_name.human))
       end
 
-      def set_grid
-        @grid = resource_grid_klass.new(grid_options.except('page')) do |scope|
+      helper_method :resource_grid
+      def resource_grid
+        @resource_grid ||= resource_grid_klass.new(grid_options.except('page')) do |scope|
           scope.page(grid_options['page']).per_page(25)
         end
       end
@@ -257,6 +255,11 @@ module Integral
       helper_method :list_backend_resources_url
       def list_backend_resources_url
         send("list_backend_#{resource_klass.model_name.route_key}_url")
+      end
+
+      helper_method :activities_backend_resource_url
+      def activities_backend_resource_url(resource)
+        send("activities_backend_#{controller_name.singularize}_url", resource.id)
       end
 
       helper_method :backend_resource_url

@@ -111,6 +111,19 @@ module Integral
       def render_donut_chart(dataset)
         ChartRenderer::Donut.render(dataset)
       end
+
+      # Line graph - Last week
+      def dataset_dashboard_last_week
+        data = [
+          { scope: Integral::Page, label: 'Pages' },
+          { scope: Integral::List, label: 'Lists' },
+          { scope: Integral::Image, label: 'Images' },
+          { scope: Integral::User, label: 'Users' }
+        ]
+
+        data.prepend(scope: Integral::Post, label: 'Posts') if Integral.blog_enabled?
+        data
+      end
     end
   end
 end

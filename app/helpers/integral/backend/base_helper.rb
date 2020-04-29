@@ -106,49 +106,6 @@ module Integral
       def render_donut_chart(dataset)
         ChartRenderer::Donut.render(dataset)
       end
-
-      # Donut Graph - At a Glance
-      def dataset_at_a_glance_posts
-        [
-          { scope: Integral::Post.published, label: 'Published' },
-          { scope: Integral::Post.draft, label: 'Draft ' }
-        ]
-      end
-
-      # Donut Graph - At a Glance
-      def dataset_at_a_glance_pages
-        [
-          { scope: Integral::Page.published, label: 'Published' },
-          { scope: Integral::Page.draft, label: 'Draft ' },
-          { scope: Integral::Page.archived, label: 'Archived ' }
-        ]
-      end
-
-      # Donut Graph - At a Glance
-      def dataset_dashboard_atg
-        data = [
-          { scope: Integral::Page, label: 'Total Pages' },
-          { scope: Integral::List, label: 'Total Lists' },
-          { scope: Integral::Image, label: 'Total Images' },
-          { scope: Integral::User, label: 'Total Users' }
-        ]
-
-        data.prepend(scope: Integral::Post, label: 'Total Posts') if Integral.blog_enabled?
-        data
-      end
-
-      # Line graph - Last week
-      def dataset_dashboard_last_week
-        data = [
-          { scope: Integral::Page, label: 'Pages' },
-          { scope: Integral::List, label: 'Lists' },
-          { scope: Integral::Image, label: 'Images' },
-          { scope: Integral::User, label: 'Users' }
-        ]
-
-        data.prepend(scope: Integral::Post, label: 'Posts') if Integral.blog_enabled?
-        data
-      end
     end
   end
 end

@@ -284,6 +284,19 @@ module Integral
         controller_name.classify.constantize
       end
 
+      helper_method :dataset_at_a_glance
+      def dataset_at_a_glance
+        if resource_klass.respond_to?(:statuses)
+          resource_klass.statuses.keys.map do |status|
+            { scope: resource_klass.send(status), label: t("integral.statuses.#{status}") }
+          end
+        else
+          [
+            { scope: resource_klass.all, label: "All #{resource_klass.model_name.human.pluralize}" }
+          ]
+        end
+      end
+
       helper_method :cast_activities
       def cast_activities(activites)
         activites.map do |version|

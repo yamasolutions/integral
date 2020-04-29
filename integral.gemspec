@@ -74,7 +74,7 @@ Gem::Specification.new do |s|
 
   s.add_development_dependency 'capybara', '~> 3.32' # Acceptance testing framework
   s.add_development_dependency 'launchy', '~> 2.4' # Automatically launch test pages
-  s.add_development_dependency 'apparition', '~> 0.5.0' # Headless Capybara driver for JS
+  # s.add_development_dependency 'apparition', '~> 0.5.0' # Headless Capybara driver for JS
   s.add_development_dependency 'rspec-retry', '~> 0.6.1' # Retry flaky specs
 
   # CI, code coverage, analysis and documentation tools

@@ -24,7 +24,7 @@ recommendations of [keepachangelog.com](http://keepachangelog.com/).
 
 ### Dependancies
 - Bump Foundation to 6.6.2
-- Swap out poltergeist for Apparition
+- Swap out poltergeist & PhantomJS for Apparition
 
 ## v1.4.0 - 2020-04-17
 

@@ -1,3 +1,11 @@
+GIT
+  remote: git://github.com/twalpole/apparition.git
+  revision: b2bcf91504eec691c550bfe656993ba23c676d04
+  specs:
+    apparition (0.5.0)
+      capybara (~> 3.13, < 4)
+      websocket-driver (>= 0.6.5)
+
 PATH
   remote: .
   specs:
@@ -102,9 +110,6 @@ GEM
       activerecord (>= 5.0, < 6.1)
     addressable (2.7.0)
       public_suffix (>= 2.0.2, < 5.0)
-    apparition (0.5.0)
-      capybara (~> 3.13, < 4)
-      websocket-driver (>= 0.6.5)
     arel (9.0.0)
     ast (2.4.0)
     aws-eventstream (1.1.0)
@@ -464,7 +469,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  apparition (~> 0.5.0)
+  apparition!
   brakeman (~> 3.4)
   capybara (~> 3.32)
   database_cleaner (~> 1.5)
@@ -485,7 +490,7 @@ DEPENDENCIES
   yard (~> 0.9.11)
 
 RUBY VERSION
-   ruby 2.4.1p111
+   ruby 2.5.8p224
 
 BUNDLED WITH
-   1.16.1
+   2.1.4

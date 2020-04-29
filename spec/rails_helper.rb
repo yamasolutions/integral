@@ -24,6 +24,18 @@ require 'capybara/rspec'
 require 'paper_trail/frameworks/rspec'
 
 Capybara.server = :webrick
+Capybara.register_driver :apparition do |app|
+  options = {
+      debug: false,
+      headless: !ENV['OPEN_BROWSER'].present?,
+      screen_size: [1200, 900],
+      browser_options: [ :disable_gpu, :no_sandbox, disable_features: 'VizDisplayCompositor'],
+      browser_logger: nil,
+      skip_image_loading: true
+  }
+  Capybara::Apparition::Driver.new(app, options)
+end
+
 Capybara.javascript_driver = :apparition
 
 # Requires supporting ruby files with custom matchers and macros, etc, in

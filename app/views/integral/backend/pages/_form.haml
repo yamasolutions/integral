@@ -20,6 +20,6 @@
           = f.button :button if f.object.persisted?
         = f.input :template, collection: Integral::Page.available_templates, prompt: t('integral.backend.pages.prompts.choose_template'), include_blank: false
         = f.association :parent, collection: @resource.available_parents.map {|p| [p.title, p.id]}, include_blank: true
-        = render partial: 'integral/backend/shared/image_preview', locals: { f:f  }
+        = render partial: 'integral/backend/shared/image_preview', locals: { f:f }
 
     .cell= f.button :button

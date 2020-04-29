@@ -45,7 +45,7 @@ module Integral
     def self.listable_options
       {
         record_title: I18n.t('integral.backend.record_selector.images.record'),
-        selector_path: Engine.routes.url_helpers.backend_images_path,
+        selector_path: Engine.routes.url_helpers.list_backend_images_path,
         selector_title: I18n.t('integral.backend.record_selector.images.title')
       }
     end

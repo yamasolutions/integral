@@ -34,19 +34,17 @@ module Integral
       end
 
       # GET /
-      # Lists all resources
+      # Resource dashboard
       def index
       end
 
       # GET /list
       # Lists all resources
       def list
-        # add_breadcrumb I18n.t('integral.navigation.list'), "new_backend_#{controller_name.singularize}_path".to_sym
         add_breadcrumb I18n.t('integral.navigation.list'), list_backend_resources_url
 
         respond_to do |format|
           format.html
-
           format.json do
             if params[:gridview].present?
               render json: { content: render_to_string(partial: "integral/backend/shared/grid/grid") }

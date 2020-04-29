@@ -19,7 +19,7 @@
                 - if policy(resource_klass).duplicate?
                   = link_to t('integral.actions.clone'), duplicate_backend_post_url(@resource.id), method: :post, data: { confirm: t('integral.actions.confirmation.clone') }, icon: :clone, wrapper: :cell
                 - if policy(resource_klass).manager?
-                  = link_to t('integral.actions.edit'), backend_post_url(@resource.id), icon: :remove, wrapper: :cell, method: :delete, data: { confirm: t('integral.actions.confirmation.deletion') }
+                  = link_to t('integral.actions.delete'), backend_post_url(@resource.id), icon: :remove, wrapper: :cell, method: :delete, data: { confirm: t('integral.actions.confirmation.deletion') }
                 - if policy(resource_klass).manager?
                   = link_to t('integral.actions.view_history'), activities_backend_post_url(@resource.id), icon: :history, wrapper: :cell
 

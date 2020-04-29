@@ -23,7 +23,8 @@ recommendations of [keepachangelog.com](http://keepachangelog.com/).
 - Image Uploader - Initial uploaded image was not displaying
 
 ### Dependancies
-- Bump Foundation to 6.5.3
+- Bump Foundation to 6.6.2
+- Swap out poltergeist for Apparition
 
 ## v1.4.0 - 2020-04-17
 

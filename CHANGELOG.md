@@ -13,8 +13,10 @@ recommendations of [keepachangelog.com](http://keepachangelog.com/).
 - User managers can now block other users from logging in and accessing any backend functionality
 - Devise Emails now use the Integral mailer layout
 - Default action bar content for post, page & user dashboard which has a create button
-- Added backend image and list dashboards
-- Added backend image and list show pages
+- Backend image and list dashboards
+- Backend image and list show pages
+- Backend helpers `render_resource_grid` & `render_resource_grid_form` to reduce view duplication
+- Backend helper extension for `link_to` to allow passing of `wrapper` & `icon` options
 
 ### Fixed
 

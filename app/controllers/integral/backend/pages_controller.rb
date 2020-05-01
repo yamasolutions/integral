@@ -22,10 +22,6 @@ module Integral
       end
       helper_method :current_policy
 
-      # GET /
-      # Page dashboard screen
-      def index; end
-
       private
 
       def resource_params

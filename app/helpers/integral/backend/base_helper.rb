@@ -27,6 +27,15 @@ module Integral
         end
       end
 
+      # @return [String] Resource Grid Form
+      def render_resource_grid_form(&block)
+        if block_given?
+          render(layout: "integral/backend/shared/grid/form", &block)
+        else
+          render(partial: "integral/backend/shared/grid/form")
+        end
+      end
+
       # @return [String] Resource Grid
       def render_resource_grid(locals = {})
         render(partial: "integral/backend/shared/grid/grid", locals: locals)

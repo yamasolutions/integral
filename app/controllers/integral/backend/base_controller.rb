@@ -35,8 +35,7 @@ module Integral
 
       # GET /
       # Resource dashboard
-      def index
-      end
+      def index; end
 
       # GET /list
       # Lists all resources

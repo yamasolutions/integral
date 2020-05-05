@@ -44,7 +44,7 @@
                       = icon('bell')
                     - else
                       = icon('bell-o')
-                  #notifications-dropdown.dropdown-pane.dropdown-pane--notifications{ data: { dropdown: true, hover: 'true', 'hover-pane'=> 'true', 'v-offset'=> '35', 'hover-delay'=> 50 }}
+                  #notifications-dropdown.dropdown-pane.dropdown-pane--notifications{ data: { notifications: true, load_more_url: current_user.has_multi_page_notifications? ? notifications_backend_user_url(current_user, page: 2) : '', dropdown: true, hover: 'false', 'hover-pane' => 'false', 'v-offset' => '35', 'hover-delay' => 50 }}
                     .section.text-center
                       %span.title
                         = current_user.notifications.unread.count
@@ -53,11 +53,9 @@
                     .section
                       %ul.menu.vertical.notification-list
                         = render recent_user_notifications.decorate, cached: true
-                      - if current_user.notifications.count > 5
-                        %hr
-                        %button.button.clear.expanded
-                          = t('integral.actions.view_more')
-
+                      - if current_user.has_multi_page_notifications?
+                        %p.notification-list-loader.js-loader--notifications
+                          = icon('spinner', class: 'fa-pulse fa-fw')
                 %li
                   %button.button.clear.avatar{ type: 'button', data: { toggle: 'profile-dropdown'}}= image_tag(current_user.avatar.url(:thumbnail), class: 'avatar')
                   #profile-dropdown.dropdown-pane.dropdown-pane--profile{ data: { dropdown: true, hover: 'true', 'hover-pane'=> 'true', 'v-offset'=> '35', 'hover-delay'=> 50 }}

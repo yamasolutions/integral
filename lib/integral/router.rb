@@ -63,6 +63,8 @@ module Integral
           resources :users do
             get 'list', on: :collection
             member do
+              put 'read_notification'
+              get 'notifications'
               get 'activities', controller: 'users'
               get 'activities/:activity_id', to: 'users#activity', as: :activity
             end

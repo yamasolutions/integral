@@ -1,6 +1,7 @@
 .dropdown-pane--notifications {
   width: 340px;
   padding: 0;
+  padding-bottom: .5rem;
   &:before {
     content: ' ';
     width: 2.5em;
@@ -36,6 +37,10 @@
 
   .section {
     padding: .5rem 0;
+    &:last-of-type {
+      max-height: 225px;
+      overflow: scroll;
+    }
     &:first-of-type {
       border-radius: 5px 5px 0 0;
       background-color: $primary-color;
@@ -62,13 +67,16 @@
     top: 0;
     width: 2px;
   }
+  &-loader {
+    padding: .5rem 0;
+    text-align: center;
+  }
 }
 
 
 .notification {
   position: relative;
-  padding: .25rem 0;
-  padding-bottom: .5rem;
+  padding: .4rem 0;
   margin: 0 !important;
 
   &.unread {
@@ -118,6 +126,7 @@
     text-transform: uppercase;
     color: $primary-color;
     font-size: .6rem;
+    padding-bottom: 5px;
   }
 
   &-created-at {

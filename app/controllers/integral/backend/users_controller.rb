@@ -3,7 +3,7 @@ module Integral
     # Users controller
     class UsersController < BaseController
       before_action :set_resource, except: %i[create new index list account]
-      before_action :authorize_with_klass, except: %i[activities activity show edit update account]
+      before_action :authorize_with_klass, except: %i[activities activity show edit update account notifications read_notification]
       before_action :authorize_with_instance, only: %i[show edit update]
       before_action -> { set_grid }, only: [:index]
 
@@ -67,7 +67,26 @@ module Integral
         end
       end
 
+      # GET /:id/notifications
+      def notifications
+        load_more_url = notifications_backend_user_url(current_user, page: current_page+1) if current_user.notifications.count > current_page * Notification::Notification.per_page
+        render json: { content: render_to_string(current_user.notifications.recent.page(current_page).decorate, cached: true), load_more_url: load_more_url }
+      end
+
+      # PUT /:id/read_notification
+      def read_notification
+        if current_user.notifications.find(params[:notification_id]).read!
+          head :ok
+        else
+          head :unprocessable_entity
+        end
+      end
+
       private
+
+      def current_page
+        params[:page].to_i
+      end
 
       def white_listed_grid_params
         %i[descending order page user action object name status]

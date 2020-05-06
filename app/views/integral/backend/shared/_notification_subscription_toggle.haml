@@ -1,0 +1,22 @@
+:ruby
+  if subscribable.is_a?(Class)
+    subscribable_id = nil
+    subscribable_type = subscribable.name
+  else
+    subscribable_id = subscribable.id
+    subscribable_type = subscribable.class.name
+  end
+  receives_notifications = current_user.receives_notifications_for?(subscribable)
+
+= simple_form_for :subscription, url: backend_notification_subscription_url(id: 1), remote: true, method: :put, html: { 'data-form-unsubscribe-notifications' => true, class: receives_notifications ? '' : 'hide' } do |f|
+  = f.hidden_field :state, value: :unsubscribed
+  = f.hidden_field :subscribable_type, value: subscribable_type
+  = f.hidden_field :subscribable_id, value: subscribable_id
+  = f.button :button, class: 'clear', data: { tooltip: true, position: :left, alignment: :center }, title: t('integral.tooltips.unsubscribe') do
+    = icon('bell-slash-o')
+= simple_form_for :subscription, url: backend_notification_subscription_url(id: 1), remote: true, method: :put, html: { 'data-form-subscribe-notifications' => true, class: receives_notifications ? 'hide' : '' } do |f|
+  = f.hidden_field :state, value: :subscribed
+  = f.hidden_field :subscribable_type, value: subscribable_type
+  = f.hidden_field :subscribable_id, value: subscribable_id
+  = f.button :button, class: 'clear', data: { tooltip: true, position: :left, alignment: :center }, title: t('integral.tooltips.subscribe') do
+    = icon('bell-o')

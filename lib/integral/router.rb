@@ -70,6 +70,9 @@ module Integral
             end
           end
 
+          # Notification subscription management
+          resources :notification_subscriptions, only: [:update]
+
           # Image Management
           resources :images, as: :img
 

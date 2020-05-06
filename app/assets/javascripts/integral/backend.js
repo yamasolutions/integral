@@ -101,6 +101,26 @@ function ready() {
   new RemoteForm($('.remote-form'));
   Grid.init();
 
+  $("[data-form-subscribe-notifications], [data-form-unsubscribe-notifications]").submit(function( event ) {
+    $(event.target).find('.button').attr('disabled', true)
+  });
+
+  $('[data-form-subscribe-notifications]').on( "ajax:success", function(event, response) {
+    activeForm = $(event.target)
+    activeForm.find('.button').attr('disabled', false)
+    activeForm.addClass('hide')
+    $('[data-form-unsubscribe-notifications]').removeClass('hide')
+    toastr['success']('You have subscribed to notifications.')
+  });
+
+  $('[data-form-unsubscribe-notifications]').on( "ajax:success", function(event, response) {
+    activeForm = $(event.target)
+    activeForm.find('.button').attr('disabled', false)
+    activeForm.addClass('hide')
+    $('[data-form-subscribe-notifications]').removeClass('hide')
+    toastr['success']('You have unsubscribed to notifications.')
+  });
+
   notificationsContainer = $('[data-notifications]')
   if (notificationsContainer.data('load-more-url')) {
     lastNotificationObserver = new IntersectionObserver(loadMore, { root: notificationsContainer[0] });

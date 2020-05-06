@@ -27,10 +27,6 @@ module Integral
         end
       end
 
-      def has_multi_page_notifications?
-        notifications.count > Integral::Notification::Notification.per_page
-      end
-
       # TODO: Should we be doing the group_bys in the DB?
       def notifiable_users
         object_notification_subscriptions = notification_subscriptions.group_by(&:state)

@@ -60,6 +60,29 @@ module Integral
       super
     end
 
+    def multiple_page_notifications?
+      notifications.count > Integral::Notification::Notification.per_page
+    end
+
+    # @param subscribable [Class or Instance]
+    def receives_notifications_for?(subscribable)
+      if subscribable.is_a?(Class)
+        subscription = self_notification_subscriptions.find_by(subscribable_type: subscribable.name, subscribable_id: nil)
+
+        return subscription.subscribed? if subscription
+      else
+        instance_subscription = self_notification_subscriptions.find_by(subscribable_type: subscribable.class.name, subscribable_id: subscribable.id)
+
+        return instance_subscription.subscribed? if instance_subscription
+
+        class_level_subscription = self_notification_subscriptions.find_by(subscribable_type: subscribable.class.name, subscribable_id: nil)
+
+        return class_level_subscription.subscribed? if class_level_subscription
+      end
+
+      notify_me
+    end
+
     private
 
     def send_devise_notification(notification, *args)

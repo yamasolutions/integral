@@ -3,7 +3,7 @@ module Integral
     # Images controller
     class ImagesController < BaseController
       before_action :authorize_with_klass
-      before_action :set_resource, only: %i[edit update destroy show activities activity]
+      before_action :set_resource, except: %i[create index new list]
 
       # GET /new
       # Image creation form
@@ -32,12 +32,6 @@ module Integral
         end
       end
 
-      # GET /:id/edit
-      # Image edit form
-      def edit
-        add_breadcrumb I18n.t('integral.navigation.edit'), :edit_backend_img_path
-      end
-
       # PUT /:id
       # Updating an image
       def update
@@ -60,12 +54,28 @@ module Integral
 
       private
 
-      def render_default_action_bar?
-        false
-      end
-
       def resource_klass
         Integral::Image
+      end
+
+      def new_backend_resource_url
+        new_backend_img_url
+      end
+
+      def list_backend_resources_url
+        list_backend_img_index_url
+      end
+
+      def backend_resources_url
+        backend_img_index_url
+      end
+
+      def backend_resource_url(resource)
+        backend_img_url(resource)
+      end
+
+      def edit_backend_resource_url(resource)
+        edit_backend_img_url(resource)
       end
 
       def remote_request?

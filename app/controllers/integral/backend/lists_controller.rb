@@ -2,20 +2,8 @@ module Integral
   module Backend
     # List controller
     class ListsController < BaseController
-      before_action :set_resource, only: %i[edit update destroy duplicate]
+      before_action :set_resource, except: %i[create index new list]
       before_action :authorize_with_klass
-      before_action -> { set_grid }, only: [:index]
-
-      # GET /
-      # Lists all lists
-      def index
-        respond_to do |format|
-          format.html
-          format.json do
-            render json: { content: render_to_string(partial: 'integral/backend/lists/grid', locals: { grid: @grid }) }
-          end
-        end
-      end
 
       # POST /:id/duplicate
       # Duplicate a resource
@@ -26,10 +14,6 @@ module Integral
       end
 
       private
-
-      def render_default_action_bar?
-        false
-      end
 
       def white_listed_grid_params
         %i[descending order page user action object title]

@@ -3,7 +3,7 @@
 .grid-x
   .cell.large-6
     -# Left Column
-    .grid-x.grid-padding-x
+    .grid-x
       .cell= render_card(:welcome)
       - if Integral.blog_enabled? & Integral::Post.published.last.present?
         .cell.medium-6.flex-container= render_card(:object, { title: t('.recent_post'), record: Integral::Post.published.last })
@@ -12,12 +12,11 @@
       .cell.xlarge-6.flex-container= render_card(:recent_user_activity)
   .cell.large-6
     -# Right Column
-    .grid-x.grid-padding-x
+    .grid-x
       .cell= render_card(:recent_activity)
-      .cell= render_card(:at_a_glance, { dataset: dataset_dashboard_atg })
+      .cell= render_card(:at_a_glance)
       .cell
         .card
-          .card-section
-            %h2= t('integral.backend.cards.last_week')
-            = render_line_chart(dataset_dashboard_last_week)
+          %h2= t('integral.backend.cards.last_week')
+          = render_line_chart(dataset_dashboard_last_week)
 

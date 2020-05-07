@@ -13,10 +13,22 @@ recommendations of [keepachangelog.com](http://keepachangelog.com/).
 - User managers can now block other users from logging in and accessing any backend functionality
 - Devise Emails now use the Integral mailer layout
 - Default action bar content for post, page & user dashboard which has a create button
+- Backend image and list dashboards
+- Backend image and list show pages
+- Backend helpers `render_resource_grid` & `render_resource_grid_form` to reduce view duplication
+- Backend helper extension for `link_to` to allow passing of `wrapper` & `icon` options
 
 ### Fixed
 
 - Admin bar - Add white background and bring to front
+- Backend posts form - Existing tag suggestions were not appearing when typing in input
+- Image Uploader - Initial uploaded image was not displaying
+- Backend grid context menu not appearing for dynamic loaded rows
+
+### Dependancies
+- Bump Foundation to 6.6.2
+- Swap out poltergeist & PhantomJS for Apparition
+- Bump Ruby to 2.5.8
 
 ## v1.4.0 - 2020-04-17
 

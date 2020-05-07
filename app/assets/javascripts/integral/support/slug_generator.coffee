@@ -39,6 +39,7 @@ class this.SlugGenerator
     @inputField.change =>
       if @outputField.val() == ''
         @setSlug(@inputField.val())
+        @outputField.change().blur()
 
     @outputField.change =>
       @setSlug(@outputField.val())

@@ -18,7 +18,7 @@ Integral::Role.create!(name: 'PostManager')
 Integral::Role.create!(name: 'ListManager')
 
 # Demo User
-user = Integral::User.create!({ name: 'Integrico', email: 'user@integralrails.com', password: 'password', role_ids: Integral::Role.ids, admin: true })
+user = Integral::User.create!({ name: 'Integrico', email: 'user@integralrails.com', password: 'password', role_ids: Integral::Role.ids, admin: true, status: 1 })
 
 # Demo Page
 host = URI.parse(Rails.application.routes.default_url_options[:host] || 'http://localhost:3000')

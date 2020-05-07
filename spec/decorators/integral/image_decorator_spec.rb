@@ -8,7 +8,7 @@ module Integral
 
     describe '#backend_url' do
       it 'provides the correct URL' do
-        expect(subject.backend_url).to eq "http://test.somehost.com/admin/images/#{image.id}/edit"
+        expect(subject.backend_url).to eq "http://test.somehost.com/admin/images/#{image.id}"
       end
     end
   end

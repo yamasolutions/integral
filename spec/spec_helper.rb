@@ -106,7 +106,7 @@ RSpec.configure do |config|
   end
 
   config.before(:each, type: :system) do
-    driven_by :poltergeist
+    driven_by :apparition
   end
 
   config.around :each do |ex|

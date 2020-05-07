@@ -2,6 +2,7 @@
   = render partial: 'integral/backend/shared/record_selector/record', locals: { list_item: { image: '', title: '', subtitle: '' }}
 
 - if collection.empty?
+  .grid-x
   %p.text-center.no-records
     = t('integral.backend.tables.no_data_available')
     = image_tag image_path('integral/backend/data-unavailable.png')

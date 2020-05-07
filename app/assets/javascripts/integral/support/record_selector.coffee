@@ -81,6 +81,7 @@ class this.RecordSelector
         new_item.find('.subtitle').text(record.subtitle)
         new_item.find('.title').text(record.title)
         new_item.find('.record').trigger('click')
+        @recordsContainer.find('.no-records').hide()
 
     # handle click on record
     @recordsContainer.on 'click', '.record', (e) =>

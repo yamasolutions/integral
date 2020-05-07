@@ -3,46 +3,30 @@
 .grid-x
   .cell.large-6
     -# Left Column
-    .grid-x.grid-padding-x
+    .grid-x
       .cell
         .card
-          .card-section
-            %h2= @resource.title
-            %p.subtitle= @resource.description
-            %hr
+          %h2= @resource.title
+          %p.subtitle= @resource.description
+          %hr
 
-            .grid-x.actions
-              .cell.xlarge-8.xxlarge-6
-                .grid-x.small-up-2
-                  - unless @resource.archived?
-                    .cell
-                      = link_to @resource.path do
-                        = icon('eye')
-                        = t('integral.actions.view_on_site')
-                  - if policy(Integral::Page).manager?
-                    .cell
-                      = link_to edit_backend_page_url(@resource.id) do
-                        = icon('edit')
-                        = t('integral.actions.edit')
-                  - if policy(Integral::Page).duplicate?
-                    .cell
-                      = link_to duplicate_backend_page_url(@resource.id), method: :post, data: { confirm: t('integral.actions.confirmation.clone') } do
-                        = icon('clone')
-                        = t('integral.actions.clone')
-                  - if policy(Integral::Page).manager?
-                    .cell
-                      = link_to backend_page_url(@resource.id), method: :delete, data: { confirm: t('integral.actions.confirmation.deletion') } do
-                        = icon('remove')
-                        = t('integral.actions.delete')
-                  - if policy(Integral::Version).manager?
-                    .cell
-                      = link_to activities_backend_page_url(@resource.id) do
-                        = icon('history')
-                        = t('integral.actions.view_history')
+          .grid-x.actions
+            .cell.xlarge-8.xxlarge-6
+              .grid-x.small-up-2
+                - unless @resource.archived?
+                  = link_to t('integral.actions.view_on_site'), @resource.path, icon: :eye, wrapper: :cell
+                - if policy(resource_klass).manager?
+                  = link_to t('integral.actions.edit'), edit_backend_resource_url(@resource.id), icon: :edit, wrapper: :cell
+                - if policy(resource_klass).duplicate?
+                  = link_to t('integral.actions.clone'), duplicate_backend_resource_url(@resource.id), method: :post, data: { confirm: t('integral.actions.confirmation.clone') }, icon: :clone, wrapper: :cell
+                - if policy(resource_klass).manager?
+                  = link_to t('integral.actions.delete'), backend_resource_url(@resource.id), method: :delete, data: { confirm: t('integral.actions.confirmation.deletion') }, icon: :remove, wrapper: :cell
+                - if policy(Integral::Version).manager?
+                  = link_to t('integral.actions.view_history'), activities_backend_resource_url(@resource.id), icon: :history, wrapper: :cell
 
       .cell.medium-6.flex-container= render_card(:object, { title: 'Essentials', record: @resource })
       .cell.xlarge-6.flex-container= render_card(:recent_user_activity)
   .cell.large-6
     -# Right Column
-    .grid-x.grid-padding-x
+    .grid-x
       .cell= render_card(:recent_activity)

@@ -14,6 +14,7 @@ module Integral
       end
 
       column(:title, order: :title)
+      column(:description, order: :description)
       column(:updated_at, order: :updated_at)
       column(:actions)
     end

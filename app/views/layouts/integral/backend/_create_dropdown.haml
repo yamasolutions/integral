@@ -1,30 +1,16 @@
 %ul.menu.vertical
   - if policy(Integral::Page).create?
-    %li
-      = link_to new_backend_page_url do
-        = icon('file-text-o')
-        %span= t('integral.navigation.page')
+    = link_to t('integral.navigation.page'), new_backend_page_url, icon: 'file-text-o', wrapper: :li
 
   - if policy(Integral::Post).create? && Integral.blog_enabled?
-    %li
-      = link_to new_backend_post_url do
-        = icon('rss')
-        %span= t('integral.navigation.post')
+    = link_to t('integral.navigation.post'), new_backend_post_url, icon: 'rss', wrapper: :li
 
   - if policy(Integral::Image).create?
-    %li
-      = link_to new_backend_img_url do
-        = icon('picture-o')
-        %span= t('integral.navigation.image')
+    = link_to t('integral.navigation.image'), new_backend_img_url, icon: 'picture-o', wrapper: :li
 
   - if policy(Integral::List).create?
-    %li
-      = link_to new_backend_list_url do
-        = icon('list')
-        %span= t('integral.navigation.list')
+    = link_to t('integral.navigation.list'), new_backend_list_url, icon: 'list', wrapper: :li
+
   - if policy(current_user).create?
-    %li
-      = link_to new_backend_user_url do
-        = icon('user')
-        %span= t('integral.navigation.user')
+    = link_to t('integral.navigation.user'), new_backend_user_url, icon: 'user', wrapper: :li
 

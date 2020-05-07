@@ -91,7 +91,7 @@ module Integral
       {
         icon: 'rss',
         record_title: I18n.t('integral.backend.record_selector.posts.record'),
-        selector_path: Engine.routes.url_helpers.backend_posts_path,
+        selector_path: Engine.routes.url_helpers.list_backend_posts_path,
         selector_title: I18n.t('integral.backend.record_selector.posts.title')
       }
     end

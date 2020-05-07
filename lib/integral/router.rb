@@ -71,7 +71,9 @@ module Integral
           end
 
           # Image Management
-          resources :images, as: :img
+          resources :images, as: :img do
+            get 'list', on: :collection
+          end
 
           # Page Management
           resources :pages do
@@ -84,10 +86,9 @@ module Integral
           end
 
           # Activity Management
-          resources :activities, only: %i[index show] do
+          resources :activities, only: %i[index] do
             collection do
               post 'widget'
-              post 'grid'
             end
           end
 
@@ -111,7 +112,8 @@ module Integral
           end
 
           # List Management
-          resources :lists, except: [:show] do
+          resources :lists do
+            get 'list', on: :collection
             member do
               post 'duplicate'
             end

@@ -1,34 +1,33 @@
 .card
-  .card-section
-    .card-action-title
-      %h2 Categories
-      %button.button.hollow{ 'data-open' => 'new_category_modal' } Create
-    %table.hover
-      - Integral::Category.all.decorate.each do |category|
-        %tr
-          %td= category.title
-          %td
-            %span.badge= category.posts.count
-          %td
-            %button.button--action-pane{ 'data-toggle' => "dropdown-pane-actions-category-#{category.id}" }
-              = icon('ellipsis-v')
-            .dropdown-pane.dropdown-pane--actions{ id: "dropdown-pane-actions-category-#{category.id}", data: { dropdown: true, position: :bottom, alignment: :right, close_on_click: 'true' } }
-              %ul.menu.vertical
-                %li
-                  %button{ data: { modal_url: edit_backend_category_url(category.id), button_edit_category: "modal--category-edit-#{category.id}" } }
-                    = icon('edit')
-                    = t('integral.actions.edit')
-                %li
-                  - if category.posts.count.zero?
-                    = link_to backend_category_url(category.id), method: :delete, data: { confirm: t('integral.actions.confirmation.deletion'), button_delete_category: true }, remote: true do
-                      = icon('remove')
-                      = t('integral.actions.delete')
+  .card-action-title
+    %h2 Categories
+    %button.button.hollow{ 'data-open' => 'new_category_modal' } Create
+  %table.hover
+    - Integral::Category.all.decorate.each do |category|
+      %tr
+        %td= category.title
+        %td
+          %span.badge= category.posts.count
+        %td
+          %button.button--action-pane{ 'data-toggle' => "dropdown-pane-actions-category-#{category.id}" }
+            = icon('ellipsis-v')
+          .dropdown-pane.dropdown-pane--actions{ id: "dropdown-pane-actions-category-#{category.id}", data: { dropdown: true, position: :bottom, alignment: :right, close_on_click: 'true' } }
+            %ul.menu.vertical
+              %li
+                %button{ data: { modal_url: edit_backend_category_url(category.id), button_edit_category: "modal--category-edit-#{category.id}" } }
+                  = icon('edit')
+                  = t('integral.actions.edit')
+              %li
+                - if category.posts.count.zero?
+                  = link_to backend_category_url(category.id), method: :delete, data: { confirm: t('integral.actions.confirmation.deletion'), button_delete_category: true }, remote: true do
+                    = icon('remove')
+                    = t('integral.actions.delete')
 
 
-                  - else
-                    %button.disabled{ title: "Cannot delete categories which include posts.", data: { tooltip: true, position: "bottom", alignment: "center" } }
-                      = icon('remove')
-                      = t('integral.actions.delete')
+                - else
+                  %button.disabled{ title: "Cannot delete categories which include posts.", data: { tooltip: true, position: "bottom", alignment: "center" } }
+                    = icon('remove')
+                    = t('integral.actions.delete')
 
 
 = render partial: 'integral/backend/categories/modal', locals: { title: 'Category Creation' }

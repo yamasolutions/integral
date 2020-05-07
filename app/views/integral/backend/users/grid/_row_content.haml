@@ -1,0 +1,8 @@
+%td
+  = image_tag resource.avatar.url(:thumbnail), class: :avatar
+  = resource.name.truncate(30)
+%td= resource.email
+%td
+  %span.label= t("integral.statuses.#{resource.status}")
+%td= l(resource.updated_at, format: :long)
+

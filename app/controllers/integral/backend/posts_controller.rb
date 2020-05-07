@@ -25,10 +25,6 @@ module Integral
         @resource.user = current_user
       end
 
-      # GET /
-      # Post dashboard screen
-      def index; end
-
       private
 
       def resource_params

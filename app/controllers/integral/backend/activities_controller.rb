@@ -3,7 +3,6 @@ module Integral
     # Activity management
     class ActivitiesController < BaseController
       before_action :authorize_with_klass, except: [:widget]
-      before_action -> { set_grid }
 
       def widget
         activities = cast_activities(@grid.assets.limit(10))
@@ -12,35 +11,26 @@ module Integral
         render json: { content: render_to_string(partial: 'integral/backend/activities/activity', collection: activities), last_created_at: last_created_at }
       end
 
-      # POST /grid
-      # AJAX grid for activities
-      # TODO: Could move this grid action into index action and respond different if json request
-      def grid
-        render json: { content: render_to_string(partial: 'integral/backend/activities/grid',
-                                                 locals: { grid: @grid }) }
-      end
-
       # GET /
       # Lists all activities
-      def index; end
-
-      # TODO: Implement this or some particular versioned one through routes.
-      #
-      # /admin/pages/activity -> All Page activity
-      # /admin/pages/:id/activity -> Specific Page activity
-      #
-      # /admin/posts/activity -> All Page activity
-      # /admin/posts/:id/activity -> Specific Page activity
-      #
-      # etc
-      #
-      # # GET /activity:id
-      # # View an Activity
-      # def show
-      #   @activity = Integral::Version.find(params[:id])
-      # end
+      def index
+        respond_to do |format|
+          format.html
+          format.json do
+            render json: { content: render_to_string(partial: "integral/backend/shared/grid/grid") }
+          end
+        end
+      end
 
       private
+
+      def list_backend_resources_url
+        backend_activities_url
+      end
+
+      def backend_resource_url(resource)
+        resource.url
+      end
 
       def set_breadcrumbs
         add_breadcrumb I18n.t('integral.breadcrumbs.dashboard'), :backend_dashboard_url

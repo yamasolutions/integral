@@ -5,6 +5,42 @@ module Integral
     module BaseHelper
       include Integral::SupportHelper
 
+      # Handles extra optional options to `link_to` - Font awesome icons & wrapper
+      def link_to(name = nil, options = nil, html_options = nil, &block)
+        return super if block_given?
+        return super if html_options.nil?
+
+        if html_options[:icon]
+          name = content_tag(:span, name)
+          name.prepend(icon(html_options.delete(:icon)))
+        end
+
+        if html_options[:wrapper]
+          wrapper = html_options.delete(:wrapper)
+          if wrapper == :cell
+            content_tag(:div, super(name, options, html_options, &block), class: 'cell')
+          else
+            content_tag(wrapper, super(name, options, html_options, &block))
+          end
+        else
+          super(name, options, html_options, &block)
+        end
+      end
+
+      # @return [String] Resource Grid Form
+      def render_resource_grid_form(&block)
+        if block_given?
+          render(layout: "integral/backend/shared/grid/form", &block)
+        else
+          render(partial: "integral/backend/shared/grid/form")
+        end
+      end
+
+      # @return [String] Resource Grid
+      def render_resource_grid(locals = {})
+        render(partial: "integral/backend/shared/grid/grid", locals: locals)
+      end
+
       # @return [String] Integral card
       def render_card(partial, locals = {})
         render(partial: "integral/backend/shared/cards/#{partial}", locals: locals)
@@ -83,36 +119,6 @@ module Integral
       # Renders a donut chart
       def render_donut_chart(dataset)
         ChartRenderer::Donut.render(dataset)
-      end
-
-      # Donut Graph - At a Glance
-      def dataset_at_a_glance_posts
-        [
-          { scope: Integral::Post.published, label: 'Published' },
-          { scope: Integral::Post.draft, label: 'Draft ' }
-        ]
-      end
-
-      # Donut Graph - At a Glance
-      def dataset_at_a_glance_pages
-        [
-          { scope: Integral::Page.published, label: 'Published' },
-          { scope: Integral::Page.draft, label: 'Draft ' },
-          { scope: Integral::Page.archived, label: 'Archived ' }
-        ]
-      end
-
-      # Donut Graph - At a Glance
-      def dataset_dashboard_atg
-        data = [
-          { scope: Integral::Page, label: 'Total Pages' },
-          { scope: Integral::List, label: 'Total Lists' },
-          { scope: Integral::Image, label: 'Total Images' },
-          { scope: Integral::User, label: 'Total Users' }
-        ]
-
-        data.prepend(scope: Integral::Post, label: 'Total Posts') if Integral.blog_enabled?
-        data
       end
 
       # Line graph - Last week

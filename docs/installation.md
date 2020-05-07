@@ -27,7 +27,7 @@ Rails.application.routes.default_url_options[:host] = 'http://localhost:3000'
 
 Voila! Start your rails server and you're ready to go! You can access the user only area at `/admin`
 
-*Integral requires Rails 5.2 or higher and Ruby 2.4.1 or higher.*
+*Integral requires Rails 5.2 or higher and Ruby 2.5.8 or higher.*
 
 ## Useful links
 

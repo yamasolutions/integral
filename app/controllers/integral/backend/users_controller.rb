@@ -2,10 +2,9 @@ module Integral
   module Backend
     # Users controller
     class UsersController < BaseController
-      before_action :set_resource, except: %i[create new index list]
-      before_action :authorize_with_klass, except: %i[activities activity show edit update]
+      before_action :set_resource, except: %i[create new index list account]
+      before_action :authorize_with_klass, except: %i[activities activity show edit update account]
       before_action :authorize_with_instance, only: %i[show edit update]
-      before_action -> { set_grid }, only: [:index]
 
       # GET /
       # Lists all users
@@ -20,7 +19,6 @@ module Integral
 
       # GET /:id
       # Show specific user
-      #
       def show
         add_breadcrumb @resource.name, :backend_user_path
       end
@@ -34,7 +32,6 @@ module Integral
 
       # GET /account
       # Show specific users account page
-      #
       def account
         @resource = current_user
         add_breadcrumb @resource.name, :backend_account_path

@@ -89,15 +89,20 @@ function ready() {
     }
   });
 
+  // Initialize foundation components on filter
+  $(".card.listing form").on("ajax:success", function(ev) {
+    $(ev.currentTarget).closest('.card.listing').find('[data-grid] table').foundation();
+  });
+
   // Hijack context menu click for rows which have a URL
-  $("tr[data-href]").on("contextmenu", function(ev) {
+  $('.card.listing').on('contextmenu', 'tr[data-href]', function(ev) {
     $('#' + ev.currentTarget.dataset.contextMenu).foundation('open');
 
     return false;
   });
 
   // Capture clicks on rows which have a URL and visit that URL
-  $("tr[data-href]").on("click", function(ev) {
+  $('.card.listing').on('click', 'tr[data-href]', function(ev) {
     // Do not follow if the click is within a data-toggle
     if (($(ev.target).closest('[data-toggle]').length == 0) && ($(ev.target).closest('[data-dropdown]').length == 0)) {
       document.location = $(ev.currentTarget).data('href');

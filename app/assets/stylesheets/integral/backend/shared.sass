@@ -79,6 +79,7 @@ input[readonly].datepicker
   cursor: pointer
 
 .input.alternative
+  margin-bottom: 0.75rem
   label
     font-size: .9rem
     margin-bottom: 0
@@ -90,8 +91,8 @@ input[readonly].datepicker
   > select, > textarea, > input[type=text], > input[type=url], > input[type=number]
     border-radius: 0
     -webkit-appearance: none
+    margin-bottom: 0
     &.has-error
-      margin-bottom: 0
       color: $alert-color
       border-color: $alert-color
       background-color: transparentize($alert-color, 0.9)
@@ -102,6 +103,8 @@ input[readonly].datepicker
     margin: .5em 0
     font-size: .9rem
     color: $alert-color
+  .help-text
+    margin-top: 5px
 
 ul.accordion
   background-color: transparent
@@ -373,6 +376,8 @@ ul.tabs
 .card.list-management
   .top-bar
     @include top-bar-unstack
+    .input.alternative
+      margin-bottom: 0
     .top-bar-right .input.alternative
       display: flex
       align-items: center
@@ -487,6 +492,10 @@ ul.tabs
 
 
 /** Forms **/
+.input
+  .form-error
+    margin: 0
+
 .field-with-errors
   > input, > textarea, > select
     @include form-input-error
@@ -763,6 +772,7 @@ table
   transform: rotate(-135deg)
 
 .help-text
+  margin-top: -5px
   margin-bottom: 0
 
 .card-action-title
@@ -840,4 +850,18 @@ table
 .tr--clickable
   cursor: pointer
 
+.grid-x
+  > .cell
+    @include xy-cell-gutters($gutter-type: padding) //($gutters, $gutter-type, $gutter-position, $breakpoint, $vertical)
 
+.grid-y
+  > .input, > .image-select
+    @include card-container($card-background, $card-font-color, $card-margin-bottom, $card-border, $card-border-radius, $card-shadow)
+    @include card-section
+    overflow: initial
+
+.card
+  @include card-section
+
+.card-unpadded
+  @include card-container($card-background, $card-font-color, $card-margin-bottom, $card-border, $card-border-radius, $card-shadow)

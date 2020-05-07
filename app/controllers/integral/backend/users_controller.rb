@@ -5,7 +5,6 @@ module Integral
       before_action :set_resource, except: %i[create new index list account]
       before_action :authorize_with_klass, except: %i[activities activity show edit update account notifications read_notification]
       before_action :authorize_with_instance, only: %i[show edit update]
-      before_action -> { set_grid }, only: [:index]
 
       # GET /
       # Lists all users
@@ -27,7 +26,6 @@ module Integral
 
       # GET /account
       # Show specific users account page
-      #
       def account
         @resource = current_user
         add_breadcrumb @resource.name, :backend_account_path
@@ -72,6 +70,26 @@ module Integral
           head :ok
         else
           head :unprocessable_entity
+        end
+      end
+
+      # PUT /:id/block
+      # Block a user
+      def block
+        if @resource.blocked!
+          respond_successfully(notification_message('edit_success'), backend_user_path(@resource))
+        else
+          respond_failure(notification_message('edit_failure'), 'edit')
+        end
+      end
+
+      # PUT /:id/unblock
+      # Unblock a user
+      def unblock
+        if @resource.active!
+          respond_successfully(notification_message('edit_success'), backend_user_path(@resource))
+        else
+          respond_failure(notification_message('edit_failure'), 'edit')
         end
       end
 

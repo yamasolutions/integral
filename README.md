@@ -1,7 +1,7 @@
 [![Gem Version](https://badge.fury.io/rb/integral.svg)][version-website]
 [![Current Build Status](https://img.shields.io/circleci/project/github/yamasolutions/integral/master.svg)][ci-website] [![Inline docs](http://inch-ci.org/github/yamasolutions/integral.svg?branch=master)][docs-website]
 # Integral CMS
-![Integral CMS Features](https://media.giphy.com/media/LwzTKp4PxFpvKfxMJe/giphy.gif)
+![Integral CMS Features](https://integralrails.com/features.gif)
 
 Integral is a CMS for Rails 5+. The aim of Integral is to lower the barrier of entry in creating websites, using Ruby on Rails, with all the bells and whistles that users have now come to expect.
 Out of the box integral provides;

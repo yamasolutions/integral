@@ -1,0 +1,11 @@
+%td= resource.title.truncate(30)
+%td
+  - if resource.user.present?
+    = image_tag resource.user.avatar.url(:thumbnail), alt: resource.user.name, class: 'avatar'
+    = resource.user.name
+  - else
+    "#{resource.user_id} [Deleted]"
+%td
+  %span.label= t("integral.resources.status.#{resource.status}")
+%td= number_with_delimiter(resource.view_count)
+%td= l(resource.updated_at, format: :long)

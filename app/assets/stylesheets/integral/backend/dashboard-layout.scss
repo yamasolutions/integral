@@ -82,6 +82,7 @@
       align-items: center;
       color: $white;
       padding: 1em;
+      background-color: $secondary-color;
       &.is-active {
         background-color: scale-color($secondary-color, $lightness: 10%);
       }

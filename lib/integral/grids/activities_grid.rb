@@ -44,7 +44,6 @@ module Integral
       column(:action, order: :event)
       column(:object, order: :item_type)
       column(:instance)
-      column(:attributes_changed)
       column(:actions)
     end
   end

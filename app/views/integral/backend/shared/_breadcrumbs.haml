@@ -3,7 +3,7 @@
     - if @breadcrumbs.present?
       .top-bar-left
         %ul.breadcrumbs
-          = render_breadcrumbs :tag => :li, :separator => ""
-    - if content_for?(:actionbar)
+          = render_breadcrumbs tag: :li, separator: ""
+    - if content_for?(:actionbar) || render_default_action_bar?
       .top-bar-right
-        = content_for(:actionbar)
+        = render partial: 'integral/backend/shared/action_bar'

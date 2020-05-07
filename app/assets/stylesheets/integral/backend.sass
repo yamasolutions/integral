@@ -25,6 +25,20 @@
       &.ins
         background-color: transparentize($success-color, 0.7)
 
+hr
+  border: solid 0.5px #f4f7fb
+  &.dark
+    border-color: #d4dfef
+    margin: 0.5em 0
+
+.data-unavailable
+  margin: 0 auto
+  display: flex
+  align-items: center
+  //color: #17212b;
+  span
+    margin-right: 2rem
+
 .card
   font-size: 0.9em
   .description
@@ -33,9 +47,7 @@
   .subtitle
     margin: -0.5em 0 -0.25em 0
     color: scale-color($body-font-color, $lightness: 20%)
-  .data-unavailable
-    float: right
-  > .card-section > .actions
+  > .actions
     a
       display: block
       margin-bottom: 1em
@@ -44,26 +56,21 @@
     width: 1.5rem
     text-align: center
 
-  hr
-    border: solid 0.5px #f4f7fb
-    &.dark
-      border-color: #d4dfef
-      margin: 0.5em 0
-  &.object
-    .info-item
-      border-top: solid 0.5px #d4dfef
-      font-size: 0.8em
-      padding: 0.5em 0
-      .attr
-        color: scale-color($body-font-color, $lightness: 10%)
+.card-unpadded.object
+  .info-item
+    border-top: solid 0.5px #d4dfef
+    font-size: 0.8em
+    padding: 0.5em 0
+    .attr
+      color: scale-color($body-font-color, $lightness: 10%)
 
-      .val
-        float: right
-        &.thumb img
-          max-width: 1rem
-          max-height: 1rem
+    .val
+      float: right
+      &.thumb img
+        max-width: 1rem
+        max-height: 1rem
 
-    .button
-      border-radius: 0px 0px 5px
-      font-size: 1em
+  .button
+    border-radius: 0px 0px 5px
+    font-size: 1em
 

@@ -73,7 +73,7 @@ module Integral
       {
         icon: 'file',
         record_title: I18n.t('integral.backend.record_selector.pages.record'),
-        selector_path: Engine.routes.url_helpers.backend_pages_path,
+        selector_path: Engine.routes.url_helpers.list_backend_pages_path,
         selector_title: I18n.t('integral.backend.record_selector.pages.title')
       }
     end

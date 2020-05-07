@@ -12,8 +12,9 @@ jQuery.fn.characterCounter = function(){
 
     var itHasLengthAttribute = $input.attr('maxlength') != undefined;
     var itIsntDisabled = $input.attr('data-character-counter') != 'false';
+    var itIsEnabled = $input.attr('data-character-counter') == 'true';
 
-    if ((itHasLengthAttribute) && (itIsntDisabled)) {
+    if ((itHasLengthAttribute) && (itIsntDisabled) || itIsEnabled) {
       $input.on('input', updateCounter);
       $input.on('focus', updateCounter);
       $input.on('blur', removeCounterElement);
@@ -24,14 +25,18 @@ jQuery.fn.characterCounter = function(){
 };
 
 function updateCounter(){
-  var maxLength     = +$(this).attr('maxlength'),
-  actualLength      = this.value.length,
-  isValidLength     = actualLength <= maxLength;
+  var maxLength = $(this).attr('maxlength');
+  var actualLength = this.value.length;
 
-  $(this).parent().find('span[class="character-counter"]')
-    .html( actualLength + '/' + maxLength);
+  if (maxLength === undefined) {
+    var formattedCount = actualLength;
+  } else {
+    var isValidLength = actualLength <= maxLength;
+    var formattedCount = actualLength + '/' + maxLength;
+    addInputStyle(isValidLength, $(this));
+  }
 
-  addInputStyle(isValidLength, $(this));
+  $(this).parent().find('span[class="character-counter"]').html(formattedCount);
 }
 
 function addCounterElement($input) {
@@ -46,6 +51,7 @@ function addCounterElement($input) {
     .css('float','right')
     .css('font-size','12px')
     .css('margin-top', '-.5rem')
+    .css('align-self', 'flex-end')
     .css('height', 1);
 
   $input.after($counterElement);

@@ -1,7 +1,15 @@
+GIT
+  remote: git://github.com/twalpole/apparition.git
+  revision: b2bcf91504eec691c550bfe656993ba23c676d04
+  specs:
+    apparition (0.5.0)
+      capybara (~> 3.13, < 4)
+      websocket-driver (>= 0.6.5)
+
 PATH
   remote: .
   specs:
-    integral (1.3.0)
+    integral (1.4.0)
       active_record_union (~> 1.3.0)
       acts-as-taggable-on (~> 6.0)
       breadcrumbs_on_rails (~> 3.0)
@@ -21,7 +29,7 @@ PATH
       draper (~> 3.0)
       fast_jsonapi (~> 1.5)
       font-awesome-sass (~> 4.3)
-      foundation-rails (~> 6.4.1)
+      foundation-rails (~> 6.6.2)
       friendly_id (~> 5.2)
       gaffe (~> 1.2)
       gibbon (~> 3.3)
@@ -104,21 +112,21 @@ GEM
       public_suffix (>= 2.0.2, < 5.0)
     arel (9.0.0)
     ast (2.4.0)
-    aws-eventstream (1.0.3)
-    aws-partitions (1.269.0)
-    aws-sdk-core (3.89.1)
-      aws-eventstream (~> 1.0, >= 1.0.2)
+    aws-eventstream (1.1.0)
+    aws-partitions (1.305.0)
+    aws-sdk-core (3.94.0)
+      aws-eventstream (~> 1, >= 1.0.2)
       aws-partitions (~> 1, >= 1.239.0)
       aws-sigv4 (~> 1.1)
       jmespath (~> 1.0)
-    aws-sdk-kms (1.28.0)
+    aws-sdk-kms (1.30.0)
       aws-sdk-core (~> 3, >= 3.71.0)
       aws-sigv4 (~> 1.1)
-    aws-sdk-s3 (1.60.1)
+    aws-sdk-s3 (1.63.0)
       aws-sdk-core (~> 3, >= 3.83.0)
       aws-sdk-kms (~> 1)
       aws-sigv4 (~> 1.1)
-    aws-sigv4 (1.1.0)
+    aws-sigv4 (1.1.3)
       aws-eventstream (~> 1.0, >= 1.0.2)
     babel-source (5.8.35)
     babel-transpiler (0.7.0)
@@ -143,8 +151,8 @@ GEM
     carrierwave-aws (1.3.0)
       aws-sdk-s3 (~> 1.0)
       carrierwave (>= 0.7, < 2.0)
-    carrierwave-imageoptimizer (1.4.1)
-      carrierwave (>= 0.8, < 2.1)
+    carrierwave-imageoptimizer (1.5.0)
+      carrierwave (>= 0.8, < 2.2)
       image_optimizer (~> 1.6)
     carrierwave_backgrounder_revived (1.0.0)
       carrierwave (>= 0.5, < 2.0)
@@ -161,7 +169,6 @@ GEM
       client_side_validations (>= 9.3.2, < 15)
       simple_form (>= 3.5, < 5)
     climate_control (0.2.0)
-    cliver (0.3.2)
     cocoon (1.2.14)
     coderay (1.1.2)
     coffee-rails (4.2.2)
@@ -206,15 +213,16 @@ GEM
       railties (>= 3.0.0)
     faker (1.9.6)
       i18n (>= 0.7)
-    faraday (1.0.0)
+    faraday (1.0.1)
       multipart-post (>= 1.2, < 3)
     fast_jsonapi (1.5)
       activesupport (>= 4.2)
+    ffi (1.12.2)
     font-awesome-sass (4.7.0)
       sass (>= 3.2)
-    foundation-rails (6.4.3.0)
+    foundation-rails (6.6.2.0)
       railties (>= 3.1.0)
-      sass (>= 3.3.0, < 3.5)
+      sass (>= 3.3.0)
       sprockets-es6 (>= 0.9.0)
     foundation_emails (2.2.1.0)
     friendly_id (5.3.0)
@@ -224,7 +232,7 @@ GEM
     generator_spec (0.9.4)
       activesupport (>= 3.0.0)
       railties (>= 3.0.0)
-    gibbon (3.3.2)
+    gibbon (3.3.3)
       faraday (>= 0.16.0)
       multi_json (>= 1.11.0)
     globalid (0.4.2)
@@ -252,7 +260,7 @@ GEM
     i18n-js (3.0.11)
       i18n (>= 0.6.6, < 2)
     image_optimizer (1.8.0)
-    inky-rb (1.3.7.5)
+    inky-rb (1.3.8.0)
       foundation_emails (~> 2)
       nokogiri
     jmespath (1.4.0)
@@ -303,16 +311,12 @@ GEM
     parsley-rails (2.4.4.0)
       railties (>= 3.0.0)
     pg (0.21.0)
-    poltergeist (1.18.1)
-      capybara (>= 2.1, < 4)
-      cliver (~> 0.3.1)
-      websocket-driver (>= 0.2.0)
     powerpack (0.1.2)
     premailer (1.11.1)
       addressable
       css_parser (>= 1.6.0)
       htmlentities (>= 4.0.0)
-    premailer-rails (1.10.3)
+    premailer-rails (1.11.1)
       actionmailer (>= 3)
       premailer (~> 1.7, >= 1.7.9)
     pry (0.12.2)
@@ -358,6 +362,9 @@ GEM
       thor (>= 0.19.0, < 2.0)
     rainbow (3.0.0)
     rake (13.0.1)
+    rb-fsevent (0.10.3)
+    rb-inotify (0.10.1)
+      ffi (~> 1.0)
     regexp_parser (1.6.0)
     regexp_property_values (1.0.0)
     request_store (1.5.0)
@@ -397,7 +404,11 @@ GEM
       sexp_processor (~> 4.6)
     ruby_parser (3.14.0)
       sexp_processor (~> 4.9)
-    sass (3.4.25)
+    sass (3.7.4)
+      sass-listen (~> 4.0.0)
+    sass-listen (4.0.0)
+      rb-fsevent (~> 0.9, >= 0.9.4)
+      rb-inotify (~> 0.9, >= 0.9.7)
     sass-rails (5.1.0)
       railties (>= 5.2.0)
       sass (~> 3.1)
@@ -447,7 +458,7 @@ GEM
     websocket-driver (0.7.1)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.4)
-    will_paginate (3.2.1)
+    will_paginate (3.3.0)
     will_paginate-foundation (6.2.1)
       will_paginate (>= 3.0.3)
     xpath (3.2.0)
@@ -458,6 +469,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  apparition!
   brakeman (~> 3.4)
   capybara (~> 3.32)
   database_cleaner (~> 1.5)
@@ -467,7 +479,6 @@ DEPENDENCIES
   integral!
   launchy (~> 2.4)
   pg (~> 0.21)
-  poltergeist (~> 1.11)
   pry-rails (~> 0.3)
   rails-controller-testing (~> 1.0)
   rspec-rails (~> 4.0)
@@ -479,7 +490,7 @@ DEPENDENCIES
   yard (~> 0.9.11)
 
 RUBY VERSION
-   ruby 2.4.1p111
+   ruby 2.5.8p224
 
 BUNDLED WITH
-   1.16.1
+   2.1.4

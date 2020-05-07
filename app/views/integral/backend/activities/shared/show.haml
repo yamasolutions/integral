@@ -1,7 +1,7 @@
 - content_for :title, t('integral.navigation.activity_log')
-.grid-x.grid-padding-x
-  .cell.small-12.medium-9
-    .card.object
+.grid-x
+  .cell.medium-9
+    .card-unpadded.object
       .card-section
         %h2 Activity Data
         -# - if record.to_card[:image].present?
@@ -26,7 +26,7 @@
                 = image_tag @activity.whodunnit.avatar.url(:thumbnail), class: :avatar
                 = @activity.whodunnit.name
 
-  .cell.small-12.medium-3
+  .cell.medium-3
     %ul.menu.vertical
       %li
         = link_to @activity.item_url, class: 'button white' do

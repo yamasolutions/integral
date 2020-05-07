@@ -8,19 +8,11 @@
           = icon('eye')
           = t('integral.actions.view_on_site')
       - else
-        = link_to @resource.path, class: 'button white' do
-          = icon('eye')
-          = t('integral.actions.view_on_site')
+        = link_to t('integral.actions.view_on_site'), @resource.path, class: 'button white', icon: :eye
 
-    - if policy(Integral::Page).duplicate?
-      %li
-        = link_to duplicate_backend_page_url(@resource.id), class: 'button white', method: :post, data: { confirm: t('integral.actions.confirmation.clone') } do
-          = icon('history')
-          = t('integral.actions.clone')
+    - if policy(resource_klass).duplicate?
+      = link_to t('integral.actions.clone'), duplicate_backend_resource_url(@resource.id), class: 'button white', method: :post, data: { confirm: t('integral.actions.confirmation.clone') }, icon: :history, wrapper: :li
     - if policy(Integral::Version).manager?
-      %li
-        = link_to activities_backend_page_url(@resource.id), class: 'button white' do
-          = icon('history')
-          = t('integral.navigation.activity')
+      = link_to t('integral.navigation.activity'), activities_backend_resource_url(@resource.id), class: 'button white', icon: :history, wrapper: :li
 
 = render 'form'

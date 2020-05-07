@@ -1,0 +1,5 @@
+%td= resource.title.truncate(30)
+%td= resource.path
+%td
+  %span.label= t("integral.records.status.#{resource.status}")
+%td= l(resource.updated_at, format: :long)

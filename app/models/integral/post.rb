@@ -22,7 +22,7 @@ module Integral
     self.per_page = 8 if respond_to? :per_page
 
     # Associations
-    belongs_to :user
+    belongs_to :user, -> { with_deleted }
     belongs_to :category
     belongs_to :image, class_name: 'Integral::Image', optional: true
     belongs_to :preview_image, class_name: 'Integral::Image', optional: true
@@ -45,16 +45,6 @@ module Integral
 
     # Scopes
     scope :search, ->(query) { where('lower(title) LIKE ? OR lower(slug) LIKE ?', "%#{query.downcase}%", "%#{query.downcase}%") }
-
-    # @return [Array] containing available human readable statuses against there numeric value
-    def self.available_statuses(opts = { reverse: false })
-      statuses = [
-        [I18n.t('integral.records.status.draft'), 0],
-        [I18n.t('integral.records.status.published'), 1]
-      ]
-
-      opts[:reverse] ? statuses.each(&:reverse!) : statuses
-    end
 
     # Increments the view count of the post if a PostViewing is successfully added
     #
@@ -102,7 +92,7 @@ module Integral
       {
         icon: 'rss',
         record_title: I18n.t('integral.backend.record_selector.posts.record'),
-        selector_path: Engine.routes.url_helpers.backend_posts_path,
+        selector_path: Engine.routes.url_helpers.list_backend_posts_path,
         selector_title: I18n.t('integral.backend.record_selector.posts.title')
       }
     end

@@ -4,7 +4,7 @@
   .input-group
     %span.input-group-label
       = icon('key')
-    = f.input :password, input_html: { class: 'input-group-field' }, label: false
+    = f.input :password, input_html: { 'data-character-counter' => 'false', class: 'input-group-field' }, label: false
   .input-group
     %span.input-group-label
       = icon('key')
@@ -12,6 +12,3 @@
 
   .form-actions
     = f.button :button, t("devise.invitations.edit.submit_button"), class: 'button expanded'
-
-= render "devise/shared/links"
-

@@ -5,9 +5,36 @@ recommendations of [keepachangelog.com](http://keepachangelog.com/).
 
 ## Unreleased
 
+### Added
+
+- CharactorCounter can now be added to inputs which do not have a maxlength set
+- List Management - Added CharactorCounter to list item fields
+- Added User statuses - pending, active & blocked
+- User managers can now block other users from logging in and accessing any backend functionality
+- Devise Emails now use the Integral mailer layout
+- Default action bar content for post, page & user dashboard which has a create button
+- Backend image and list dashboards
+- Backend image and list show pages
+- Backend helpers `render_resource_grid` & `render_resource_grid_form` to reduce view duplication
+- Backend helper extension for `link_to` to allow passing of `wrapper` & `icon` options
+
+### Fixed
+
+- Admin bar - Add white background and bring to front
+- Backend posts form - Existing tag suggestions were not appearing when typing in input
+- Image Uploader - Initial uploaded image was not displaying
+- Backend grid context menu not appearing for dynamic loaded rows
+
+### Dependancies
+- Bump Foundation to 6.6.2
+- Swap out poltergeist & PhantomJS for Apparition
+- Bump Ruby to 2.5.8
+
+## v1.4.0 - 2020-04-17
+
 ### Breaking Changes
 
-- If any Post or Page content contains images with class of 'lazyload' you'll need to use the #editor_body method when instaniating Ckeditor (this method handles converting the data-src back to regular src)
+- If any Post or Page content contains images with class of 'lazyload' you'll need to use the `#editor_body` method when instaniating Ckeditor otherwise the lazyload images will not appear within the editor
 - All Posts must be associated to an Integral::Category through the `category` association
 
 ### Changed
@@ -16,15 +43,14 @@ recommendations of [keepachangelog.com](http://keepachangelog.com/).
 ### Added
 
 - Add user, post and page dashboards
-- Add recent activity cards on main backend and object dashboards
-- Add post and page backend show pages
-- Improved default frontend blog styling
-- Added backend Posts dashboard
-- Added Post category management & category listing pages - Every post must have one category
+- Add recent activity cards on backend dashboards & object show pages
+- Add backend post and page show pages
+- Blog - Improved default frontend blog styling
+- Blog - Added Post category management & category listing pages - Every post must have one category
+- Add webhook management for Post creation, updates, deletion and publication
 - Gallery - Handles pausing YouTube videos on close
 - Gallery - When only one item is present no longer shows thumbnail gallery and gallery controls
 - LazyLoading - Automatically mark Twitter & Instgram oEmbeds as Lazy Loads and handle lazy loading images with the 'lazyload' class
-- Add webhook management for Post creation, updates, deletion and publication
 - Updated Suggest Tags input to accept freeInput option (defaults to true) - when set to false only provided typeahead tags are valid
 - Set default title and notifications to Integral Backend CRUD endpoints
 - Pages - Added 'Archived' status

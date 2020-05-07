@@ -64,3 +64,13 @@ main
     button
       margin-top: 1rem
 
+#admin-bar
+  @include top-bar-unstack
+  background-color: $white
+  z-index: 1000
+  position: relative
+  @include breakpoint(small down)
+    padding-left: 0
+    padding-right: 0
+  .menu
+    background-color: $white

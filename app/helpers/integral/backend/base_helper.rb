@@ -37,7 +37,10 @@ module Integral
       end
 
       def recent_activity_grid(options)
-        Integral::Grids::ActivitiesGrid.new(options)
+        #Integral::Grids::ActivitiesGrid.new(options)
+        Integral::Grids::ActivitiesGrid.new options do |scope|
+          scope.where.not(whodunnit: nil)
+        end
       end
 
       # @return [String] title provided through yield or i18n scoped to controller namespace & action

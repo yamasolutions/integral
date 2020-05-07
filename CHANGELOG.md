@@ -23,10 +23,12 @@ recommendations of [keepachangelog.com](http://keepachangelog.com/).
 - Admin bar - Add white background and bring to front
 - Backend posts form - Existing tag suggestions were not appearing when typing in input
 - Image Uploader - Initial uploaded image was not displaying
+- Backend grid context menu not appearing for dynamic loaded rows
 
 ### Dependancies
 - Bump Foundation to 6.6.2
 - Swap out poltergeist & PhantomJS for Apparition
+- Bump Ruby to 2.5.8
 
 ## v1.4.0 - 2020-04-17
 

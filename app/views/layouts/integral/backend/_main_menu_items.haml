@@ -1,37 +1,5 @@
 = link_to t('integral.navigation.dashboard'), backend_dashboard_url, wrapper: :li, icon: :home
 
--# Default is
--# Link to dashboard
--# List
--#   link to dashboard
--#   link to creation
--#   link to listing
--#
--# Possibly add a concern or something like
--# Integral::Listable
--#
--# default is [:index, :new, :list]
--# custom is [:index, :new, list: { path: 'zyz', label: 'zyz' }]
--#
--#
--# Need a way of
--#   registering a model with the menu - Some kind of concern or in the Initializer
--#     Could change initializer method from tracked_objects to custom_objects - this automatically adds behaviour like tracking and menu registration
--#     i.e. config.custom_objects = [SpecialOffer, Event, Review]
--#   setting the icon - Get it from the decorator? - change icon method location from version to normal decorator and possibly add override
--#   customizing the paths labels & order of menu items - self.backend_main_menu_items -> [:index, :new, list: { path: 'zyz', label: 'zyz' }]
--#   handling authorization
--#
--#   OVERALL INTEGRAL ARCHITECTURE
--#   If we're going to be creating 'integral objects' should they use basic inheritance or some kind of concern ?
--#   If they use a concern does that mean we don't need the initializer config like custom_objects?
-
--# COULD USE THIS LIST GENERATOR FOR;
--# - Main Menu
--# Create Menu
--# Dropdown pane menus (grid)
-
-
 - if policy(Integral::Page).index?
   %li
     = link_to t('integral.navigation.pages'), backend_pages_url, icon: :file

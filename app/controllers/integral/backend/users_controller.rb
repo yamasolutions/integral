@@ -18,13 +18,6 @@ module Integral
         end
       end
 
-      # GET /:id
-      # Show specific user
-      #
-      def show
-        add_breadcrumb @resource.name, :backend_user_path
-      end
-
       # GET /:id/edit
       # Resource edit screen
       def edit

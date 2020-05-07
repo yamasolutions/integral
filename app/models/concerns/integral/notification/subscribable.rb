@@ -27,7 +27,6 @@ module Integral
         end
       end
 
-      # TODO: Should we be doing the group_bys in the DB?
       def notifiable_users
         object_notification_subscriptions = notification_subscriptions.group_by(&:state)
         object_notification_subscription_user_ids = object_notification_subscriptions.values.flatten.map(&:user_id)
@@ -40,18 +39,19 @@ module Integral
         notifiable_user_ids = (object_notification_subscriptions['subscribe']&.map(&:user_id) || []) + (class_notification_subscriptions['subscribe']&.map(&:user_id) || []) + top_level_notification_subscription_user_ids
         notifiable_user_ids -= [PaperTrail.request.whodunnit]
 
-        User.find(notifiable_user_ids)
+        User.find(notifiable_user_ids).select { |user| Pundit.policy!(user, self).receives_notifications? }
       end
 
       private
 
-      # TODO: Put this inside a Job (?)
-      # TODO: How to create multiple in one go but still run callbacks?
-      # TODO: Should pass through the created_at time otherwise the notification sets it when the notiifcation was created, rather than when the action was committed
-      # TODO: Add authorization
+      # TODO Improvements:
+      # - Move into a Job - Pass through the created_at time otherwise the notification sets it when the notifcation was created, rather than when the action was committed
+      # - Anyway to create multiple in one go but still run callbacks?
       def create_notifications(action)
-        notifiable_users.each do |notifiable|
-          Integral::Notification::Notification.create!(subscribable: self, recipient: notifiable, action: (integral_notification_action || action), actor_id: PaperTrail.request.whodunnit)
+        if PaperTrail.request.whodunnit
+          notifiable_users.each do |notifiable|
+            Integral::Notification::Notification.create!(subscribable: self, recipient: notifiable, action: (integral_notification_action || action), actor_id: PaperTrail.request.whodunnit)
+          end
         end
       end
     end

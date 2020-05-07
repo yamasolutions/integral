@@ -241,7 +241,7 @@ module Integral
 
       helper_method :render_default_action_bar?
       def render_default_action_bar?
-        action_name == 'index'
+        action_name == 'index' || action_name == 'show'
       end
 
       helper_method :new_backend_resource_url

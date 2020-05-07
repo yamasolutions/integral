@@ -7,12 +7,14 @@ recommendations of [keepachangelog.com](http://keepachangelog.com/).
 
 ### Added
 
-- CharactorCounter can now be added to inputs which do not have a maxlength set
-- List Management - Added CharactorCounter to list item fields
+- Notifications dropdown with read and unread states
+- Notification subscribing & unsubscribing to everything, particular classes & individual objects
 - Added User statuses - pending, active & blocked
 - User managers can now block other users from logging in and accessing any backend functionality
 - Devise Emails now use the Integral mailer layout
-- Default action bar content for post, page & user dashboard which has a create button
+- Default action bar content for index & show actions
+- CharactorCounter can now be added to inputs which do not have a maxlength set
+- List Management - Added CharactorCounter to list item fields
 - Backend image and list dashboards
 - Backend image and list show pages
 - Backend helpers `render_resource_grid` & `render_resource_grid_form` to reduce view duplication

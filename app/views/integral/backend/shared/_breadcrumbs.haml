@@ -1,4 +1,4 @@
-- if @breadcrumbs.present? || content_for?(:actionbar)
+- if @breadcrumbs.present? || content_for?(:actionbar) || render_default_action_bar?
   #action-bar.top-bar
     - if @breadcrumbs.present?
       .top-bar-left
@@ -6,4 +6,7 @@
           = render_breadcrumbs tag: :li, separator: ""
     - if content_for?(:actionbar) || render_default_action_bar?
       .top-bar-right
-        = render partial: 'integral/backend/shared/action_bar'
+        - if content_for?(:actionbar)
+          = content_for(:actionbar)
+        - else
+          = render partial: "integral/backend/shared/action_bar/#{action_name}"

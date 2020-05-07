@@ -25,6 +25,14 @@ module Integral
         def notification_subscriptions(omit_users:)
           Integral::Notification::Subscription.where(subscribable: self).where.not(user_id: omit_users)
         end
+
+        def subscribable?
+          true
+        end
+      end
+
+      def subscribable?
+        true
       end
 
       def notifiable_users

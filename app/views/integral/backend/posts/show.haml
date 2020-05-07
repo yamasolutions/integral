@@ -1,9 +1,9 @@
 = content_for :title, @resource.title
 
--# TODO: Move this into the default actionbar from other branch - may need to render different action bars depending on .. controller action
-= content_for :actionbar do
-  %ul.menu.horizontal
-    %li= render partial: 'integral/backend/shared/notification_subscription_toggle', locals: { subscribable: @resource }
+-# -# TODO: Move this into the default actionbar from other branch - may need to render different action bars depending on .. controller action
+-# = content_for :actionbar do
+-#   %ul.menu.horizontal
+-#     %li= render partial: 'integral/backend/shared/notification_subscription_toggle', locals: { subscribable: @resource }
 
 .grid-x
   .cell.large-6

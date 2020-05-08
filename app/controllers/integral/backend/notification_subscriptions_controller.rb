@@ -2,7 +2,7 @@ module Integral
   module Backend
     class NotificationSubscriptionsController < BaseController
       def update
-        subscription = current_user.self_notification_subscriptions.find_or_initialize_by(resource_params.except('state'))
+        subscription = current_user.own_notification_subscriptions.find_or_initialize_by(resource_params.except('state'))
         subscription.state = resource_params['state']
 
         if subscription.save

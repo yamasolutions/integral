@@ -1,5 +1,3 @@
-return if Rails.env.test?
-
 PaperTrail.enabled = false
 
 # Create User Roles
@@ -21,6 +19,8 @@ Integral::Role.create!(name: 'ListManager')
 
 # Demo User
 user = Integral::User.create!({ name: 'Integrico', email: 'user@integralrails.com', password: 'password', role_ids: Integral::Role.ids, admin: true, status: 1 })
+
+return if Rails.env.test? # Test DB should start with blank slate ... although roles and initial user are required
 
 # Demo Page
 host = URI.parse(Rails.application.routes.default_url_options[:host] || 'http://localhost:3000')

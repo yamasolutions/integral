@@ -6,16 +6,9 @@ module Integral
       belongs_to :subscribable, polymorphic: true, optional: true
       belongs_to :user
 
+      enum state: { subscribed: 'subscribed', unsubscribed: 'unsubscribed' }
+
       validates :subscribable_type, :state, presence: true
-
-      # TODO: Change state to enum? Get these and much more for free
-      def subscribed?
-        state == 'subscribed'
-      end
-
-      def unsubscribed?
-        state == 'unsubscribed'
-      end
     end
   end
 end

@@ -23,7 +23,7 @@ module Integral
 
       class_methods do
         def notification_subscriptions(omit_users:)
-          Integral::Notification::Subscription.where(subscribable: self).where.not(user_id: omit_users)
+          Integral::Notification::Subscription.where(subscribable_type: self.name).where.not(user_id: omit_users)
         end
 
         def subscribable?

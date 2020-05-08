@@ -17,8 +17,8 @@ module Integral
     # Relations
     has_many :role_assignments
     has_many :roles, through: :role_assignments
-    # TODO: Rename
-    has_many :self_notification_subscriptions, class_name: "Integral::Notification::Subscription"
+    # notification_subscription is used by Subscribable concern - Users can have notification_subscriptions AND be subscribable
+    has_many :own_notification_subscriptions, class_name: "Integral::Notification::Subscription"
     has_many :notifications, class_name: "Integral::Notification::Notification", foreign_key: :recipient_id
 
     # Validations
@@ -69,15 +69,15 @@ module Integral
     # @param subscribable [Class or Instance]
     def receives_notifications_for?(subscribable)
       if subscribable.is_a?(Class)
-        subscription = self_notification_subscriptions.find_by(subscribable_type: subscribable.name, subscribable_id: nil)
+        subscription = own_notification_subscriptions.find_by(subscribable_type: subscribable.name, subscribable_id: nil)
 
         return subscription.subscribed? if subscription
       else
-        instance_subscription = self_notification_subscriptions.find_by(subscribable_type: subscribable.class.name, subscribable_id: subscribable.id)
+        instance_subscription = own_notification_subscriptions.find_by(subscribable_type: subscribable.class.name, subscribable_id: subscribable.id)
 
         return instance_subscription.subscribed? if instance_subscription
 
-        class_level_subscription = self_notification_subscriptions.find_by(subscribable_type: subscribable.class.name, subscribable_id: nil)
+        class_level_subscription = own_notification_subscriptions.find_by(subscribable_type: subscribable.class.name, subscribable_id: nil)
 
         return class_level_subscription.subscribed? if class_level_subscription
       end

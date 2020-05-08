@@ -6,17 +6,6 @@ module Integral
       before_action :authorize_with_klass, except: %i[activities activity show edit update account notifications read_notification]
       before_action :authorize_with_instance, only: %i[show edit update]
 
-      # GET /
-      # Lists all users
-      def index
-        respond_to do |format|
-          format.html
-          format.json do
-            render json: { content: render_to_string(partial: 'integral/backend/users/grid', locals: { grid: @grid }) }
-          end
-        end
-      end
-
       # GET /:id/edit
       # Resource edit screen
       def edit

@@ -1,8 +1,9 @@
 module Integral
   # User model used to represent a authenticated user
   class User < ApplicationRecord
-    # Soft-deletion
-    acts_as_paranoid
+    include Notification::Subscribable
+
+    acts_as_paranoid # Soft-deletion
 
     mount_uploader :avatar, AvatarUploader
     process_in_background :avatar
@@ -16,6 +17,9 @@ module Integral
     # Relations
     has_many :role_assignments
     has_many :roles, through: :role_assignments
+    # notification_subscription is used by Subscribable concern - Users can have notification_subscriptions AND be subscribable
+    has_many :own_notification_subscriptions, class_name: "Integral::Notification::Subscription"
+    has_many :notifications, class_name: "Integral::Notification::Notification", foreign_key: :recipient_id
 
     # Validations
     validates :name, :email, presence: true
@@ -56,6 +60,29 @@ module Integral
       return true if Rails.env.development?
 
       super
+    end
+
+    def multiple_page_notifications?
+      notifications.count > Integral::Notification::Notification.per_page
+    end
+
+    # @param subscribable [Class or Instance]
+    def receives_notifications_for?(subscribable)
+      if subscribable.is_a?(Class)
+        subscription = own_notification_subscriptions.find_by(subscribable_type: subscribable.name, subscribable_id: nil)
+
+        return subscription.subscribed? if subscription
+      else
+        instance_subscription = own_notification_subscriptions.find_by(subscribable_type: subscribable.class.name, subscribable_id: subscribable.id)
+
+        return instance_subscription.subscribed? if instance_subscription
+
+        class_level_subscription = own_notification_subscriptions.find_by(subscribable_type: subscribable.class.name, subscribable_id: nil)
+
+        return class_level_subscription.subscribed? if class_level_subscription
+      end
+
+      notify_me
     end
 
     def active_for_authentication?

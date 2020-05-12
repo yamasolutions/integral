@@ -1,0 +1,3 @@
+%ul.menu.horizontal
+  - if @resource.respond_to?(:subscribable?) && @resource.subscribable?
+    %li= render partial: 'integral/backend/shared/notification_subscription_toggle', locals: { subscribable: @resource }

@@ -5,6 +5,10 @@ module Integral
     module BaseHelper
       include Integral::SupportHelper
 
+      def recent_user_notifications
+        @recent_user_notifications ||= current_user.notifications.recent
+      end
+
       # Handles extra optional options to `link_to` - Font awesome icons & wrapper
       def link_to(name = nil, options = nil, html_options = nil, &block)
         return super if block_given?
@@ -69,7 +73,10 @@ module Integral
       end
 
       def recent_activity_grid(options)
-        Integral::Grids::ActivitiesGrid.new(options)
+        #Integral::Grids::ActivitiesGrid.new(options)
+        Integral::Grids::ActivitiesGrid.new options do |scope|
+          scope.where.not(whodunnit: nil)
+        end
       end
 
       # @return [String] title provided through yield or i18n scoped to controller namespace & action

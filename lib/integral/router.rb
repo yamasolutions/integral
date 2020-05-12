@@ -63,12 +63,17 @@ module Integral
           resources :users do
             get 'list', on: :collection
             member do
+              put 'read_notification'
+              get 'notifications'
               put 'block'
               put 'unblock'
               get 'activities', controller: 'users'
               get 'activities/:activity_id', to: 'users#activity', as: :activity
             end
           end
+
+          # Notification subscription management
+          resources :notification_subscriptions, only: [:update]
 
           # Image Management
           resources :images, as: :img do

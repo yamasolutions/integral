@@ -25,7 +25,7 @@ module Integral
     describe '#activity_url' do
       context 'when blog enabled' do
         it 'provides the URL' do
-          expect(subject.activity_url(1)).to eq "http://test.somehost.com/admin/posts/2/activities/1"
+          expect(subject.activity_url(1)).to eq "http://test.somehost.com/admin/posts/1/activities/1"
         end
       end
 

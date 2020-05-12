@@ -49,5 +49,6 @@ module Integral
     alias update? manager?
     alias duplicate? manager?
     alias grid? manager?
+    alias receives_notifications? manager?
   end
 end

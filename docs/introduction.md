@@ -4,19 +4,20 @@ title: Introduction
 sidebar_label: Introduction
 ---
 
-![Integral CMS Features](https://media.giphy.com/media/LwzTKp4PxFpvKfxMJe/giphy.gif)
+![Integral CMS Features](https://integralrails.com/features.gif)
 
 Integral is a CMS for Rails 5+. The aim of Integral is to lower the barrier of entry in creating websites, using Ruby on Rails, with all the bells and whistles that users have now come to expect.
 
 ## Features
 * Backend features
     * Professional design
+    * Activity tracking
+    * User notifications
     * User authentication & authorization
     * Page & Post management with full WYSWIYG editing
     * Image management (w/ background image processing)
     * List management
     * Settings management
-    * Activity tracking
 * Frontend features
     * Dynamic Pages
     * Integrated Blog

@@ -6,7 +6,7 @@
     .cell.shrink
       .grid-y
         .cell.shrink
-          = link_to backend_account_url do
+          = link_to edit_backend_user_url(current_user) do
             = icon('edit')
             = t('integral.actions.edit_profile')
         - if policy(Integral::Page).manager?

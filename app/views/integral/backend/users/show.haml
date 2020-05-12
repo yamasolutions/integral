@@ -23,6 +23,13 @@
                 %p
                   = icon('user')
                   = t("integral.statuses.#{@resource.status}")
+                %p
+                  - if @resource.notify_me?
+                    = icon('bell')
+                    = 'Notified about everything'
+                  - else
+                    = icon('bell-o')
+                    = 'Notified about only things that have been subscribed too'
                 .roles
                   - @resource.roles.each do |role|
                     .label= role.label

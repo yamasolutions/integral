@@ -354,65 +354,6 @@
           height: 35px;
         }
       }
-      #profile-dropdown {
-        padding: 0;
-        &:before {
-          content: ' ';
-          width: 2.5em;
-          height: 1.5em;
-          border-radius: 0 0 0.5em 0;
-          background: linear-gradient(-45deg, #1b8ecf 50%, transparent 50%);
-          position: absolute;
-          margin: 0;
-          right: 0.5em;
-          transform: rotate(225deg) skewX(8deg) skewY(8deg);
-        }
-        &:after {
-          content: ' ';
-          position: absolute;
-          right: 0;
-          top: -2.2em;
-          height: 2.2em;
-          width: 70%;
-        }
-        .section {
-          padding: 1.5em 1.2em;
-          &:first-of-type {
-            border-radius: 5px 5px 0 0;
-            background-color: $primary-color;
-            color: $white;
-            .avatar {
-              float: left;
-              margin-right: 1em;
-              width: 60px;
-              height: 60px;
-            }
-            .name {
-              font-size: 1.3em
-            }
-            .email {
-              font-size: 0.85em
-            }
-          }
-          &:last-of-type {
-            .menu a {
-              padding-left: 0;
-              color: $secondary-color;
-              &:hover {
-                color: $primary-color;
-              }
-              i {
-                width: 30px;
-                text-align: center;
-              }
-            }
-            .button {
-              display: inline-block;
-              padding: 0.8em 2em;
-            }
-          }
-        }
-      }
     }
   }
 }
@@ -491,5 +432,16 @@
 @include breakpoint(large) {
   .app-dashboard.shrink-large {
     @include shrunk-sidebar()
+  }
+}
+
+.button-notifications-dropdown {
+  padding: .5rem;
+  cursor: pointer;
+  // &.unread {
+  //   color: $primary-color;
+  // }
+  @include breakpoint(small down) {
+    color: $white;
   }
 }

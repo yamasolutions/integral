@@ -1,0 +1,9 @@
+%ul.menu.horizontal
+  - if policy(resource_klass).new?
+    %li
+      = link_to new_backend_resource_url, class: 'button white' do
+        = icon('plus')
+        = t('integral.actions.create')
+        = resource_klass.model_name.human.capitalize
+  - if resource_klass.respond_to?(:subscribable?) && resource_klass.subscribable?
+    %li= render partial: 'integral/backend/shared/notification_subscription_toggle', locals: { subscribable: resource_klass }

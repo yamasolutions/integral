@@ -5,7 +5,7 @@ module Integral
     describe NotificationSubscriptionsController do
       routes { Integral::Engine.routes }
 
-      let(:state) { 'foobar' }
+      let(:state) { 'subscribed' }
       let(:params) { { subscribable_type: 'Integral::Post', state: state } }
       let(:user) { create(:post_manager) }
 

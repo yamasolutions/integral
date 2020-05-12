@@ -44,7 +44,7 @@ module Integral
 
         top_level_notification_subscription_user_ids = Integral::User.where(notify_me: true).where.not(id: object_notification_subscription_user_ids + class_notification_subscription_user_ids).pluck(:id)
 
-        notifiable_user_ids = (object_notification_subscriptions['subscribe']&.map(&:user_id) || []) + (class_notification_subscriptions['subscribe']&.map(&:user_id) || []) + top_level_notification_subscription_user_ids
+        notifiable_user_ids = (object_notification_subscriptions['subscribed']&.map(&:user_id) || []) + (class_notification_subscriptions['subscribed']&.map(&:user_id) || []) + top_level_notification_subscription_user_ids
         notifiable_user_ids -= [PaperTrail.request.whodunnit]
 
         User.find(notifiable_user_ids).select { |user| Pundit.policy!(user, self).receives_notifications? }

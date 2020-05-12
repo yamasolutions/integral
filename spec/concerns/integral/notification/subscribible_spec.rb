@@ -4,6 +4,7 @@ module Integral
   module Notification
     describe Subscribable do
       let(:post) { create(:integral_post, user: user) }
+      let(:user_options) { { notify_me: notify_me } }
       let(:described_class) { Integral::Post }
 
       describe '.notifiable_users' do
@@ -13,21 +14,20 @@ module Integral
         end
 
         context 'when all users have top level notifications disabled' do
-          let(:user_options) { { notify_me: false } }
+          let(:notify_me) { false }
 
           context 'when a user has top level notifications enabled' do
             let(:user) { create(:post_manager, notify_me: true) }
-
             it 'returns correct users' do
               expect(post.notifiable_users).to eq [user]
             end
           end
 
           context 'when a user has class level notifications enabled' do
-            let(:user) { create(:post_manager, notify_me: false) }
+            let(:user) { create(:post_manager, notify_me: notify_me) }
 
             before do
-              user.own_notification_subscriptions.create!(subscribable: post, state: 'subscribe')
+              user.own_notification_subscriptions.create!(subscribable_type: described_class, state: 'subscribed')
             end
 
             it 'returns correct users' do
@@ -35,15 +35,14 @@ module Integral
             end
           end
 
-          context 'when a user has object level notifications enabled' do
-            let(:user) { create(:post_manager, notify_me: false) }
+          context 'when a user has instance level notifications enabled' do
+            let(:user) { create(:post_manager, notify_me: notify_me) }
 
             before do
-              user.own_notification_subscriptions.create!(subscribable_type: described_class, state: 'subscribe')
+              user.own_notification_subscriptions.create!(subscribable: post, state: 'subscribed')
             end
 
             it 'returns correct users' do
-
               expect(post.notifiable_users).to eq [user]
             end
           end
@@ -62,8 +61,9 @@ module Integral
 
           context 'when a user has class level notifications disabled' do
             let(:user) { create(:post_manager, notify_me: true) }
+
             before do
-              user.own_notification_subscriptions.create!(subscribable: post, state: 'unsubscribe')
+              user.own_notification_subscriptions.create!(subscribable_type: described_class, state: 'unsubscribed')
             end
 
             it 'returns correct users' do
@@ -71,11 +71,11 @@ module Integral
             end
           end
 
-          context 'when a user has object level notifications disabled' do
+          context 'when a user has instance level notifications disabled' do
             let(:user) { create(:post_manager, notify_me: true) }
 
             before do
-              user.own_notification_subscriptions.create!(subscribable_type: described_class, state: 'unsubscribe')
+              user.own_notification_subscriptions.create!(subscribable: post, state: 'unsubscribed')
             end
 
             it 'returns correct users' do

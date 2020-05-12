@@ -132,7 +132,7 @@ module Integral
       def activities
         authorize Version
 
-        add_breadcrumb I18n.t('integral.navigation.edit'), edit_backend_resource_url(@resource)
+        add_breadcrumb I18n.t('integral.actions.view'), backend_resource_url(@resource)
         add_breadcrumb I18n.t('integral.navigation.activity')
 
         @grid = Integral::Grids::ActivitiesGrid.new(activity_grid_options.except('page')) do |scope|
@@ -141,7 +141,7 @@ module Integral
 
         respond_to do |format|
           format.html { render template: 'integral/backend/activities/shared/index', locals: { form_url: activities_backend_resource_url(@resource) } }
-          format.json { render json: { content: render_to_string(partial: 'integral/backend/activities/shared/grid', locals: { resource_grid: @grid }) } }
+          format.json { render json: { content: render_to_string(partial: 'integral/backend/activities/shared/grid', locals: { grid: @grid }) } }
         end
       end
 
@@ -230,6 +230,11 @@ module Integral
 
         I18n.t("integral.backend.#{object_namespace}.notification.#{type_namespace}",
                default: I18n.t("integral.backend.notifications.#{type_namespace}", type: resource_klass.model_name.human))
+      end
+
+      helper_method :decorated_resource
+      def decorated_resource
+        @decorated_resource ||= @resource.decorate
       end
 
       helper_method :resource_grid

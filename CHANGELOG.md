@@ -15,8 +15,7 @@ recommendations of [keepachangelog.com](http://keepachangelog.com/).
 - Default action bar content for index & show actions
 - CharactorCounter can now be added to inputs which do not have a maxlength set
 - List Management - Added CharactorCounter to list item fields
-- Backend image and list dashboards
-- Backend image and list show pages
+- Backend image and list dashboard, activity, & show pages
 - Backend helpers `render_resource_grid` & `render_resource_grid_form` to reduce view duplication
 - Backend helper extension for `link_to` to allow passing of `wrapper` & `icon` options
 

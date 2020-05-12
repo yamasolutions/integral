@@ -27,14 +27,14 @@
                 = @activity.whodunnit.name
 
   .cell.medium-3
-    %ul.menu.vertical
+    %ul.no-bullet
       %li
-        = link_to @activity.item_url, class: 'button white' do
+        = link_to @activity.item_url, class: 'button white expanded' do
           = icon('eye')
           = t('integral.actions.view_record')
       - if @activity.whodunnit.present?
         %li
-          = link_to backend_user_url(@activity.whodunnit.id), class: 'button white' do
+          = link_to backend_user_url(@activity.whodunnit.id), class: 'button white expanded' do
             = icon('eye')
             = t('integral.actions.view_user')
       -# %li

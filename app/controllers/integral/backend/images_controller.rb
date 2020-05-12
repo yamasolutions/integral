@@ -2,8 +2,8 @@ module Integral
   module Backend
     # Images controller
     class ImagesController < BaseController
-      before_action :authorize_with_klass
       before_action :set_resource, except: %i[create index new list]
+      before_action :authorize_with_klass, except: %i[activities activity]
 
       # GET /new
       # Image creation form
@@ -60,6 +60,10 @@ module Integral
 
       def new_backend_resource_url
         new_backend_img_url
+      end
+
+      def activities_backend_resource_url(resource)
+        activities_backend_img_url(resource)
       end
 
       def list_backend_resources_url

@@ -78,6 +78,11 @@ module Integral
           # Image Management
           resources :images, as: :img do
             get 'list', on: :collection
+
+            member do
+              get 'activities', controller: 'images'
+              get 'activities/:activity_id', to: 'images#activity', as: :activity
+            end
           end
 
           # Page Management
@@ -121,6 +126,8 @@ module Integral
             get 'list', on: :collection
             member do
               post 'duplicate'
+              get 'activities', controller: 'lists'
+              get 'activities/:activity_id', to: 'lists#activity', as: :activity
             end
           end
 

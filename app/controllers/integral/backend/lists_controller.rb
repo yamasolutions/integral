@@ -3,7 +3,7 @@ module Integral
     # List controller
     class ListsController < BaseController
       before_action :set_resource, except: %i[create index new list]
-      before_action :authorize_with_klass
+      before_action :authorize_with_klass, except: %i[activities activity]
 
       # POST /:id/duplicate
       # Duplicate a resource

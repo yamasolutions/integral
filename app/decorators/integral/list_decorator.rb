@@ -5,7 +5,7 @@ module Integral
 
     # @return [String] URL to backend activity
     def activity_url(activity_id)
-      # Integral::Engine.routes.url_helpers.activity_backend_user_url(object.id, activity_id)
+      Integral::Engine.routes.url_helpers.activity_backend_list_url(object.id, activity_id)
     end
 
     # @return [String] URL to backend list page

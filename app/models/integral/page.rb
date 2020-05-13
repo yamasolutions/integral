@@ -144,15 +144,6 @@ module Integral
       end
     end
 
-    # @return [Array] containing available human readable statuses against there numeric value
-    def self.available_statuses
-      [
-        ['Draft', 0],
-        ['Published', 1],
-        ['Archived', 2]
-      ]
-    end
-
     def validate_parent_is_available
       return true if parent.nil?
 

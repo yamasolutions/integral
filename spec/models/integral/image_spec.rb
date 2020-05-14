@@ -19,6 +19,12 @@ module Integral
       it { is_expected.to validate_length_of(:description).is_at_most(160) }
     end
 
+    describe '.integral_icon' do
+      it 'returns expected icon' do
+        expect(described_class.integral_icon).to eq 'image'
+      end
+    end
+
     describe '#dimensions' do
       let(:height) { '1000' }
       let(:width) { '5000' }

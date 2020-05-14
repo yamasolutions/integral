@@ -40,6 +40,10 @@ module Integral
       roles.map { |r| r.name.underscore.to_sym }.any? { |user_role| role_sym.include?(user_role) }
     end
 
+    def self.integral_icon
+      'user'
+    end
+
     # @return [Array] containing available locales
     def self.available_locales
       available_locales = []

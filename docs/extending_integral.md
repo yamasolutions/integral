@@ -39,13 +39,13 @@ To update the permitted page params Integral provides a configuration option wit
 config.additional_page_params = [:custom_url]
 ```
 
-Now we want to override the view which renders the page form. To do this we'll copy Integral's backend views then remove all the files apart from `app/views/integral/backend/pages/_form.haml`. Now that we have only the page form we can add the text field.
+Now it's time to add the `custom_url` field input to the pages form. To do this we'll override the default pages form by copying Integral's backend views then removing all the files apart from `app/views/integral/backend/pages/_form.haml`. Now that we have only the page form we can add the text field wherever we like.
 
 ```
 bundle exec rails generate integral:views -v backend
 ```
 
-Boot your app and navigate as a logged in user to `/admin/pages/new`. You should be able to create a page with a `custom_url`.
+Boot your app and navigate as a logged in user to `/admin/pages/new`. You will now be able to create a page with a `custom_url`.
 
 Stuck? Check out the [code sample][code-sample-custom-field] or [deploy a demo application with Heroku][heroku-deploy-custom-field]
 
@@ -101,6 +101,7 @@ Update the empty `SpecialOffer` model with the following;
 # app/models/special_offer.rb
 
 class SpecialOffer < ApplicationRecord
+  include Notification::Subscribable
   has_paper_trail class_name: 'SpecialOfferVersion'
 
   # Validations
@@ -111,6 +112,29 @@ class SpecialOffer < ApplicationRecord
 
   # Associations
   belongs_to :image, class_name: 'Integral::Image', optional: true
+
+  def self.decorator_class
+    Integral::BaseDecorator
+  end
+
+  # @return [String] font awesome icon name representing modal - https://fontawesome.com/v4.7.0/icons/
+  def self.integral_icon
+    'percent'
+  end
+
+  # @return [Hash] dataset to render an integral backend instance card
+  def to_card
+    image_url = image.file.url if image
+    {
+      image: image_url,
+      description: title,
+      url: Rails.application.routes.url_helpers.special_offer_url(self),
+      attributes: [
+        { key: 'Discount', value: discount },
+        { key: I18n.t('integral.records.attributes.updated_at'), value: I18n.l(updated_at) }
+      ]
+    }
+  end
 end
 ```
 
@@ -155,7 +179,8 @@ Let's start by adding the backend routes:
   # Extend Integral engine routes
   Integral::Engine.routes.draw do
     namespace :backend, path: Integral.backend_namespace do
-      resources :special_offers, except: [ :show ] do
+      resources :special_offers do
+        get 'list', on: :collection
         member do
           get 'activities', controller: 'special_offers', as: :activities
           get 'activities/:activity_id', to: 'special_offers#activity', as: :activity
@@ -250,21 +275,31 @@ To add special offer activities to the activities page and recent activity widge
 config.additional_tracked_classes = [SpecialOffer]
 ```
 
-Lastly we need to update the decorator;
+Lastly we need to create the authorization policy.
+
 ```
-class SpecialOfferDecorator < Draper::Decorator
-  delegate_all
+# app/policies/special_offer_policy.rb
 
-  # @return [String] URL to backend page
-  def backend_url
-    Integral::Engine.routes.url_helpers.edit_backend_special_offer_url(object)
+# Handles Special Offer authorization
+class SpecialOfferPolicy < Integral::BasePolicy
+  # @return [Boolean] whether or not user has manager role
+  def manager?
+    # user.role?(role_name) || user.admin?
+    true
   end
 
-  # @return [String] URL to backend activity
-  def activity_url(activity_id)
-    Integral::Engine.routes.url_helpers.activity_backend_special_offer_url(object.id, activity_id)
-  end
+  # # @return [Symbol] role name
+  # def role_name
+  #   :special_offer_manager
+  # end
 end
+
+```
+
+You'll see above we've hardcoded the `manager?` method to return `true` which means any logged in user will have full access to Special Offers. If you want to enable authorization for this model uncomment the `role_name` method and `manager?` method content then create the special offer role and assign it to authorized users.
+
+```
+Integral::Role.create!(name: 'SpecialOfferManager')
 ```
 
 We're done! You can now manage special offers through the user only area and view them as a visitor on the frontend.

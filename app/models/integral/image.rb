@@ -50,6 +50,10 @@ module Integral
       }
     end
 
+    def self.integral_icon
+      'image'
+    end
+
     private
 
     def touch_list_items

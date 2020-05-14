@@ -54,8 +54,12 @@ module Integral
       end
     end
 
+    def item_class
+      item_type.constantize
+    end
+
     def item
-      @item ||= item_type.constantize.unscoped.find(item_id)
+      @item ||= item_class.unscoped.find(item_id)
     end
 
     # @return [String] formatted title
@@ -70,12 +74,12 @@ module Integral
 
     # @return [String] Font Awesome icon
     def item_icon
-      'ellipsis-v'
+      item_class.respond_to?(:integral_icon) ? item_class.integral_icon : 'ellipsis-v'
     end
 
     # @return [String] formatted item type
     def model_name
-      object.item_type.constantize.model_name.human
+      item_class.model_name.human
     end
 
     # Currently not possible to show this as changeset isn't available in the query resultset for performance reasons - One possible solution would be to create a Grid class for each Version - rather than unioning all the tables it only includes it's own

@@ -17,5 +17,9 @@ module Integral
     validates_format_of :slug, with: /\A[A-Za-z0-9]+(?:-[A-Za-z0-9]+)*\z/
     validates :title, presence: true, length: { minimum: 4, maximum: 60 }
     validates :description, presence: true, length: { minimum: 25, maximum: 300 }
+
+    def self.integral_icon
+      'tags'
+    end
   end
 end

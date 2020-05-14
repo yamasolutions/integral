@@ -78,6 +78,10 @@ module Integral
       }
     end
 
+    def self.integral_icon
+      'file'
+    end
+
     # @return [Hash] the instance as a card
     def to_card
       # subtitle = self.published_at.present? ? I18n.t('integral.blog.posted_ago', time: time_ago_in_words(self.published_at)) : I18n.t('integral.records.status.draft')

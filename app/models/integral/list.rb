@@ -49,6 +49,10 @@ module Integral
       new_list
     end
 
+    def self.integral_icon
+      'list'
+    end
+
     private
 
     def validate_unlocked

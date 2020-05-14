@@ -3,8 +3,9 @@ require 'rails_helper'
 module Integral
   describe VersionDecorator do
     let(:item) { create(:integral_post) }
+    let(:item_type) { 'Integral::Post' }
     let(:user) { nil }
-    let(:resource) { double(event: :update, whodunnit: user&.id, item: item, item_type: 'Integral::Post', id: 1, item_id: item.id, event: 'create') }
+    let(:resource) { double(event: :update, whodunnit: user&.id, item: item, item_type: item_type, id: 1, item_id: item.id, event: 'create') }
 
     subject { described_class.new(resource) }
 
@@ -45,8 +46,17 @@ module Integral
     end
 
     describe '#item_icon' do
-      it 'returns default item icon for versions' do
-        expect(subject.item_icon).to eq 'ellipsis-v'
+      context 'when integral_icon is available' do
+        it 'returns icon for posts' do
+          expect(subject.item_icon).to eq 'rss'
+        end
+      end
+      context 'when integral_icon is unavailable' do
+        let(:item_type) { 'Integral::ApplicationRecord' }
+
+        it 'returns default item icon for versions' do
+          expect(subject.item_icon).to eq 'ellipsis-v'
+        end
       end
     end
 

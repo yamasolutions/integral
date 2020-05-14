@@ -9,7 +9,7 @@ FactoryBot.define do
   sequence(:view_count) { rand(5000) }
   sequence(:url) { Faker::Internet.url }
 
-  factory :integral_user, class: Integral::User, aliases: [:user] do
+  factory :integral_user, class: Integral::User, aliases: [:user, :recipient, :actor] do
     name
     email
     password               { "password" }
@@ -76,6 +76,14 @@ FactoryBot.define do
     created_at { Faker::Time.backward(30) }
     published_at { Faker::Time.backward(30) }
     status { rand(0..1) }
+  end
+
+  factory :integral_notification, class: 'Integral::Notification::Notification' do
+    recipient
+    actor
+    read_at { Faker::Time.backward(30) }
+    action { ['create', 'update', 'destroy'].sample }
+    association(:subscribable, factory: :integral_post)
   end
 
   factory :integral_notification_subscription, class: 'Integral::Notification::Subscription' do

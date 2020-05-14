@@ -3,7 +3,7 @@ module Integral
     class NotificationDecorator < Draper::Decorator
       delegate_all
 
-      def formatted_ation
+      def formatted_action
         h.t("integral.actions.#{object.action}")
       end
 

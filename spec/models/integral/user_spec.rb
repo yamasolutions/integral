@@ -25,6 +25,12 @@ module Integral
       it { is_expected.to validate_presence_of :email }
     end
 
+    describe '.integral_icon' do
+      it 'returns expected icon' do
+        expect(described_class.integral_icon).to eq 'user'
+      end
+    end
+
     describe '#role?' do
       let(:role) { create(:role) }
 

@@ -97,6 +97,10 @@ module Integral
       }
     end
 
+    def self.integral_icon
+      'rss'
+    end
+
     # @return [String] Current tag context
     def tag_context
       status

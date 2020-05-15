@@ -5,6 +5,45 @@ module Integral
     module BaseHelper
       include Integral::SupportHelper
 
+      def render_main_menu
+        render_menu(Integral::ActsAsIntegral.backend_main_menu_items, {})
+      end
+
+      def render_menu(items, options={})
+        return '' if items.empty?
+
+        output = ''
+        items = items.map { |item| item.class == Class ? item.integral_backend_main_menu_item : item }
+        items = items.sort_by { |item| item[:order] }
+
+        #require 'pry'; binding.pry
+        items.each do |item|
+          # require 'pry'; binding.pry
+
+          next unless current_user_authorized_for_menu_item?(item)
+
+          if item[:list_items]&.any?
+            output += content_tag :li do
+              list = content_tag :ul do
+                list_items = item[:list_items].map do |list_item|
+                  next unless current_user_authorized_for_menu_item?(list_item)
+
+                  link_to list_item[:label], list_item[:url], wrapper: :li
+                end.join.html_safe
+                list_items.prepend(content_tag(:li, item[:label]))
+              end
+              list.prepend(link_to(item[:label], item[:url], icon: item[:icon]))
+            end
+            #require 'pry'; binding.pry
+          else
+            output += link_to item[:label], item[:url], wrapper: :li, icon: item[:icon]
+            #require 'pry'; binding.pry
+          end
+        end
+
+        output.html_safe
+      end
+
       def recent_user_notifications
         @recent_user_notifications ||= current_user.notifications.recent
       end
@@ -139,6 +178,16 @@ module Integral
 
         data.prepend(scope: Integral::Post, label: 'Posts') if Integral.blog_enabled?
         data
+      end
+
+      def current_user_authorized_for_menu_item?(item)
+        if item[:authorize]
+          instance_eval(&item[:authorize])
+        elsif item[:authorize_class] && item[:authorize_action]
+          Pundit.policy(current_user, item[:authorize_class]).public_send("#{item[:authorize_action]}?")
+        else
+          true
+        end
       end
     end
   end

@@ -64,6 +64,15 @@ module Integral
       Integral::Engine.routes.default_url_options[:host] = Rails.application.routes.default_url_options[:host]
     end
 
+    # Menu Initializaion - Add items to menus which are not directly linked to a Modal
+    initializer "integral.backend.set_main_menu_items" do |app|
+      ActiveSupport::Notifications.subscribe 'integral.routes_loaded' do
+        Integral::ActsAsIntegral.add_backend_main_menu_item(id: :home, icon: 'home', order: 10, label: 'Home', url: Integral::Engine.routes.url_helpers.backend_dashboard_url)
+        Integral::ActsAsIntegral.add_backend_main_menu_item(id: :activities, icon: 'crosshairs', order: 90, label: 'Activities', url: Integral::Engine.routes.url_helpers.backend_activities_url, authorize: proc { policy(Integral::Version).manager? })
+        Integral::ActsAsIntegral.add_backend_main_menu_item(id: :settings, icon: 'cog', order: 100, label: 'Settings', url: Integral::Engine.routes.url_helpers.backend_settings_url, authorize: proc { current_user.admin? })
+      end
+    end
+
     # Clientside I18n
     config.assets.initialize_on_precompile = true
 

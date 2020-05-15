@@ -16,7 +16,7 @@ module Integral
       class ActiveRecord::Base
         # Adds listable behaviour to objects
         def self.acts_as_listable(_options = {})
-          Integral::ActsAsListable.objects << self
+          Integral::ActsAsListable.objects << self unless Integral::ActsAsListable.objects.map(&:name).include?(self.name)
 
           # @return [Hash] instance as a list item
           # Keys include: id, title, subtitle, image, description, url

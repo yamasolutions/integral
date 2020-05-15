@@ -3,8 +3,8 @@ module Integral
   class Image < ApplicationRecord
     before_save :touch_list_items
 
-    # Soft-deletion
-    acts_as_paranoid
+    acts_as_integral backend_main_menu: { order: 40 } # Integral Goodness
+    acts_as_paranoid # Soft-deletion
 
     validates :file, presence: true
     validates :title, presence: true, length: { minimum: 5, maximum: 50 }
@@ -52,6 +52,22 @@ module Integral
 
     def self.integral_icon
       'image'
+    end
+
+    def self.integral_backend_main_menu_item
+      {
+        icon: integral_icon,
+        order: 40,
+        label: model_name.human.pluralize,
+        url: url_helpers.send("backend_img_index_url"),
+        authorize_class: self,
+        authorize_action: :index,
+        list_items: [
+          { label: I18n.t('integral.navigation.dashboard'), url: url_helpers.send("backend_img_index_url"), authorize_class: self, authorize_action: :index },
+          { label: I18n.t('integral.actions.create'), url: url_helpers.send("new_backend_img_url"), authorize_class: self, authorize_action: :new },
+          { label: I18n.t('integral.navigation.listing'), url: url_helpers.send("list_backend_img_index_url"), authorize_class: self, authorize_action: :list },
+        ]
+      }
     end
 
     private

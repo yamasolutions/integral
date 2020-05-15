@@ -6,6 +6,7 @@ module Integral
     include Webhook::Observable
     include Notification::Subscribable
 
+    acts_as_integral backend_main_menu: { order: 30, visible: Integral.blog_enabled? } # Integral Goodness
     acts_as_paranoid # Soft-deletion
     acts_as_listable if Integral.blog_enabled? # Listable Item
     acts_as_taggable # Tagging

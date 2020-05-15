@@ -4,6 +4,7 @@ module Integral
     include Notification::Subscribable
 
     acts_as_paranoid # Soft-deletion
+    acts_as_integral backend_main_menu: { order: 60 } # Integral Goodness
 
     mount_uploader :avatar, AvatarUploader
     process_in_background :avatar

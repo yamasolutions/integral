@@ -4,8 +4,8 @@ module Integral
     include Notification::Subscribable
     default_scope { includes(:list_items) }
 
-    # Soft-deletion
-    acts_as_paranoid
+    acts_as_integral backend_main_menu: { order: 50 } # Integral Goodness
+    acts_as_paranoid # Soft-deletion
 
     # Associations
     has_many :list_items

@@ -3,7 +3,11 @@ module Integral
   class Image < ApplicationRecord
     before_save :touch_list_items
 
-    acts_as_integral backend_main_menu: { order: 40 } # Integral Goodness
+    acts_as_integral({
+      notifications: { enabled: false },
+      backend_main_menu: { order: 40 },
+      backend_create_menu: { order: 30 }
+    }) # Integral Goodness
     acts_as_paranoid # Soft-deletion
 
     validates :file, presence: true
@@ -57,7 +61,7 @@ module Integral
     def self.integral_backend_main_menu_item
       {
         icon: integral_icon,
-        order: 40,
+        order: integral_options.dig(:backend_main_menu, :order),
         label: model_name.human.pluralize,
         url: url_helpers.send("backend_img_index_url"),
         authorize_class: self,
@@ -67,6 +71,19 @@ module Integral
           { label: I18n.t('integral.actions.create'), url: url_helpers.send("new_backend_img_url"), authorize_class: self, authorize_action: :new },
           { label: I18n.t('integral.navigation.listing'), url: url_helpers.send("list_backend_img_index_url"), authorize_class: self, authorize_action: :list },
         ]
+      }
+    end
+
+    # @return [Hash] hash representing the class, used to render within the create menu
+    def self.integral_backend_create_menu_item
+      {
+        icon: integral_icon,
+        order: integral_options.dig(:backend_create_menu, :order),
+        label: model_name.human,
+        url: url_helpers.send("new_backend_img_url"),
+        # authorize: proc { policy(self).index? }, can't use this as self is in wrong context
+        authorize_class: self,
+        authorize_action: :new,
       }
     end
 

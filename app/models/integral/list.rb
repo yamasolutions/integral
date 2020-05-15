@@ -1,10 +1,13 @@
 module Integral
   # Represents a generic list such as a gallery or menu
   class List < ApplicationRecord
-    include Notification::Subscribable
     default_scope { includes(:list_items) }
 
-    acts_as_integral backend_main_menu: { order: 50 } # Integral Goodness
+    acts_as_integral({
+      backend_main_menu: { order: 50 },
+      backend_create_menu: { order: 40 }
+    }) # Integral Goodness
+
     acts_as_paranoid # Soft-deletion
 
     # Associations

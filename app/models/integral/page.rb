@@ -2,10 +2,13 @@ module Integral
   # Represents a public viewable page
   class Page < ApplicationRecord
     include LazyContentable
-    include Notification::Subscribable
 
     acts_as_paranoid # Soft-deletion
-    acts_as_integral backend_main_menu: { order: 20 } # Integral Goodness
+    acts_as_integral({
+      backend_main_menu: { order: 20 },
+      backend_create_menu: { order: 10 }
+    }) # Integral Goodness
+
     acts_as_listable # Listable Item
 
     has_paper_trail class_name: 'Integral::PageVersion'

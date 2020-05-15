@@ -1,15 +1,14 @@
 module Integral
   # Handles adding Integral behaviour to a class
-  #
-  # Dynamic backend menus handled by;
-  # - ActsAsIntegral stores the backend menu items (backend_main_menu_items, backend_create_menu_items)
-  # - acts_as_integral creates default content for menus which can be overridden by a class method
-  # - acts_as_integral registers model with menu
-  # - Backend helper loops over all registered items to create HTML snippet
-  # - ActsAsIntegral provides way to add items not associated with acts_as_integral i.e. Homepage and settings (first and last items main menu items)
   module ActsAsIntegral
+    DEFAULT_OPTIONS ={ notifications: { enabled: true },
+                       cards: { at_a_glance: true, },
+                       backend_main_menu: { visible: true, order: 11 },
+                       backend_create_menu: { visible: true, order: 1 }}.freeze
     class << self
       attr_writer :backend_main_menu_items
+      attr_writer :backend_create_menu_items
+      attr_writer :backend_at_a_glance_card_items
     end
 
     # Accessor for backend main menu items
@@ -17,18 +16,45 @@ module Integral
       @backend_main_menu_items ||= []
     end
 
+    # Accessor for backend create menu items
+    def self.backend_create_menu_items
+      @backend_create_menu_items ||= []
+    end
+
+    # Accessor for at a glance card items
+    def self.backend_at_a_glance_card_items
+      @backend_at_a_glance_card_items ||= []
+    end
+
+    # Adds item to main backend dashboard at a glance chart
+    # @param [Class] item
+    def self.add_backend_at_a_glance_card_item(item)
+      backend_at_a_glance_card_items << item unless duplicate_menu_item?(item, backend_at_a_glance_card_items)
+    end
+
+    # Adds item to create menu, expects Hash or Class
+    def self.add_backend_create_menu_item(item)
+      backend_create_menu_items << item unless duplicate_menu_item?(item, backend_create_menu_items)
+    end
+
     # Adds item to main menu, expects Hash or Class
     def self.add_backend_main_menu_item(item)
-      # duplicates are being added in development when app reloads
+      backend_main_menu_items << item unless duplicate_menu_item?(item, backend_main_menu_items)
+    end
+
+    # Checks for existing duplicates in menu. Useful in development when app reloads
+    def self.duplicate_menu_item?(item, menu)
       duplicate_found = if item.class == Class
-                          backend_main_menu_items.map(&:to_s).include?(item.to_s)
+                          menu.map(&:to_s).include?(item.to_s)
                         else
-                          backend_main_menu_items.select { |item| item.is_a?(Hash) }.map {|item| item[:id] }.include?(item[:id])
+                          menu.select { |item| item.is_a?(Hash) }.map {|item| item[:id] }.include?(item[:id])
                         end
+
       if duplicate_found
         Rails.logger.error("ActsAsIntegral: Item '#{item.to_s}' not added to menu as it already exists.")
+        true
       else
-        backend_main_menu_items << item
+        false
       end
     end
 
@@ -58,13 +84,30 @@ module Integral
               }
             end
 
+            # @return [Hash] hash representing the class, used to render within the create menu
+            def integral_backend_create_menu_item
+              {
+                icon: integral_icon,
+                order: integral_options.dig(:backend_create_menu, :order),
+                label: model_name.human,
+                url: url_helpers.send("new_backend_#{model_name.singular_route_key}_url"),
+                # authorize: proc { policy(self).index? }, can't use this as self is in wrong context
+                authorize_class: self,
+                authorize_action: :new,
+              }
+            end
+
             def url_helpers
               Integral::Engine.routes.url_helpers
             end
           end
 
-          self.integral_options = {backend_main_menu: { visible: true, order: 11 }}.deep_merge(options)
+          self.integral_options = Integral::ActsAsIntegral::DEFAULT_OPTIONS.deep_merge(options)
+          Integral::ActsAsIntegral.add_backend_create_menu_item(self) if integral_options.dig(:backend_create_menu, :visible)
           Integral::ActsAsIntegral.add_backend_main_menu_item(self) if integral_options.dig(:backend_main_menu, :visible)
+          Integral::ActsAsIntegral.add_backend_at_a_glance_card_item(self) if integral_options.dig(:cards, :at_a_glance)
+
+          include Integral::Notification::Subscribable if integral_options.dig(:notifications, :enabled)
         end
       end
     end

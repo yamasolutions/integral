@@ -1,16 +1,1 @@
-%ul.menu.vertical
-  - if policy(Integral::Page).create?
-    = link_to t('integral.navigation.page'), new_backend_page_url, icon: 'file-text-o', wrapper: :li
-
-  - if policy(Integral::Post).create? && Integral.blog_enabled?
-    = link_to t('integral.navigation.post'), new_backend_post_url, icon: 'rss', wrapper: :li
-
-  - if policy(Integral::Image).create?
-    = link_to t('integral.navigation.image'), new_backend_img_url, icon: 'picture-o', wrapper: :li
-
-  - if policy(Integral::List).create?
-    = link_to t('integral.navigation.list'), new_backend_list_url, icon: 'list', wrapper: :li
-
-  - if policy(current_user).create?
-    = link_to t('integral.navigation.user'), new_backend_user_url, icon: 'user', wrapper: :li
-
+%ul.menu.vertical= render_create_menu

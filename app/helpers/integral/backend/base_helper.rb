@@ -6,42 +6,11 @@ module Integral
       include Integral::SupportHelper
 
       def render_main_menu
-        render_menu(Integral::ActsAsIntegral.backend_main_menu_items, {})
+        render_menu(extract_menu_items(Integral::ActsAsIntegral.backend_main_menu_items, :integral_backend_main_menu_item))
       end
 
-      def render_menu(items, options={})
-        return '' if items.empty?
-
-        output = ''
-        items = items.map { |item| item.class == Class ? item.integral_backend_main_menu_item : item }
-        items = items.sort_by { |item| item[:order] }
-
-        #require 'pry'; binding.pry
-        items.each do |item|
-          # require 'pry'; binding.pry
-
-          next unless current_user_authorized_for_menu_item?(item)
-
-          if item[:list_items]&.any?
-            output += content_tag :li do
-              list = content_tag :ul do
-                list_items = item[:list_items].map do |list_item|
-                  next unless current_user_authorized_for_menu_item?(list_item)
-
-                  link_to list_item[:label], list_item[:url], wrapper: :li
-                end.join.html_safe
-                list_items.prepend(content_tag(:li, item[:label]))
-              end
-              list.prepend(link_to(item[:label], item[:url], icon: item[:icon]))
-            end
-            #require 'pry'; binding.pry
-          else
-            output += link_to item[:label], item[:url], wrapper: :li, icon: item[:icon]
-            #require 'pry'; binding.pry
-          end
-        end
-
-        output.html_safe
+      def render_create_menu
+        render_menu(extract_menu_items(Integral::ActsAsIntegral.backend_create_menu_items, :integral_backend_create_menu_item))
       end
 
       def recent_user_notifications
@@ -188,6 +157,41 @@ module Integral
         else
           true
         end
+      end
+
+      private
+
+      def extract_menu_items(items, extract_method)
+        items = items.map { |item| item.class == Class ? item.send(extract_method) : item }
+      end
+
+      def render_menu(items, options={})
+        return '' if items.empty?
+
+        output = ''
+        items = items.sort_by { |item| item[:order] }
+
+        items.each do |item|
+          next unless current_user_authorized_for_menu_item?(item)
+
+          if item[:list_items]&.any?
+            output += content_tag :li do
+              list = content_tag :ul do
+                list_items = item[:list_items].map do |list_item|
+                  next unless current_user_authorized_for_menu_item?(list_item)
+
+                  link_to list_item[:label], list_item[:url], wrapper: :li
+                end.join.html_safe
+                list_items.prepend(content_tag(:li, item[:label]))
+              end
+              list.prepend(link_to(item[:label], item[:url], icon: item[:icon]))
+            end
+          else
+            output += link_to item[:label], item[:url], wrapper: :li, icon: item[:icon]
+          end
+        end
+
+        output.html_safe
       end
     end
   end

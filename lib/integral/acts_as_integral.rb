@@ -3,8 +3,8 @@ module Integral
   module ActsAsIntegral
     DEFAULT_OPTIONS ={ notifications: { enabled: true },
                        cards: { at_a_glance: true, },
-                       backend_main_menu: { visible: true, order: 11 },
-                       backend_create_menu: { visible: true, order: 1 }}.freeze
+                       backend_main_menu: { enabled: true, order: 11 },
+                       backend_create_menu: { enabled: true, order: 1 }}.freeze
     class << self
       attr_writer :backend_main_menu_items
       attr_writer :backend_create_menu_items
@@ -103,8 +103,8 @@ module Integral
           end
 
           self.integral_options = Integral::ActsAsIntegral::DEFAULT_OPTIONS.deep_merge(options)
-          Integral::ActsAsIntegral.add_backend_create_menu_item(self) if integral_options.dig(:backend_create_menu, :visible)
-          Integral::ActsAsIntegral.add_backend_main_menu_item(self) if integral_options.dig(:backend_main_menu, :visible)
+          Integral::ActsAsIntegral.add_backend_create_menu_item(self) if integral_options.dig(:backend_create_menu, :enabled)
+          Integral::ActsAsIntegral.add_backend_main_menu_item(self) if integral_options.dig(:backend_main_menu, :enabled)
           Integral::ActsAsIntegral.add_backend_at_a_glance_card_item(self) if integral_options.dig(:cards, :at_a_glance)
 
           include Integral::Notification::Subscribable if integral_options.dig(:notifications, :enabled)

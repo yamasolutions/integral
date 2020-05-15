@@ -6,8 +6,8 @@ module Integral
     include Webhook::Observable
 
     acts_as_integral({
-      backend_main_menu: { order: 30, visible: Integral.blog_enabled? },
-      backend_create_menu: { order: 20, visible: Integral.blog_enabled? }
+      backend_main_menu: { order: 30, enabled: Integral.blog_enabled? },
+      backend_create_menu: { order: 20, enabled: Integral.blog_enabled? }
     }) # Integral Goodness
     acts_as_paranoid # Soft-deletion
     acts_as_listable if Integral.blog_enabled? # Listable Item

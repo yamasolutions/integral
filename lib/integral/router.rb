@@ -33,6 +33,7 @@ module Integral
         if Integral.blog_enabled?
           scope Integral.blog_namespace do
             resources :tags, only: %i[index show]
+            resources :categories, only: %i[show]
           end
           # Post Routing must go after tags otherwise it will override
           resources Integral.blog_namespace, only: %i[show index], as: :posts, controller: 'posts'
@@ -83,6 +84,7 @@ module Integral
           # Post Management
           if Integral.blog_enabled?
             resources :posts, except: [:show] do
+              get 'list', on: :collection
               member do
                 post 'duplicate'
                 get 'activities', controller: 'posts'
@@ -90,6 +92,7 @@ module Integral
               end
               # resources :comments, only: [:create, :destroy]
             end
+            resources :categories, only: %i[create edit update destroy]
           end
 
           # List Management

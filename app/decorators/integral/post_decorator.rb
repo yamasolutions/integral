@@ -2,6 +2,7 @@ module Integral
   # Page view-level logic
   class PostDecorator < Draper::Decorator
     delegate_all
+    decorates_association :category
 
     # Enables pagination
     def self.collection_decorator_class
@@ -34,6 +35,12 @@ module Integral
           }
         }
       }
+    end
+
+    # @return [String] avatar image
+    def avatar
+      avatar_url = user&.avatar&.url(:thumbnail)
+      h.image_tag avatar_url, class: 'user-avatar' unless avatar_url.nil?
     end
 
     # Tags to be used within the header of an article to describe the subject

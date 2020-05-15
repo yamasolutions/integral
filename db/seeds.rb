@@ -34,13 +34,15 @@ Integral::Page.create!(title: 'Integral CMS - Demo Page',
                        status: 1)
 
 # Demo Post
+category = Integral::Category.create!(title: 'Uncategorised', description: "Posts which we haven't yet categorized but are sure to grab your attention", slug: 'uncategorized')
 Integral::Post.create!(title: 'Integral CMS - Demo Post',
                        description:'Integral CMS demo post. Integral is a rails content management system (CMS) which gives developers the ability to create a modern website with all the bells and whistles without the hassle.',
                        body: File.read(File.join(Integral::Engine.root.join('public', 'integral', 'ckeditor_demo_content.html'))),
                        slug: 'integral-demo',
                        user: user,
                        tag_list: 'integral-cms,example-tag',
-                       status: 1)
+                       status: 1,
+                       category: category)
 
 # Main Menu
 Integral::List.create!({ title: 'Main Menu', list_items: [

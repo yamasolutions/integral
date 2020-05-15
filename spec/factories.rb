@@ -67,6 +67,7 @@ FactoryBot.define do
     title
     description
     tag_list
+    category
     user
     slug { Faker::Internet.slug(nil, '-') }
     image
@@ -75,6 +76,13 @@ FactoryBot.define do
     created_at { Faker::Time.backward(30) }
     published_at { Faker::Time.backward(30) }
     status { rand(0..1) }
+  end
+
+  factory :integral_category, class: 'Integral::Category', aliases: [:category] do
+    title
+    description
+    slug { Faker::Internet.slug(nil, '-') }
+    image
   end
 
   factory :integral_post_viewing, class: 'Integral::PostViewing' do

@@ -24,7 +24,7 @@ module Integral
         return unless options['asset_list'].include?('frontend')
 
         file 'javascripts/integral/frontend.js'
-        file 'stylesheets/integral/frontend.sass'
+        file 'stylesheets/integral/frontend.scss'
         directory 'stylesheets/integral/frontend'
       end
 

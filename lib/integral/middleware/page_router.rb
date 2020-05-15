@@ -42,6 +42,12 @@ module Integral
         Integral::Page.not_archived.find_by_path(path)&.id
       end
 
+      def category_identifier(path)
+        return nil unless path.starts_with?("/#{Integral.blog_namespace}")
+
+        Integral::Category.select(:id, :slug).all.map { |category| [category.id, "/#{Integral.blog_namespace}/#{category.slug}"] }.find { |category| category[1] == path }&.first
+      end
+
       # Converts the request path from human readable into something Rails router understands
       # i.e. '/company/who-we-are' -> /pages/12
       #
@@ -51,12 +57,15 @@ module Integral
       # @return [String] Path Rails needs to link the request to the correct Integral::Page record
       def rewrite_path(env, path)
         page_id = page_identifier(path)
-        return if page_id.nil?
+        if page_id
+          env['PATH_INFO'] = "/pages/#{page_id}"
+        else
+          category_id = category_identifier(path)
 
-        rewritten_path = "/pages/#{page_id}"
-        env['PATH_INFO'] = rewritten_path
-      rescue StandardError => error
-        handle_rewrite_error(error)
+          env['PATH_INFO'] = "/#{Integral.blog_namespace}/categories/#{category_id}" if category_id
+        end
+      rescue StandardError => e
+        handle_rewrite_error(e)
       end
 
       # Homepage ID as defined by User within backend settings

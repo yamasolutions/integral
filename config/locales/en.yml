@@ -76,8 +76,10 @@ en:
       copy_url: Copy URL
       copied: Copied
       search: Search
+      subscribe: Subscribe
       confirm: Confirm
       cancel: Cancel
+      view_all: View All
     prompts:
       select_image: Select Image..
       select_type: Select Type..
@@ -91,6 +93,7 @@ en:
       archived: Archived
     records:
       attributes:
+        category: Category
         locale: Language
         image: Image
         featured_image: Featured Image
@@ -136,6 +139,7 @@ en:
       home: Home
       posts: Posts
       post: Post
+      tags: Tags
       pages: Pages
       page: Page
       users: Users
@@ -149,6 +153,7 @@ en:
       log_out: Logout
       my_account: Account & Profile
       settings: Settings
+      listing: Listing
 
     posts:
       index:
@@ -156,6 +161,8 @@ en:
         subtitle: All things Integral
       show:
         subtitle: An interesting read
+        footer:
+          blurb: Have questions about this article, want to provide feedback or contact us for any reason? Get in touch with us today. We'd love to hear from you.
       item:
         read_more: Read More
     tags:
@@ -167,7 +174,9 @@ en:
         subtitle: Related Articles
         description: "All articles tagged %{tag_name} within our blog"
     blog:
+      posted_ago: "Published %{time} ago"
       widgets:
+        most_read: Most Read Articles
         related_posts: Related Posts
         recent_posts: Recent Posts
         popular_posts: Popular Posts
@@ -187,6 +196,7 @@ en:
         edit: "Edit %{type_singular}"
         update: "Update %{type_singular}"
         index: "%{type_plural}"
+        list: "%{type_singular} Listing"
       notifications:
         clone_success: "%{type} successfully cloned."
         clone_failure: "%{type} clone failed."
@@ -306,7 +316,6 @@ en:
             views: 'Views'
             status: 'Status'
         index:
-          title: 'Posts'
           new_post: 'Create post'
           published_count: "%{count} published"
           drafts_count: "%{count} drafted"
@@ -467,3 +476,9 @@ en:
         someone_invited_you: "%{name} has invited you to %{url}, you can accept it through the link below."
   ckeditor:
     populate_editor: Populate editor with example content.
+
+  activerecord:
+    models:
+      integral/post:
+        one: Post
+        other: Posts

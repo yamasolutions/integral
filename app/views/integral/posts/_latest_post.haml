@@ -1,0 +1,8 @@
+.latest-post
+  = link_to integral.post_url(post) do
+    = image_tag post.image(:large)
+  %h2.latest-post-title= link_to post.title, integral.post_path(post)
+  %p= post.description
+  %ul.list-unstyled.piped-list
+    %li= post.published_at
+    %li= link_to post.category.title, category_path(post.category)

@@ -56,13 +56,15 @@ If you want to add a custom field to another object for example an Enquiry or Li
 Below are step by step instructions on how to add a custom object to an Integral application. A [code sample][code-sample-custom-object] is available, you can also [deploy a demo application with Heroku][heroku-deploy-custom-object].
 
 User stories;
-* As a user I want to be able to manage special offers through Integral backend the same way I manage pages or posts
+* As a user I want to be able to manage special offers through Integral backend the same way I manage pages or posts.
+* As a user I want to be able to subscribe and unsubscribe to notifications relating to special offers
+* As a user I want to be able to see special offer activity on the main dashboard and within special offer screens
 * As a visitor I want to be able to view special offers
 
 We'll make this possible in 3 steps;
-1. Update the database to store special offers
+1. Update the database to store special offers & special offer activities (history)
 2. Allow visitors to view special offers
-3. Provide logged in users with a way of managing special offers
+3. Provide logged in users with a way of managing special offers through the Integral backend
 
 ### Data storage & visitor access
 
@@ -101,7 +103,7 @@ Update the empty `SpecialOffer` model with the following;
 # app/models/special_offer.rb
 
 class SpecialOffer < ApplicationRecord
-  include Notification::Subscribable
+  acts_as_integral
   has_paper_trail class_name: 'SpecialOfferVersion'
 
   # Validations
@@ -138,7 +140,13 @@ class SpecialOffer < ApplicationRecord
 end
 ```
 
-Create the `SpecialOfferVersion` which is the model that stores `SpecialOffer` changes;
+`acts_as_integral` does a couple of things behind the scenes;
+* Registers with the backend main menu
+* Registers with the backend create menu
+* Registers with the main dashboard 'at a glance' chart
+* Enables notification subscriptions
+
+Next, create the `SpecialOfferVersion` which is the model that stores `SpecialOffer` changes;
 
 ```
 # app/models/special_offer_version.rb

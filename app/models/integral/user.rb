@@ -1,9 +1,11 @@
 module Integral
   # User model used to represent a authenticated user
   class User < ApplicationRecord
-    include Notification::Subscribable
-
     acts_as_paranoid # Soft-deletion
+    acts_as_integral({
+      backend_main_menu: { order: 60 },
+      backend_create_menu: { order: 50 }
+    }) # Integral Goodness
 
     mount_uploader :avatar, AvatarUploader
     process_in_background :avatar

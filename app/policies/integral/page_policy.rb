@@ -25,6 +25,7 @@ module Integral
     end
 
     alias edit? update?
+    alias list? index?
 
     def destroy?
       user.admin? || user.role?([:page_manager])

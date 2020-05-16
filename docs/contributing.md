@@ -50,3 +50,22 @@ Think we can improve on documentation? Help us out by letting us know - create a
 
 We'd love to make Integral available to as many languages as possible. If you feel you can help us with this please submit a PR with the relevant locale files and we'll be sure to take a look.
 
+
+## Version Releases
+
+* Confirm CI build is passing and docs are up to date
+* Set new version number
+* Update changelog
+* Bundle
+* rake build
+* Publish new gem to RubyGems
+* Commit
+* Push commit to GitHub
+* Create tag and push to GitHub
+* Update docs website
+  - cd to `website` directory
+  - run  `yarn build`
+  - run  `yarn run publish`
+  - Confirm docs website has updated
+* Write up and publish integralrails.com blog post
+* Win!

@@ -29,6 +29,10 @@
         "title": "Lists",
         "sidebar_label": "Lists"
       },
+      "integral-notifications": {
+        "title": "User Notifications",
+        "sidebar_label": "User Notifications"
+      },
       "integral-pages": {
         "title": "Pages",
         "sidebar_label": "Pages"

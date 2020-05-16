@@ -5,6 +5,17 @@ module Integral
     module BaseHelper
       include Integral::SupportHelper
 
+      def icon(name, text=nil, html_options={})
+        if name.include?(' ')
+          style, name = name.split('-')
+        else
+          style = 'fas'
+        end
+
+        # Might not be able to use super as it still adds the 'fa' - I want to pass the whole class(es) in so that in future if we want to swap out icons only swapping out classes is required
+        super(style, name, text, html_options)
+      end
+
       def render_main_menu
         render_menu(extract_menu_items(Integral::ActsAsIntegral.backend_main_menu_items, :integral_backend_main_menu_item))
       end

@@ -1,9 +1,16 @@
+require "webpacker/helper"
+
 module Integral
   # View helper methods for Backend pages
   module Backend
     # Base Backend Helper
     module BaseHelper
       include Integral::SupportHelper
+      include ::Webpacker::Helper
+
+      def current_webpacker_instance
+        Integral.webpacker
+      end
 
       def render_main_menu
         render_menu(extract_menu_items(Integral::ActsAsIntegral.backend_main_menu_items, :integral_backend_main_menu_item))

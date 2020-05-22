@@ -438,6 +438,17 @@
 .button-notifications-dropdown {
   padding: .5rem;
   cursor: pointer;
+  position: relative;
+
+  .fa-circle {
+    font-size: 5px;
+    position: absolute;
+    color: $primary-color;
+    top: 0;
+    margin: 0 auto;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
   // &.unread {
   //   color: $primary-color;
   // }

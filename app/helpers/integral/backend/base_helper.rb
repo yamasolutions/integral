@@ -5,15 +5,23 @@ module Integral
     module BaseHelper
       include Integral::SupportHelper
 
+      # Override FontAwesomeSass icon Helper
+      #
+      # Font style is either passed in together with name
+      # or not passed in and solid (fas) is assumed.
       def icon(name, text=nil, html_options={})
-        if name.include?(' ')
-          style, name = name.split('-')
-        else
-          style = 'fas'
-        end
+        name = name.to_s if name.is_a?(Symbol)
 
-        # Might not be able to use super as it still adds the 'fa' - I want to pass the whole class(es) in so that in future if we want to swap out icons only swapping out classes is required
-        super(style, name, text, html_options)
+        if name.include?(' ')
+          name << " #{html_options[:class]}" if html_options.key?(:class)
+          html_options[:class] = name
+
+          html = content_tag(:i, nil, html_options)
+          html << ' ' << text.to_s unless text.blank?
+          html
+        else
+          super('fas', name, text, html_options)
+        end
       end
 
       def render_main_menu

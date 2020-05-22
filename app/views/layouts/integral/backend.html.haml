@@ -41,9 +41,10 @@
                 %li
                   %button.button-notifications-dropdown{ type: 'button', data: { toggle: 'notifications-dropdown'}}
                     - if current_user.notifications.unread.any?
-                      = icon('bell')
+                      = icon('circle')
+                      = icon('far fa-bell')
                     - else
-                      = icon('bell-o')
+                      = icon('far fa-bell')
                   #notifications-dropdown.dropdown-pane.dropdown-pane--notifications{ data: { notifications: true, load_more_url: current_user.multiple_page_notifications? ? notifications_backend_user_url(current_user, page: 2) : '', dropdown: true, hover: 'true', 'hover-pane' => 'true', 'v-offset' => '35', 'hover-delay' => 50 }}
                     .section.text-center
                       %span.title

@@ -26,8 +26,22 @@ module Integral
       end
 
       # GET /
-      # Post dashboard screen
-      def index; end
+      # Dashboard
+      def index
+        respond_to do |format|
+          format.html do
+          end
+
+          format.json do
+            if params[:gridview].present?
+              set_grid
+              render json: { content: render_to_string(partial: "integral/backend/#{controller_name}/grid", locals: { grid: @grid }) }
+            else
+              respond_to_record_selector
+            end
+          end
+        end
+      end
 
       private
 

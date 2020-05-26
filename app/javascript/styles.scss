@@ -1,0 +1,37 @@
+@import "~@wordpress/base-styles/colors";
+@import "~@wordpress/base-styles/variables";
+@import "~@wordpress/base-styles/mixins";
+@import "~@wordpress/base-styles/breakpoints";
+@import "~@wordpress/base-styles/animations";
+@import "~@wordpress/base-styles/z-index";
+
+@import "~@wordpress/components/src/style";
+@import "~@wordpress/block-editor/src/style";
+@import "~@wordpress/block-library/src/style";
+
+
+// Internal
+@import "components/header/styles";
+@import "components/sidebar/styles";
+@import "components/block-editor/styles";
+
+
+// In order to use mix-blend-mode, this element needs to have an explicitly set background-color.
+// We scope it to .wp-toolbar to be wp-admin only, to prevent bleed into other implementations.
+html.wp-toolbar {
+	background: $white;
+}
+
+body.toplevel_page_getdavesbe {
+	@include wp-admin-reset(".getdave-sbe-block-editor");
+}
+
+.getdave-sbe-block-editor {
+  position: relative;
+}
+
+.getdave-sbe-block-editor,
+// The modals are shown outside the .getdave-sbe-block-editor wrapper, they need these styles.
+.components-modal__frame {
+	@include reset;
+}

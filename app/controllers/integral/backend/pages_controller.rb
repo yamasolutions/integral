@@ -2,8 +2,13 @@ module Integral
   module Backend
     # Pages controller
     class PagesController < BaseController
-      before_action :authorize_with_klass, except: %i[activities activity]
+      before_action :authorize_with_klass, except: %i[activities activity block_editor]
       before_action :set_resource, except: %i[create new index list]
+      # layout "integral/block_editor", only: [:block_editor]
+
+      def block_editor
+        render layout: 'integral/block_editor'
+      end
 
       # POST /:id/duplicate
       # Duplicate a resource

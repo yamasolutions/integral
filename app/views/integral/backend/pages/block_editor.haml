@@ -1,0 +1,10 @@
+-# = text_area_tag :body, @resource.body
+= simple_form_for [:backend, @resource], validate: true, html: { id: 'resource_form', class: 'are-you-sure', 'data-confirm-dirty-form' => true } do |f|
+  = f.input :lock_version, as: :hidden
+  = f.button :button
+  = f.input :body, as: :block_editor, wrapper_html: { data: { controller: :hello }}, input_html: { data: { target: 'hello.input' }, value: @resource.body }
+
+-# %div{data: { controller: 'hello' } }
+-#   %div{data: { target: 'hello.input' } }
+-#   #getdave-sbe-block-editor.getdave-sbe-block-editor{data: { target: 'hello.output' } }
+

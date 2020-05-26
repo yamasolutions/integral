@@ -90,6 +90,7 @@ module Integral
             get 'list', on: :collection
             member do
               post 'duplicate'
+              get 'block_editor'
               get 'activities', controller: 'pages'
               get 'activities/:activity_id', to: 'pages#activity', as: :activity
             end

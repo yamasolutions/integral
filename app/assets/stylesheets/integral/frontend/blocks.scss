@@ -1,0 +1,110 @@
+// Put block settings here
+// Import all the block styles here
+
+.callout.is-style-primary {
+  @include callout-style($primary-color);
+}
+.callout.is-style-secondary {
+  @include callout-style($secondary-color);
+}
+
+// Created using a modified version of foundation-button mxin
+.wp-block-button {
+  display: inline-block;
+  .wp-block-button__link {
+    @include button($style: none);
+  }
+
+  // Sizes
+  @each $size, $value in map-remove($button-sizes, default) {
+    &.#{$size} .wp-block-button__link {
+      font-size: $value;
+    }
+  }
+
+  &.expanded .wp-block-button__link { @include button-expand; }
+
+  @if $button-responsive-expanded {
+    @each $size in $breakpoint-classes {
+      @include breakpoint(#{$size} only) {
+        &.#{$size}-only-expanded .wp-block-button__link {
+          @include button-expand;
+        }
+      }
+      @if $size != $-zf-zero-breakpoint {
+        @include breakpoint(#{$size} down) {
+          &.#{$size}-down-expanded .wp-block-button__link {
+            @include button-expand;
+          }
+        }
+
+        @include breakpoint(#{$size}) {
+          &.#{$size}-expanded .wp-block-button__link {
+            @include button-expand;
+          }
+        }
+      }
+    }
+  }
+
+  // Solid, hollow & clear styles
+  @each $filling in (solid hollow clear) {
+    $selector: if($button-fill == $filling, null, '.is-style-#{$filling}');
+
+    &#{$selector} .wp-block-button__link {
+      @include button-fill($filling);
+      @include button-fill-style($filling);
+    }
+
+    @each $name, $color in $button-palette {
+      &.#{$name} .wp-block-button__link {
+        @include button-fill-style($filling, $color, auto, auto);
+      }
+    }
+  }
+
+  // Disabled state
+  &.disabled .wp-block-button__link, &[disabled] .wp-block-button__link {
+    @include button-disabled;
+  }
+
+  // // Dropdown arrow
+  // &.dropdown {
+  //   @include button-dropdown;
+  //
+  //   @if $button-fill == hollow {
+  //     &::after {
+  //       border-top-color: $button-background;
+  //     }
+  //   }
+  //
+  //   &.hollow, &.clear {
+  //     &::after {
+  //       border-top-color: $button-background;
+  //     }
+  //
+  //     @each $name, $color in $button-palette {
+  //       &.#{$name} {
+  //         &::after {
+  //           border-top-color: $color;
+  //         }
+  //       }
+  //     }
+  //   }
+  //
+  //   // Button with dropdown arrow only
+  //   &.arrow-only::after {
+  //     top: -0.1em;
+  //     float: none;
+  //     margin-#{$global-left}: 0;
+  //   }
+  // }
+  //
+  // a.button { // sass-lint:disable-line no-qualifying-elements
+  //   &:hover,
+  //   &:focus {
+  //     text-decoration: none;
+  //   }
+  // }
+}
+

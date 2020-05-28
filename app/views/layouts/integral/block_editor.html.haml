@@ -9,6 +9,8 @@
     %link{ href: 'https://fonts.googleapis.com/css?family=Nunito:400,600', rel: 'stylesheet', type: 'text/css' }
     %link{ rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Montserrat:400,400i,700' }
 
+  = stylesheet_link_tag    'integral/backend', media: 'all', 'data-turbolinks-track' => true
+  = javascript_include_tag 'integral/backend', 'data-turbolinks-track' => true
   = javascript_pack_tag 'integral/backend'
   = stylesheet_pack_tag 'integral/backend'
   = stylesheet_link_tag 'integral/block_editor'
@@ -17,3 +19,5 @@
 
   %body.wp-toolbar.toplevel_page_getdavesbe
     = yield
+    = render partial: 'integral/backend/shared/record_selector/modal', locals: { search_path: list_backend_img_index_path, title: t('integral.prompts.select_image'), name: 'Media', create_modal: '#new_image_modal', initialize: true }
+  = render partial: 'integral/backend/images/create_modal'

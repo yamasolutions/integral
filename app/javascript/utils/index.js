@@ -1,32 +1,3 @@
-// // This handles
-// // * Storing the media on the server
-// // * Somehow providing a placeholder/preview image
-// // * Somehow saying when the media has been successfully stored and providing the url to it
-// export async function uploadMedia( {
-// 	allowedTypes,
-// 	additionalData = {},
-// 	filesList,
-// 	maxUploadFileSize,
-// 	onError = noop,
-// 	onFileChange,
-// 	wpAllowedMimeTypes = null,
-// } ) {
-//   console.log('uploadMedia: Function called.');
-//
-//   // Set placeholder(s)
-//
-//   		// Set temporary URL to create placeholder media file, this is replaced
-// 		// with final file from media gallery when upload is `done` below
-// 		filesSet.push( { url: createBlobURL( mediaFile ) } );
-// 		onFileChange( filesSet );
-//
-//   // Upload to storage
-//
-//   debugger
-//
-// }
-
-
 /**
  * External dependencies
  */
@@ -108,7 +79,6 @@ export async function uploadMedia( {
 			// 	url: savedMedia.source_url,
 			// };
       const mediaObject = { url: savedMedia.image.url };
-      debugger;
 			setAndUpdateFiles( idx, mediaObject );
 		} catch ( error ) {
 			// Reset to empty on failure.

@@ -50,6 +50,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'premailer-rails' # Stylesheet inlining for email
   s.add_dependency 'pundit', '~> 1.1' # Authorization
   s.add_dependency 'rails', '~> 5.2'
+  s.add_dependency 'webpacker', '~> 5.1'
   s.add_dependency 'rails-settings-cached', '~> 0.6' # Persisted settings
   # s.add_dependency 'rails5_before_render', '~> 0.3' # Callbacks after an action before rendering
   s.add_dependency 'sass-rails', '~> 5.0' # Sass

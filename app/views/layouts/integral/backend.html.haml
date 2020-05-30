@@ -116,3 +116,4 @@
     .record-image
       = render partial: 'integral/backend/shared/image_selector'
     = render partial: 'integral/backend/shared/activity_modal'
+    = render partial: 'integral/backend/shared/record_selector/modal', locals: { search_path: list_backend_img_index_path, title: t('integral.prompts.select_image'), name: 'Media', create_modal: '#new_image_modal', initialize: true }

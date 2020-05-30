@@ -29,7 +29,7 @@ function Editor( { input, settings } ) {
     <SlotFillProvider>
     <DropZoneProvider>
     <EditorSkeleton
-      header={ <Header /> }
+      // header={ <Header /> }
       sidebar={<Sidebar />}
       content={
         <>

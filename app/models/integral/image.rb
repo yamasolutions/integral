@@ -41,7 +41,7 @@ module Integral
         title: title,
         subtitle: description,
         description: description,
-        image: file
+        image: file # Is this returning the thumbnail? Prefer it to be large for block editor
       }
     end
 

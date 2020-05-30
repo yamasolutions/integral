@@ -17,7 +17,7 @@ import '../styles.scss'
 import { Controller } from "stimulus"
 
 export default class extends Controller {
-  static targets = [ "output", "input" ]
+  static targets = [ "output", "input", "maximize", "minimize" ]
 
   connect() {
     this.inputTarget.classList.add('hide')
@@ -48,5 +48,17 @@ export default class extends Controller {
 
     render( <Editor input={ this.inputTarget } settings={ settings } />, this.outputTarget )
     console.log('Hello Controller!')
+  }
+
+  maximize() {
+    this.maximizeTarget.classList.add('hide')
+    this.minimizeTarget.classList.remove('hide')
+    this.element.classList.add('block-editor__fullscreen')
+  }
+
+  minimize() {
+    this.minimizeTarget.classList.add('hide')
+    this.maximizeTarget.classList.remove('hide')
+    this.element.classList.remove('block-editor__fullscreen')
   }
 }

@@ -27,7 +27,9 @@ export default class extends Controller {
       fontSizes: [],
       disableCustomColors: true,
       colors: [],
-      disableCustomGradients: true
+      disableCustomGradients: true,
+      __experimentalDisableDropCap: true,
+      __experimentalDisableCustomLineHeight: true
     }
     registerCoreBlocks();
     registerBlockType(callout.name, callout.settings);
@@ -36,6 +38,8 @@ export default class extends Controller {
       label: 'Outline'
     } );
     unregisterBlockStyle('core/button', 'outline');
+    unregisterBlockStyle('core/image', 'default');
+    unregisterBlockStyle('core/image', 'rounded');
 
     const replaceMediaUpload = () => MediaUpload;
 

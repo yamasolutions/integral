@@ -5,7 +5,7 @@ module Integral
       before_action :authorize_with_klass, except: [:widget]
 
       def widget
-        activities = cast_activities(@grid.assets.where.not(whodunnit: nil).limit(10))
+        activities = cast_activities(resource_grid.assets.where.not(whodunnit: nil).limit(10))
         last_created_at = activities.last.created_at.utc if activities.present?
 
         render json: { content: render_to_string(partial: 'integral/backend/activities/activity', collection: activities), last_created_at: last_created_at }

@@ -30,6 +30,10 @@ recommendations of [keepachangelog.com](http://keepachangelog.com/).
 - Bump Foundation to 6.6.2
 - Swap out poltergeist & PhantomJS for Apparition
 - Bump Ruby to 2.5.8
+- Bumpt Font Awesome to v5.x
+
+### Breaking Changes
+- Removed Integral.additional_tracked_classes - use `acts_as_integral` instead
 
 ## v1.4.0 - 2020-04-17
 

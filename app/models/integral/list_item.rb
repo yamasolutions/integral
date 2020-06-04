@@ -1,30 +1,29 @@
 module Integral
   # Represents an item within a particular list
   class ListItem < ApplicationRecord
-    after_initialize :set_defaults
-    after_touch :touch_list
-
     # Default scope orders by priority and includes children
     default_scope { includes(:children).includes(:image).order(:priority) }
 
     # Associations
     belongs_to :list, optional: true, touch: true
     belongs_to :image, optional: true
-    has_and_belongs_to_many(:children,
-                            -> { order(:priority) },
-                            join_table: 'integral_list_item_connections',
-                            foreign_key: 'parent_id',
-                            association_foreign_key: 'child_id',
-                            class_name: 'ListItem',
-                            after_add: :touch_updated_at,
-                            after_remove: :touch_updated_at,
-                            optional: true)
+    has_many :list_item_connections, foreign_key: 'parent_id'
+    has_many :children, -> { order(:priority) }, through: :list_item_connections
+    has_many :inverse_list_item_connections, class_name: "ListItemConnection", foreign_key: "child_id"
+    # NOTE: A List Item only has one parent
+    has_many :parents, :through => :inverse_list_item_connections
 
     # Validations
     validate :validate_child_absence
 
     # Nested forms
     accepts_nested_attributes_for :children, reject_if: :all_blank, allow_destroy: true
+
+    # Callbacks
+    after_initialize :set_defaults
+    after_commit :touch_parent, on: :update
+    after_destroy :touch_parent
+    after_touch :touch_list
 
     # @return [Array] list of types available for a list item
     def self.types_collection
@@ -69,8 +68,9 @@ module Integral
       self.type ||= 'Integral::Basic'
     end
 
-    def touch_updated_at(_list_item)
-      touch if persisted?
+    def touch_parent
+      parent = parents.first
+      parent.touch if parent.present? && parent.persisted?
     end
 
     def touch_list

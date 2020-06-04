@@ -6,7 +6,7 @@
 - if policy(resource_klass).manager?
   %li
     - if resource.blocked?
-      = link_to unblock_backend_user_url(resoure.id), method: :put, data: { confirm: t('integral.actions.confirmation.unblock') } do
+      = link_to unblock_backend_user_url(resource.id), method: :put, data: { confirm: t('integral.actions.confirmation.unblock') } do
         = icon('unlock')
         = t('integral.actions.unblock')
     - else

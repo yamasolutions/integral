@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom'
 /**
  * WordPress dependencies
  */
-import { Component } from '@wordpress/element'; // TODO: Probably can get rid of this (?)
+import { Component } from '@wordpress/element';
 
 class MediaUpload extends Component {
   constructor( {
@@ -30,7 +30,6 @@ class MediaUpload extends Component {
   }
 
   render() {
-    console.log('Media Upload: Component Rendering..');
     return this.props.render( { open: this.openModal } );
   }
 }

@@ -10,6 +10,7 @@ import { registerBlockStyle, unregisterBlockStyle } from '@wordpress/blocks';
 
 import Editor from './editor'
 import * as callout from '../blocks/callout';
+import * as card from '../blocks/card';
 import MediaUpload from '../components/media-upload';
 
 import '../styles.scss'
@@ -33,6 +34,7 @@ export default class extends Controller {
     }
     registerCoreBlocks();
     registerBlockType(callout.name, callout.settings);
+    registerBlockType(card.name, card.settings);
     registerBlockStyle( 'core/button', {
       name: 'hollow',
       label: 'Outline'
@@ -45,8 +47,7 @@ export default class extends Controller {
 
     addFilter(
       'editor.MediaUpload',
-      //'core/edit-post/components/media-upload/replace-media-upload',
-      'what-is-this-path-for',
+      'integral/filters/media-upload',
       replaceMediaUpload
     );
 

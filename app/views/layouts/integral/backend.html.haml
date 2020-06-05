@@ -74,10 +74,6 @@
                           = link_to edit_backend_user_url(current_user.id) do
                             = icon('cog')
                             %span= t('integral.actions.edit_profile')
-                        -# %li
-                        -#   = link_to new_backend_post_url do
-                        -#     = icon('history')
-                        -#     %span= t('integral.navigation.activity')
                       %hr
                       = link_to t('integral.actions.log_out'), destroy_user_session_path, method: :delete, class: 'button hollow'
 

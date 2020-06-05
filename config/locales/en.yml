@@ -138,7 +138,7 @@ en:
       select_type: Select Type..
       unsaved_changes: Changes that you made may not be saved.
     tooltips:
-      unsubscribe: Unsubscribe to notifications.
+      unsubscribe: Unsubscribe from notifications.
       subscribe: Subscribe to notifications.
     placeholders:
       description: Description

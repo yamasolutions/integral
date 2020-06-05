@@ -1,7 +1,11 @@
 module Integral
   # Represents a user post category
   class Category < ApplicationRecord
-    include Notification::Subscribable
+    acts_as_integral({
+      backend_main_menu: { enabled: false },
+      backend_create_menu: { enabled: false }
+    })
+
     has_paper_trail class_name: 'Integral::CategoryVersion'
 
     # Slugging

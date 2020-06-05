@@ -41,7 +41,8 @@
                 %li
                   %button.button-notifications-dropdown{ type: 'button', data: { toggle: 'notifications-dropdown'}}
                     - if current_user.notifications.unread.any?
-                      = icon('bell')
+                      = icon('circle')
+                      = icon('bell-o')
                     - else
                       = icon('bell-o')
                   #notifications-dropdown.dropdown-pane.dropdown-pane--notifications{ data: { notifications: true, load_more_url: current_user.multiple_page_notifications? ? notifications_backend_user_url(current_user, page: 2) : '', dropdown: true, hover: 'true', 'hover-pane' => 'true', 'v-offset' => '35', 'hover-delay' => 50 }}
@@ -73,10 +74,6 @@
                           = link_to edit_backend_user_url(current_user.id) do
                             = icon('cog')
                             %span= t('integral.actions.edit_profile')
-                        -# %li
-                        -#   = link_to new_backend_post_url do
-                        -#     = icon('history')
-                        -#     %span= t('integral.navigation.activity')
                       %hr
                       = link_to t('integral.actions.log_out'), destroy_user_session_path, method: :delete, class: 'button hollow'
 

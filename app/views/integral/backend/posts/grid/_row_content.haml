@@ -6,6 +6,6 @@
   - else
     "#{resource.user_id} [Deleted]"
 %td
-  %span.label= t("integral.resources.status.#{resource.status}")
+  %span.label= t("integral.statuses.#{resource.status}")
 %td= number_with_delimiter(resource.view_count)
 %td= l(resource.updated_at, format: :long)

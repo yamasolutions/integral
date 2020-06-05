@@ -65,7 +65,7 @@ recommendations of [keepachangelog.com](http://keepachangelog.com/).
 - Users - Searching by name in backend
 - Post cloning - Do not copy over `published_at`
 - Record Selector - Fix image not displaying correctly in details sidebar
-- Lists are touched when a list item is removed
+- Lists are touched on any list item activity
 
 ### Performance
 

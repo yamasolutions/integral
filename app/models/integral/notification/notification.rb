@@ -10,6 +10,8 @@ module Integral
 
       self.per_page = 8
 
+      validates :action, presence: true
+
       def read!
         update!(read_at: Time.now())
       end

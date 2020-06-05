@@ -46,7 +46,7 @@ If you have discovered a security related bug, please do NOT use the GitHub issu
 
 
 ### Looking for help
-If you have any questions please use [StackOverflow](https://stackoverflow.com) instead of the GitHub issue tracker.
+If you have any questions please feel free to use the [GitHub issue tracker][github-issue-tracker].
 
 
 ## Contributing

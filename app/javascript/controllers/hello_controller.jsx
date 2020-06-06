@@ -17,6 +17,15 @@ import '../styles.scss'
 
 import { Controller } from "stimulus"
 
+import ButtonEdit from '../blocks/button/edit';
+import { assign } from 'lodash';
+
+import { createHigherOrderComponent } from '@wordpress/compose'
+import { Fragment } from '@wordpress/element';
+import { InspectorControls, RichText, PlainText } from '@wordpress/block-editor'
+import { TextControl, PanelBody, ToggleControl, Button } from '@wordpress/components';
+import classnames from 'classnames';
+
 export default class extends Controller {
   static targets = [ "output", "input", "maximize", "minimize" ]
 
@@ -32,13 +41,93 @@ export default class extends Controller {
       __experimentalDisableDropCap: true,
       __experimentalDisableCustomLineHeight: true
     }
+
+    const replaceButtonBlockEdit = ( settings, name ) => {
+      if ( name !== 'core/button' ) {
+        return settings;
+      }
+
+      return assign( {}, settings, {
+        edit: ButtonEdit,
+        attributes: assign( {}, settings.attributes, {
+          hasHollowStyle: {
+            type: 'boolean',
+            default: false
+          },
+          hasLargeStyle: {
+            type: 'boolean',
+            default: false
+          }
+        })
+      } );
+    }
+
+    const applyExtraClass = ( extraProps, blockType, attributes ) => {
+      if ( blockType.name !== 'core/button' ) {
+        return extraProps;
+      }
+
+      if (attributes.hasLargeStyle) {
+        extraProps.className = classnames( extraProps.className, 'large' );
+      }
+
+      if (attributes.hasHollowStyle) {
+        extraProps.className = classnames( extraProps.className, 'is-style-hollow' );
+      }
+
+      return extraProps;
+    }
+
+    const withClientIdClassName = createHigherOrderComponent( ( BlockListBlock ) => {
+      return ( props ) => {
+        if ( props.name !== 'core/button' ) {
+          return <BlockListBlock { ...props } />;
+        }
+
+        let classNames = '';
+        if (props.attributes.hasLargeStyle) {
+          classNames = classnames( classNames, 'large' );
+        }
+
+        if (props.attributes.hasHollowStyle) {
+          classNames = classnames( classNames, 'is-style-hollow' );
+        }
+
+        return <BlockListBlock { ...props } className={ classNames } />;
+      };
+    }, 'withClientIdClassName' );
+
+    addFilter(
+      'editor.BlockListBlock',
+      'integral/filters/core-button-block-list',
+      withClientIdClassName
+    );
+
+    addFilter(
+      'blocks.registerBlockType',
+      'integral/filters/core-button',
+      replaceButtonBlockEdit
+    );
+
+    addFilter(
+      'blocks.getSaveContent.extraProps',
+      'integral/filters/core-button-classes',
+      applyExtraClass
+    );
+
     registerCoreBlocks();
     registerBlockType(callout.name, callout.settings);
     registerBlockType(card.name, card.settings);
     registerBlockStyle( 'core/button', {
-      name: 'hollow',
-      label: 'Outline'
+      name: 'primary',
+      label: 'Primary',
+      isDefault: true
     } );
+    registerBlockStyle( 'core/button', {
+      name: 'secondary',
+      label: 'Secondary'
+    } );
+    unregisterBlockStyle('core/button', 'fill');
     unregisterBlockStyle('core/button', 'outline');
     unregisterBlockStyle('core/image', 'default');
     unregisterBlockStyle('core/image', 'rounded');

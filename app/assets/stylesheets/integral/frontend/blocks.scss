@@ -119,3 +119,11 @@
   // }
 }
 
+.wp-block-columns {
+  display: flex;
+  margin: 15px 0;
+}
+.wp-block-column {
+  flex: 1;
+  margin: 0 15px;
+}

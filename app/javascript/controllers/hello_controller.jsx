@@ -6,7 +6,7 @@ import { render } from '@wordpress/element'
 import { registerCoreBlocks } from '@wordpress/block-library'
 import { registerBlockType } from '@wordpress/blocks';
 import { addFilter } from '@wordpress/hooks';
-import { registerBlockStyle, unregisterBlockStyle } from '@wordpress/blocks';
+import { registerBlockStyle, unregisterBlockStyle, unregisterBlockVariation } from '@wordpress/blocks';
 
 import Editor from './editor'
 import * as callout from '../blocks/callout';
@@ -17,6 +17,7 @@ import '../styles.scss'
 
 import { Controller } from "stimulus"
 
+import ColumnEdit from '../blocks/column/edit';
 import ButtonEdit from '../blocks/button/edit';
 import { assign } from 'lodash';
 
@@ -59,6 +60,16 @@ export default class extends Controller {
             default: false
           }
         })
+      } );
+    }
+
+    const replaceColumnBlockEdit = ( settings, name ) => {
+      if ( name !== 'core/column' ) {
+        return settings;
+      }
+
+      return assign( {}, settings, {
+        edit: ColumnEdit
       } );
     }
 
@@ -115,6 +126,12 @@ export default class extends Controller {
       applyExtraClass
     );
 
+    addFilter(
+      'blocks.registerBlockType',
+      'integral/filters/core-column',
+      replaceColumnBlockEdit
+    );
+
     registerCoreBlocks();
     registerBlockType(callout.name, callout.settings);
     registerBlockType(card.name, card.settings);
@@ -131,6 +148,10 @@ export default class extends Controller {
     unregisterBlockStyle('core/button', 'outline');
     unregisterBlockStyle('core/image', 'default');
     unregisterBlockStyle('core/image', 'rounded');
+
+    unregisterBlockVariation('core/columns', 'two-columns-one-third-two-thirds');
+    unregisterBlockVariation('core/columns', 'two-columns-two-thirds-one-third');
+    unregisterBlockVariation('core/columns', 'three-columns-wider-center');
 
     const replaceMediaUpload = () => MediaUpload;
 

@@ -11,6 +11,8 @@ import { registerBlockStyle, unregisterBlockStyle, unregisterBlockVariation } fr
 import Editor from './editor'
 import * as callout from '../blocks/callout';
 import * as card from '../blocks/card';
+import * as review from '../blocks/review';
+import * as accordion from '../blocks/accordion';
 import MediaUpload from '../components/media-upload';
 
 import '../styles.scss'
@@ -135,6 +137,8 @@ export default class extends Controller {
     registerCoreBlocks();
     registerBlockType(callout.name, callout.settings);
     registerBlockType(card.name, card.settings);
+    registerBlockType(review.name, review.settings);
+    registerBlockType(accordion.name, accordion.settings);
     registerBlockStyle( 'core/button', {
       name: 'primary',
       label: 'Primary',

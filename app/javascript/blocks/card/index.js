@@ -18,8 +18,8 @@ export { name };
 export const settings = {
 	title: 'Card',
 	description:  'Group a piece of content in an eye catching container.',
-  icon: 'universal-access-alt',
-  category: 'layout',
+  icon: 'id-alt',
+  category: 'formatting',
   // example: {
   //   innerBlocks: [
   //     {

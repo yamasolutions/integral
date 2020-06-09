@@ -18,8 +18,8 @@ export { name };
 export const settings = {
 	title: 'Review',
 	description:  'Share a review from a customer.',
-  icon: 'universal-access-alt',
-  category: 'layout',
+  icon: 'star-filled',
+  category: 'formatting',
   attributes: {
     title: {
       source: 'text',

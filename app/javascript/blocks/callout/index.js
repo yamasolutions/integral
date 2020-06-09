@@ -15,8 +15,8 @@ export { name };
 export const settings = {
 	title: 'Callout',
 	description:  'Container to help draw attention to content.',
-  icon: 'universal-access-alt',
-  category: 'layout',
+  icon: 'align-center',
+  category: 'formatting',
 	styles: [
 		{ name: 'default', label: 'Default', isDefault: true },
 		{ name: 'primary', label: 'Primary' },

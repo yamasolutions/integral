@@ -12,7 +12,7 @@ export { name };
 export const settings = {
 	title: 'Accordion',
 	description:  'Accordions are elements that help you organize and navigate multiple documents in a single container. to help draw attention to content.',
-  icon: 'universal-access-alt',
+  icon: 'list-view',
   category: 'layout',
   attributes: {
     title: {
@@ -25,11 +25,11 @@ export const settings = {
     }
   },
   edit({attributes, className, setAttributes, isSelected}) {
-    let inlineStyle = isSelected ? { display: 'block' } : {};
+    let inlineStyle = (isSelected || attributes.isOpenByDefault) ? { display: 'block' } : {};
 
     return [
 			<InspectorControls>
-				<PanelBody title={ 'Additional styles' }>
+				<PanelBody title={ 'Accordion settings' }>
 					<ToggleControl
 						label={ 'Open by default' }
             onChange={ content => setAttributes({ isOpenByDefault: content }) }

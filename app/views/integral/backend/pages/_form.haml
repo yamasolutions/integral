@@ -6,7 +6,7 @@
       .grid-y
         = f.input :title
         = f.input :description
-        = f.input :body, as: :block_editor, label: false, wrapper_html: { data: { controller: :hello }}, input_html: { data: { target: 'hello.input' }, value: @resource.body }
+        = f.input :body, as: :block_editor, label: false, wrapper_html: { data: { controller: 'block-editor' }}, input_html: { data: { target: 'block-editor.input' }, value: @resource.body }
         -# = f.input :body, as: :ckeditor, input_html: { id: 'resource_body_editor', value: @resource.editor_body, data: { 'ckeditor-class' => @resource.template } }
 
     .cell.medium-4.large-3

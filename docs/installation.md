@@ -25,6 +25,8 @@ rails generate integral:install
 Rails.application.routes.default_url_options[:host] = 'http://localhost:3000'
 ```
 
+5. Lastly, currently the block editor requires webpacker to be manually compiled - `rails integral:webpacker:compile`. Note, if you're pointing to a local version of Integral you can run `./bin/webpack --watch --colors --progress` within the integral directory. This will automatically update packs when changes are made.
+
 Voila! Start your rails server and you're ready to go! You can access the user only area at `/admin`
 
 *Integral requires Rails 5.2 or higher and Ruby 2.5.8 or higher.*

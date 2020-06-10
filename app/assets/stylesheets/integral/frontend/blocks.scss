@@ -148,3 +148,20 @@
     margin: 20px 0;
   }
 }
+
+.wp-block-table {
+  margin-bottom: 1rem;
+  table {
+    margin-bottom: 2px;
+  }
+  &.is-style-unstriped {
+    table {
+      tbody {
+        @include -zf-table-unstripe();
+      }
+    }
+  }
+  figcaption {
+    font-size: 0.9rem;
+  }
+}

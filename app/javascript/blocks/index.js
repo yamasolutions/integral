@@ -212,6 +212,8 @@ export const registerBlocks = () => {
   unregisterBlockStyle('core/button', 'outline');
   unregisterBlockStyle('core/image', 'default');
   unregisterBlockStyle('core/image', 'rounded');
+  unregisterBlockStyle('core/table', 'regular');
+  unregisterBlockStyle('core/table', 'stripes');
 
   // Unregister WP block variations
   unregisterBlockVariation('core/columns', 'two-columns-one-third-two-thirds');
@@ -233,6 +235,15 @@ export const registerBlocks = () => {
   registerBlockStyle( 'core/button', {
     name: 'secondary',
     label: 'Secondary'
+  } );
+  registerBlockStyle( 'core/table', {
+    name: 'striped',
+    label: 'Striped',
+    isDefault: true
+  } );
+  registerBlockStyle( 'core/table', {
+    name: 'unstriped',
+    label: 'Unstriped'
   } );
 };
 

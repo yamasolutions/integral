@@ -20,7 +20,10 @@ export const settings = {
 	styles: [
 		{ name: 'default', label: 'Default', isDefault: true },
 		{ name: 'primary', label: 'Primary' },
-		{ name: 'secondary', label: 'Secondary' }
+		{ name: 'secondary', label: 'Secondary' },
+		{ name: 'warning', label: 'Warning' },
+		{ name: 'alert', label: 'Alert' },
+		{ name: 'success', label: 'Success' }
 	],
   example: {
     innerBlocks: [

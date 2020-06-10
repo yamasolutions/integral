@@ -1,7 +1,12 @@
 @import 'integral/frontend/foundation_settings';
 @import 'foundation';
+@import url('https://fonts.googleapis.com/css?family=Noto+Sans+JP:100,400,700&display=swap&subset=japanese');
 
 .getdavesbe-block-editor__block-list {
+  textarea {
+    all: initial;
+  }
+
   @include foundation-global-styles;
   @include foundation-xy-grid-classes;
   // @include foundation-grid;
@@ -42,6 +47,15 @@
   @include foundation-top-bar;
   @include foundation-visibility-classes;
   @include foundation-float-classes;
+
+  background: $body-background;
+  font-family: $body-font-family;
+
+  textarea {
+    min-height: unset;
+    width: 100%;
+  }
+
+  @import 'integral/frontend/blocks';
 }
 
-@import 'integral/frontend/blocks';

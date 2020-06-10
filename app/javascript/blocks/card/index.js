@@ -73,7 +73,7 @@ export const settings = {
             }
             <img
               src={ attributes.imageUrl }
-              className="image"
+              className="card__image"
             />
           </>
         );
@@ -120,7 +120,7 @@ export const settings = {
             onChange={ content => setAttributes({ title: content }) }
             value={ attributes.title }
             placeholder="Your card title"
-            className="heading"
+            className="card__title"
           />
           <hr className='card__divider' />
           <RichText

@@ -1,11 +1,24 @@
-// Put block settings here
-// Import all the block styles here
+@import 'integral/frontend/blocks/foundation-accordion';
+@import 'integral/frontend/blocks/foundation-card';
+@import 'integral/frontend/blocks/review';
 
 .callout.is-style-primary {
   @include callout-style($primary-color);
 }
 .callout.is-style-secondary {
   @include callout-style($secondary-color);
+}
+
+.callout.is-style-alert {
+  @include callout-style($alert-color);
+}
+
+.callout.is-style-success {
+  @include callout-style($success-color);
+}
+
+.callout.is-style-warning {
+  @include callout-style($warning-color);
 }
 
 .aligncenter {
@@ -121,9 +134,17 @@
 
 .wp-block-columns {
   display: flex;
-  margin: 15px 0;
+  margin: 20px 0;
+  @include breakpoint(medium down) {
+    display: block;
+  }
 }
 .wp-block-column {
+  display: flex;
   flex: 1;
-  margin: 0 15px;
+  margin: 0 10px;
+
+  @include breakpoint(medium down) {
+    margin: 20px 0;
+  }
 }

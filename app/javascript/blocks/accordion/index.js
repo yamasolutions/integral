@@ -40,12 +40,14 @@ export const settings = {
 			</InspectorControls>,
       <div className={ 'accordion ' + className }>
         <div className='accordion-item'>
-          <PlainText
-            onChange={ content => setAttributes({ title: content }) }
-            value={ attributes.title }
-            placeholder="Your accordion title"
-            className="accordion-title"
-          />
+          <div className='accordion-title'>
+            <PlainText
+              onChange={ content => setAttributes({ title: content }) }
+              value={ attributes.title }
+              placeholder="Your accordion title"
+              // className="accordion-title"
+            />
+          </div>
           <div className="accordion-content" style={ inlineStyle }>
             <InnerBlocks/>
           </div>

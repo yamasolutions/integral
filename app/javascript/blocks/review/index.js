@@ -53,7 +53,7 @@ export const settings = {
           onChange={ content => setAttributes({ title: content }) }
           value={ attributes.title }
           placeholder="Customer Name, Location"
-          className="heading"
+          className="card-review__title"
         />
         <div className='card-review__rating'>
           {[...Array(attributes.rating)].map((value, index) => {

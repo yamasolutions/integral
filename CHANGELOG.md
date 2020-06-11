@@ -18,6 +18,7 @@ recommendations of [keepachangelog.com](http://keepachangelog.com/).
 - Backend image and list dashboard, activity, & show pages
 - Backend helpers `render_resource_grid` & `render_resource_grid_form` to reduce view duplication
 - Backend helper extension for `link_to` to allow passing of `wrapper` & `icon` options
+- Backend post list - Swap out user column for category
 
 ### Fixed
 

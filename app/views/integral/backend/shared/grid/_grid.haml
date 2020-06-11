@@ -1,4 +1,4 @@
-- options ||= local_assigns.fetch(:options, { order: true, columns: [] })
+- options = local_assigns.reverse_merge({ order: true, columns: resource_grid_columns })
 
 = render_data_grid do
   %table.integral-grid.wice-grid.table-striped.hover

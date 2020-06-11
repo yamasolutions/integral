@@ -152,7 +152,7 @@
 .wp-block-table {
   margin-bottom: 1rem;
   table {
-    margin-bottom: 2px;
+    margin-bottom: 5px;
   }
   &.is-style-unstriped {
     table {
@@ -163,5 +163,31 @@
   }
   figcaption {
     font-size: 0.9rem;
+    text-align: center;
+  }
+}
+
+.wp-block-image {
+  margin-bottom: 1rem;
+
+  > img {
+    margin-bottom: 5px;
+  }
+  figcaption {
+    font-size: 0.9rem;
+    text-align: center;
+  }
+  &.is-style-padded {
+    @include breakpoint(medium) {
+      max-width: 75%;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+}
+
+ul, ol {
+  &.block-editor-block-list__block {
+    margin-#{$global-left}: $list-side-margin;
   }
 }

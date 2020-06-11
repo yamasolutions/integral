@@ -35,6 +35,7 @@ import * as review from './review';
 import * as accordion from './accordion';
 import ColumnEdit from './column/edit';
 import ButtonEdit from './button/edit';
+import ImageEdit from './image/edit';
 import MediaUpload from '../components/media-upload';
 
 export const registerBlocks = () => {
@@ -44,7 +45,7 @@ export const registerBlocks = () => {
     }
 
     return assign( {}, settings, {
-      edit: ButtonEdit,
+      edit: ButtonEdit, // Removes & replaces some styling options
       attributes: assign( {}, settings.attributes, {
         hasHollowStyle: {
           type: 'boolean',
@@ -64,7 +65,17 @@ export const registerBlocks = () => {
     }
 
     return assign( {}, settings, {
-      edit: ColumnEdit
+      edit: ColumnEdit // Removes column width options
+    } );
+  }
+
+  const replaceImageBlockEdit = ( settings, name ) => {
+    if ( name !== 'core/image' ) {
+      return settings;
+    }
+
+    return assign( {}, settings, {
+      edit: ImageEdit // Removes ImageSizeControl options
     } );
   }
 
@@ -127,6 +138,12 @@ export const registerBlocks = () => {
     'blocks.registerBlockType',
     'integral/filters/core-column',
     replaceColumnBlockEdit
+  );
+
+  addFilter(
+    'blocks.registerBlockType',
+    'integral/filters/core-image',
+    replaceImageBlockEdit
   );
 
   addFilter(
@@ -244,6 +261,15 @@ export const registerBlocks = () => {
   registerBlockStyle( 'core/table', {
     name: 'unstriped',
     label: 'Unstriped'
+  } );
+  registerBlockStyle( 'core/image', {
+    name: 'default',
+    label: 'Default',
+    isDefault: true
+  } );
+  registerBlockStyle( 'core/image', {
+    name: 'padded',
+    label: 'Padded'
   } );
 };
 

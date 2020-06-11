@@ -32,8 +32,7 @@ export default function Header() {
       <NavigableToolbar
         className="edit-post-header-toolbar"
       >
-        <EditorHistoryUndo />
-        <EditorHistoryRedo />
+
       </NavigableToolbar>
 		</div>
 	);

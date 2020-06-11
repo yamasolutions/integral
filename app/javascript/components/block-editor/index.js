@@ -16,7 +16,13 @@ import {
 	BlockInspector,
 	WritingFlow,
 	ObserveTyping,
+  BlockBreadcrumb,
 } from '@wordpress/block-editor';
+
+import {
+	EditorHistoryRedo,
+	EditorHistoryUndo,
+} from '@wordpress/editor';
 
 /**
  * Internal dependencies
@@ -78,6 +84,10 @@ function BlockEditor( { input, settings: _settings } ) {
 				onChange={ persistBlocks }
 				settings={ settings }
 			>
+
+        <BlockBreadcrumb />
+        <EditorHistoryUndo />
+        <EditorHistoryRedo />
 				<Sidebar.InspectorFill>
 					<BlockInspector />
 				</Sidebar.InspectorFill>

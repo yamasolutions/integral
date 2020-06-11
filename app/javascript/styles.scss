@@ -99,3 +99,12 @@ body.toplevel_page_getdavesbe {
 .components-modal__frame {
   @include reset;
 }
+
+.block-editor-block-breadcrumb {
+  position: absolute;
+  bottom: 0;
+  z-index: 999999;
+  background-color: $white;
+  width: 100%;
+  border-top: 1px solid #e2e4e7;
+}

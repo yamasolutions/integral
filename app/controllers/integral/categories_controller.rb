@@ -8,9 +8,12 @@ module Integral
     def show
       add_breadcrumb @resource.title, nil
 
+      page_title = params[:page].present? ? "#{@resource.title} - Page #{params[:page]}" : @resource.title
+      page_description = params[:page].present? ? "#{@resource.description} - Page #{params[:page]}" : @resource.description
+
       @meta_data = {
-        page_title: @resource.title,
-        page_description: @resource.description,
+        page_title: page_title,
+        page_description: page_description,
         image: @resource&.image&.url
       }
 

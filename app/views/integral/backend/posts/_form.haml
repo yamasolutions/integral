@@ -6,7 +6,7 @@
         = f.input :title, input_html: { id: 'resource_title' }
         = f.input :description
         = f.input :slug, input_html: { data: { slugify: '#resource_title' }}
-        = f.input :body, as: :ckeditor, input_html: { value: @resource.editor_body, id: 'resource_body_editor', ckeditor: { language: current_user.locale }, data: { 'ckeditor-class' => 'integral-post' } }
+        = f.input :body, as: :block_editor
 
     .cell.medium-3
       .grid-y

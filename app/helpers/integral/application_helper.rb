@@ -20,6 +20,13 @@ module Integral
       Integral::ContentRenderer.render(content)
     end
 
+    # TODO: Process for dynamic blocks
+    def render_blocks(content)
+      html = Nokogiri::HTML(content)
+      html.xpath('//comment()').remove
+      html.css('body').inner_html.html_safe
+    end
+
     # @param [Integral::List] list the list to render
     # @param [Hash] opts the options to render list
     # @option opts [String] :html_classes the html classes for the list

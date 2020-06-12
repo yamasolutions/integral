@@ -4,5 +4,5 @@
     - most_read_posts.each do |post|
       .cell.small-6.medium-3
         = link_to post do
-          = image_tag post.image(:medium)
+          = image_tag post.image(:medium), alt: post.title
           .inline-articles-title= post.title

@@ -16,9 +16,12 @@ module Integral
       add_breadcrumb t('integral.breadcrumbs.tags'), :tags_url
       add_breadcrumb @tag.name, nil
 
+      page_title = params[:page].present? ? "#{@tag.name} - Page #{params[:page]}" : @tag.name
+      page_description = params[:page].present? ? "Page #{params[:page] } - #{t('integral.tags.show.description', tag_name: @tag.name)}" : t('integral.tags.show.description', tag_name: @tag.name)
+
       @meta_data = {
-        page_title: @tag.name,
-        page_description: t('integral.tags.show.description', tag_name: @tag.name)
+        page_title: page_title,
+        page_description: page_description
       }
 
       @tagged_posts = Integral::Post.tagged_with(@tag.name).published.paginate(page: params[:page])

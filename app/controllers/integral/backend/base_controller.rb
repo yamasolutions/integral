@@ -244,6 +244,11 @@ module Integral
         end
       end
 
+      helper_method :resource_grid_columns
+      def resource_grid_columns
+        []
+      end
+
       helper_method :render_default_action_bar?
       def render_default_action_bar?
         action_name == 'index' || action_name == 'show'

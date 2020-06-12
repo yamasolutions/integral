@@ -3,7 +3,7 @@
 - grid ||= recent_site_activity_grid
 - activities = cast_activities(grid.assets.limit(5))
 
-.card
+.card.flex-auto
   %h2= title
   - if activities.present?
     .timeline{ class: classes }

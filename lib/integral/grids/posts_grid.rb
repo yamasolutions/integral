@@ -21,8 +21,12 @@ module Integral
         where(user: value)
       end
 
+      filter(:category, multiple: true) do |value|
+        where(category_id: value)
+      end
+
       column(:title, order: :title)
-      column(:user, order: :user)
+      column(:category, order: :category_id)
       column(:status, order: :status)
       column(:view_count, order: :view_count)
       column(:updated_at, order: :updated_at)

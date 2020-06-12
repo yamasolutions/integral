@@ -6,7 +6,7 @@
           %span
             = "#{t('integral.navigation.tags')}:"
         - @post.tags_on(@post.tag_context).each do |tag|
-          %li= link_to tag.name, tag_url(tag)
+          %li= link_to tag.name, tag_url(tag.name)
     .cell.medium-5.article-footer-actions
       %button.button.secondary{ 'data-open' => 'share-modal' }= t('integral.actions.share')
       %button.button{ 'data-open' => 'subscribe-modal' }= t('integral.actions.subscribe')

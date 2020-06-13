@@ -24,7 +24,8 @@ recommendations of [keepachangelog.com](http://keepachangelog.com/).
 
 - Admin bar - Add white background and bring to front
 - Backend posts form - Existing tag suggestions were not appearing when typing in input
-- Image Uploader - Initial uploaded image was not displaying
+- Image Selector - Initial uploaded image was not displaying
+- Image Selector - When searching for a term the create modal would appear
 - Backend grid context menu not appearing for dynamic loaded rows
 
 ### Dependancies

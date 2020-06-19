@@ -80,7 +80,7 @@ export const settings = {
       }
       else {
         return (
-          <div className="button-container">
+          <div className="block-editor-image-placeholder">
             <Button
               onClick={ openEvent }
               className="button button-large"

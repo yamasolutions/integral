@@ -11,11 +11,12 @@ import '../styles.scss'
 import Editor from './editor'
 import { registerBlocks } from '../blocks'
 
+registerBlocks()
+
 export default class extends Controller {
   static targets = [ "output", "input", "maximize", "minimize" ]
 
   connect() {
-    this.inputTarget.classList.add('hide')
     const settings = {
       imageSizes: false,
       disableCustomFontSizes: true,
@@ -27,8 +28,7 @@ export default class extends Controller {
       __experimentalDisableCustomLineHeight: true
     }
 
-    registerBlocks();
-
+    this.inputTarget.classList.add('hide')
     render( <Editor input={ this.inputTarget } settings={ settings } />, this.outputTarget )
   }
 

@@ -65,6 +65,14 @@
     width: 100%;
   }
 
+  .block-editor-image-placeholder {
+    display: flex;
+    height: 13rem;
+    background-color: $light-gray;
+    justify-content: center;
+    align-items: center;
+  }
+
   @import 'integral/frontend/blocks';
   // Possibly should add an import here which imports all backend block styles - at the moment they're jumbled up inside frontend styles
 }

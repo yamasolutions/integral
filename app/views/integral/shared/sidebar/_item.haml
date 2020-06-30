@@ -1,7 +1,7 @@
 .grid-x.list-item
   .cell.small-3.image
     = link_to url do
-      = image_tag image, class: 'thumbnail' unless image.empty? #TODO: Should thumbnail be here?
+      = image_tag image, alt: title, class: 'thumbnail' unless image.empty? #TODO: Should thumbnail be here?
   .cell.small-9.data
     = link_to title, url
     %ul.list-unstyled.piped-list

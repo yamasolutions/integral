@@ -1,58 +1,46 @@
 = simple_form_for [:backend, @resource], validate: true, html: { id: 'user_form', class: 'are-you-sure' } do |f|
   = f.input :lock_version, as: :hidden
-  .grid-x.grid-padding-x
-    .cell.small-12.medium-8.large-9
+  .grid-x
+    .cell.medium-8.large-9
       .grid-y
-        .cell
-          .card
-            .card-section
-              = f.input :name
-        .cell
-          .card
-            .card-section
-              = f.input :email
+        = f.input :name
+        = f.input :email
         - if policy(current_user).manager?
           .cell
             .card
-              .card-section
-                - roles = Integral::Role.all.map { |role| [role.name, role.id ] }.to_h
-                = hidden_field_tag 'user[role_ids][]'
-                %table.table-striped.centered.js-table--user-roles
-                  %thead
-                    %th Role
-                    %th Reader
-                    %th Contributer
-                    %th Editor
-                    %th Manager
-                  %tbody
-                    - for object_name in ['Page', 'Post', 'List', 'Image', 'User']
-                      %tr
-                        %th= object_name
-                        - for role_type in ['Reader', 'Contributer', 'Editor', 'Manager']
-                          - if roles["#{object_name}#{role_type}"].present?
-                            %td
-                              %span.checkbox
-                                = check_box_tag 'user[role_ids][]', roles["#{object_name}#{role_type}"], @resource.role_ids.include?(roles["#{object_name}#{role_type}"]), id: "#{object_name}#{role_type}", class: 'filled-in'
-                                = label_tag "#{object_name}#{role_type}", '&nbsp'.html_safe
-                          - else
-                            %td
+              - roles = Integral::Role.all.map { |role| [role.name, role.id ] }.to_h
+              = hidden_field_tag 'user[role_ids][]'
+              %table.table-striped.centered.js-table--user-roles
+                %thead
+                  %th Role
+                  %th Reader
+                  %th Contributer
+                  %th Editor
+                  %th Manager
+                %tbody
+                  - for object_name in ['Page', 'Post', 'List', 'Image', 'User']
+                    %tr
+                      %th= object_name
+                      - for role_type in ['Reader', 'Contributer', 'Editor', 'Manager']
+                        - if roles["#{object_name}#{role_type}"].present?
+                          %td
+                            %span.checkbox
+                              = check_box_tag 'user[role_ids][]', roles["#{object_name}#{role_type}"], @resource.role_ids.include?(roles["#{object_name}#{role_type}"]), id: "#{object_name}#{role_type}", class: 'filled-in'
+                              = label_tag "#{object_name}#{role_type}", '&nbsp'.html_safe
+                        - else
+                          %td
 
-    .cell.small-12.medium-4.large-3
+    .cell.medium-4.large-3
       .grid-y
+        = f.input :notify_me
         .cell
           .card
-            .card-section
-              %h2= t('integral.records.attributes.avatar')
-              %hr.dark
-              - if @resource.avatar.present?
-                = image_tag @resource.avatar.url(:medium)
-                = f.input :avatar, as: :string, disabled: true, label: false
-              = f.input :avatar, label: false
-        .cell
-          .card
-            .card-section
-              = f.input :locale, collection: Integral::User.available_locales, prompt: t('integral.backend.users.prompts.select_language'), include_blank: false
+            = f.label(:avatar)
+            - if @resource.avatar.present?
+              = image_tag @resource.avatar.url(:medium)
+              = f.input :avatar, as: :string, disabled: true, label: false
+            = f.input :avatar, label: false
+        = f.input :locale, collection: Integral::User.available_locales, prompt: t('integral.backend.users.prompts.select_language'), include_blank: false
 
-    .cell.small-12
-      = f.button :button
+    .cell= f.button :button
 

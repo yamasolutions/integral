@@ -39,8 +39,27 @@
                     = icon('eye')
                     = t('integral.actions.view_main_site')
                 %li
+                  %button.button-notifications-dropdown{ type: 'button', data: { toggle: 'notifications-dropdown'}}
+                    - if current_user.notifications.unread.any?
+                      = icon('circle')
+                      = icon('bell-o')
+                    - else
+                      = icon('bell-o')
+                  #notifications-dropdown.dropdown-pane.dropdown-pane--notifications{ data: { notifications: true, load_more_url: current_user.multiple_page_notifications? ? notifications_backend_user_url(current_user, page: 2) : '', dropdown: true, hover: 'true', 'hover-pane' => 'true', 'v-offset' => '35', 'hover-delay' => 50 }}
+                    .section.text-center
+                      %span.title
+                        = current_user.notifications.unread.count
+                        Unread
+                      %span.subtitle User Notifications
+                    .section
+                      %ul.menu.vertical.notification-list
+                        = render recent_user_notifications.decorate, cached: true
+                      - if current_user.multiple_page_notifications?
+                        %p.notification-list-loader.js-loader--notifications
+                          = icon('spinner', class: 'fa-pulse fa-fw')
+                %li
                   %button.button.clear.avatar{ type: 'button', data: { toggle: 'profile-dropdown'}}= image_tag(current_user.avatar.url(:thumbnail), class: 'avatar')
-                  #profile-dropdown.dropdown-pane{ data: { dropdown: true, hover: 'true', 'hover-pane'=> 'true', 'v-offset'=> '35', 'hover-delay'=> 50 }}
+                  #profile-dropdown.dropdown-pane.dropdown-pane--profile{ data: { dropdown: true, hover: 'true', 'hover-pane'=> 'true', 'v-offset'=> '35', 'hover-delay'=> 50 }}
                     .section
                       = image_tag(current_user.avatar.url(:thumbnail), class: 'avatar')
                       %span.name= current_user.name
@@ -51,10 +70,10 @@
                           = link_to backend_account_url do
                             = icon('user')
                             %span= t('integral.navigation.profile')
-                        -# %li
-                        -#   = link_to new_backend_post_url do
-                        -#     = icon('history')
-                        -#     %span= t('integral.navigation.activity')
+                        %li
+                          = link_to edit_backend_user_url(current_user.id) do
+                            = icon('cog')
+                            %span= t('integral.actions.edit_profile')
                       %hr
                       = link_to t('integral.actions.log_out'), destroy_user_session_path, method: :delete, class: 'button hollow'
 
@@ -91,3 +110,6 @@
           #content-area
             = render partial: 'integral/backend/shared/breadcrumbs'
             = yield
+    .record-image
+      = render partial: 'integral/backend/shared/image_selector'
+    = render partial: 'integral/backend/shared/activity_modal'

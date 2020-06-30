@@ -24,10 +24,10 @@
   &-title {
     display: block;
     margin: 20px 0;
-    color: #3B3B3B;
+    color: $black;
     font-size: 24px;
     a {
-      color: #3B3B3B;
+      color: $black;
 
       &:hover {
         color: $primary-color;

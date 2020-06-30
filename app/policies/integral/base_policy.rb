@@ -25,9 +25,15 @@ module Integral
       !permitted_attribute?(attribute)
     end
 
-    # @return [Array] attributes the user is authorization to edit
+    # @return [Array] attributes the user is authorized to edit
     def permitted_attributes
       raise NotImplementedError
+    end
+
+    %i[destroy block unblock index list show new create edit update duplicate grid receives_notifications].each do |method|
+      define_method "#{method}?" do
+        manager?
+      end
     end
 
     private
@@ -36,15 +42,5 @@ module Integral
     def role_name
       raise NotImplementedError
     end
-
-    alias destroy? manager?
-    alias index? manager?
-    alias show? manager?
-    alias new? manager?
-    alias create? manager?
-    alias edit? manager?
-    alias update? manager?
-    alias duplicate? manager?
-    alias grid? manager?
   end
 end

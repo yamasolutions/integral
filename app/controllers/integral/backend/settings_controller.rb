@@ -43,6 +43,10 @@ module Integral
 
         params[:settings].permit(*permitted_settings_params)
       end
+
+      def render_default_action_bar?
+        false
+      end
     end
   end
 end

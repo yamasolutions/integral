@@ -1,11 +1,3 @@
 = content_for :title, t('.title', name: @resource.title)
 
--# = content_for :actionbar do
--#   %ul.menu.horizontal
--#     - if policy(Integral::Version).manager?
--#       %li
--#         = link_to activities_backend_page_url(@resource.id), class: 'button white' do
--#           = icon('history')
--#           = t('integral.navigation.activity')
-
-= render 'form'
+= render partial: 'form', locals: { form_path: backend_img_url(@resource) }

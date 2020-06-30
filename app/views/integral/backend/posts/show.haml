@@ -1,0 +1,31 @@
+= content_for :title, @resource.title
+
+.grid-x
+  .cell.large-6
+    -# Left Column
+    .grid-x
+      .cell
+        .card
+          %h2= @resource.title
+          %p.subtitle= @resource.description
+          %hr
+
+          .grid-x.actions
+            .cell.xlarge-8.xxlarge-6
+              .grid-x.small-up-2
+                = link_to t('integral.actions.view_on_site'), post_url(@resource), icon: :eye, wrapper: :cell
+                - if policy(resource_klass).manager?
+                  = link_to t('integral.actions.edit'), edit_backend_resource_url(@resource.id), icon: :edit, wrapper: :cell
+                - if policy(resource_klass).duplicate?
+                  = link_to t('integral.actions.clone'), duplicate_backend_resource_url(@resource.id), method: :post, data: { confirm: t('integral.actions.confirmation.clone') }, icon: :clone, wrapper: :cell
+                - if policy(resource_klass).manager?
+                  = link_to t('integral.actions.delete'), backend_resource_url(@resource.id), icon: :remove, wrapper: :cell, method: :delete, data: { confirm: t('integral.actions.confirmation.deletion') }
+                - if policy(resource_klass).manager?
+                  = link_to t('integral.actions.view_history'), activities_backend_resource_url(@resource.id), icon: :history, wrapper: :cell
+
+      .cell.medium-6.flex-container= render_card(:object, { title: 'Essentials', record: @resource })
+      .cell.xlarge-6.flex-container= render_card(:recent_user_activity)
+  .cell.large-6
+    -# Right Column
+    .grid-x
+      .cell= render_card(:recent_activity)

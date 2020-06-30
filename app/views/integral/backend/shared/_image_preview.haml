@@ -1,12 +1,14 @@
-- image = f.object.send(image_attr)
+- attribute = attribute.present? ? attribute : :image
+- help_text = help_text.present? ? help_text : ''
+- image = f.object.send(attribute)
 - image_path = image&.file&.url(:medium)
 - unlinkHiddenClass = image.present? ? '' : 'hide'
 - placeholderHiddenClass = image.present? ? 'hide' : ''
 
 .image-select
-  -# = f.label image_attr
+  = f.label attribute
   .image-container
-    = f.hidden_field "#{image_attr}_id"
+    = f.hidden_field "#{attribute}_id"
     = image_tag image_url('integral/image-not-set.png'), class: "placeholder #{placeholderHiddenClass}"
     %img.actual{ src: image_path }
     %ul.menu.align-left.menu-unlinked{ class: placeholderHiddenClass }
@@ -21,3 +23,8 @@
       %li
         %button.button.clear.edit
           = icon('pencil-square-o')
+
+  - if help_text.present?
+    %br
+    %p.help-text= help_text
+

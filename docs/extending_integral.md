@@ -1,4 +1,8 @@
-# Extending Integral
+---
+id: extending-integral
+title: Extending Integral
+sidebar_label: Extending Integral
+---
 
 * [Adding a custom field](#adding-a-custom-field)
 * [Adding a custom object](#adding-a-custom-object)
@@ -8,15 +12,15 @@
 
 ## Adding a custom field
 
-Below are step by step instructions on how to add a custom field to an Integral Page or Post. A [code sample][code-sample-custom-field] is available or [deploy the demo application with Heroku][heroku-deploy-custom-field].
+Below are step by step instructions on how to add a custom field to an Integral Page or Post. A [code sample][code-sample-custom-field] is available, you can also [deploy a demo application with Heroku][heroku-deploy-custom-field].
 
-User story - As a page manager I want to be able to add a custom link to particular pages. I want to do be able to add, update and remove the link in the same screen I manage the pages.
+User story - As a page manager I want to be able to add a custom link to particular frontend pages. I want to be able to add, update and remove the link in the same backend screen I manage the pages.
 
 We'll make this possible in 2 steps;
 1. Update the database to store the links
 2. Provide logged in users with a method of updating the links
 
-First we'll create the migration to store a link within the Pages table;
+First we'll create the migration to store a link within the `integral_pages` table;
 
 ```
 bundle exec rails generate migration addCustomUrlToIntegralPages custom_url:string
@@ -24,7 +28,7 @@ bundle exec rails generate migration addCustomUrlToIntegralPages custom_url:stri
 
 Run `bundle exec rails db:migrate`. You can now set a link to a particular page - test it yourself using the `rails console`.
 
-Now we want provide users a method of updating the links themselves, we'll break this down into 2 steps;
+Now we need to provide users a way of updating the links themselves, we'll break this down into 2 steps;
 1. Tell the backend pages controller to allow the `custom_url` attribute to be set
 2. Update the backend page form to include a `custom_url` text field.
 
@@ -35,13 +39,13 @@ To update the permitted page params Integral provides a configuration option wit
 config.additional_page_params = [:custom_url]
 ```
 
-Now we want to override the view which renders the page form. To do this we'll copy Integral's backend views then remove all the files apart from `app/views/integral/backend/pages/_form.haml`. Now that we have only the page form we can add the text field.
+Now it's time to add the `custom_url` field input to the pages form. To do this we'll override the default pages form by copying Integral's backend views then removing all the files apart from `app/views/integral/backend/pages/_form.haml`. Now that we have only the page form we can add the text field wherever we like.
 
 ```
 bundle exec rails generate integral:views -v backend
 ```
 
-Boot your app and navigate as a logged in user to `/admin/pages/new`. You should be able to create a page with a `custom_url`.
+Boot your app and navigate as a logged in user to `/admin/pages/new`. You will now be able to create a page with a `custom_url`.
 
 Stuck? Check out the [code sample][code-sample-custom-field] or [deploy a demo application with Heroku][heroku-deploy-custom-field]
 
@@ -49,16 +53,18 @@ If you want to add a custom field to another object for example an Enquiry or Li
 
 ## Adding a custom object
 
-Below are step by step instructions on how to add a custom object to an Integral application. A [code sample][code-sample-custom-object] is available or [deploy the demo application with Heroku][heroku-deploy-custom-object].
+Below are step by step instructions on how to add a custom object to an Integral application. A [code sample][code-sample-custom-object] is available, you can also [deploy a demo application with Heroku][heroku-deploy-custom-object].
 
 User stories;
-* As a user I want to be able to manage special offers the same way I manage pages or posts.
+* As a user I want to be able to manage special offers through Integral backend the same way I manage pages or posts.
+* As a user I want to be able to subscribe and unsubscribe to notifications relating to special offers
+* As a user I want to be able to see special offer activity on the main dashboard and within special offer screens
 * As a visitor I want to be able to view special offers
 
 We'll make this possible in 3 steps;
-1. Update the database to store special offers
+1. Update the database to store special offers & special offer activities (history)
 2. Allow visitors to view special offers
-3. Provide logged in users with a method of managing special offers
+3. Provide logged in users with a way of managing special offers through the Integral backend
 
 ### Data storage & visitor access
 
@@ -97,6 +103,7 @@ Update the empty `SpecialOffer` model with the following;
 # app/models/special_offer.rb
 
 class SpecialOffer < ApplicationRecord
+  acts_as_integral
   has_paper_trail class_name: 'SpecialOfferVersion'
 
   # Validations
@@ -107,10 +114,39 @@ class SpecialOffer < ApplicationRecord
 
   # Associations
   belongs_to :image, class_name: 'Integral::Image', optional: true
+
+  def self.decorator_class
+    Integral::BaseDecorator
+  end
+
+  # @return [String] font awesome icon name representing modal - https://fontawesome.com/v4.7.0/icons/
+  def self.integral_icon
+    'percent'
+  end
+
+  # @return [Hash] dataset to render an integral backend instance card
+  def to_card
+    image_url = image.file.url if image
+    {
+      image: image_url,
+      description: title,
+      url: Rails.application.routes.url_helpers.special_offer_url(self),
+      attributes: [
+        { key: 'Discount', value: discount },
+        { key: I18n.t('integral.records.attributes.updated_at'), value: I18n.l(updated_at) }
+      ]
+    }
+  end
 end
 ```
 
-Create the `SpecialOfferVersion` which is the model that stores `SpecialOffer` changes;
+`acts_as_integral` does a couple of things behind the scenes;
+* Registers with the backend main menu
+* Registers with the backend create menu
+* Registers with the main dashboard 'at a glance' chart
+* Enables notification subscriptions
+
+Next, create the `SpecialOfferVersion` which is the model that stores `SpecialOffer` changes;
 
 ```
 # app/models/special_offer_version.rb
@@ -151,7 +187,8 @@ Let's start by adding the backend routes:
   # Extend Integral engine routes
   Integral::Engine.routes.draw do
     namespace :backend, path: Integral.backend_namespace do
-      resources :special_offers, except: [ :show ] do
+      resources :special_offers do
+        get 'list', on: :collection
         member do
           get 'activities', controller: 'special_offers', as: :activities
           get 'activities/:activity_id', to: 'special_offers#activity', as: :activity
@@ -238,39 +275,39 @@ mv app/views/integral/backend/posts/ app/views/integral/backend/special_offers
 3. Make any changes necessary such as updating the form to only contain fields relating to `special_offers`
 4. Remove the additional Integral backend views which were generated that you are not using
 
-Now the only thing that is missing is special offer activity management. To add special offer activities to the activities page we're going to override the `ActivitiesGrid`
+To add special offer activities to the activities page and recent activity widget we're going to update the Integral config file;
 
 ```
-# app/extensions/lib/integral/grids/activities_grid_decorator.rb
+# config/initializers/integral.rb
 
-module Integral
-  # Grids
-  module Grids
-    # Override the versions which are displayed in the activity listing grid
-    ActivitiesGrid.class_eval do
-      scope do
-        Integral::UserVersion.all.union(Integral::PageVersion.all).union(Integral::PostVersion.all).union(Integral::ListVersion.all).union(Integral::ImageVersion.all).union(SpecialOfferVersion.all).order('created_at DESC')
-      end
-    end
+config.additional_tracked_classes = [SpecialOffer]
+```
+
+Lastly we need to create the authorization policy.
+
+```
+# app/policies/special_offer_policy.rb
+
+# Handles Special Offer authorization
+class SpecialOfferPolicy < Integral::BasePolicy
+  # @return [Boolean] whether or not user has manager role
+  def manager?
+    # user.role?(role_name) || user.admin?
+    true
   end
+
+  # # @return [Symbol] role name
+  # def role_name
+  #   :special_offer_manager
+  # end
 end
+
 ```
 
-Lastly we need to update the decorator;
+You'll see above we've hardcoded the `manager?` method to return `true` which means any logged in user will have full access to Special Offers. If you want to enable authorization for this model uncomment the `role_name` method and `manager?` method content then create the special offer role and assign it to authorized users.
+
 ```
-class SpecialOfferDecorator < Draper::Decorator
-  delegate_all
-
-  # @return [String] URL to backend page
-  def backend_url
-    Integral::Engine.routes.url_helpers.edit_backend_special_offer_url(object)
-  end
-
-  # @return [String] URL to backend activity
-  def activity_url(activity_id)
-    Integral::Engine.routes.url_helpers.activity_backend_special_offer_url(object.id, activity_id)
-  end
-end
+Integral::Role.create!(name: 'SpecialOfferManager')
 ```
 
 We're done! You can now manage special offers through the user only area and view them as a visitor on the frontend.

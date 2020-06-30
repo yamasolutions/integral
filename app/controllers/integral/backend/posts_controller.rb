@@ -2,8 +2,8 @@ module Integral
   module Backend
     # Post management
     class PostsController < BaseController
-      before_action :authorize_with_klass, only: %i[index new create edit update destroy]
-      before_action :set_resource, only: %i[edit update destroy show activities activity duplicate]
+      before_action :authorize_with_klass, except: %i[activities activity]
+      before_action :set_resource, except: %i[create new index list]
 
       # POST /:id/duplicate
       # Duplicate a resource
@@ -23,24 +23,6 @@ module Integral
       def new
         super
         @resource.user = current_user
-      end
-
-      # GET /
-      # Dashboard
-      def index
-        respond_to do |format|
-          format.html do
-          end
-
-          format.json do
-            if params[:gridview].present?
-              set_grid
-              render json: { content: render_to_string(partial: "integral/backend/#{controller_name}/grid", locals: { grid: @grid }) }
-            else
-              respond_to_record_selector
-            end
-          end
-        end
       end
 
       private

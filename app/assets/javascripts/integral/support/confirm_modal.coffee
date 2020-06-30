@@ -16,8 +16,8 @@ $.rails.buildConfirmationDialog = (message, modalId, confirmBtnId, cancelBtnId) 
     </div>
 
     <div class='modal-footer'>
-       <a id='#{cancelBtnId}' class='button secondary hollow'>#{I18n.t('integral.actions.cancel')}</a>
-       <a id='#{confirmBtnId}' class='button primary'>#{I18n.t('integral.actions.confirm')}</a>
+       <button id='#{cancelBtnId}' class='button secondary hollow'>#{I18n.t('integral.actions.cancel')}</button>
+       <button id='#{confirmBtnId}' class='button primary'>#{I18n.t('integral.actions.confirm')}</button>
     </div>
      <button class='close-button' data-close aria-label='Close modal' type='button'>
        <span aria-hidden='true'>&times;</span>

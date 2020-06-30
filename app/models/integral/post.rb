@@ -5,6 +5,10 @@ module Integral
     include LazyContentable
     include Webhook::Observable
 
+    acts_as_integral({
+      backend_main_menu: { order: 30, enabled: Integral.blog_enabled? },
+      backend_create_menu: { order: 20, enabled: Integral.blog_enabled? }
+    }) # Integral Goodness
     acts_as_paranoid # Soft-deletion
     acts_as_listable if Integral.blog_enabled? # Listable Item
     acts_as_taggable # Tagging
@@ -22,7 +26,7 @@ module Integral
     self.per_page = 8 if respond_to? :per_page
 
     # Associations
-    belongs_to :user
+    belongs_to :user, -> { with_deleted }
     belongs_to :category
     belongs_to :image, class_name: 'Integral::Image', optional: true
     belongs_to :preview_image, class_name: 'Integral::Image', optional: true
@@ -34,6 +38,7 @@ module Integral
 
     # Callbacks
     before_save :set_published_at
+    before_save :set_paper_trail_event
     before_save :set_tags_context
     after_update :deliver_published_webhook_on_update
     after_create :deliver_published_webhook_on_create
@@ -109,9 +114,13 @@ module Integral
       {
         icon: 'rss',
         record_title: I18n.t('integral.backend.record_selector.posts.record'),
-        selector_path: Engine.routes.url_helpers.backend_posts_path,
+        selector_path: Engine.routes.url_helpers.list_backend_posts_path,
         selector_title: I18n.t('integral.backend.record_selector.posts.title')
       }
+    end
+
+    def self.integral_icon
+      'rss'
     end
 
     # @return [String] Current tag context
@@ -137,7 +146,15 @@ module Integral
     end
 
     def set_published_at
-      self.published_at = Time.now if published? && published_at.nil?
+      if published? && published_at.nil?
+        self.published_at = Time.now
+      end
+    end
+
+    def set_paper_trail_event
+      if persisted? && published? && status_changed?
+        self.paper_trail_event = :publish
+      end
     end
 
     # Set the context of tags so that draft and archived tags are not displayed publicly

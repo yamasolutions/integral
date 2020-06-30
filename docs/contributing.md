@@ -1,4 +1,8 @@
-# Contributing
+---
+id: contributing
+title: Contributing
+sidebar_label: Contributing
+---
 
 We'd love your help with Integral. There are many ways you can contribute such as;
 1. Bug reporting & QA
@@ -20,14 +24,10 @@ Great, we can always use help developing Integral! Simply fork the repo to get s
 To test Integral run the following command;
 
 ```
-bundle exec fudge build
+bundle exec rspec spec
 ```
 
 The test suite will run the following;
-* [YARDoc](https://yardoc.org/) - Check all code is documented
-* [Flay](https://github.com/seattlerb/flay) & [Flog](https://github.com/seattlerb/flog) - Check for code duplication & complexity
-* [Brakeman](https://github.com/presidentbeef/brakeman) - Run a static analysis security vulnerability scanner
-* [Rubocop](http://batsov.com/rubocop/) - Run a Ruby static code analyzer, based on the community Ruby style guide.
 * [Rspec](http://rspec.info/) - Test suite
 
 If any of the above fail the build will fail.
@@ -50,3 +50,22 @@ Think we can improve on documentation? Help us out by letting us know - create a
 
 We'd love to make Integral available to as many languages as possible. If you feel you can help us with this please submit a PR with the relevant locale files and we'll be sure to take a look.
 
+
+## Version Releases
+
+* Confirm CI build is passing and docs are up to date
+* Set new version number
+* Update changelog
+* Bundle
+* rake build
+* Publish new gem to RubyGems
+* Commit
+* Push commit to GitHub
+* Create tag and push to GitHub
+* Update docs website
+  - cd to `website` directory
+  - run  `yarn build`
+  - run  `yarn run publish`
+  - Confirm docs website has updated
+* Write up and publish integralrails.com blog post
+* Win!

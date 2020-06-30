@@ -2,28 +2,9 @@ module Integral
   module Backend
     # Users controller
     class UsersController < BaseController
-      before_action :set_resource, only: %i[edit update destroy show activities activity]
+      before_action :set_resource, except: %i[create new index list account]
+      before_action :authorize_with_klass, except: %i[activities activity show edit update account notifications read_notification]
       before_action :authorize_with_instance, only: %i[show edit update]
-      before_action :authorize_with_klass, only: %i[index new create destroy]
-      before_action -> { set_grid }, only: [:index]
-
-      # GET /
-      # Lists all users
-      def index
-        respond_to do |format|
-          format.html
-          format.json do
-            render json: { content: render_to_string(partial: 'integral/backend/users/grid', locals: { grid: @grid }) }
-          end
-        end
-      end
-
-      # GET /:id
-      # Show specific user
-      #
-      def show
-        add_breadcrumb @resource.name, :backend_user_path
-      end
 
       # GET /:id/edit
       # Resource edit screen
@@ -34,7 +15,6 @@ module Integral
 
       # GET /account
       # Show specific users account page
-      #
       def account
         @resource = current_user
         add_breadcrumb @resource.name, :backend_account_path
@@ -67,7 +47,46 @@ module Integral
         end
       end
 
+      # GET /:id/notifications
+      def notifications
+        load_more_url = notifications_backend_user_url(current_user, page: current_page+1) if current_user.notifications.count > current_page * Notification::Notification.per_page
+        render json: { content: render_to_string(current_user.notifications.recent.page(current_page).decorate, cached: true), load_more_url: load_more_url }
+      end
+
+      # PUT /:id/read_notification
+      def read_notification
+        if current_user.notifications.find(params[:notification_id]).read!
+          head :ok
+        else
+          head :unprocessable_entity
+        end
+      end
+
+      # PUT /:id/block
+      # Block a user
+      def block
+        if @resource.blocked!
+          respond_successfully(notification_message('edit_success'), backend_user_path(@resource))
+        else
+          respond_failure(notification_message('edit_failure'), 'edit')
+        end
+      end
+
+      # PUT /:id/unblock
+      # Unblock a user
+      def unblock
+        if @resource.active!
+          respond_successfully(notification_message('edit_success'), backend_user_path(@resource))
+        else
+          respond_failure(notification_message('edit_failure'), 'edit')
+        end
+      end
+
       private
+
+      def current_page
+        params[:page].to_i
+      end
 
       def white_listed_grid_params
         %i[descending order page user action object name status]
@@ -79,10 +98,10 @@ module Integral
 
       def resource_params
         unless params[:user][:password].present?
-          return params.require(:user).permit(:name, :email, :avatar, :locale, role_ids: [])
+          return params.require(:user).permit(:name, :email, :avatar, :locale, :notify_me, role_ids: [])
         end
 
-        params.require(:user).permit(:name, :email, :avatar, :locale, :password, :password_confirmation, role_ids: [])
+        params.require(:user).permit(:name, :email, :avatar, :locale, :notify_me, :password, :password_confirmation, role_ids: [])
       end
 
       def authorize_with_instance

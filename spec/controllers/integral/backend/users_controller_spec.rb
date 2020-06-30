@@ -43,9 +43,6 @@ module Integral
 
           context 'when user has the require roles' do
             before do
-              expect(controller).to receive(:add_breadcrumb).with(I18n.t('integral.breadcrumbs.dashboard'), :backend_dashboard_path)
-              expect(controller).to receive(:add_breadcrumb).with(I18n.t('integral.breadcrumbs.users'), :backend_users_path)
-
               get :index
             end
 
@@ -121,6 +118,41 @@ module Integral
         end
       end
 
+      describe 'GET account' do
+        context 'when not logged in' do
+          it 'redirects to login page' do
+            get :account, params: { id: user.id }
+
+            expect(response).to redirect_to new_user_session_path
+          end
+        end
+
+        context 'when logged in' do
+          before do
+            sign_in user
+          end
+
+          context 'when user does not have any user roles' do
+            let(:user) { create :user }
+
+            before do
+              get :account
+            end
+
+            it { expect(response.status).to eq 200 }
+          end
+
+          context 'when user has required roles' do
+            before do
+              get :account
+            end
+
+            it { expect(assigns[:resource]).to eq user }
+            it { expect(response).to render_template 'show' }
+          end
+        end
+      end
+
       describe 'GET show' do
         context 'when not logged in' do
           it 'redirects to login page' do
@@ -147,10 +179,6 @@ module Integral
 
           context 'when user has required roles' do
             before do
-              expect(controller).to receive(:add_breadcrumb).with(I18n.t('integral.breadcrumbs.dashboard'), :backend_dashboard_path)
-              expect(controller).to receive(:add_breadcrumb).with(I18n.t('integral.breadcrumbs.users'), :backend_users_path)
-              expect(controller).to receive(:add_breadcrumb).with(presented_user.name, :backend_user_path)
-
               get :show, params: { id: presented_user.id }
             end
 
@@ -185,10 +213,6 @@ module Integral
 
           context 'when user has required roles' do
             before do
-              expect(controller).to receive(:add_breadcrumb).with(I18n.t('integral.breadcrumbs.dashboard'), :backend_dashboard_path)
-              expect(controller).to receive(:add_breadcrumb).with(I18n.t('integral.breadcrumbs.users'), :backend_users_path)
-              expect(controller).to receive(:add_breadcrumb).with(I18n.t('integral.breadcrumbs.new'), :new_backend_user_path)
-
               get :new
             end
 
@@ -225,17 +249,88 @@ module Integral
 
           context 'when the user has the required roles' do
             before do
-              expect(controller).to receive(:add_breadcrumb).with(I18n.t('integral.breadcrumbs.dashboard'), :backend_dashboard_path)
-              expect(controller).to receive(:add_breadcrumb).with(I18n.t('integral.breadcrumbs.users'), :backend_users_path)
-              expect(controller).to receive(:add_breadcrumb).with(user.name, :backend_user_path)
-              expect(controller).to receive(:add_breadcrumb).with(I18n.t('integral.breadcrumbs.edit'), :edit_backend_user_path)
-
               get :edit, params: { id: user.id }
             end
 
 
             it { expect(assigns[:resource]).to eq user }
             it { expect(response).to render_template 'edit' }
+          end
+        end
+      end
+
+      describe 'PUT block' do
+        let(:actionable_user) { create(:user) }
+
+        context 'when not logged in' do
+          before do
+            put :block, params: { id: user.id, user: user_params }
+          end
+
+          it { expect(response).to redirect_to new_user_session_path }
+        end
+
+        context 'when logged in' do
+          before do
+            sign_in user
+
+            put :block, params: { id: actionable_user.id }
+            assigns[:resource].reload
+          end
+
+          context 'when user does not have required privileges' do
+            let(:user) { create :user }
+
+            it { expect(response.status).to eq 302 }
+          end
+
+          context 'when user has required privileges' do
+            context 'when valid parameters supplied' do
+              it { expect(response).to redirect_to(backend_user_path(actionable_user)) }
+              it { expect(actionable_user.reload.blocked?).to eq(true) }
+            end
+
+            # Add spec covering unprocessable_entity
+            # it { expect(response).to redirect_to(backend_user_path(actionable_user)) }
+            # it { expect(response).to have_http_status(:unprocessable_entity) }
+          end
+        end
+      end
+
+      describe 'PUT unblock' do
+        let(:actionable_user) { create(:user) }
+
+        context 'when not logged in' do
+          before do
+            put :unblock, params: { id: user.id, user: user_params }
+          end
+
+          it { expect(response).to redirect_to new_user_session_path }
+        end
+
+        context 'when logged in' do
+          before do
+            sign_in user
+
+            put :unblock, params: { id: actionable_user.id }
+            assigns[:resource].reload
+          end
+
+          context 'when user does not have required privileges' do
+            let(:user) { create :user }
+
+            it { expect(response.status).to eq 302 }
+          end
+
+          context 'when user has required privileges' do
+            context 'when valid parameters supplied' do
+              it { expect(response).to redirect_to(backend_user_path(actionable_user)) }
+              it { expect(actionable_user.reload.blocked?).to eq(false) }
+            end
+
+            # Add spec covering unprocessable_entity
+            # it { expect(response).to redirect_to(backend_user_path(actionable_user)) }
+            # it { expect(response).to have_http_status(:unprocessable_entity) }
           end
         end
       end

@@ -36,9 +36,6 @@ module Integral
 
           context 'when user has required privileges' do
             before do
-              expect(controller).to receive(:add_breadcrumb).with(I18n.t('integral.breadcrumbs.dashboard'), :backend_dashboard_path)
-              expect(controller).to receive(:add_breadcrumb).with(I18n.t('integral.breadcrumbs.lists'), :backend_lists_path)
-
               get :index
             end
 
@@ -124,9 +121,6 @@ module Integral
           context 'when user has required privileges' do
             before do
               allow(Integral::List).to receive(:new).and_return :foo
-              expect(controller).to receive(:add_breadcrumb).with(I18n.t('integral.breadcrumbs.dashboard'), :backend_dashboard_path)
-              expect(controller).to receive(:add_breadcrumb).with(I18n.t('integral.breadcrumbs.lists'), :backend_lists_path)
-              expect(controller).to receive(:add_breadcrumb).with(I18n.t('integral.breadcrumbs.new'), :new_backend_list_path)
 
               get :new
             end
@@ -166,9 +160,6 @@ module Integral
 
           context 'when user has required privileges' do
             before do
-              expect(controller).to receive(:add_breadcrumb).with(I18n.t('integral.breadcrumbs.dashboard'), :backend_dashboard_path)
-              expect(controller).to receive(:add_breadcrumb).with(I18n.t('integral.breadcrumbs.lists'), :backend_lists_path)
-              expect(controller).to receive(:add_breadcrumb).with(I18n.t('integral.breadcrumbs.edit'), :edit_backend_list_path)
               get :edit, params: { id: list.id }
             end
 

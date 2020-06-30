@@ -3,8 +3,12 @@ module Integral
   class Image < ApplicationRecord
     before_save :touch_list_items
 
-    # Soft-deletion
-    acts_as_paranoid
+    acts_as_integral({
+      notifications: { enabled: false },
+      backend_main_menu: { order: 40 },
+      backend_create_menu: { order: 30 }
+    }) # Integral Goodness
+    acts_as_paranoid # Soft-deletion
 
     validates :file, presence: true
     validates :title, presence: true, length: { minimum: 5, maximum: 50 }
@@ -45,8 +49,41 @@ module Integral
     def self.listable_options
       {
         record_title: I18n.t('integral.backend.record_selector.images.record'),
-        selector_path: Engine.routes.url_helpers.backend_images_path,
+        selector_path: Engine.routes.url_helpers.list_backend_images_path,
         selector_title: I18n.t('integral.backend.record_selector.images.title')
+      }
+    end
+
+    def self.integral_icon
+      'image'
+    end
+
+    def self.integral_backend_main_menu_item
+      {
+        icon: integral_icon,
+        order: integral_options.dig(:backend_main_menu, :order),
+        label: model_name.human.pluralize,
+        url: url_helpers.send("backend_img_index_url"),
+        authorize_class: self,
+        authorize_action: :index,
+        list_items: [
+          { label: I18n.t('integral.navigation.dashboard'), url: url_helpers.send("backend_img_index_url"), authorize_class: self, authorize_action: :index },
+          { label: I18n.t('integral.actions.create'), url: url_helpers.send("new_backend_img_url"), authorize_class: self, authorize_action: :new },
+          { label: I18n.t('integral.navigation.listing'), url: url_helpers.send("list_backend_img_index_url"), authorize_class: self, authorize_action: :list },
+        ]
+      }
+    end
+
+    # @return [Hash] hash representing the class, used to render within the create menu
+    def self.integral_backend_create_menu_item
+      {
+        icon: integral_icon,
+        order: integral_options.dig(:backend_create_menu, :order),
+        label: model_name.human,
+        url: url_helpers.send("new_backend_img_url"),
+        # authorize: proc { policy(self).index? }, can't use this as self is in wrong context
+        authorize_class: self,
+        authorize_action: :new,
       }
     end
 

@@ -4,7 +4,7 @@ ENV['RAILS_ENV'] ||= 'test'
 # Analysis code coverage
 require 'simplecov'
 SimpleCov.start 'rails'
-SimpleCov.minimum_coverage 85.95
+SimpleCov.minimum_coverage 88.10
 
 require File.expand_path('../dummy/config/environment', __FILE__)
 # Prevent database truncation if the environment is production
@@ -19,11 +19,24 @@ require 'faker'
 require 'shoulda-matchers'
 require 'pundit/rspec'
 require 'database_cleaner'
+require 'capybara/apparition'
 require 'capybara/rspec'
-require 'capybara/poltergeist'
 require 'paper_trail/frameworks/rspec'
 
-Capybara.default_driver = :poltergeist
+Capybara.server = :webrick
+Capybara.register_driver :apparition do |app|
+  options = {
+      debug: false,
+      headless: !ENV['OPEN_BROWSER'].present?,
+      screen_size: [1200, 900],
+      browser_options: [ :disable_gpu, :no_sandbox, disable_features: 'VizDisplayCompositor'],
+      browser_logger: nil,
+      skip_image_loading: true
+  }
+  Capybara::Apparition::Driver.new(app, options)
+end
+
+Capybara.javascript_driver = :apparition
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
@@ -64,6 +77,7 @@ RSpec.configure do |config|
 
   # Add feature helpers
   config.include Features::Helpers, type: :feature
+  config.include Features::Helpers, type: :system
 
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"

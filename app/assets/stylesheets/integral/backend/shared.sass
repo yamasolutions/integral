@@ -47,6 +47,8 @@
 
 .button
   padding: 0.7em 1.5em
+  &.has-tip
+    cursor: pointer
   &.primary
     color: $white
   &.white
@@ -54,7 +56,6 @@
     background-color: $white
     color: $primary-color
     font-size: .8rem
-    margin: .5rem 0
     &:hover
       box-shadow: $card-shadow
       color: $secondary-color
@@ -71,12 +72,16 @@ span.label.clear
 input:disabled, input[readonly], textarea:disabled, textarea[readonly]
   border: none
 
+input[type='text'], textarea, select
+  margin-bottom: 0
+
 input[readonly].datepicker
   border: solid 0.5px #d4dfef
   background-color: transparent
   cursor: pointer
 
 .input.alternative
+  margin-bottom: 0.75rem
   label
     font-size: .9rem
     margin-bottom: 0
@@ -88,8 +93,8 @@ input[readonly].datepicker
   > select, > textarea, > input[type=text], > input[type=url], > input[type=number]
     border-radius: 0
     -webkit-appearance: none
+    margin-bottom: 0
     &.has-error
-      margin-bottom: 0
       color: $alert-color
       border-color: $alert-color
       background-color: transparentize($alert-color, 0.9)
@@ -100,6 +105,8 @@ input[readonly].datepicker
     margin: .5em 0
     font-size: .9rem
     color: $alert-color
+  .help-text
+    margin-top: 5px
 
 ul.accordion
   background-color: transparent
@@ -292,11 +299,14 @@ ul.tabs
         font-size: .75rem
 
 .record-selector.reveal
+  .create-button
+    margin-bottom: 0
   .loader
     margin: 3rem 0
     color: $primary-color
   .top-bar
     margin-top: 1em
+    margin-bottom: 1rem
     .filter.search
       max-width: 16em
       input
@@ -371,6 +381,8 @@ ul.tabs
 .card.list-management
   .top-bar
     @include top-bar-unstack
+    .input.alternative
+      margin-bottom: 0
     .top-bar-right .input.alternative
       display: flex
       align-items: center
@@ -446,6 +458,9 @@ ul.tabs
   label
     font-size: 1em
 
+.card
+  overflow: initial
+
 .card.profile
   position: relative
   a.settings
@@ -482,6 +497,10 @@ ul.tabs
 
 
 /** Forms **/
+.input
+  .form-error
+    margin: 0
+
 .field-with-errors
   > input, > textarea, > select
     @include form-input-error
@@ -712,17 +731,6 @@ table
       background-color: rgba(212, 223, 239, 0.3)
       font-size: 0.9em
       padding: 0.5em 1em
-    .actions
-      a
-        color: $body-font-color-secondary
-        border-radius: 50%
-        padding: 0.4em 0.25em
-        &:hover
-          background-color: $primary-color
-          color: $white
-        .fa
-          width: 2em
-          text-align: center
     tr.empty-grid
       &:hover
         background-color: transparent
@@ -769,6 +777,7 @@ table
   transform: rotate(-135deg)
 
 .help-text
+  margin-top: 5px
   margin-bottom: 0
 
 .card-action-title
@@ -778,8 +787,11 @@ table
 
 .button--action-pane
   cursor: pointer
+  border-radius: 50%
+  padding: .25rem
   &:hover, &.hover
-    color: $primary-color
+    color: $white
+    background-color: $primary-color
 
 .dropdown-pane--actions
   padding: 0
@@ -840,3 +852,21 @@ table
 .stat-table-header
   font-size: .8rem
 
+.tr--clickable
+  cursor: pointer
+
+.grid-x
+  > .cell
+    @include xy-cell-gutters($gutter-type: padding) //($gutters, $gutter-type, $gutter-position, $breakpoint, $vertical)
+
+.grid-y, .grid-x
+  > .input, > .image-select
+    @include card-container($card-background, $card-font-color, $card-margin-bottom, $card-border, $card-border-radius, $card-shadow)
+    @include card-section
+    overflow: initial
+
+.card
+  @include card-section
+
+.card-unpadded
+  @include card-container($card-background, $card-font-color, $card-margin-bottom, $card-border, $card-border-radius, $card-shadow)

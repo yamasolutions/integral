@@ -10,5 +10,8 @@ require "integral"
 module Dummy
   class Application < Rails::Application
     config.active_record.sqlite3.represent_boolean_as_integer = true
+
+    config.action_mailer.default_url_options = { :host => "test.somehost.com" }
+    Rails.application.routes.default_url_options[:host] = 'test.somehost.com'
   end
 end

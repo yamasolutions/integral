@@ -1,3 +1,9 @@
+---
+id: heroku-deployment
+title: Deploying with Heroku
+sidebar_label: Deploying with Heroku
+---
+
 # Heroku
 
 [Heroku](https://www.heroku.com/) offers a platform as a service which is commonly used by Ruby on Rails developers to host their projects. Although more expensive then just renting out servers, this expense is offset by time saved not worrying about developer operations such as server security, availability, monitoring, scaling etc.

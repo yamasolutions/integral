@@ -33,7 +33,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'devise_invitable', '~> 1.7' # Invitable authentication
   s.add_dependency 'draper', '~> 3.0' # Object decoration
   s.add_dependency 'font-awesome-sass', '~> 4.3' # Grid Icons
-  s.add_dependency 'foundation-rails', '~> 6.4.1' # Foundation UI Framework
+  s.add_dependency 'foundation-rails', '~> 6.6.2' # Foundation UI Framework
   s.add_dependency 'friendly_id', '~> 5.2' # Slugging
   s.add_dependency 'gaffe', '~> 1.2' # Custom error pages
   s.add_dependency "groupdate", "~> 3.0" # Group By
@@ -67,14 +67,14 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'faker', '~> 1.6' # Random data generator
   s.add_development_dependency 'pry-rails', '~> 0.3' # Debugger
   s.add_development_dependency 'rails-controller-testing', '~> 1.0' # Rails controller testing
-  s.add_development_dependency 'rspec-rails', '~> 3.8' # Testing framework
+  s.add_development_dependency 'rspec-rails', '~> 4.0' # Testing framework
   s.add_development_dependency 'generator_spec', '~> 0.9' # Testing framework
   s.add_development_dependency 'shoulda-matchers', '~> 3.1' # Extra matchers for testing
   s.add_development_dependency 'pg', '~> 0.21' # Database
 
-  s.add_development_dependency 'capybara', '~> 2.10' # Acceptance testing framework
+  s.add_development_dependency 'capybara', '~> 3.32' # Acceptance testing framework
   s.add_development_dependency 'launchy', '~> 2.4' # Automatically launch test pages
-  s.add_development_dependency 'poltergeist', '~> 1.11' # Headless Capybara driver for JS
+  # s.add_development_dependency 'apparition', '~> 0.5.0' # Headless Capybara driver for JS
   s.add_development_dependency 'rspec-retry', '~> 0.6.1' # Retry flaky specs
 
   # CI, code coverage, analysis and documentation tools

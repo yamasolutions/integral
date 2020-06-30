@@ -2,22 +2,21 @@
 
 .grid-x
   .cell.large-6
-    .grid-x.grid-padding-x
-      .cell.small-12
-        = render partial: 'integral/backend/shared/cards/welcome'
-      - if Integral.blog_enabled?
-        .cell.small-12.medium-6.flex-container
-          = render partial: 'integral/backend/static_pages/card', locals: { title: t('.recent_post'), record: Integral::Post.published.last }
-      .cell.small-12.medium-6.flex-container
-        = render partial: 'integral/backend/static_pages/card', locals: { title: t('.recent_page'), record: Integral::Page.published.last }
-  .cell.large-6
-    .grid-x.grid-padding-x
-      .cell.small-12
-        = render partial: 'integral/backend/shared/cards/at_a_glance', locals: { dataset: dataset_dashboard_atg }
+    -# Left Column
+    .grid-x
+      .cell= render_card(:welcome)
+      - if Integral.blog_enabled? & Integral::Post.published.last.present?
+        .cell.medium-6.flex-container= render_card(:object, { title: t('.recent_post'), record: Integral::Post.published.last })
 
-      .cell.small-12
+      .cell.medium-6.flex-container= render_card(:object, { title: t('.recent_page'), record: Integral::Page.published.last })
+      .cell.xlarge-6.flex-container= render_card(:recent_user_activity)
+  .cell.large-6
+    -# Right Column
+    .grid-x
+      .cell= render_card(:recent_activity)
+      .cell= render_card(:at_a_glance)
+      .cell
         .card
-          .card-section
-            %h2= t('integral.backend.cards.last_week')
-            = render_line_chart(dataset_dashboard_last_week)
+          %h2= t('integral.backend.cards.last_week')
+          = render_line_chart(dataset_dashboard_last_week)
 

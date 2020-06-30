@@ -4,6 +4,11 @@ module Integral
     include LazyContentable
 
     acts_as_paranoid # Soft-deletion
+    acts_as_integral({
+      backend_main_menu: { order: 20 },
+      backend_create_menu: { order: 10 }
+    }) # Integral Goodness
+
     acts_as_listable # Listable Item
     acts_as_auditable # Lighthouse auditing
 
@@ -33,6 +38,10 @@ module Integral
     validates_format_of :path, with: PATH_REGEX
     validate :validate_path_is_not_black_listed
     validate :validate_parent_is_available
+
+    # Callbacks
+    before_save :set_paper_trail_event
+    before_save :set_integral_notification_action
 
     # Scopes
     scope :search, ->(query) { where('lower(title) LIKE ? OR lower(path) LIKE ?', "%#{query.downcase}%", "%#{query.downcase}%") }
@@ -77,9 +86,13 @@ module Integral
       {
         icon: 'file',
         record_title: I18n.t('integral.backend.record_selector.pages.record'),
-        selector_path: Engine.routes.url_helpers.backend_pages_path,
+        selector_path: Engine.routes.url_helpers.list_backend_pages_path,
         selector_title: I18n.t('integral.backend.record_selector.pages.title')
       }
+    end
+
+    def self.integral_icon
+      'file'
     end
 
     # @return [Hash] the instance as a card
@@ -136,13 +149,16 @@ module Integral
 
     private
 
-    # @return [Array] containing available human readable statuses against there numeric value
-    def self.available_statuses
-      [
-        ['Draft', 0],
-        ['Published', 1],
-        ['Archived', 2]
-      ]
+    def set_paper_trail_event
+      if persisted? && published? && status_changed?
+        self.paper_trail_event = :publish
+      end
+    end
+
+    def set_integral_notification_action
+      if persisted? && published? && status_changed?
+        self.integral_notification_action = :publish
+      end
     end
 
     def validate_parent_is_available

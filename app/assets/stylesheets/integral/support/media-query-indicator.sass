@@ -1,8 +1,10 @@
 /** Indicator used to display to developer what media query is currently active
   *
-  * Red: Small Screens
-  * Orange: Medium Screens
-  * Green: Large and above
+  * Red: Small screens
+  * Orange: Medium screens
+  * Green: Large screens
+  * Blue: Xlarge Screens
+  * Black: XXlarge screens and above
   */
 .query-indicator
   display: block
@@ -22,4 +24,8 @@
     background-color: #ffa500
   @include breakpoint(large)
     background-color: #008000
+  @include breakpoint(xlarge)
+    background-color: #1b8ecf
+  @include breakpoint(xxlarge)
+    background-color: #0c1116
 

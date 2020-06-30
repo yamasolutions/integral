@@ -9,21 +9,21 @@
           %h1
             = @post.title
             - if user_signed_in?
-              %span.label.entity-status{ class: @post.status }= @post.status
+              %span.label.entity-status{ class: @post.draft? ? 'warning' : '' }= @post.status
               %span.small= link_to 'Edit', integral.edit_backend_post_url(@post.id), class: "button medium", data: { 'turbolinks' => 'false' }
           .grid-x
-            .cell.small-8
+            .cell.medium-8
               .article-author
                 %span= @post.avatar
                 = @post.author.name
               %ul.list-unstyled.piped-list
                 %li= @post.published_at
                 %li= link_to @post.category.title, category_path(@post.category)
-            .cell.small-4.text-right
+            .cell.small-4.text-right.show-for-medium
               %button.button{ 'data-open' => 'share-modal' }
                 = icon('share', class: 'show-for-medium')
                 = t('integral.actions.share')
-        %section.wysiwyg-content
+        %section.wysiwyg-content.wysiwyg-content--post
           = @post.body.html_safe
         = render partial: 'integral/posts/article_footer'
       .hide-for-large= render partial: 'similar_posts'

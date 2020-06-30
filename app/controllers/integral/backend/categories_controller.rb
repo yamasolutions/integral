@@ -2,8 +2,8 @@ module Integral
   module Backend
     # Categories controller
     class CategoriesController < BaseController
-      before_action :authorize_with_klass, only: %i[create edit update]
-      before_action :set_resource, only: %i[edit update destroy]
+      before_action :authorize_with_klass, except: %i[activities activity]
+      before_action :set_resource, except: %i[create new index list]
 
       # PUT /:id
       # Updating a resource

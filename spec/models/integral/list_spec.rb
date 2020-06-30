@@ -23,6 +23,12 @@ module Integral
       it { is_expected.to validate_uniqueness_of :title }
     end
 
+    describe '.integral_icon' do
+      it 'returns expected icon' do
+        expect(described_class.integral_icon).to eq 'list'
+      end
+    end
+
     describe '#validate_unlocked' do
       context 'when locked' do
         it "can't be deleted" do

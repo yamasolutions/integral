@@ -18,7 +18,9 @@ Integral::Role.create!(name: 'PostManager')
 Integral::Role.create!(name: 'ListManager')
 
 # Demo User
-user = Integral::User.create!({ name: 'Integrico', email: 'user@integralrails.com', password: 'password', role_ids: Integral::Role.ids, admin: true })
+user = Integral::User.create!({ name: 'Integrico', email: 'user@integralrails.com', password: 'password', role_ids: Integral::Role.ids, admin: true, status: 1 })
+
+return if Rails.env.test? # Test DB should start with blank slate ... although roles and initial user are required
 
 # Demo Page
 host = URI.parse(Rails.application.routes.default_url_options[:host] || 'http://localhost:3000')
@@ -33,16 +35,18 @@ Integral::Page.create!(title: 'Integral CMS - Demo Page',
                        body: renderer.render('integral/pages/_demo', layout: false),
                        status: 1)
 
-# Demo Post
-category = Integral::Category.create!(title: 'Uncategorised', description: "Posts which we haven't yet categorized but are sure to grab your attention", slug: 'uncategorized')
-Integral::Post.create!(title: 'Integral CMS - Demo Post',
-                       description:'Integral CMS demo post. Integral is a rails content management system (CMS) which gives developers the ability to create a modern website with all the bells and whistles without the hassle.',
-                       body: File.read(File.join(Integral::Engine.root.join('public', 'integral', 'ckeditor_demo_content.html'))),
-                       slug: 'integral-demo',
-                       user: user,
-                       tag_list: 'integral-cms,example-tag',
-                       status: 1,
-                       category: category)
+if Integral.blog_enabled?
+  # Demo Post
+  category = Integral::Category.create!(title: 'Uncategorised', description: "Posts which we haven't yet categorized but are sure to grab your attention", slug: 'uncategorized')
+  Integral::Post.create!(title: 'Integral CMS - Demo Post',
+                         description:'Integral CMS demo post. Integral is a rails content management system (CMS) which gives developers the ability to create a modern website with all the bells and whistles without the hassle.',
+                         body: File.read(File.join(Integral::Engine.root.join('public', 'integral', 'ckeditor_demo_content.html'))),
+                         slug: 'integral-demo',
+                         user: user,
+                         tag_list: 'integral-cms,example-tag',
+                         status: 1,
+                         category: category)
+end
 
 # Main Menu
 Integral::List.create!({ title: 'Main Menu', list_items: [

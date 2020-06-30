@@ -1,13 +1,13 @@
 %footer.article-footer
   .grid-x
-    .cell.medium-8
+    .cell.medium-7
       %ul.post-tags
         %li
           %span
             = "#{t('integral.navigation.tags')}:"
         - @post.tags_on(@post.tag_context).each do |tag|
-          %li= link_to tag.name, tag_url(tag)
-    .cell.medium-4.article-footer-actions
+          %li= link_to tag.name, tag_url(tag.name)
+    .cell.medium-5.article-footer-actions
       %button.button.secondary{ 'data-open' => 'share-modal' }= t('integral.actions.share')
       %button.button{ 'data-open' => 'subscribe-modal' }= t('integral.actions.subscribe')
   %section.grid-x.grid-margin-x

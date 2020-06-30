@@ -1,0 +1,21 @@
+- options = local_assigns.reverse_merge({ order: true, columns: resource_grid_columns })
+
+= render_data_grid do
+  %table.integral-grid.wice-grid.table-striped.hover
+    %thead
+      %tr
+        - resource_grid.html_columns(*options[:columns]).uniq { |col| col.name }.sort_by{ |item| options[:columns].index item.name }.each do |column|
+          %th{ class: datagrid_column_classes(resource_grid, column) }
+            - if column.supports_order? && options[:order]
+              %button{ data: { sort: column.name, desc: (!resource_grid.descending).to_s }}
+                = column.header
+            - else
+              = column.header
+    %tbody
+      - if resource_grid.assets.any?
+        = render partial: "#{self.controller._prefixes.first}/grid/row_content", collection: resource_grid.assets.decorate, layout: 'integral/backend/shared/grid/row_layout', as: :resource
+      - else
+        = render partial: 'integral/backend/shared/grid/empty'
+
+  = render partial: 'integral/backend/shared/grid/pagination', locals: { records: resource_grid.assets }
+  = icon('spinner', class: 'fa-pulse fa-3x fa-fw load-indicator')

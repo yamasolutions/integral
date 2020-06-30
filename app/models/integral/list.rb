@@ -3,8 +3,12 @@ module Integral
   class List < ApplicationRecord
     default_scope { includes(:list_items) }
 
-    # Soft-deletion
-    acts_as_paranoid
+    acts_as_integral({
+      backend_main_menu: { order: 50 },
+      backend_create_menu: { order: 40 }
+    }) # Integral Goodness
+
+    acts_as_paranoid # Soft-deletion
 
     # Associations
     has_many :list_items
@@ -46,6 +50,10 @@ module Integral
       end
 
       new_list
+    end
+
+    def self.integral_icon
+      'list'
     end
 
     private

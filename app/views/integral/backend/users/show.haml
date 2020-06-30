@@ -1,6 +1,6 @@
 = content_for :title, t('.title', name: @resource.name)
 .grid-x.grid-padding-x
-  .cell.small-12.medium-6
+  .cell.medium-6
     .grid-y
       .cell
         .card.profile
@@ -20,17 +20,20 @@
                 %p
                   = icon('calendar')
                   = t('.member_since', start_date: l(@resource.created_at))
-
+                %p
+                  = icon('user')
+                  = t("integral.statuses.#{@resource.status}")
+                %p
+                  - if @resource.notify_me?
+                    = icon('bell')
+                    = 'Notified about everything'
+                  - else
+                    = icon('bell-o')
+                    = 'Notified about only things that have been subscribed too'
                 .roles
                   - @resource.roles.each do |role|
                     .label= role.label
-      -# .cell
-      -#   .card
-      -#     .card-section
-      -#       Creates Graph
-  -# .cell.small-12.medium-6
-  -#   .grid-y
-  -#     .cell
-  -#       .card
-  -#         .card-section
-  -#           %h2 Activity
+
+  .cell.medium-6
+    .grid-y
+      .cell= render_card(:recent_activity, { grid: recent_activity_grid(user: @resource.id) })

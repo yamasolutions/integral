@@ -60,13 +60,34 @@ module Integral
           get 'account', to: 'users#account'
 
           # User Management
-          resources :users
+          resources :users do
+            get 'list', on: :collection
+            member do
+              put 'read_notification'
+              get 'notifications'
+              put 'block'
+              put 'unblock'
+              get 'activities', controller: 'users'
+              get 'activities/:activity_id', to: 'users#activity', as: :activity
+            end
+          end
+
+          # Notification subscription management
+          resources :notification_subscriptions, only: [:update]
 
           # Image Management
-          resources :images, as: :img
+          resources :images, as: :img do
+            get 'list', on: :collection
+
+            member do
+              get 'activities', controller: 'images'
+              get 'activities/:activity_id', to: 'images#activity', as: :activity
+            end
+          end
 
           # Page Management
-          resources :pages, except: [:show] do
+          resources :pages do
+            get 'list', on: :collection
             member do
               post 'duplicate'
               get 'activities', controller: 'pages'
@@ -75,15 +96,15 @@ module Integral
           end
 
           # Activity Management
-          resources :activities, only: %i[index show] do
+          resources :activities, only: %i[index] do
             collection do
-              post 'grid'
+              post 'widget'
             end
           end
 
           # Post Management
           if Integral.blog_enabled?
-            resources :posts, except: [:show] do
+            resources :posts do
               get 'list', on: :collection
               member do
                 post 'duplicate'
@@ -92,13 +113,21 @@ module Integral
               end
               # resources :comments, only: [:create, :destroy]
             end
-            resources :categories, only: %i[create edit update destroy]
+            resources :categories, only: %i[create edit update destroy] do
+              member do
+                get 'activities', controller: 'categories'
+                get 'activities/:activity_id', to: 'categories#activity', as: :activity
+              end
+            end
           end
 
           # List Management
-          resources :lists, except: [:show] do
+          resources :lists do
+            get 'list', on: :collection
             member do
               post 'duplicate'
+              get 'activities', controller: 'lists'
+              get 'activities/:activity_id', to: 'lists#activity', as: :activity
             end
           end
 

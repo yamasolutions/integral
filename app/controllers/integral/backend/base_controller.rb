@@ -26,41 +26,27 @@ module Integral
       include Pundit
       rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
-      # GET /
-      # Lists all resources
-      def index
-        # TODO: This default behaviour will switch to 'list' action
-
-        respond_to do |format|
-          format.html do
-            set_grid
-          end
-
-          format.json do
-            if params[:gridview].present?
-              set_grid
-              render json: { content: render_to_string(partial: "integral/backend/#{controller_name}/grid", locals: { grid: @grid }) }
-            else
-              respond_to_record_selector
-            end
-          end
-        end
+      # GET /:id
+      # Show resource
+      def show
+        add_breadcrumb I18n.t('integral.navigation.list'), list_backend_resources_url
+        add_breadcrumb I18n.t('integral.actions.view')
       end
+
+      # GET /
+      # Resource dashboard
+      def index; end
 
       # GET /list
       # Lists all resources
       def list
-        add_breadcrumb I18n.t('integral.navigation.list'), "new_backend_#{controller_name.singularize}_path".to_sym
+        add_breadcrumb I18n.t('integral.navigation.list'), list_backend_resources_url
 
         respond_to do |format|
-          format.html do
-            set_grid
-          end
-
+          format.html
           format.json do
             if params[:gridview].present?
-              set_grid
-              render json: { content: render_to_string(partial: "integral/backend/#{controller_name}/grid", locals: { grid: @grid }) }
+              render json: { content: render_to_string(partial: "integral/backend/shared/grid/grid") }
             else
               respond_to_record_selector
             end
@@ -93,7 +79,8 @@ module Integral
       # GET /:id/edit
       # Resource edit screen
       def edit
-        add_breadcrumb I18n.t('integral.navigation.edit'), "edit_backend_#{controller_name.singularize}_path".to_sym
+        add_breadcrumb I18n.t('integral.actions.view'), backend_resource_url(@resource)
+        add_breadcrumb I18n.t('integral.actions.edit')
       end
 
       # PUT /:id
@@ -145,7 +132,7 @@ module Integral
       def activities
         authorize Version
 
-        add_breadcrumb I18n.t('integral.navigation.edit'), "edit_backend_#{controller_name.singularize}_path".to_sym
+        add_breadcrumb I18n.t('integral.actions.view'), backend_resource_url(@resource)
         add_breadcrumb I18n.t('integral.navigation.activity')
 
         @grid = Integral::Grids::ActivitiesGrid.new(activity_grid_options.except('page')) do |scope|
@@ -153,7 +140,7 @@ module Integral
         end
 
         respond_to do |format|
-          format.html
+          format.html { render template: 'integral/backend/activities/shared/index', locals: { form_url: activities_backend_resource_url(@resource) } }
           format.json { render json: { content: render_to_string(partial: 'integral/backend/activities/shared/grid', locals: { grid: @grid }) } }
         end
       end
@@ -162,13 +149,22 @@ module Integral
       def activity
         authorize Version
 
-        add_breadcrumb I18n.t('integral.navigation.activity'), "activities_backend_#{controller_name.singularize}_url".to_sym
+        add_breadcrumb I18n.t('integral.navigation.activity'), activities_backend_resource_url(@resource)
         add_breadcrumb I18n.t('integral.actions.view')
 
         @activity = resource_version_klass.find(params[:activity_id]).decorate
+
+        render template: 'integral/backend/activities/shared/show', locals: { record: @resource.decorate }
       end
 
       private
+
+      # Redirect user to integral dashboard after successful signup
+      def after_accept_path_for(user)
+        user.active!
+
+        integral.backend_dashboard_path
+      end
 
       # Redirect user to integral dashboard after successful login
       def after_sign_in_path_for(_resource)
@@ -236,15 +232,86 @@ module Integral
                default: I18n.t("integral.backend.notifications.#{type_namespace}", type: resource_klass.model_name.human))
       end
 
-      def set_grid
-        @grid = resource_grid_klass.new(grid_options.except('page')) do |scope|
+      helper_method :decorated_resource
+      def decorated_resource
+        @decorated_resource ||= @resource.decorate
+      end
+
+      helper_method :resource_grid
+      def resource_grid
+        @resource_grid ||= resource_grid_klass.new(grid_options.except('page')) do |scope|
           scope.page(grid_options['page']).per_page(25)
         end
+      end
+
+      helper_method :resource_grid_columns
+      def resource_grid_columns
+        []
+      end
+
+      helper_method :render_default_action_bar?
+      def render_default_action_bar?
+        action_name == 'index' || action_name == 'show'
+      end
+
+      helper_method :new_backend_resource_url
+      def new_backend_resource_url
+        send("new_backend_#{resource_klass.model_name.singular_route_key}_url")
+      end
+
+      helper_method :list_backend_resources_url
+      def list_backend_resources_url
+        send("list_backend_#{resource_klass.model_name.route_key}_url")
+      end
+
+      helper_method :activities_backend_resource_url
+      def activities_backend_resource_url(resource)
+        send("activities_backend_#{controller_name.singularize}_url", resource.id)
+      end
+
+      helper_method :backend_resource_url
+      def backend_resource_url(resource)
+        send("backend_#{resource_klass.model_name.singular_route_key}_url", resource)
+      end
+
+      helper_method :edit_backend_resource_url
+      def edit_backend_resource_url(resource)
+        send("edit_backend_#{resource_klass.model_name.singular_route_key}_url", resource)
+      end
+
+      helper_method :duplicate_backend_resource_url
+      def duplicate_backend_resource_url(resource)
+        send("duplicate_backend_#{resource_klass.model_name.singular_route_key}_url", resource)
+      end
+
+      helper_method :activities_backend_resource_url
+      def activities_backend_resource_url(resource)
+        send("activities_backend_#{resource_klass.model_name.singular_route_key}_url", resource)
       end
 
       helper_method :resource_klass
       def resource_klass
         controller_name.classify.constantize
+      end
+
+      helper_method :dataset_at_a_glance
+      def dataset_at_a_glance
+        if resource_klass.respond_to?(:statuses)
+          resource_klass.statuses.keys.map do |status|
+            { scope: resource_klass.send(status), label: t("integral.statuses.#{status}") }
+          end
+        else
+          [
+            { scope: resource_klass.all, label: "All #{resource_klass.model_name.human.pluralize}" }
+          ]
+        end
+      end
+
+      helper_method :cast_activities
+      def cast_activities(activites)
+        activites.map do |version|
+          version.becomes(version.item_type.constantize.paper_trail.version_class).decorate
+        end
       end
 
       def resource_grid_klass
@@ -256,7 +323,9 @@ module Integral
       end
 
       def set_resource
-        @resource = resource_klass.find(params[:id])
+        scope = ['activities', 'activity'].include?(action_name) ? resource_klass.unscoped : resource_klass
+
+        @resource = scope.find(params[:id])
       end
 
       def grid_options

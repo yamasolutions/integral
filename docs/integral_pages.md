@@ -1,5 +1,12 @@
-# Integral Pages
+---
+id: integral-pages
+title: Pages
+sidebar_label: Pages
+---
 
+Pages are easy to create and super powerful. Whether you're just wanting to create a simple about-us page with text or you're wanting to create a multimedia landing page with images, social embeds and videos - Pages are able to do it all.
+
+## Features
 With integral pages you're able to set the exact path where you want the page to display. For example if you have a business which has multiple locations and you want to create a landing pages for all the locations as well as a page for each location you can do the following;
 ```
 FactoryBot.create(:integral_page, path: '/locations')
@@ -10,11 +17,13 @@ FactoryBot.create(:integral_page, path: '/locations/ireland')
 
 Other page features include;
 * WYSIWYG Editor
-* SEO Ready
-* Drafting
 * Custom templates
+* SEO Ready
+* Drafting & archiving
+* Cloning
 * Breadcrumbs
 * Setting a main image
+* Activity tracking
 
 ## Setting the homepage
 The homepage can be set in Settings in the backend user area.
@@ -30,7 +39,7 @@ config.black_listed_paths = [
 ```
 
 ## Dynamic widgets
-Dynamic widgets allow us to add dynamic content to a page. More information can be found within [Integral Widgets](https://integralrails.com)
+Dynamic widgets allow us to add dynamic content to a page, for example an image gallery. More information can be found within [Integral Widgets](https://github.com/yamasolutions/integral/blob/master/docs/integral_widgets.md)
 
 ## Page drafting
 Pages which are set as draft are only viewable to logged-in users. All other users (visitors) are served a 404
@@ -56,7 +65,7 @@ Now if a user selects this template for a page Integral will try to render a vie
 Breadcrumbs are handled by setting a parent on a Page. If a page has a parent then the breadcrumbs will be calculated and rendered. A Page can only be a parent if it is not a child and is published.
 
 ## WYSIWYG Editor
-This editor is powered by [Ckeditor](https://github.com/galetahub/ckeditor). More information can be found within [WYSIWYG Editor](https://integralrails.com)
+This editor is powered by [Ckeditor](https://github.com/galetahub/ckeditor). More information can be found within [WYSIWYG Editor](https://github.com/yamasolutions/integral/blob/master/docs/wysiwyg_editor.md)
 
 ## Future works
-Future works for Integral Pages include archiving and being able to add a preview image. More information can be found within the [WishList](https://github.com/yamasolutions/integral/wiki/Wish-List)
+Future works for Integral Pages include adding a block editor and being able to add a preview image. More information can be found within the [WishList](https://github.com/yamasolutions/integral/wiki/Wish-List)

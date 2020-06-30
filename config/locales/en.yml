@@ -4,7 +4,7 @@ en:
       default: "%d %B"
   time:
     formats:
-      default: "%B %d, %Y at %l:%M%P"
+      default: "%b %d %Y, %l:%M %P"
       blog: "%B %d, %Y"
       twelve_hour: "%I:%M %p"
 
@@ -14,6 +14,44 @@ en:
     formats:
       default: "%A, %d %B %Y"
       long: "%H:%M %d/%m/%Y"
+
+  datetime:
+    distance_in_words:
+      short:
+        half_a_minute: "30s"
+        less_than_x_seconds:
+          one:   "1s"
+          other: "%{count}s"
+        x_seconds:
+          one:   "1s"
+          other: "%{count}s"
+        less_than_x_minutes:
+          one:   "~1m"
+          other: "~%{count}m"
+        x_minutes:
+          one:   "1m"
+          other: "%{count}m"
+        about_x_hours:
+          one:   "~1h"
+          other: "~%{count}h "
+        x_days:
+          one:   "1d"
+          other: "%{count}d"
+        about_x_months:
+          one:   "~1mn"
+          other: "~%{count}mn"
+        x_months:
+          one:   "1mn"
+          other: "%{count}mn"
+        about_x_years:
+          one:   "~1y"
+          other: "~%{count}y"
+        over_x_years:
+          one:   "1y"
+          other: "%{count}y"
+        almost_x_years:
+          one:   "~1y"
+          other: "~%{count}y"
 
   errors:
     generic: Unfortunately there was a problem. Please try again later.
@@ -46,15 +84,27 @@ en:
       forward_enquiry:
         subject: Website Enquiry
     actions:
+      tense:
+        past:
+          update: Updated
+          create: Created
+          publish: Published
+          destroy: Deleted
       confirmation:
         deletion: If you delete this item it will be gone forever. Are you sure you want to proceed?
         clone: Are you sure you want to clone this item?
+        block: Are you sure you want to block this user?
+        unblock: Are you sure you want to unblock this user?
       new_page: Add new page
       new_post: Add new post
       edit_profile: Edit profile
       add_image: Add Image
       add_image_or_video: Add an image or video
       view_main_site: View main site
+      view_on_site: View on site
+      publish: Publish
+      block: Block
+      unblock: Unblock
       create: Create
       clone: Clone
       save: Save
@@ -66,11 +116,12 @@ en:
       view: View
       view_record: View Record
       view_user: View User
+      view_history: View history
       read_more: Read more..
       reply: Reply
       log_out: Logout
       upload: Upload
-      share: Share this
+      share: Share
       apply: Apply
       select: Select
       copy_url: Copy URL
@@ -80,10 +131,15 @@ en:
       confirm: Confirm
       cancel: Cancel
       view_all: View All
+      view_more: View More
+      open_in_new_tab: Open in new tab
     prompts:
       select_image: Select Image..
       select_type: Select Type..
       unsaved_changes: Changes that you made may not be saved.
+    tooltips:
+      unsubscribe: Unsubscribe from notifications.
+      subscribe: Subscribe to notifications.
     placeholders:
       description: Description
       title: Title
@@ -91,6 +147,9 @@ en:
       draft: Draft
       published: Published
       archived: Archived
+      blocked: Blocked
+      pending: Pending
+      active: Active
     records:
       attributes:
         category: Category
@@ -133,7 +192,7 @@ en:
       actions: Actions
       activity: Activity
       activity_log: Activity Log
-      profile: My Profile
+      profile: My profile
       quick_links: Quick Links
       activities: Activities
       home: Home
@@ -151,7 +210,7 @@ en:
       new: New
       edit: Edit
       log_out: Logout
-      my_account: Account & Profile
+      my_account: Account & profile
       settings: Settings
       listing: Listing
 
@@ -209,6 +268,8 @@ en:
       graphs:
         data_unavailable: Data Unavailable
       cards:
+        your_activity: Your Activity
+        recent_activity: Recent Activity
         at_a_glance: At a glance
         last_week: Last week
       shared:
@@ -253,6 +314,9 @@ en:
       activities:
         index:
           title: Website Activity
+        shared:
+          index:
+            title: "Activities: %{title}"
       audits:
         index:
           title: Audits
@@ -324,8 +388,6 @@ en:
           title: 'Edit Post'
         new:
           title: 'New Post'
-        activities:
-          title: "Activities: %{title}"
       pages:
         templates:
           default: Default
@@ -414,6 +476,8 @@ en:
       list:
         title: This is only used for internal reference.
         description: This is only used for internal reference.
+      user:
+        notify_me: Subscribe to be notified whenever there is a change to any resource. Otherwise be notified about followed resources only.
     inputs:
       file:
         button_label: 'File'
@@ -463,6 +527,12 @@ en:
         create: 'Invite %{model}'
 
   devise:
+    invitations:
+      edit:
+        title: Set your password
+    failure:
+      user:
+        blocked: User account is no longer active.
     passwords:
       edit:
         title: Change your password

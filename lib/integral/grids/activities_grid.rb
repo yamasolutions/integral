@@ -6,7 +6,17 @@ module Integral
       include Datagrid
 
       scope do
-        Integral::UserVersion.all.union(Integral::PageVersion.all).union(Integral::PostVersion.all).union(Integral::ListVersion.all).union(Integral::ImageVersion.all).order('created_at DESC')
+        fields = [:id, :item_type, :item_id, :event, :whodunnit, :created_at]
+        scope = Integral::PageVersion.select(fields).all
+
+        [Integral::PostVersion,
+         Integral::CategoryVersion,
+         Integral::ListVersion,
+         Integral::ImageVersion,
+         Integral::UserVersion].concat(Integral.additional_tracked_classes.map { |klass| klass.version_class_name.constantize }).each do |version|
+          scope = scope.union(version.select(fields).all)
+        end
+        scope = scope.order('created_at DESC')
       end
 
       filter(:user, multiple: true) do |value|
@@ -25,12 +35,15 @@ module Integral
         where(item_id: value)
       end
 
+      filter(:created_at) do |value|
+        where("created_at < ?", value)
+      end
+
       column(:date, order: :created_at)
       column(:user, order: :whodunnit)
       column(:action, order: :event)
       column(:object, order: :item_type)
       column(:instance)
-      column(:attributes_changed)
       column(:actions)
     end
   end

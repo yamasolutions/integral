@@ -17,6 +17,7 @@ require 'integral/grids/posts_grid'
 require 'integral/grids/images_grid'
 require 'integral/acts_as_listable'
 require 'integral/acts_as_auditable'
+require 'integral/acts_as_integral'
 require 'integral/widgets/recent_posts'
 require 'integral/widgets/swiper_list'
 require 'integral/content_renderer'
@@ -88,6 +89,9 @@ module Integral
 
   mattr_accessor :additional_page_templates
   @@additional_page_templates = []
+
+  mattr_accessor :additional_tracked_classes
+  @@additional_tracked_classes = []
 
   mattr_accessor :compression_enabled
   @@compression_enabled = true

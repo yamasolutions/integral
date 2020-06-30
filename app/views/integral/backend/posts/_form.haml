@@ -1,66 +1,25 @@
 = simple_form_for [:backend, @resource], validate: true, html: { id: 'resource_form', class: 'are-you-sure', 'data-confirm-dirty-form' => true } do |f|
   = f.input :lock_version, as: :hidden
-  .grid-x.grid-padding-x
-    .cell.small-12.medium-9
+  .grid-x
+    .cell.medium-9
+      .grid-y
+        = f.input :title, input_html: { id: 'resource_title' }
+        = f.input :description
+        = f.input :slug, input_html: { data: { slugify: '#resource_title' }}
+        = f.input :body, as: :ckeditor, input_html: { value: @resource.editor_body, id: 'resource_body_editor', ckeditor: { language: current_user.locale }, data: { 'ckeditor-class' => 'integral-post' } }
+
+    .cell.medium-3
       .grid-y
         .cell
           .card
-            .card-section
-              = f.input :title, input_html: { id: 'resource_title' }
-        .cell
-          .card
-            .card-section
-              = f.input :description
-        .cell
-          .card
-            .card-section
-              = f.input :slug, input_html: { data: { slugify: '#resource_title' }}
-        .cell
-          .card
-            .card-section
-              = f.input :body, as: :ckeditor, input_html: { value: @resource.editor_body, id: 'resource_body_editor', ckeditor: { language: current_user.locale }, data: { 'ckeditor-class' => 'integral-post' } }
-
-    .cell.small-12.medium-3
-      .grid-y
-        .cell
-          .card
-            .card-section
-              %h2= t('integral.records.attributes.status')
-              %hr.dark
-              .radios
-                = f.collection_radio_buttons :status, Integral::Post.statuses.map{ |status| [status.first, I18n.t("integral.records.status.#{status.first}")] }, :first, :last
-              %hr.dark
-              = f.button :button if f.object.persisted?
-        .cell
-          .card
-            .card-section
-              %h2= t('integral.records.attributes.category')
-              %hr.dark
-              = f.input :category_id, collection: Integral::Category.all.map{ |category| [category.title, category.id] }, label: false
-        .cell
-          .card.initial-overflow
-            .card-section
-              %h2= t('integral.records.attributes.tags')
-              %hr.dark
-              = f.input :tag_list, label: false, input_html: { value: @resource.tag_list_on(@resource.tag_context).join(','), data: { suggest_tags: true, suggest_tags_typeahead: Integral::Post.tag_counts.collect(&:name).join(' ') } }
-        .cell
-          .card
-            .card-section
-              = f.association :user
-        .cell
-          .card.initial-overflow
-            .card-section
-              %h2= t('integral.records.attributes.featured_image')
-              = render partial: 'integral/backend/shared/image_preview', locals: { f:f, image_attr: :image }
-        .cell
-          .card.initial-overflow
-            .card-section
-              %h2= t('integral.records.attributes.preview_image')
-              = render partial: 'integral/backend/shared/image_preview', locals: { f:f, image_attr: :preview_image }
-              %br
-              %p.help-text This is displayed when sharing socially, leave blank to fallback to the featured image.
-    .cell.small-12
-      = f.button :button
-
-.record-image
-  = render partial: 'integral/backend/shared/image_selector'
+            = f.label(:status)
+            %hr.dark
+            .radios= f.collection_radio_buttons :status, resource_klass.available_statuses, :last, :first
+            %hr.dark
+            = f.button :button if f.object.persisted?
+        = f.input :category_id, collection: Integral::Category.all.map{ |category| [category.title, category.id] }, include_blank: false
+        = f.input :tag_list, input_html: { value: @resource.tag_list_on(@resource.tag_context).join(','), data: { suggest_tags: true, suggest_tags_typeahead: resource_klass.tags_on('published').map(&:name).join(' ') } }
+        = f.association :user
+        = render partial: 'integral/backend/shared/image_preview', locals: { f:f }
+        = render partial: 'integral/backend/shared/image_preview', locals: { f:f, attribute: :preview_image, help_text: 'This is displayed when sharing socially, leave blank to fallback to the featured image.' }
+    .cell= f.button :button

@@ -50,16 +50,6 @@ module Integral
     # Scopes
     scope :search, ->(query) { where('lower(title) LIKE ? OR lower(slug) LIKE ?', "%#{query.downcase}%", "%#{query.downcase}%") }
 
-    # @return [Array] containing available human readable statuses against there numeric value
-    def self.available_statuses(opts = { reverse: false })
-      statuses = [
-        [I18n.t('integral.records.status.draft'), 0],
-        [I18n.t('integral.records.status.published'), 1]
-      ]
-
-      opts[:reverse] ? statuses.each(&:reverse!) : statuses
-    end
-
     def self.auditable_scope
       published
     end

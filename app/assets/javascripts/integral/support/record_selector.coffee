@@ -100,6 +100,7 @@ class this.RecordSelector
     @recordsContainer.on 'click', '.pagination a', (ev) =>
       ev.preventDefault()
       pageNumber = @getUrlVars(ev.target.href)['page']
+      pageNumber = 1 unless pageNumber?
       @pageField.val(pageNumber)
       @form.submit()
 

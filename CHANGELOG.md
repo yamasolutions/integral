@@ -19,6 +19,7 @@ recommendations of [keepachangelog.com](http://keepachangelog.com/).
 - Backend helpers `render_resource_grid` & `render_resource_grid_form` to reduce view duplication
 - Backend helper extension for `link_to` to allow passing of `wrapper` & `icon` options
 - Backend post list - Swap out user column for category
+- List Rendering - Allow rendering lists without a wrapper element by passing `false`
 
 ### Fixed
 

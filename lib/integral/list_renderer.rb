@@ -46,7 +46,11 @@ module Integral
         rendered_items += render_item(list_item)
       end
 
-      content_tag opts[:wrapper_element], rendered_items, html_options, false
+      if opts[:wrapper_element]
+        ontent_tag opts[:wrapper_element], rendered_items, html_options, false
+      else
+        rendered_items
+      end
     end
 
     private

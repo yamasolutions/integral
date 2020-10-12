@@ -17,9 +17,14 @@ module Integral
         where(status: value)
       end
 
+      filter(:locale, multiple: true) do |value|
+        where(locale: value)
+      end
+
       column(:title, order: :title)
       column(:path, order: :path)
       column(:status, order: :status)
+      column(:locale, order: :locale)
       column(:updated_at, order: :updated_at)
       column(:actions)
     end

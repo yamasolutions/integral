@@ -35,7 +35,7 @@ module Integral
 
       def settings_params
         permitted_settings_params = %i[
-          website_title contact_email homepage_id newsletter_api_key newsletter_list_id github_url
+          website_title contact_email newsletter_api_key newsletter_list_id github_url
           twitter_url facebook_url youtube_url linkedin_url instagram_url
           google_tag_manager_id facebook_app_id twitter_handler main_menu_list_id
         ]

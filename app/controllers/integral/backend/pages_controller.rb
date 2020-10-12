@@ -24,12 +24,18 @@ module Integral
 
       private
 
+      def resource_grid_columns
+        columns = [:title, :path, :status]
+        columns += [:locale] if Integral.multilingual_frontend?
+        columns += [:updated_at, :actions]
+      end
+
       def resource_params
         params.require(:page).permit(current_policy.permitted_attributes)
       end
 
       def white_listed_grid_params
-        %i[descending order page user action object title status]
+        %i[descending order page user action object title status locale]
       end
 
       def resource_klass

@@ -5,9 +5,7 @@
       .grid-y
         = f.input :title, input_html: { id: 'resource_title' }
         = f.input :description
-        = f.input :slug, input_html: { data: { slugify: '#resource_title' }}
         = f.input :body, as: :ckeditor, input_html: { value: @resource.editor_body, id: 'resource_body_editor', ckeditor: { language: current_user.locale }, data: { 'ckeditor-class' => 'integral-post' } }
-
     .cell.medium-3
       .grid-y
         .cell
@@ -17,8 +15,24 @@
             .radios= f.collection_radio_buttons :status, resource_klass.available_statuses, :last, :first
             %hr.dark
             = f.button :button if f.object.persisted?
+
+        = f.input :slug, input_html: { data: { slugify: '#resource_title' }}
         = f.input :category_id, collection: Integral::Category.all.map{ |category| [category.title, category.id] }, include_blank: false
-        = f.input :tag_list, input_html: { value: @resource.tag_list_on(@resource.tag_context).join(','), data: { suggest_tags: true, suggest_tags_typeahead: resource_klass.tags_on('published').map(&:name).join(' ') } }
+        = f.input :tag_list, input_html: { value: @resource.tag_list_on(@resource.tag_context).join(','), data: { suggest_tags: true, suggest_tags_typeahead: resource_klass.tags_on("published_#{@resource.locale}").map(&:name).join(' ') } }
+        - if Integral.multilingual_frontend?
+          = f.input :locale, collection: Integral.frontend_locales.map { |locale| [t("integral.language.#{locale}"), locale] }, include_blank: false
+          .card{ data: { controller: 'alternate-resource' } }
+            %h2 Alternates
+            %hr.dark
+            %div{data: { target: 'alternate-resource.list' } }
+              .hide{data: { target: 'alternate-resource.template' } }= render partial: "alternate", locals: { alternate: resource_klass.new(title: '', description: '') }
+              = render partial: "alternate", collection: @resource.alternates.published
+
+            %p{data: { target: 'alternate-resource.emptyMessage' }, class: @resource.alternates.published.empty? ? '' : 'hide' } No alternates selected.
+
+            = select_tag :alternates, options_for_select(resource_klass.published.where.not(id: @resource.id).order('title ASC').map { |page| ["#{page.title} - #{page.slug}", page.id, {disabled: @resource.alternate_ids.include?(page.id), data: { title: page.title, description: page.description, path: page.slug } }] }), prompt: "Select an alternate..", data: { target: 'alternate-resource.dropdown', action: 'alternate-resource#add' }
+            %p.help-text Reference any published resources which serve as alternates. Example - versions of the same piece of content in different languages
+
         = f.association :user
         = render partial: 'integral/backend/shared/image_preview', locals: { f:f }
         = render partial: 'integral/backend/shared/image_preview', locals: { f:f, attribute: :preview_image, help_text: 'This is displayed when sharing socially, leave blank to fallback to the featured image.' }

@@ -3,7 +3,7 @@ module Integral
   module BlogHelper
     # @return [Relation] featured categories - currently all which have posts associated to them
     def featured_categories
-      @featured_categories ||= Integral::Category.where(id: Integral::Post.published.select(:category_id).uniq.map(&:category_id))
+      @featured_categories ||= Integral::Category.where(locale: I18n.locale).where(id: Integral::Post.published.select(:category_id).uniq.map(&:category_id))
     end
 
     # @param post [Integral::Post] post to convert to JSON-LD
@@ -56,12 +56,12 @@ module Integral
 
     # Whether or not to display recent posts sidebar widget
     def display_popular_posts_widget?
-      Integral::Post.published.count > 4
+      Integral::Post.published.where(locale: I18n.locale).count > 4
     end
 
     # Whether or not to display most read widget
     def display_most_read_posts_widget?
-      Integral::Post.published.count > 10
+      Integral::Post.published.where(locale: I18n.locale).count > 10
     end
 
     # TODO: Change this to use GA API through a GoogleAnalyticsService

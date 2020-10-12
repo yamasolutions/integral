@@ -47,9 +47,10 @@ Gem::Specification.new do |s|
   s.add_dependency 'paper_trail', '~> 9.0' # Audit trail
   s.add_dependency 'paranoia', '~> 2.0' # Soft-delete records
   s.add_dependency 'parsley-rails', '~> 2.4.4' # Jquery form validation plugin
-  s.add_dependency 'premailer-rails' # Stylesheet inlining for email
+  s.add_dependency 'premailer-rails', '~> 1.11' # Stylesheet inlining for email
   s.add_dependency 'pundit', '~> 1.1' # Authorization
   s.add_dependency 'rails', '~> 5.2'
+  s.add_dependency 'webpacker', '~> 5.1'
   s.add_dependency 'rails-settings-cached', '~> 0.6' # Persisted settings
   # s.add_dependency 'rails5_before_render', '~> 0.3' # Callbacks after an action before rendering
   s.add_dependency 'sass-rails', '~> 5.0' # Sass
@@ -61,6 +62,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'will_paginate', '~> 3.1' # Pagination
   s.add_dependency 'will_paginate-foundation', '~> 6.2' # Pagination for Foundation
   s.add_dependency 'fast_jsonapi', '~> 1.5' # Object Serialization
+  s.add_dependency 'route_translator', '~> 8.0.0' # Multilingual routing
 
   s.add_development_dependency 'database_cleaner', '~> 1.5' # Manages database test states
   s.add_development_dependency 'factory_bot_rails', '~> 4.8' # Create reusable object templates

@@ -30,12 +30,20 @@ module Integral
     belongs_to :image, class_name: 'Integral::Image', optional: true
     belongs_to :preview_image, class_name: 'Integral::Image', optional: true
 
+    has_many :resource_alternates, as: :resource
+    has_many :alternates, through: :resource_alternates, source_type: "Integral::Post"
+
     # Validations
     validates :title, presence: true, length: { minimum: 4, maximum: 60 }
     validates :description, presence: true, length: { minimum: 50, maximum: 300 }
     validates :body, :user, :slug, presence: true
+    validates :locale, presence: true
+
+    # Nested forms
+    accepts_nested_attributes_for :alternates
 
     # Callbacks
+    after_initialize :set_defaults
     before_save :set_published_at
     before_save :set_paper_trail_event
     before_save :set_tags_context
@@ -72,16 +80,22 @@ module Integral
     # @return [Hash] the instance as a card
     def to_card
       image_url = featured_image.file.url if featured_image
+      attributes = [{ key: I18n.t('integral.records.attributes.status'), value: I18n.t("integral.records.status.#{status}") }]
+      if Integral.multilingual_frontend?
+        attributes += [{ key: I18n.t('integral.records.attributes.locale'), value: I18n.t("integral.language.#{locale}") }]
+      end
+      attributes += [
+        { key: I18n.t('integral.records.attributes.slug'), value: slug },
+        { key: I18n.t('integral.records.attributes.author'), value: author.name },
+        { key: I18n.t('integral.records.attributes.views'), value: view_count },
+        { key: I18n.t('integral.records.attributes.updated_at'), value: I18n.l(updated_at) }
+      ]
+
       {
         image: image_url,
         description: title,
         url: url,
-        attributes: [
-          { key: I18n.t('integral.records.attributes.author'), value: author.name },
-          { key: I18n.t('integral.records.attributes.views'), value: view_count },
-          { key: I18n.t('integral.records.attributes.status'), value: I18n.t("integral.records.status.#{status}") },
-          { key: I18n.t('integral.records.attributes.updated_at'), value: I18n.l(updated_at) }
-        ]
+        attributes: attributes
       }
     end
 
@@ -106,12 +120,16 @@ module Integral
 
     # @return [String] Current tag context
     def tag_context
-      status
+      "#{status}_#{locale}"
     end
 
     # @return [Array] ActsAsTaggableOn::Tag tags associated with this post
     def tags
       tags_on(tag_context)
+    end
+
+    def to_param
+      id
     end
 
     private
@@ -121,7 +139,7 @@ module Integral
     end
 
     def set_slug
-      if slug_changed? && Post.exists_by_friendly_id?(slug)
+      if slug_changed? && Post.where(locale: locale).exists_by_friendly_id?(slug)
         self.slug = resolve_friendly_id_conflict([slug])
       end
     end
@@ -157,7 +175,9 @@ module Integral
       contexts = []
 
       self.class.statuses.each_key do |status|
-        contexts << status
+        Integral.frontend_locales.each do |locale|
+          contexts << "#{status}_#{locale}"
+        end
       end
       contexts.delete(tag_context)
       contexts
@@ -169,6 +189,12 @@ module Integral
 
     def deliver_published_webhook_on_create
       deliver_webhook(:published) if published?
+    end
+
+    def set_defaults
+      return if self.persisted?
+
+      self.locale ||= Integral.frontend_locales.first
     end
   end
 end

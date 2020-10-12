@@ -59,6 +59,10 @@ en:
     fix_errors: Please fix the form errors before continuing.
 
   integral:
+    language:
+      en: English
+      ja: 日本語
+      zh: 中文
     remote_form:
       error: Unfortunately there has been an error, please try again later.
       success: Thanks for getting in touch. We'll be in contact soon.
@@ -167,6 +171,8 @@ en:
         tags: Tags
         gallery: Gallery
         type: Type
+        path: Path
+        slug: Slug
       status:
         archived: Archived
         draft: Draft
@@ -187,6 +193,10 @@ en:
       edit: Edit
 
     navigation:
+      create: Create
+      new: New
+      edit: Edit
+      list: List
       dashboard: Dashboard
       actions: Actions
       activity: Activity
@@ -205,9 +215,6 @@ en:
       images: Images
       image: Image
       lists: Lists
-      list: List
-      new: New
-      edit: Edit
       log_out: Logout
       my_account: Account & profile
       settings: Settings
@@ -363,7 +370,6 @@ en:
           youtube_url: https://www.youtube.com/channel/UCUkM9uMpWatT7gVWShgtKFw
           twitter_handler: rails
           facebook_app_id: 123456789
-          homepage_id: 1
         notification:
           successful_update: Settings successfully updated.
       posts:
@@ -501,6 +507,9 @@ en:
         locale: 'Language'
       post:
         user: Author
+        locale: Language
+      page:
+        locale: Language
       settings:
         website_title: Website title
         contact_email: Contact form email address
@@ -512,7 +521,6 @@ en:
         instagram_url: Instagram URL
         github_url: GitHub URL
         facebook_app_id: Facebook app ID
-        homepage_id: Homepage Page ID
         newsletter_api_key_id: Mailchimp API ID
         newsletter_list_id: Newsletter list ID
         main_menu_list_id: Main menu List ID

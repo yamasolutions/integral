@@ -38,7 +38,7 @@ module Integral
       private
 
       def resource_params
-        params.require(:category).permit(:title, :slug, :description, :image_id)
+        params.require(:category).permit(:title, :slug, :description, :locale, :image_id)
       end
 
       def resource_klass

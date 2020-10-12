@@ -19,7 +19,7 @@ module Integral
     # /foo, /foo/bar, /123/456
     # Bad:
     # //, foo, /foo bar, /foo?y=123, /foo$
-    PATH_REGEX = %r{\A/[/.a-zA-Z0-9-]+\z}.freeze
+    PATH_REGEX = %r{\A\/[\/.a-zA-Z0-9-]+\z|\A[\/]\z}.freeze
 
     enum status: %i[draft published archived]
 
@@ -27,20 +27,28 @@ module Integral
     belongs_to :parent, class_name: 'Integral::Page', optional: true
     belongs_to :image, class_name: 'Integral::Image', optional: true
 
+    has_many :resource_alternates, as: :resource
+    has_many :alternates, through: :resource_alternates, source_type: "Integral::Page"
+
     # Validations
     validates :title, presence: true, length: { minimum: Integral.title_length_minimum,
                                                 maximum: Integral.title_length_maximum }
     validates :description, presence: true, length: { minimum: Integral.description_length_minimum,
                                                       maximum: Integral.description_length_maximum }
     validates :path, presence: true, length: { maximum: 100 }
+    validates :locale, presence: true
     validates :path, uniqueness: { case_sensitive: false }
     validates_format_of :path, with: PATH_REGEX
     validate :validate_path_is_not_black_listed
     validate :validate_parent_is_available
 
+    # Nested forms
+    accepts_nested_attributes_for :alternates
+
     # Callbacks
     before_save :set_paper_trail_event
     before_save :set_integral_notification_action
+    after_initialize :set_defaults
 
     # Scopes
     scope :search, ->(query) { where('lower(title) LIKE ? OR lower(path) LIKE ?', "%#{query.downcase}%", "%#{query.downcase}%") }
@@ -88,16 +96,20 @@ module Integral
 
     # @return [Hash] the instance as a card
     def to_card
-      # subtitle = self.published_at.present? ? I18n.t('integral.blog.posted_ago', time: time_ago_in_words(self.published_at)) : I18n.t('integral.records.status.draft')
-      # image_url = image.file.url(:medium) if image
+      attributes = [{ key: I18n.t('integral.records.attributes.status'), value: I18n.t("integral.records.status.#{status}") }]
+      if Integral.multilingual_frontend?
+        attributes += [{ key: I18n.t('integral.records.attributes.locale'), value: I18n.t("integral.language.#{locale}") }]
+      end
+      attributes += [
+        { key: I18n.t('integral.records.attributes.path'), value: path },
+        { key: I18n.t('integral.records.attributes.updated_at'), value: I18n.l(updated_at) }
+      ]
+
       {
         # image: image_url,
         description: title,
         url: "#{Rails.application.routes.default_url_options[:host]}#{path}",
-        attributes: [
-          { key: I18n.t('integral.records.attributes.status'), value: I18n.t("integral.records.status.#{status}") },
-          { key: I18n.t('integral.records.attributes.updated_at'), value: I18n.l(updated_at) }
-        ]
+        attributes: attributes
       }
     end
 
@@ -170,6 +182,12 @@ module Integral
       end
 
       valid
+    end
+
+    def set_defaults
+      return if self.persisted?
+
+      self.locale ||= Integral.frontend_locales.first
     end
   end
 end

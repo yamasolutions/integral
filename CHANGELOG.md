@@ -7,6 +7,7 @@ recommendations of [keepachangelog.com](http://keepachangelog.com/).
 
 ### Added
 
+- Frontend multiple language support, controlled through the `frontend_locales` config option
 - Notifications dropdown with read and unread states
 - Notification subscribing & unsubscribing to everything, particular classes & individual objects
 - Added User statuses - pending, active & blocked

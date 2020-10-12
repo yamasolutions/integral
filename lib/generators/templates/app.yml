@@ -1,5 +1,4 @@
 defaults: &defaults
-  homepage_id: 1
   main_menu_list_id: 1
   website_title: Integral Rails
   contact_email: change-me@integralrails.com

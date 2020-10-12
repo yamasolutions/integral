@@ -11,5 +11,5 @@
                 .list-widget-tag= category.title
             %ul.no-bullet
               - category.posts(4).each do |post|
-                %li= link_to post.title, integral.post_path(post)
+                %li= link_to post.title, integral.post_path(post.slug)
 

@@ -29,6 +29,17 @@ require 'integral/chart_renderer/line'
 
 # Integral
 module Integral
+  ROOT_PATH = Pathname.new(File.join(__dir__, ".."))
+
+  class << self
+    def webpacker
+      @webpacker ||= ::Webpacker::Instance.new(
+        root_path: ROOT_PATH,
+        config_path: ROOT_PATH.join("config/webpacker.yml")
+      )
+    end
+  end
+
   # Enables engine configuration
   def self.configure
     yield(self)
@@ -39,6 +50,9 @@ module Integral
 
   mattr_accessor :backend_locales
   @@backend_locales = [:en]
+
+  mattr_accessor :frontend_locales
+  @@frontend_locales = [:en]
 
   mattr_accessor :additional_settings_params
   @@additional_settings_params = []
@@ -111,6 +125,11 @@ module Integral
 
   mattr_accessor :title_length_minimum
   @@title_length_minimum = 4
+
+  # @return [Boolean] Whether or not the frontend is multilingual
+  def self.multilingual_frontend?
+    Integral.frontend_locales.count > 1
+  end
 
   # @return [Boolean] Shortcut to find out if blog is enabled
   def self.blog_enabled?

@@ -1,0 +1,8 @@
+.alternate-resource
+  %input{ type: :hidden, name: 'post[alternate_ids][]', value: alternate.id }
+  .alternate-resource--info
+    %h4.alternate-resource--title= alternate.title
+    %p.alternate-resource--description= alternate.description.truncate(100)
+    %small.alternate-resource--path= alternate.slug
+  .alternate-resource--actions
+    %button.clear.button.alternate-resource--button{ type: :button, data: { action: 'alternate-resource#remove' } }= icon('trash')

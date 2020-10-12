@@ -6,6 +6,8 @@
       = link_to t('integral.actions.create'), new_backend_resource_url, class: 'button hollow'
     .top-bar-right
       = render_resource_grid_form do |f|
+        - if Integral.multilingual_frontend?
+          %li= f.input :locale, collection: Integral.frontend_locales.map { |locale| [t("integral.language.#{locale}"), locale] }, label: t('integral.records.attributes.locale'), wrapper_html: { class: 'filter' }, input_html: { 'data-filter' => true }, required: false
         %li= f.input :user, collection: Integral::User.all, label: t('integral.records.attributes.user'), wrapper_html: { class: 'filter' }, input_html: { 'data-filter' => true }, required: false
         %li= f.input :status, collection: resource_klass.available_statuses, label: t('integral.records.attributes.status'), wrapper_html: { class: 'filter' }, input_html: { 'data-filter' => true }, required: false
         %li= f.input :title, placeholder: t('integral.actions.search'), wrapper_html: { class: 'filter search' }, hint: false, label: false

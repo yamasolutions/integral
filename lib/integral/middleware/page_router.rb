@@ -21,7 +21,7 @@ module Integral
         backend_path = "/#{Integral.backend_namespace}/"
         return @app.call(env) if request.path_info.starts_with?(backend_path)
 
-        # Rewrites path if the request linked to an Integral::Page
+        # Rewrites path if the request linked to an Integral::Page or Integral::Category
         rewrite_path(env, request.path_info)
 
         @app.call(env)
@@ -36,16 +36,22 @@ module Integral
       #
       # @return [Integer] ID of the Integral::Page the path is linked to
       def page_identifier(path)
-        return dynamic_homepage if path == '/' && Integral.dynamic_homepage_enabled?
-
         # TODO: Speed this up by adding an index & unique constraint on path attribute
         Integral::Page.not_archived.find_by_path(path)&.id
       end
 
-      def category_identifier(path)
-        return nil unless path.starts_with?("/#{Integral.blog_namespace}")
+      def category_identifier(path, locale)
+        slug = path.split('/').last
 
-        Integral::Category.select(:id, :slug).all.map { |category| [category.id, "/#{Integral.blog_namespace}/#{category.slug}"] }.find { |category| category[1] == path }&.first
+        if locale
+          return nil unless path.starts_with?("/#{locale}/#{Integral.blog_namespace}")
+        else
+          return nil unless path.starts_with?("/#{Integral.blog_namespace}")
+
+          locale = Integral.frontend_locales.first
+        end
+
+        Integral::Category.where(locale: locale, slug: slug).first&.id
       end
 
       # Converts the request path from human readable into something Rails router understands
@@ -56,37 +62,27 @@ module Integral
       #
       # @return [String] Path Rails needs to link the request to the correct Integral::Page record
       def rewrite_path(env, path)
+        locale = Integral.frontend_locales.find { |locale| path.starts_with?("/#{locale}/") || path == "/#{locale}" } || Integral.frontend_locales.first if Integral.multilingual_frontend?
+
         page_id = page_identifier(path)
         if page_id
-          env['PATH_INFO'] = "/pages/#{page_id}"
+          env['PATH_INFO'] = localized_path("/pages/#{page_id}", locale)
         else
-          category_id = category_identifier(path)
+          category_id = category_identifier(path, locale)
 
-          env['PATH_INFO'] = "/#{Integral.blog_namespace}/categories/#{category_id}" if category_id
+          env['PATH_INFO'] = localized_path("/#{Integral.blog_namespace}/categories/#{category_id}", locale) if category_id
         end
       rescue StandardError => e
         handle_rewrite_error(e)
       end
 
-      # Homepage ID as defined by User within backend settings
-      # Possibly should add a fallback to return Page.first if settings is available
-      #
-      # @return [String] Homepage ID
-      def dynamic_homepage
-        page_id = Integral::Settings['homepage_id']
-        handle_nil_homepage if page_id.nil?
-
-        page_id
+      def localized_path(path, locale)
+        locale ? "/#{locale}#{path}" : path
       end
 
       # Handles if an error occurs when rewriting path
       def handle_rewrite_error(error)
         Rails.logger.debug("IntegralMessage: #{error}")
-      end
-
-      # Handles if Dynamic Homepage is enabled & ID is not set
-      def handle_nil_homepage
-        Rails.logger.debug('IntegralMessage: Dynamic Homepage is nil. Set within Backend Settings.')
       end
     end
   end

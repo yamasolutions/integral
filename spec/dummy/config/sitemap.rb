@@ -23,10 +23,9 @@ SitemapGenerator::Sitemap.default_host = Rails.application.routes.default_url_op
 # SitemapGenerator::Sitemap.adapter = SitemapGenerator::WaveAdapter.new
 
 SitemapGenerator::Sitemap.create do
-  # Add page paths, skip path of dynamic homepage
-  homepage = Integral::Page.find_by_id(Integral::Settings['homepage_id'])
+  # Add page paths
   Integral::Page.published.find_each do |page|
-    add page.path, lastmod: page.updated_at unless page == homepage
+    add page.path, lastmod: page.updated_at
   end
 
   if Integral.blog_enabled?

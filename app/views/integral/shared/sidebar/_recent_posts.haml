@@ -1,7 +1,8 @@
-- cache [@recent_posts.map(&:id), @recent_posts.maximum(:updated_at)] do
-  .sidebar-widget
-    %h2.sidebar-widget-title= t('integral.blog.widgets.recent_posts')
-    .sidebar-articles
-      -# TODO: Use collection rendering - possibly create a post sidebar item partial?
-      - @recent_posts.decorate.each do |post|
-        = render 'integral/shared/sidebar/item', url: integral.post_url(post), image: post.image(:small), title: post.title, subtitle: t('integral.blog.posted_ago', time: time_ago_in_words(post.published_at))
+-# We can't cache this at the moment because this partial includes 'posted_ago' times. One way we can do this in future is by creating a stimulus controller to regex find and replace and using timestamps
+-# - cache [@recent_posts.map(&:id), @recent_posts.maximum(:updated_at)] do
+.sidebar-widget
+  %h2.sidebar-widget-title= t('integral.blog.widgets.recent_posts')
+  .sidebar-articles
+    -# TODO: Use collection rendering - possibly create a post sidebar item partial?
+    - @recent_posts.decorate.each do |post|
+      = render 'integral/shared/sidebar/item', url: integral.post_url(post.slug), image: post.image(:small), title: post.title, subtitle: t('integral.blog.posted_ago', time: time_ago_in_words(post.object.published_at))

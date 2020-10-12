@@ -31,7 +31,7 @@ renderer = ApplicationController.renderer.new(
 
 Integral::Page.create!(title: 'Integral CMS - Demo Page',
                        description:'Integral CMS demo page. Integral is a rails content management system (CMS) which gives developers the ability to create a modern website with all the bells and whistles without the hassle.',
-                       path: '/demo',
+                       path: '/',
                        body: renderer.render('integral/pages/_demo', layout: false),
                        status: 1)
 

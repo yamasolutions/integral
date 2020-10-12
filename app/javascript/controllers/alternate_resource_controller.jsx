@@ -3,6 +3,10 @@ import { Controller } from "stimulus"
 export default class extends Controller {
   static targets = [ "dropdown", "template", "list", "emptyMessage" ]
 
+  connect() {
+    _.each(this.listTarget.querySelectorAll(':scope > .alternate-resource'), function(resource){ resource.classList.add('editable'); })
+  }
+
   add() {
     this.listTarget.insertAdjacentHTML('beforeend', this.templateTarget.innerHTML)
     var alternateResourceCard = Array.from(this.listTarget.querySelectorAll('.alternate-resource')).pop()
@@ -10,10 +14,12 @@ export default class extends Controller {
     var selectedOptionData = selectedOption.dataset
 
     _.first(alternateResourceCard.querySelectorAll('input')).value = event.target.value
-    _.first(alternateResourceCard.querySelectorAll('.alternate-resource--title')).innerHTML = selectedOptionData.title
+    _.first(alternateResourceCard.querySelectorAll('.alternate-resource--title span')).innerHTML = selectedOptionData.title
+    _.first(alternateResourceCard.querySelectorAll('.alternate-resource--title a')).href = selectedOptionData.url
     _.first(alternateResourceCard.querySelectorAll('.alternate-resource--description')).innerHTML = selectedOptionData.description
     _.first(alternateResourceCard.querySelectorAll('.alternate-resource--path')).innerHTML = selectedOptionData.path
 
+    alternateResourceCard.classList.add('editable')
     selectedOption.disabled = true
     this.dropdownTarget.value = ''
     this.toggleEmptyMessage()

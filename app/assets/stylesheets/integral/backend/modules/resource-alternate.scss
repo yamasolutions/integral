@@ -4,13 +4,27 @@
   padding: 0.5rem;
   margin: 1rem 0;
   background-color: rgba(212, 223, 239, 0.2);
+
+  &.editable .alternate-resource--actions {
+    display: block;
+  }
+
   &--info {
     flex-grow: 1;
   }
+
+  &--actions {
+    display: none;
+  }
+
   &--title {
     font-weight: 600;
     margin-bottom: 0.5rem;
     font-size: 1rem;
+    i {
+      font-size: .7rem;
+      vertical-align: top;
+    }
   }
 
   &--description {

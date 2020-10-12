@@ -30,7 +30,7 @@
 
             %p{data: { target: 'alternate-resource.emptyMessage' }, class: @resource.alternates.published.empty? ? '' : 'hide' } No alternates selected.
 
-            = select_tag :alternates, options_for_select(resource_klass.published.where.not(id: @resource.id).order('title ASC').map { |page| ["#{page.title} - #{page.slug}", page.id, {disabled: @resource.alternate_ids.include?(page.id), data: { title: page.title, description: page.description, path: page.slug } }] }), prompt: "Select an alternate..", data: { target: 'alternate-resource.dropdown', action: 'alternate-resource#add' }
+            = select_tag :alternates, options_for_select(resource_klass.published.where.not(id: @resource.id).order('title ASC').map { |page| ["#{page.title} - #{page.slug}", page.id, {disabled: @resource.alternate_ids.include?(page.id), data: { title: page.title, description: page.description, path: page.slug, url: backend_post_url(page.id) } }] }), prompt: "Select an alternate..", data: { target: 'alternate-resource.dropdown', action: 'alternate-resource#add' }
             %p.help-text Reference any published resources which serve as alternates. Example - versions of the same piece of content in different languages
 
         = f.association :user

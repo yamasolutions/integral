@@ -50,7 +50,6 @@ function addCounterElement($input) {
     .addClass('character-counter')
     .css('float','right')
     .css('font-size','12px')
-    .css('margin-top', '-.5rem')
     .css('align-self', 'flex-end')
     .css('height', 1);
 

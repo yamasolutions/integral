@@ -18,12 +18,14 @@ recommendations of [keepachangelog.com](http://keepachangelog.com/).
 - Backend image and list dashboard, activity, & show pages
 - Backend helpers `render_resource_grid` & `render_resource_grid_form` to reduce view duplication
 - Backend helper extension for `link_to` to allow passing of `wrapper` & `icon` options
+- Backend post list - Swap out user column for category
 
 ### Fixed
 
 - Admin bar - Add white background and bring to front
 - Backend posts form - Existing tag suggestions were not appearing when typing in input
-- Image Uploader - Initial uploaded image was not displaying
+- Image Selector - Initial uploaded image was not displaying
+- Image Selector - When searching for a term the create modal would appear
 - Backend grid context menu not appearing for dynamic loaded rows
 
 ### Dependancies

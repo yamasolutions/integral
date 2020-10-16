@@ -1,6 +1,6 @@
 - if policy(resource_klass).update?
   = link_to t('integral.actions.edit'), edit_backend_resource_url(resource.id), icon: :edit, wrapper: :li
-= link_to t('integral.actions.view_on_site'), post_url(resource), icon: :eye, wrapper: :li
+= link_to t('integral.actions.view_on_site'), resource.frontend_url, icon: :eye, wrapper: :li
 = link_to t('integral.actions.open_in_new_tab'), backend_resource_url(resource.id), target: :blank, icon: 'external-link', wrapper: :li
 - if policy(resource_klass).duplicate?
   = link_to t('integral.actions.clone'), duplicate_backend_resource_url(resource.id), method: :post, data: { confirm: t('integral.actions.confirmation.clone') }, icon: :clone, wrapper: :li

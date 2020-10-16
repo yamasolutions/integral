@@ -8,7 +8,7 @@ module Integral
 
     # @return [String] formatted body
     def body
-      object.body.html_safe
+      object.body&.html_safe
     end
   end
 end

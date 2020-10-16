@@ -12,7 +12,7 @@ module Integral
     def to_json_ld
       {
         "@type": 'blogPosting',
-        "mainEntityOfPage": Integral::Engine.routes.url_helpers.post_url(object),
+        "mainEntityOfPage": object.frontend_url,
         "headline": title,
         "description": description,
         "datePublished": object.published_at,

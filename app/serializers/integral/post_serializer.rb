@@ -3,7 +3,7 @@ module Integral
   class PostSerializer
     include FastJsonapi::ObjectSerializer
 
-    attributes :title, :description, :status, :slug, :created_at, :updated_at, :published_at, :url, :body
+    attributes :title, :description, :status, :slug, :created_at, :updated_at, :published_at, :body
 
     attribute :author do |post|
       post.author&.name
@@ -11,6 +11,10 @@ module Integral
 
     attribute :tags do |post|
       post.tags.map(&:name).join(',')
+    end
+
+    attribute :url do |post|
+      post&.frontend_url
     end
 
     attribute :featured_image do |post|

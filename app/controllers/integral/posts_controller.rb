@@ -36,16 +36,16 @@ module Integral
 
     def alternative_urls
       alternative_urls = {
-        I18n.locale => canonical_url
+        I18n.locale.to_s => canonical_url
       }
 
       if action_name == 'show'
         @post.alternates.published.each do |alternate|
-          alternative_urls[alternate.locale] = post_url(alternate.slug)
+          alternative_urls[alternate.locale] = alternate.frontend_url
         end
       elsif
         Integral.frontend_locales.reject{ |l| l == I18n.locale}.each do |locale|
-          alternative_urls[locale] = self.send("posts_#{locale}_url")
+          alternative_urls[locale.to_s] = self.send("posts_#{locale}_url")
         end
       end
       alternative_urls
@@ -71,9 +71,9 @@ module Integral
 
     def find_post
       @post = if current_user.present?
-                Integral::Post.friendly.find(params[:id]).decorate
+                Integral::Post.where(locale: params[:locale]).friendly.find(params[:id]).decorate
               else
-                Integral::Post.friendly.published.find(params[:id]).decorate
+                Integral::Post.where(locale: params[:locale]).friendly.published.find(params[:id]).decorate
               end
 
       @post.decorate

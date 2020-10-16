@@ -34,8 +34,10 @@ module Integral
     has_many :alternates, through: :resource_alternates, source_type: "Integral::Post"
 
     # Validations
-    validates :title, presence: true, length: { minimum: 4, maximum: 60 }
-    validates :description, presence: true, length: { minimum: 50, maximum: 300 }
+    validates :title, presence: true, length: { minimum: Integral.title_length_minimum,
+                                                maximum: Integral.title_length_maximum }
+    validates :description, presence: true, length: { minimum: Integral.description_length_minimum,
+                                                      maximum: Integral.description_length_maximum }
     validates :body, :user, :slug, presence: true
     validates :locale, presence: true
 
@@ -73,8 +75,12 @@ module Integral
         subtitle: subtitle,
         description: description,
         image: featured_image,
-        url: Integral::Engine.routes.url_helpers.post_url(self)
+        url: frontend_url
       }
+    end
+
+    def frontend_url
+      Integral::Engine.routes.url_helpers.send("post_#{locale}_url", slug)
     end
 
     # @return [Hash] the instance as a card
@@ -94,14 +100,9 @@ module Integral
       {
         image: image_url,
         description: title,
-        url: url,
+        url: frontend_url,
         attributes: attributes
       }
-    end
-
-    # @return [String] URL to frontend route
-    def url
-      Integral::Engine.routes.url_helpers.post_url(self)
     end
 
     # @return [Hash] listable options to be used within a RecordSelector widget

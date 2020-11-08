@@ -7,6 +7,20 @@ recommendations of [keepachangelog.com](http://keepachangelog.com/).
 
 ### Added
 
+-
+
+### Fixed
+
+-
+
+### Dependancies
+
+-
+
+## v1.5.0 - 2020-11-08
+
+### Added
+
 - Notifications dropdown with read and unread states
 - Notification subscribing & unsubscribing to everything, particular classes & individual objects
 - Added User statuses - pending, active & blocked

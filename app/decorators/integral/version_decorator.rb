@@ -59,12 +59,12 @@ module Integral
     end
 
     def item
-      @item ||= item_class.unscoped.find(item_id)
+      @item ||= item_class.unscoped.find_by_id(item_id)
     end
 
     # @return [String] formatted title
     def item_title
-      decorated_item&.title
+      decorated_item.present? ? decorated_item.title : '<deleted>'
     end
 
     # @return [Object] Associated Item

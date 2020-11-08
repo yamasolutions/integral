@@ -17,8 +17,19 @@ module Integral
         image: @resource&.image&.url
       }
 
-      @posts = Integral::Post.published.where(category_id: @resource.id).paginate(page: params[:page])
+      @posts = Integral::Post.published.where(category_id: @resource.id).includes(:image).order('published_at DESC').paginate(page: params[:page]).decorate
     end
+
+    def url_for(options={})
+      if options.is_a?(Hash) && options.include?(:category_path) && options[:category_path] == true
+        "#{category_path(@resource)}?page=#{options[:page]}"
+      elsif options.is_a?(Hash) && options.empty?
+        category_path(@resource)
+      else
+        super(options)
+      end
+    end
+    helper_method :url_for
 
     private
 

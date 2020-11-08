@@ -8,6 +8,19 @@ recommendations of [keepachangelog.com](http://keepachangelog.com/).
 ### Added
 
 - Frontend multiple language support, controlled through the `frontend_locales` config option
+
+### Fixed
+
+-
+
+### Dependancies
+
+-
+
+## v1.5.0 - 2020-11-08
+
+### Added
+
 - Notifications dropdown with read and unread states
 - Notification subscribing & unsubscribing to everything, particular classes & individual objects
 - Added User statuses - pending, active & blocked
@@ -20,6 +33,7 @@ recommendations of [keepachangelog.com](http://keepachangelog.com/).
 - Backend helpers `render_resource_grid` & `render_resource_grid_form` to reduce view duplication
 - Backend helper extension for `link_to` to allow passing of `wrapper` & `icon` options
 - Backend post list - Swap out user column for category
+- List Rendering - Allow rendering lists without a wrapper element by passing `false`
 
 ### Fixed
 

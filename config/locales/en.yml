@@ -422,6 +422,8 @@ en:
           title: 'Image listing'
           no_images_available: 'No images available. Try uploading some!'
           new_image: 'New image'
+        edit:
+          title: Edit Image
       users:
         available_locales:
           en: English

@@ -164,7 +164,7 @@ module Integral
     end
 
     def deliver_published_webhook_on_update
-      deliver_webhook(:published) if status_changed? && published?
+      deliver_webhook(:published) if saved_change_to_status? && published?
     end
 
     def deliver_published_webhook_on_create

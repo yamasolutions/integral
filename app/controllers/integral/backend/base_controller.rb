@@ -64,13 +64,13 @@ module Integral
       # POST /
       # Resource creation
       def create
-        add_breadcrumb I18n.t('integral.navigation.create'), "new_backend_#{controller_name.singularize}_path".to_sym
+        add_breadcrumb I18n.t('integral.navigation.create')
         @resource = resource_klass.new(resource_params)
 
         yield if block_given?
 
         if @resource.save
-          respond_successfully(notification_message('creation_success'), send("edit_backend_#{controller_name.singularize}_path", @resource.id))
+          respond_successfully(notification_message('creation_success'), edit_backend_resource_url(@resource))
         else
           respond_failure(notification_message('creation_failure'), :new)
         end

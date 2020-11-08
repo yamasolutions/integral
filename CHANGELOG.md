@@ -17,6 +17,20 @@ recommendations of [keepachangelog.com](http://keepachangelog.com/).
 
 -
 
+## v1.5.1 - 2020-11-08
+
+### Added
+
+-
+
+### Fixed
+
+- Fix typo in ListRenderer
+
+### Dependancies
+
+-
+
 ## v1.5.0 - 2020-11-08
 
 ### Added

@@ -47,7 +47,7 @@ module Integral
       end
 
       if opts[:wrapper_element]
-        ontent_tag opts[:wrapper_element], rendered_items, html_options, false
+        content_tag opts[:wrapper_element], rendered_items, html_options, false
       else
         rendered_items
       end

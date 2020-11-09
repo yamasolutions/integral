@@ -26,15 +26,7 @@
 
       .cell.medium-6.flex-container= render_card(:object, { title: 'Essentials', record: @resource })
       - if Integral.multilingual_frontend?
-        .cell.medium-6.flex-container
-          .card.flex-auto
-            %h2 Alternates
-            - if @resource.alternates.published.any?
-              = render partial: "alternate", collection: @resource.alternates.published
-            - else
-              %p.data-unavailable
-                %span= t('integral.backend.graphs.data_unavailable')
-                = image_tag image_path('integral/backend/data-unavailable.png')
+        .cell.medium-6.flex-container= render_card(:resource_alternates)
 
       .cell.xlarge-6.flex-container= render_card(:recent_user_activity)
   .cell.large-6

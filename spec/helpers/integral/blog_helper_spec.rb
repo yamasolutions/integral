@@ -44,7 +44,7 @@ module Integral
       end
 
       describe '#display_popular_posts_widget?' do
-        let(:count) { double(count: 3) }
+        let(:count) { double(where: double(count: 3)) }
 
         before do
           allow(Integral::Post).to receive(:published).and_return(count)
@@ -57,7 +57,7 @@ module Integral
         end
 
         context 'when published posts count is greater than 4' do
-          let(:count) { double(count: 5) }
+          let(:count) { double(where: double(count: 5)) }
 
 
           it 'returns true' do

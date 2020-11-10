@@ -80,7 +80,8 @@ module Integral
     end
 
     def frontend_url
-      Integral::Engine.routes.url_helpers.send("post_#{locale}_url", slug)
+      route = Integral.multilingual_frontend? ? "post_#{locale}_url" : 'page_url'
+      Integral::Engine.routes.url_helpers.send(route, slug)
     end
 
     # @return [Hash] the instance as a card

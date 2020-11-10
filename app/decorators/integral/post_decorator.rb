@@ -44,12 +44,12 @@ module Integral
 
     # Tags to be used within the header of an article to describe the subject
     def header_tags
-      return I18n.t('integral.posts.show.subtitle') if object.tags_on('published').empty?
+      return I18n.t('integral.posts.show.subtitle') if object.tags_on(object.tag_context).empty?
 
       header_tags = ''
-      object.tags_on('published').each_with_index do |tag, i|
+      object.tags_on(object.tag_context).each_with_index do |tag, i|
         header_tags += tag.name
-        header_tags += ' | ' unless i == object.tags_on('published').size - 1
+        header_tags += ' | ' unless i == object.tags_on(object.tag_context).size - 1
       end
       header_tags
     end

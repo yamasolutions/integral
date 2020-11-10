@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_21_223602) do
+ActiveRecord::Schema.define(version: 2020_10_08_060023) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -49,6 +49,7 @@ ActiveRecord::Schema.define(version: 2020_04_21_223602) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "image_id"
+    t.string "locale"
     t.index ["image_id"], name: "index_integral_categories_on_image_id"
   end
 
@@ -206,6 +207,7 @@ ActiveRecord::Schema.define(version: 2020_04_21_223602) do
     t.integer "parent_id"
     t.integer "image_id"
     t.integer "lock_version"
+    t.string "locale"
     t.index ["deleted_at"], name: "index_integral_pages_on_deleted_at"
     t.index ["image_id"], name: "index_integral_pages_on_image_id"
   end
@@ -245,12 +247,23 @@ ActiveRecord::Schema.define(version: 2020_04_21_223602) do
     t.integer "lock_version"
     t.integer "preview_image_id"
     t.bigint "category_id"
+    t.string "locale"
     t.index ["category_id"], name: "index_integral_posts_on_category_id"
     t.index ["deleted_at"], name: "index_integral_posts_on_deleted_at"
     t.index ["image_id"], name: "index_integral_posts_on_image_id"
     t.index ["preview_image_id"], name: "index_integral_posts_on_preview_image_id"
-    t.index ["slug"], name: "index_integral_posts_on_slug", unique: true
+    t.index ["slug", "locale"], name: "index_integral_posts_on_slug_and_locale", unique: true
     t.index ["user_id"], name: "index_integral_posts_on_user_id"
+  end
+
+  create_table "integral_resource_alternates", force: :cascade do |t|
+    t.string "alternate_type"
+    t.bigint "alternate_id"
+    t.string "resource_type"
+    t.bigint "resource_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["resource_type", "resource_id"], name: "index_integral_resource_alternates_on_resource_type_id"
   end
 
   create_table "integral_role_assignments", id: :serial, force: :cascade do |t|

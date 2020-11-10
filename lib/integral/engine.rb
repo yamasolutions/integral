@@ -44,6 +44,7 @@ module Integral
     require 'gaffe'
     require 'fast_jsonapi'
     require 'route_translator'
+    require 'webpacker'
 
     isolate_namespace Integral
 

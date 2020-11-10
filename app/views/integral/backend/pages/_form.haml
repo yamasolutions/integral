@@ -6,7 +6,6 @@
       .grid-y
         = f.input :title
         = f.input :description
-        = f.input :path
         = f.input :body, as: :ckeditor, input_html: { id: 'resource_body_editor', value: @resource.editor_body, data: { 'ckeditor-class' => @resource.template } }
 
     .cell.medium-4.large-3
@@ -18,6 +17,21 @@
           .radios= f.collection_radio_buttons :status, Integral::Page.available_statuses, :last, :first, include_hidden: false
           %hr.dark
           = f.button :button if f.object.persisted?
+        = f.input :path
+        - if Integral.multilingual_frontend?
+          = f.input :locale, collection: Integral.frontend_locales.map { |locale| [t("integral.language.#{locale}"), locale] }, include_blank: false
+          .card{ data: { controller: 'alternate-resource' } }
+            %h2 Alternates
+            %hr.dark
+            %div{data: { target: 'alternate-resource.list' } }
+              .hide{data: { target: 'alternate-resource.template' } }= render partial: "alternate", locals: { alternate: resource_klass.new(title: '', description: '') }
+              = render partial: "alternate", collection: @resource.alternates.published
+
+            %p{data: { target: 'alternate-resource.emptyMessage' }, class: @resource.alternates.published.empty? ? '' : 'hide' } No alternates selected.
+
+            = select_tag :alternates, options_for_select(resource_klass.published.where.not(id: @resource.id).order('path ASC').map { |page| ["#{page.title} - #{page.path}", page.id, {disabled: @resource.alternate_ids.include?(page.id), data: { title: page.title, description: page.description, path: page.path, url: backend_page_url(page.id) } }] }), prompt: "Select an alternate..", data: { target: 'alternate-resource.dropdown', action: 'alternate-resource#add' }
+            %p.help-text Reference any published resources which serve as alternates. Example - versions of the same piece of content in different languages
+
         = f.input :template, collection: Integral::Page.available_templates, prompt: t('integral.backend.pages.prompts.choose_template'), include_blank: false
         = f.association :parent, collection: @resource.available_parents.map {|p| [p.title, p.id]}, include_blank: true
         = render partial: 'integral/backend/shared/image_preview', locals: { f:f }

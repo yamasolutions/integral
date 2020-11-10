@@ -35,7 +35,8 @@ module Integral
     def permitted_attributes
       return [] unless manager? || editor?
 
-      permitted_params = %i[title description path body status template parent_id image_id lock_version]
+      permitted_params = %i[title description path body locale status template parent_id image_id lock_version]
+      permitted_params.concat [ {alternate_ids: [] } ]
       permitted_params.concat Integral.additional_page_params
 
       permitted_params -= [:status] unless manager?

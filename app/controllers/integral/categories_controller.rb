@@ -33,6 +33,12 @@ module Integral
 
     private
 
+    def canonical_url
+      url = "#{Rails.application.routes.default_url_options[:host]}/#{Integral.blog_namespace}/#{@resource.slug}"
+      url += "?page=#{params[:page]}" if params[:page].present?
+      url
+    end
+
     def find_resource
       @resource = Integral::Category.find(params[:id])
     end

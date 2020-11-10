@@ -31,19 +31,36 @@ module Integral
     end
 
     def set_breadcrumbs
-      add_breadcrumb I18n.t('integral.navigation.home'), :root_url
+      breadcrumbs = @page.breadcrumbs
+      breadcrumbs.pop
 
-      @page.breadcrumbs.each do |breadcrumb|
-        add_breadcrumb breadcrumb[:title], "#{Rails.application.routes.default_url_options[:host]}#{breadcrumb[:path]}"
+      breadcrumbs.each do |breadcrumb|
+        # Override the homepage title so that it's a simple breadcrumb instead of the SEO (<title>) version
+        title = if Integral.frontend_locales.map { |locale| "/#{locale}" }.include?(breadcrumb[:path]) || breadcrumb[:path] == '/'
+          I18n.t('integral.navigation.home')
+        else
+          breadcrumb[:title]
+        end
+        add_breadcrumb title, "#{Rails.application.routes.default_url_options[:host]}#{breadcrumb[:path]}"
       end
+
+      add_breadcrumb @page.title
     end
 
     def canonical_url
-      if Settings[:homepage_id]&.to_i == @page.id
-        Rails.application.routes.default_url_options[:host].to_s
-      else
-        "#{Rails.application.routes.default_url_options[:host]}#{@page.path}"
+      "#{Rails.application.routes.default_url_options[:host]}#{@page.path}"
+    end
+
+    def alternative_urls
+      alternative_urls = {
+        I18n.locale.to_s => canonical_url
+      }
+
+      @page.alternates.published.each do |alternate|
+        alternative_urls[alternate.locale] = "#{Rails.application.routes.default_url_options[:host]}#{alternate.path}"
       end
+
+      alternative_urls
     end
   end
 end

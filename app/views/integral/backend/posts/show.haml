@@ -13,7 +13,7 @@
           .grid-x.actions
             .cell.xlarge-8.xxlarge-6
               .grid-x.small-up-2
-                = link_to t('integral.actions.view_on_site'), post_url(@resource), icon: :eye, wrapper: :cell
+                = link_to t('integral.actions.view_on_site'), @resource.frontend_url, icon: :eye, wrapper: :cell
                 - if policy(resource_klass).manager?
                   = link_to t('integral.actions.edit'), edit_backend_resource_url(@resource.id), icon: :edit, wrapper: :cell
                 - if policy(resource_klass).duplicate?
@@ -24,6 +24,9 @@
                   = link_to t('integral.actions.view_history'), activities_backend_resource_url(@resource.id), icon: :history, wrapper: :cell
 
       .cell.medium-6.flex-container= render_card(:object, { title: 'Essentials', record: @resource })
+      - if Integral.multilingual_frontend?
+        .cell.medium-6.flex-container= render_card(:resource_alternates)
+
       .cell.xlarge-6.flex-container= render_card(:recent_user_activity)
   .cell.large-6
     -# Right Column

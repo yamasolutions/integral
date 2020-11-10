@@ -20,6 +20,11 @@ Integral.configure do |config|
   #
   # config.backend_locales = [:en, :ja]
 
+  # Set the frontend locales available to visitors - adding more than one will enable multilingual mode
+  # Default is [:en]
+  #
+  # config.frontend_locales = [:en, :ja]
+
   # Set additional backend permitted setting params
   # Default is []
   #

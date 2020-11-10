@@ -27,15 +27,22 @@ module Integral
 
       private
 
-      def resource_params
-        permitted_post_params = %i[title slug body description tag_list image_id preview_image_id status lock_version user_id category_id]
+      def resource_grid_columns
+        columns = [:title, :category, :status]
+        columns += [:locale] if Integral.multilingual_frontend?
+        columns += [:view_count, :updated_at, :actions]
+      end
 
+      def resource_params
+        permitted_post_params = %i[title slug body description tag_list image_id preview_image_id status lock_version locale user_id category_id]
+        permitted_post_params.concat [alternate_ids: []]
         permitted_post_params.concat Integral.additional_post_params
+
         params.require(:post).permit(*permitted_post_params)
       end
 
       def white_listed_grid_params
-        %i[descending order page user action object title status]
+        %i[descending order page user action object title status locale]
       end
 
       def resource_klass

@@ -8,7 +8,8 @@ Rails.application.configure do
   # Strip all comments from JavaScript files, even copyright notices.
   ugly_opts =  {
     output: { comments: :none },
-    compress: { unused: false }
+    compress: { unused: false },
+    harmony: true
   }
 
   uglifier = Uglifier.new(ugly_opts)

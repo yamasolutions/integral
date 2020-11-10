@@ -21,6 +21,10 @@ module Integral
         where(user: value)
       end
 
+      filter(:locale, multiple: true) do |value|
+        where(locale: value)
+      end
+
       filter(:category, multiple: true) do |value|
         where(category_id: value)
       end
@@ -28,6 +32,7 @@ module Integral
       column(:title, order: :title)
       column(:category, order: :category_id)
       column(:status, order: :status)
+      column(:locale, order: :locale)
       column(:view_count, order: :view_count)
       column(:updated_at, order: :updated_at)
       column(:actions)

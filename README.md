@@ -17,6 +17,7 @@ Out of the box integral provides;
 * Frontend features
     * Dynamic Pages
     * Integrated Blog
+    * Multilingual
     * SEO Ready
     * Contact form processing w/ HTML emails
     * Sitemap generation

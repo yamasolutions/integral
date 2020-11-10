@@ -11,10 +11,20 @@ module Integral
     # Draws root route
     def self.draw_root
       Integral::Engine.routes.draw do
-        if Integral.dynamic_homepage_enabled?
-          root 'pages#show'
+        if Integral.multilingual_frontend?
+          localized do
+            if Integral.dynamic_homepage_enabled?
+              root 'pages#show'
+            else
+              root Integral.root_path
+            end
+          end
         else
-          root Integral.root_path
+          if Integral.dynamic_homepage_enabled?
+            root 'pages#show'
+          else
+            root Integral.root_path
+          end
         end
       end
     end
@@ -22,21 +32,38 @@ module Integral
     # Draws frontend routes including dynamic pages and blog routes
     def self.draw_frontend
       Integral::Engine.routes.draw do
-        # Dynamic pages (URLs are rewritten in Integral::Middleware::PageRouter)
-        resources :pages, only: %i[show]
-
         # Visitor enquiries & newsletter signups
         post 'contact', to: 'contact#contact'
         post 'newsletter_signup', to: 'contact#newsletter_signup'
 
+        # Dynamic pages (URLs are rewritten in Integral::Middleware::PageRouter)
+        if Integral.multilingual_frontend?
+          localized do
+            resources :pages, only: %i[show]
+          end
+        else
+          resources :pages, only: %i[show]
+        end
+
         # Frontend Blog routes
         if Integral.blog_enabled?
-          scope Integral.blog_namespace do
-            resources :tags, only: %i[index show]
-            resources :categories, only: %i[show]
+          if Integral.multilingual_frontend?
+            localized do
+              scope Integral.blog_namespace do
+                resources :tags, only: %i[index show]
+                resources :categories, only: %i[show]
+              end
+              # Post Routing must go after tags otherwise it will override
+              resources Integral.blog_namespace, only: %i[index show], as: :posts, controller: 'posts'
+            end
+          else
+            scope Integral.blog_namespace do
+              resources :tags, only: %i[index show]
+              resources :categories, only: %i[show]
+            end
+            # Post Routing must go after tags otherwise it will override
+            resources Integral.blog_namespace, only: %i[index show], as: :posts, controller: 'posts'
           end
-          # Post Routing must go after tags otherwise it will override
-          resources Integral.blog_namespace, only: %i[show index], as: :posts, controller: 'posts'
         end
       end
     end

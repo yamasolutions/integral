@@ -12,3 +12,5 @@ coverage/
 .yardoc/
 *.swo
 website/build/*
+tmp/*
+public/packs/*

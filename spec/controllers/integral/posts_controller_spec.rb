@@ -17,7 +17,7 @@ module Integral
 
     describe 'GET show' do
       before do
-        get :show, params: { id: resource.to_param }
+        get :show, params: { id: resource.slug, locale: :en }
       end
 
       it { expect(response.status).to eq 200 }

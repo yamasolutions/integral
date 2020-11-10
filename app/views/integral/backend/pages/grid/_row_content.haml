@@ -2,4 +2,6 @@
 %td= resource.path
 %td
   %span.label= t("integral.records.status.#{resource.status}")
+- if Integral.multilingual_frontend?
+  %td= I18n.t("integral.language.#{resource.locale}")
 %td= l(resource.updated_at, format: :long)

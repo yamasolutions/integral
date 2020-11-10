@@ -19,11 +19,27 @@ module Integral
     # Validations
     validates :slug, presence: true
     validates_format_of :slug, with: /\A[A-Za-z0-9]+(?:-[A-Za-z0-9]+)*\z/
-    validates :title, presence: true, length: { minimum: 4, maximum: 60 }
-    validates :description, presence: true, length: { minimum: 25, maximum: 300 }
+    validates :title, presence: true, length: { minimum: Integral.title_length_minimum,
+                                                maximum: Integral.title_length_maximum }
+    validates :description, presence: true, length: { minimum: Integral.description_length_minimum,
+                                                      maximum: Integral.description_length_maximum }
+    validates :locale, presence: true
+
+    # Callbacks
+    after_initialize :set_defaults
 
     def self.integral_icon
       'tags'
+    end
+
+    def to_param
+      id
+    end
+
+    def set_defaults
+      return if self.persisted?
+
+      self.locale ||= Integral.frontend_locales.first
     end
   end
 end

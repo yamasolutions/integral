@@ -25,6 +25,9 @@
                   = link_to t('integral.actions.view_history'), activities_backend_resource_url(@resource.id), icon: :history, wrapper: :cell
 
       .cell.medium-6.flex-container= render_card(:object, { title: 'Essentials', record: @resource })
+      - if Integral.multilingual_frontend?
+        .cell.medium-6.flex-container= render_card(:resource_alternates)
+
       .cell.xlarge-6.flex-container= render_card(:recent_user_activity)
   .cell.large-6
     -# Right Column

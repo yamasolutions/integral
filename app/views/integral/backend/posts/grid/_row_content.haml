@@ -2,5 +2,7 @@
 %td= resource.category.title
 %td
   %span.label= t("integral.statuses.#{resource.status}")
+- if Integral.multilingual_frontend?
+  %td= I18n.t("integral.language.#{resource.locale}")
 %td= number_with_delimiter(resource.view_count)
 %td= l(resource.updated_at, format: :long)

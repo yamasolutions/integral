@@ -5,9 +5,13 @@ recommendations of [keepachangelog.com](http://keepachangelog.com/).
 
 ## Unreleased
 
+### Breaking Changes
+
+- Homepage is no longer specified within settings area. Instead set homepage path to `/`
+
 ### Added
 
--
+- Frontend multiple language support, controlled through the `frontend_locales` config option
 
 ### Fixed
 

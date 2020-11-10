@@ -6,6 +6,8 @@ module Integral
 
     layout 'integral/frontend'
 
+    around_action :set_locale_from_url
+
     # TODO: Upgrade BeforeRender (currently does not supper Rails 5)
     # Commented until before_render is Rails 5 compatible, currently using :render override
     # Search Engine Optimization
@@ -21,7 +23,11 @@ module Integral
 
     # @return [String] path to category page
     def category_path(category)
-      "/#{Integral.blog_namespace}/#{category.slug}"
+      if Integral.multilingual_frontend?
+        "/#{I18n.locale}/#{Integral.blog_namespace}/#{category.slug}"
+      else
+        "/#{Integral.blog_namespace}/#{category.slug}"
+      end
     end
 
     private
@@ -116,17 +122,18 @@ module Integral
     def alternative_urls
       {}
     end
+    helper_method :alternative_urls
 
     def load_blog_tags
-      @blog_tags = Integral::Post.tag_counts_on('published', order: 'taggings_count desc', limit: 30)
+      @blog_tags = Integral::Post.tag_counts_on("published_#{I18n.locale}", order: 'taggings_count desc', limit: 30)
     end
 
     def load_recent_posts
-      @recent_posts = Integral::Post.published.order('published_at DESC').limit(4)
+      @recent_posts = Integral::Post.published.where(locale: I18n.locale).order('published_at DESC').limit(4)
     end
 
     def load_popular_posts
-      @popular_posts = Integral::Post.published.order('view_count DESC').limit(4)
+      @popular_posts = Integral::Post.published.where(locale: I18n.locale).order('view_count DESC').limit(4)
     end
 
     # Raises 404 if no user is logged in

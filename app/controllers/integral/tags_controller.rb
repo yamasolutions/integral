@@ -7,7 +7,7 @@ module Integral
     # List blog tags
     def index
       add_breadcrumb t('integral.breadcrumbs.tags'), nil
-      @tags = Integral::Post.all_tag_counts(order: 'count desc').paginate(page: params[:page])
+      @tags = Integral::Post.tag_counts_on("published_#{I18n.locale}", order: 'taggings_count desc').paginate(page: params[:page])
     end
 
     # GET /:id
@@ -30,7 +30,7 @@ module Integral
     private
 
     def find_tag
-      @tag = Integral::Post.all_tags.find_by_name!(params[:id])
+      @tag = Integral::Post.tag_counts_on("published_#{I18n.locale}").find_by_name!(params[:id])
     end
 
     def set_breadcrumbs

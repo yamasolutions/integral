@@ -43,6 +43,8 @@ module Integral
     require 'rails-settings-cached'
     require 'gaffe'
     require 'fast_jsonapi'
+    require 'route_translator'
+    require 'webpacker'
 
     isolate_namespace Integral
 
@@ -62,6 +64,13 @@ module Integral
       end
 
       Integral::Engine.routes.default_url_options[:host] = Rails.application.routes.default_url_options[:host]
+
+      if Integral.multilingual_frontend?
+        RouteTranslator.config do |config|
+          config.available_locales = Integral.frontend_locales
+          config.generate_unnamed_unlocalized_routes = true
+        end
+      end
     end
 
     # Menu Initializaion - Add items to menus which are not directly linked to a Modal
@@ -124,6 +133,21 @@ module Integral
       ]
 
       app.config.assets.precompile.concat assets_for_precompile
+    end
+
+    initializer "webpacker.proxy" do |app|
+      insert_middleware = begin
+                            Integral.webpacker.config.dev_server.present?
+                          rescue
+                            nil
+                          end
+      next unless insert_middleware
+
+      app.middleware.insert_before(
+        0, Webpacker::DevServerProxy,
+        ssl_verify_none: true,
+        webpacker: Integral.webpacker
+      )
     end
 
     # Initializer to combine this engines static assets with the static assets of the hosting site.

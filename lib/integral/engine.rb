@@ -124,6 +124,9 @@ module Integral
         'integral/backend/data-unavailable.png',
         'integral/image-not-set.png',
 
+        # Block Editor
+        'integral/block_editor.css',
+
         # Emails
         'integral/emails.css',
         'integral/emails/colors.css',

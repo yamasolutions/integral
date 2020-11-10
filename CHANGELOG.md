@@ -12,6 +12,7 @@ recommendations of [keepachangelog.com](http://keepachangelog.com/).
 ### Added
 
 - Frontend multiple language support, controlled through the `frontend_locales` config option
+- Add Block Editor (Gutenberg)
 
 ### Fixed
 

@@ -3,4 +3,4 @@
 
 = link_to t('integral.actions.edit'), edit_backend_page_url(@page.id), class: 'button primary button--edit-resource', data: { 'turbolinks' => 'false' } if current_user.present?
 .wysiwyg-content
-  = @page.body
+  = render_blocks(@page.body)

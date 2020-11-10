@@ -20,6 +20,10 @@ module Integral
       Integral::ContentRenderer.render(content)
     end
 
+    def render_blocks(content)
+      BlockListRenderer.render(content)
+    end
+
     # @param [Integral::List] list the list to render
     # @param [Hash] opts the options to render list
     # @option opts [String] :html_classes the html classes for the list

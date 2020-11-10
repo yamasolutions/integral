@@ -215,6 +215,9 @@ en:
       images: Images
       image: Image
       lists: Lists
+      list: List
+      new: New
+      edit: Edit
       log_out: Logout
       my_account: Account & profile
       settings: Settings

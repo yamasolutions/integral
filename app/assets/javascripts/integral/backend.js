@@ -101,6 +101,12 @@ function ready() {
   new RemoteForm($('.remote-form'));
   Grid.init();
 
+  $('#resource_form').on('keypress', e => {
+    if (e.keyCode == 13) {
+      return false;
+    }
+  });
+
   $("[data-form-subscribe-notifications], [data-form-unsubscribe-notifications]").submit(function( event ) {
     $(event.target).find('.button').attr('disabled', true)
   });

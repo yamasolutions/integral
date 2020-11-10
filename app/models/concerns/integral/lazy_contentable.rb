@@ -4,9 +4,10 @@ module Integral
   module LazyContentable
     extend ActiveSupport::Concern
 
-    included do
-      before_save :lazyload_content
-    end
+    # TODO: Re-add this (?) - It's removing the block comment markup
+    # included do
+    #   before_save :lazyload_content
+    # end
 
     # @return [String] body HTML ready for WYSIWYG editor
     def editor_body

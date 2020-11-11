@@ -112,7 +112,6 @@ function createMediaFromFile( file, additionalData ) {
 	const data = new window.FormData();
 	data.append( 'image[file]', file, file.name || file.type.replace( '/', '.' ) );
 	data.append( 'image[title]', file.name);
-	data.append( 'image[title]', file.name);
 	data.append( 'image[remote]', 'true');
 	forEach( additionalData, ( value, key ) => data.append( key, value ) );
 	return apiFetch( {

@@ -1,0 +1,9 @@
+.block-editor-block-list__block[data-type="integral/card"] > div {
+  > button {
+    position: absolute;
+    right: 0;
+  }
+  textarea.button {
+    padding: 1rem 0;
+  }
+}

@@ -4,6 +4,7 @@ module Integral
     class ImagesController < BaseController
       before_action :set_resource, except: %i[create index new list]
       before_action :authorize_with_klass, except: %i[activities activity]
+      skip_before_action :verify_authenticity_token, only: [:create]
 
       # GET /new
       # Image creation form

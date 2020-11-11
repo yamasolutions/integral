@@ -56,6 +56,9 @@ export const settings = {
     },
     url: {
       type: 'text'
+    },
+    openInNewTab: {
+      type: 'boolean'
     }
   },
   edit({attributes, className, setAttributes, isSelected}) {
@@ -106,6 +109,13 @@ export const settings = {
               onChange={ content => setAttributes({ hasCallToAction: content }) }
             />
           )}
+          { attributes.url && (
+            <ToggleControl
+              label="Open in new Tab?"
+              checked={ attributes.openInNewTab }
+              onChange={ content => setAttributes({ openInNewTab: content }) }
+            />
+          )}
 				</PanelBody>
       </InspectorControls>,
       <div className={ 'card ' + className }>
@@ -142,6 +152,7 @@ export const settings = {
     ]);
   },
   save({ attributes }) {
+    const linkTarget = (attributes.openInNewTab) ? '_blank' : '_self';
     const cardImage = (src, alt) => {
       if(!src) return null;
 
@@ -159,6 +170,7 @@ export const settings = {
         { attributes.url ? (
           <a
             href={ attributes.url }
+            target= { linkTarget }
           >
             { cardImage(attributes.imageUrl, attributes.imageAlt) }
           </a>
@@ -170,6 +182,7 @@ export const settings = {
             { attributes.url ? (
               <a
                 href={ attributes.url }
+                target= { linkTarget }
               >
                 { attributes.title }
               </a>
@@ -187,23 +200,11 @@ export const settings = {
           tagName="a"
           className='button expanded'
           href={ attributes.url }
+          target= { linkTarget }
           value={ attributes.callToAction }
         />
       }
       </div>
     );
-  },
-  // transforms: {
-  //   from: [
-  //     {
-  //       type: 'raw',
-  //       priority: 1,
-  //       selector: 'div.callout, div.info-box, div.buy-box',
-  //       transform( node ) {
-  //         return createBlock( 'integral/foundation-callout', {}, rawHandler({ HTML: node.innerHTML }));
-  //       },
-  //     },
-  //   ],
-  // }
+  }
 };
-

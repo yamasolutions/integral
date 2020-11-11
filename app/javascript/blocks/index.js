@@ -18,10 +18,6 @@ import {
   registerBlockStyle,
   unregisterBlockStyle,
   unregisterBlockVariation,
-  setDefaultBlockName,
-  setFreeformContentHandlerName,
-  setUnregisteredTypeHandlerName,
-  setGroupingBlockName,
 } from '@wordpress/blocks';
 import { createHigherOrderComponent } from '@wordpress/compose'
 import { addFilter } from '@wordpress/hooks';
@@ -32,6 +28,8 @@ import { addFilter } from '@wordpress/hooks';
 import * as callout from './callout';
 import * as card from './card';
 import * as accordion from './accordion';
+import * as recentPosts from './recent-posts';
+
 import ColumnEdit from './column/edit';
 import ButtonEdit from './button/edit';
 import ImageEdit from './image/edit';
@@ -224,6 +222,7 @@ export const registerBlocks = () => {
   unregisterBlockType('core/video');
 
   // Unregister WP block styles
+  unregisterBlockStyle('core/separator', 'wide');
   unregisterBlockStyle('core/button', 'fill');
   unregisterBlockStyle('core/button', 'outline');
   unregisterBlockStyle('core/image', 'default');
@@ -237,9 +236,11 @@ export const registerBlocks = () => {
   unregisterBlockVariation('core/columns', 'three-columns-wider-center');
 
   // Register custom blocks
+  registerBlockType(accordion.name, accordion.settings);
   registerBlockType(callout.name, callout.settings);
   registerBlockType(card.name, card.settings);
-  registerBlockType(accordion.name, accordion.settings);
+  registerBlockType(recentPosts.name, recentPosts.settings);
+
 
   // Register custom block styles
   registerBlockStyle( 'core/button', {

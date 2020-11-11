@@ -270,7 +270,7 @@ export function ImageEdit( {
 	}
 
 	function onImageError() {
-    console.log('An image error occurred.')
+    console.log('Block Editor - ImageBlock: An image error occurred.')
 		// // Check if there's an embed block that handles this URL.
 		// const embedBlock = createUpgradedEmbedBlock( { attributes: { url } } );
 		// if ( undefined !== embedBlock ) {

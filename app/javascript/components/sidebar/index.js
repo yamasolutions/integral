@@ -14,7 +14,7 @@ const { Slot: InspectorSlot, Fill: InspectorFill } = createSlotFill(
 function Sidebar() {
 	return (
 		<div
-			className="getdavesbe-sidebar"
+			className="block-editor__sidebar"
 			role="region"
 			aria-label={ __( 'Standalone Block Editor advanced settings.' ) }
 			tabIndex="-1"

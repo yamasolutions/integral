@@ -21,11 +21,13 @@ export const settings = {
     },
     isOpenByDefault: {
       type: 'boolean',
-      default: false
+      default: true
     }
   },
   edit({attributes, className, setAttributes, isSelected}) {
-    let inlineStyle = (isSelected || attributes.isOpenByDefault) ? { display: 'block' } : {};
+    // TODO: Update this to check if this OR any of the innerblocks are selected
+    // let inlineStyle = (isSelected || attributes.isOpenByDefault) ? { display: 'block' } : {};
+    let inlineStyle = { display: 'block' };
 
     return [
 			<InspectorControls>

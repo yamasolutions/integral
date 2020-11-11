@@ -1,0 +1,4 @@
+.wp-block-recent-posts
+  .scroll-container{ 'data-item-width' => 250 }
+    .grid-x.grid-margin-x.scroll-wrapper
+      = render partial: 'integral/posts/card', layout: 'integral/blocks/recent-posts/layout', collection: Integral::PostDecorator.decorate_collection(collection), as: :post, cached: true

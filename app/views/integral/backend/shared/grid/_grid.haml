@@ -1,7 +1,7 @@
 - options = local_assigns.reverse_merge({ order: true, columns: resource_grid_columns })
 
 = render_data_grid do
-  %table.integral-grid.wice-grid.table-striped.hover
+  %table.table--resources
     %thead
       %tr
         - resource_grid.html_columns(*options[:columns]).uniq { |col| col.name }.sort_by{ |item| options[:columns].index item.name }.each do |column|

@@ -12,7 +12,7 @@ module Integral
         options = options.reverse_merge(default_options.with_indifferent_access)
 
         controller.render(
-          partial: 'integral/blocks/recent_posts',
+          partial: 'integral/blocks/recent-posts/block',
           locals: { collection: skope(options) },
           layout: false
         )

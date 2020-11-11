@@ -3,6 +3,7 @@
 .wp-block-button {
   display: inline-block;
   text-transform: uppercase;
+  width: auto;
   .wp-block-button__link {
     @include button($style: none);
   }

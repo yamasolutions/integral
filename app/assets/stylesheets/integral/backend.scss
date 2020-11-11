@@ -3,11 +3,13 @@
 
 @import 'integral/backend/foundation_and_overrides';
 @import "integral/support/media-query-indicator";
+@import "integral/backend/mixins";
 @import "integral/backend/materialize-tags";
 @import "integral/backend/modules/timeline";
 @import "integral/backend/modules/alternate-resource";
 @import "integral/backend/modules/dropdown_pane_notifications";
 @import "integral/backend/modules/dropdown_pane_profile";
+@import "integral/backend/modules/table-resources";
 @import 'integral/backend/shared';
 @import 'integral/backend/notifications';
 @import 'integral/backend/dashboard-layout';
@@ -98,7 +100,7 @@ hr {
 
 .block_editor.input {
   position: relative;
-  .getdave-sbe-block-editor {
+  .block-editor {
     min-height: 500px;
   }
 }
@@ -112,7 +114,7 @@ hr {
   padding: 0;
   z-index: 99;
   margin: 0;
-  .getdave-sbe-block-editor {
+  .block-editor {
     height: 100%;
   }
 }

@@ -77,7 +77,7 @@ function BlockEditor( { input, settings: _settings } ) {
 	}
 
 	return (
-		<div className="getdavesbe-block-editor">
+		<div className="">
 			<BlockEditorProvider
 				value={ blocks }
 				onInput={ updateBlocks }
@@ -91,11 +91,11 @@ function BlockEditor( { input, settings: _settings } ) {
 				<Sidebar.InspectorFill>
 					<BlockInspector />
 				</Sidebar.InspectorFill>
-				<div className="editor-styles-wrapper">
+	  		<div className="block-editor__inner-wrapper">
 					<BlockEditorKeyboardShortcuts />
 					<WritingFlow>
 						<ObserveTyping>
-							<BlockList className="getdavesbe-block-editor__block-list" />
+              <BlockList className="editor-styles-wrapper" />
 						</ObserveTyping>
 					</WritingFlow>
 				</div>

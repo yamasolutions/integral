@@ -2,4 +2,5 @@
   %h2.blog-subheading= t('integral.blog.widgets.related_posts')
   .scroll-container{ 'data-item-width' => 250 }
     .grid-x.grid-margin-x.scroll-wrapper
-      = render partial: 'integral/posts/card', collection: Integral::PostDecorator.decorate_collection(@related_posts), as: :post
+      .cell.small-3.flex-container
+        = render partial: 'integral/posts/card', collection: Integral::PostDecorator.decorate_collection(@related_posts), as: :post

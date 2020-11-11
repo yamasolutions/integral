@@ -27,6 +27,11 @@ module Integral
 
       private
 
+      # Unfortunately currently have to disable Turbolinks for Block Editor History to not bleed over
+      def disable_turbolinks?
+        action_name == 'new' || action_name == 'edit'
+      end
+
       def resource_grid_columns
         columns = [:title, :category, :status]
         columns += [:locale] if Integral.multilingual_frontend?

@@ -26,6 +26,8 @@
 @import "components/sidebar/styles";
 @import "components/block-editor/styles";
 
+$header-height: 50px;
+
 .block-editor {
   @include reset;
   margin: 0;

@@ -10,6 +10,7 @@ import '../styles.scss'
 
 import Editor from './editor'
 import { registerBlocks } from '../blocks'
+import '../stores/block-editor'
 
 registerBlocks()
 
@@ -17,6 +18,7 @@ export default class extends Controller {
   static targets = [ "output", "input", "maximize", "minimize" ]
 
   connect() {
+    // console.log('Block Editor Stimulus Controller - Connecting')
     const settings = {
       imageSizes: false,
       disableCustomFontSizes: true,
@@ -29,7 +31,8 @@ export default class extends Controller {
     }
 
     this.inputTarget.classList.add('hide')
-    render( <Editor input={ this.inputTarget } settings={ settings } />, this.outputTarget )
+    window.localStorage.setItem("blockEditorBlocks", this.inputTarget.value);
+    this.editor = render( <Editor input={ this.inputTarget } settings={ settings } />, this.outputTarget )
   }
 
   maximize() {

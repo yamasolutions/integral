@@ -19,27 +19,18 @@ import {
   BlockBreadcrumb,
 } from '@wordpress/block-editor';
 
-import {
-	EditorHistoryRedo,
-	EditorHistoryUndo,
-} from '@wordpress/editor';
-
 /**
  * Internal dependencies
  */
 import Sidebar from 'components/sidebar';
+import Header from 'components/header';
 import { uploadMedia } from 'utils';
 
 function BlockEditor( { input, settings: _settings } ) {
-	const [ blocks, updateBlocks ] = useState( [] );
-	const { createInfoNotice } = useDispatch( 'core/notices' );
+  const blocks = useSelect((select) => select("block-editor").getBlocks());
+  const { updateBlocks } = useDispatch("block-editor");
 
-	// const canUserCreateMedia = useSelect( ( select ) => {
-	// 	const _canUserCreateMedia = select( 'core' ).canUser( 'create', 'media' );
-	// 	return _canUserCreateMedia || _canUserCreateMedia !== false;
-	// }, [] );
 	const canUserCreateMedia = true;
-
 	const settings = useMemo(() => {
 		if ( ! canUserCreateMedia ) {
 			return _settings;
@@ -56,38 +47,32 @@ function BlockEditor( { input, settings: _settings } ) {
 		};
 	}, [ canUserCreateMedia, _settings ] );
 
-	useEffect( () => {
-    // console.log(input);
-		updateBlocks( () => parse( input.value ) );
-		// const storedBlocks = window.localStorage.getItem( 'getdavesbeBlocks' );
-    //
-		// if ( storedBlocks && storedBlocks.length ) {
-		// 	updateBlocks( () => parse( storedBlocks ) );
-		// 	createInfoNotice( 'Blocks loaded', {
-		// 		type: 'snackbar',
-		// 		isDismissible: true,
-		// 	} );
-		// }
-	}, [] );
 
-	function persistBlocks( newBlocks ) {
-		updateBlocks( newBlocks );
+  function handleInput(newBlocks, persist) {
+    // console.log('Block Editor - onInput Triggered');
+    updateBlocks(newBlocks);
     input.value = serialize(newBlocks);
-		//window.localStorage.setItem( 'getdavesbeBlocks', serialize( newBlocks ) );
-	}
+    $(input).trigger("change");
+  }
+
+  function handleChange(newBlocks) {
+    // console.log('Block Editor - onChange Triggered');
+    updateBlocks(newBlocks, true);
+    input.value = serialize(newBlocks);
+    $(input).trigger("change");
+  }
 
 	return (
 		<div className="">
 			<BlockEditorProvider
 				value={ blocks }
-				onInput={ updateBlocks }
-				onChange={ persistBlocks }
+				onInput={ handleInput }
+				onChange={ handleChange }
 				settings={ settings }
 			>
 
+        <Header />
         <BlockBreadcrumb />
-        <EditorHistoryUndo />
-        <EditorHistoryRedo />
 				<Sidebar.InspectorFill>
 					<BlockInspector />
 				</Sidebar.InspectorFill>

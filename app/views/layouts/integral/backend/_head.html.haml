@@ -5,6 +5,8 @@
   %meta{:name => "viewport", :content => "width=device-width, initial-scale=1, maximum-scale=1"}
   %meta{ name: "ROBOTS", content: "NOINDEX, NOFOLLOW" }
   %meta{ name: 'turbolinks-root', content: "/#{Integral.backend_namespace}" }
+  - if disable_turbolinks?
+    %meta{ name: 'turbolinks-visit-control', content: :reload }
 
   %title= page_title
 

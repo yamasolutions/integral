@@ -8,13 +8,11 @@
 .block-editor__inner-wrapper {
   -webkit-overflow-scrolling: touch;
   background: $white;
-  // height: calc(100% - #{$header-height});
-  height: calc(100%);
+  height: calc(100% - #{$header-height});
   left: 0;
   overflow: auto;
   position: absolute;
-  top: 0;
-  //top: $header-height;
+  top: $header-height;
   width: 100%;
 
   @include break-small {

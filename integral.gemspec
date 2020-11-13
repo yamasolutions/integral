@@ -23,9 +23,11 @@ Gem::Specification.new do |s|
   s.add_dependency 'carrierwave-aws', '~> 1.3.0' # Remote file uploading
   # NOTE: image2 plugin for Ckeditor has been monkey patched to remove height modifications
   s.add_dependency 'ckeditor', '~> 4.3.0' # WYSIWYG Editor
-  s.add_dependency 'coffee-rails', '~> 4.2.0' # Coffeescript
-  s.add_dependency 'client_side_validations', '~> 11.0' # Client-side validations
-  s.add_dependency 'client_side_validations-simple_form', '~> 6.5' # Simpleform for CSV
+  s.add_dependency 'jquery-rails', '~> 4.4' # Jquery for Rails
+  s.add_dependency 'rails-ujs', '~> 0.1' # Rails JS
+  s.add_dependency 'coffee-rails', '~> 5.0' # Coffeescript
+  s.add_dependency 'client_side_validations', '~> 17.0' # Client-side validations
+  s.add_dependency 'client_side_validations-simple_form', '~> 11.1' # Simpleform for CSV
   s.add_dependency 'cocoon', '~> 1.2' # Nested forms
   s.add_dependency 'diffy', '~> 3.1' # View differences
   s.add_dependency 'gibbon', '~> 3.3' # Mailchimp API Wrapper
@@ -44,17 +46,17 @@ Gem::Specification.new do |s|
   s.add_dependency 'meta-tags', '~> 2.4' # Meta Tag Management (SEO)
   s.add_dependency 'mini_magick', '~> 4.6' # File manipulation
   s.add_dependency 'nprogress-rails', '~> 0.2.0'
-  s.add_dependency 'paper_trail', '~> 9.0' # Audit trail
+  s.add_dependency 'paper_trail', '~> 11.0' # Audit trail
   s.add_dependency 'paranoia', '~> 2.0' # Soft-delete records
   s.add_dependency 'parsley-rails', '~> 2.4.4' # Jquery form validation plugin
   s.add_dependency 'premailer-rails', '~> 1.11' # Stylesheet inlining for email
   s.add_dependency 'pundit', '~> 1.1' # Authorization
-  s.add_dependency 'rails', '~> 5.2'
+  s.add_dependency 'rails', '~> 6.0.1'
   s.add_dependency 'webpacker', '~> 5.1'
   s.add_dependency 'rails-settings-cached', '~> 0.6' # Persisted settings
   # s.add_dependency 'rails5_before_render', '~> 0.3' # Callbacks after an action before rendering
   s.add_dependency 'sass-rails', '~> 5.0' # Sass
-  s.add_dependency 'simple_form', '~> 4.0' # Form builder
+  s.add_dependency 'simple_form', '~> 5.0' # Form builder
   s.add_dependency 'sitemap_generator', '~> 6.0.1' # Sitemap Generator
   s.add_dependency "toastr-rails", "~> 1.0" # Javascript notification Toastr
   s.add_dependency 'turbolinks', '~> 5.0'
@@ -76,7 +78,8 @@ Gem::Specification.new do |s|
 
   s.add_development_dependency 'capybara', '~> 3.32' # Acceptance testing framework
   s.add_development_dependency 'launchy', '~> 2.4' # Automatically launch test pages
-  # s.add_development_dependency 'apparition', '~> 0.5.0' # Headless Capybara driver for JS
+  s.add_development_dependency 'apparition', '~> 0.6.0' # Headless Capybara driver for JS
+  s.add_development_dependency 'selenium-webdriver', '~> 3.142' # Headless Capybara driver for JS
   s.add_development_dependency 'rspec-retry', '~> 0.6.1' # Retry flaky specs
 
   # CI, code coverage, analysis and documentation tools

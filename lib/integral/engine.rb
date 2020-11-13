@@ -3,7 +3,6 @@ module Integral
   class Engine < ::Rails::Engine
     require 'haml'
     require 'htmlcompressor'
-    require 'jquery-rails'
     require 'groupdate'
     require 'turbolinks'
     require 'toastr-rails'
@@ -13,6 +12,8 @@ module Integral
     require 'cocoon'
     require 'draper'
     require 'coffee-rails'
+    require 'jquery-rails'
+    require 'rails-ujs'
     require 'client_side_validations'
     require 'client_side_validations/simple_form'
     require 'parsley-rails'

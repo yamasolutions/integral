@@ -11,7 +11,7 @@ module Integral
 
     acts_as_listable # Listable Item
 
-    has_paper_trail class_name: 'Integral::PageVersion'
+    has_paper_trail versions: { class_name: 'Integral::PageVersion' }
 
     # Validates format of a path
     # Examples:

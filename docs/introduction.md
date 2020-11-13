@@ -6,7 +6,7 @@ sidebar_label: Introduction
 
 ![Integral CMS Features](https://integralrails.com/features.gif)
 
-Integral is a content management system (CMS) for Rails 5+. The aim of Integral is to lower the barrier of entry in creating websites, using Ruby on Rails, with all the bells and whistles that users have now come to expect.
+Integral is a content management system (CMS) for Rails 6+. The aim of Integral is to lower the barrier of entry in creating websites, using Ruby on Rails, with all the bells and whistles that users have now come to expect.
 
 ## Features
 * Backend features

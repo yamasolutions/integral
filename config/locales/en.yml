@@ -529,7 +529,7 @@ en:
 
   helpers:
     submit:
-      user:
+      integral/user:
         create: 'Invite %{model}'
 
   devise:

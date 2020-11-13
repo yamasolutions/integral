@@ -6,7 +6,7 @@ module Integral
       backend_create_menu: { enabled: false }
     })
 
-    has_paper_trail class_name: 'Integral::CategoryVersion'
+    has_paper_trail versions: { class_name: 'Integral::CategoryVersion' }
 
     # Slugging
     extend FriendlyId

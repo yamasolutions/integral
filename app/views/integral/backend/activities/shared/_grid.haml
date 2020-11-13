@@ -1,7 +1,7 @@
 - options = { columns: [:date, :user, :action, :actions], order: true }
 
 = render_data_grid do
-  %table.integral-grid.wice-grid.table-striped
+  %table.table--resources
     %thead
       %tr
         - grid.html_columns(*options[:columns]).uniq { |col| col.name }.sort_by{ |item| options[:columns].index item.name }.each do |column|

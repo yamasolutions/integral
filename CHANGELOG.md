@@ -8,6 +8,8 @@ recommendations of [keepachangelog.com](http://keepachangelog.com/).
 ### Breaking Changes
 
 - Homepage is no longer specified within settings area. Instead set homepage path to `/`
+- Bump to Ruby 2.7.2
+- Bump to Rails 6.0
 
 ### Added
 

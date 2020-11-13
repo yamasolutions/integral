@@ -10,7 +10,8 @@ module Integral
       let(:body) { '<p>foobar body.</p>' }
       let(:description) { Faker::Lorem.paragraph(8)[0..150] }
       let(:tag_list) { 'foo,bar,tags' }
-      let(:post_params) { { title: title, body: body, description: description, tag_list: tag_list, slug: slug, user_id: user.id } }
+      let(:category) { create(:integral_category) }
+      let(:post_params) { { title: title, body: body, description: description, tag_list: tag_list, slug: slug, user_id: user.id, category_id: category.id } }
       let(:user) { create(:post_manager) }
       let!(:user_post) { create(:integral_post) }
 

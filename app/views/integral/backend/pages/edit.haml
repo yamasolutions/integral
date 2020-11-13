@@ -11,8 +11,8 @@
         = link_to t('integral.actions.view_on_site'), @resource.path, class: 'button white', icon: :eye
 
     - if policy(resource_klass).duplicate?
-      = link_to t('integral.actions.clone'), duplicate_backend_resource_url(@resource.id), class: 'button white', method: :post, data: { confirm: t('integral.actions.confirmation.clone') }, icon: :history, wrapper: :li
+      = link_to t('integral.actions.clone'), duplicate_backend_resource_url(@resource), class: 'button white', method: :post, data: { confirm: t('integral.actions.confirmation.clone') }, icon: :history, wrapper: :li
     - if policy(Integral::Version).manager?
-      = link_to t('integral.navigation.activity'), activities_backend_resource_url(@resource.id), class: 'button white', icon: :history, wrapper: :li
+      = link_to t('integral.navigation.activity'), activities_backend_resource_url(@resource), class: 'button white', icon: :history, wrapper: :li
 
 = render 'form'

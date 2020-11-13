@@ -9,9 +9,9 @@
       %tr
         %td= resource.title
         %td
-          = link_to backend_resource_url(resource.id), class: 'button--action-pane' do
+          = link_to backend_resource_url(resource), class: 'button--action-pane' do
             = icon('eye')
-          -# = link_to edit_backend_resource_url(resource.id), class: 'button--action-pane' do
+          -# = link_to edit_backend_resource_url(resource), class: 'button--action-pane' do
           -#   = icon('edit')
 
   = link_to t('integral.actions.view_all'), list_backend_resources_url, class: 'button clear expanded'

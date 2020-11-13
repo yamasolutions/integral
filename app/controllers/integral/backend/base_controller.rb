@@ -276,22 +276,22 @@ module Integral
 
       helper_method :backend_resource_url
       def backend_resource_url(resource)
-        send("backend_#{resource_klass.model_name.singular_route_key}_url", resource)
+        send("backend_#{resource_klass.model_name.singular_route_key}_url", resource.id)
       end
 
       helper_method :edit_backend_resource_url
       def edit_backend_resource_url(resource)
-        send("edit_backend_#{resource_klass.model_name.singular_route_key}_url", resource)
+        send("edit_backend_#{resource_klass.model_name.singular_route_key}_url", resource.id)
       end
 
       helper_method :duplicate_backend_resource_url
       def duplicate_backend_resource_url(resource)
-        send("duplicate_backend_#{resource_klass.model_name.singular_route_key}_url", resource)
+        send("duplicate_backend_#{resource_klass.model_name.singular_route_key}_url", resource.id)
       end
 
       helper_method :activities_backend_resource_url
       def activities_backend_resource_url(resource)
-        send("activities_backend_#{resource_klass.model_name.singular_route_key}_url", resource)
+        send("activities_backend_#{resource_klass.model_name.singular_route_key}_url", resource.id)
       end
 
       helper_method :resource_klass

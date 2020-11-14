@@ -11,18 +11,6 @@
 	right: 0;
 	top: 0;
 	// z-index: z-index(".getdavesbe-header");
-
-	// On mobile, the main content area has to scroll,
-	// otherwise you can invoke the over-scroll bounce on the non-scrolling container.
-	@include break-small {
-		padding: $grid-unit;
-		position: fixed;
-		top: $admin-bar-height-big;
-	}
-
-	@include break-medium() {
-		top: $admin-bar-height;
-	}
 }
 
 @include editor-left(".getdavesbe-header");

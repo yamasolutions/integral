@@ -17,7 +17,7 @@ import {
   unregisterBlockType,
   registerBlockStyle,
   unregisterBlockStyle,
-  unregisterBlockVariation,
+  unregisterBlockVariation
 } from '@wordpress/blocks';
 import { createHigherOrderComponent } from '@wordpress/compose'
 import { addFilter } from '@wordpress/hooks';
@@ -25,11 +25,16 @@ import { addFilter } from '@wordpress/hooks';
 /**
  * Internal dependencies
  */
+import * as featured_program from './featured-program';
 import * as callout from './callout';
 import * as card from './card';
+import * as cover from './cover';
+import * as coverButton from './cover-button';
+import * as review from './review';
 import * as accordion from './accordion';
 import * as recentPosts from './recent-posts';
-
+import * as sponsors from './sponsors';
+import * as parkLayout from './park-layout';
 import ColumnEdit from './column/edit';
 import ButtonEdit from './button/edit';
 import ImageEdit from './image/edit';
@@ -241,6 +246,12 @@ export const registerBlocks = () => {
   registerBlockType(card.name, card.settings);
   registerBlockType(recentPosts.name, recentPosts.settings);
 
+  registerBlockType(cover.name, cover.settings);
+  registerBlockType(coverButton.name, coverButton.settings);
+  registerBlockType(review.name, review.settings);
+  registerBlockType(featured_program.name, featured_program.settings);
+  registerBlockType(sponsors.name, sponsors.settings);
+  registerBlockType(parkLayout.name, parkLayout.settings);
 
   // Register custom block styles
   registerBlockStyle( 'core/button', {
@@ -271,4 +282,3 @@ export const registerBlocks = () => {
     label: 'Padded'
   } );
 };
-

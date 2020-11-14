@@ -146,6 +146,6 @@ module Integral
   def self.dynamic_blocks
     # TODO: Allow host app to add additional blocks
     # i.e. blocks.concat Integral.additional_dynamic_blocks
-    [ Integral::Blocks::RecentPosts ]
+    [ Integral::Blocks::RecentPosts, ::Blocks::Sponsors, ::Blocks::ParkLayout ]
   end
 end

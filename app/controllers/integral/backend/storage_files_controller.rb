@@ -9,11 +9,11 @@ module Integral
         @resource = resource_klass.new(resource_params)
 
         if @resource.save
-          flash.now[:notice] = notification_message('creation_success')
+          # flash.now[:notice] = notification_message('creation_success')
           # render json: @resource.to_list_item, status: :created
-          render json: {}, status: :created
+          render json: { uploadURL: main_app.url_for(@resource.attachment) }, status: :created
         else
-          flash.now[:error] = notification_message('creation_failure')
+          # flash.now[:error] = notification_message('creation_failure')
           head :unprocessable_entity
         end
       end

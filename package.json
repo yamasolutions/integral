@@ -4,7 +4,11 @@
     "@rails/webpacker": "5.2.1",
     "@uppy/core": "^1.14.0",
     "@uppy/dashboard": "^1.12.10",
-    "stimulus": "^1.1.1"
+    "stimulus": "^1.1.1",
+    "@uppy/companion-client": "0.27.2",
+    "@uppy/utils": "0.27.1",
+    "@rails/activestorage": "^6.0.0",
+    "cuid": "^2.1.1"
   },
   "devDependencies": {
     "webpack-dev-server": "^3.11.0"

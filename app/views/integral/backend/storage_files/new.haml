@@ -1,6 +1,6 @@
+.grid-container
+  %div{ data: { uppy: true } }
+    = simple_form_for [:backend, Integral::Storage::File.new] do |f|
+      = f.input :attachment, as: :hidden
 
-%div{ data: { uppy: true } }
-  = simple_form_for [:backend, Integral::Storage::File.new] do |f|
-    = f.input :attachment, as: :hidden
-
-  %div{ data: { behavior: 'uppy-target' } }
+    %div{ data: { behavior: 'uppy-target' } }

@@ -66,8 +66,6 @@ By default all jobs will run asynchronously, which means when someone uploads a 
 
 Integral does not impose a specific queue adapter as this will vary between applications. If you have a small application and want to get started as soon as possible we recommend [Delayed Jobs](https://github.com/collectiveidea/delayed_job).
 
-Note: When you decide on a queue adapter you'll need to update the [Carrierwave Backgrounder](https://github.com/patricklindsay/carrierwave_backgrounder) config at `config/initializers/carrierwave_backgrounder.rb`
-
 ### Site Security
 It goes without saying but we'll say it anyway - Make sure to enable (and force) SSL for all your applications.
 ```

@@ -2,7 +2,6 @@
 # CKEditor picture uploader
 class CkeditorPictureUploader < CarrierWave::Uploader::Base
   include Ckeditor::Backend::CarrierWave
-  include ::CarrierWave::Backgrounder::Delay
   include CarrierWave::MiniMagick
   include CarrierWave::ImageOptimizer
 

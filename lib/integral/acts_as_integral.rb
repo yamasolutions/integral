@@ -79,7 +79,7 @@ module Integral
                 list_items: [
                   { label: I18n.t('integral.navigation.dashboard'), url: url_helpers.send("backend_#{model_name.route_key}_url"), authorize_class: self, authorize_action: :index },
                   { label: I18n.t('integral.actions.create'), url: url_helpers.send("new_backend_#{model_name.singular_route_key}_url"), authorize_class: self, authorize_action: :new },
-                  { label: I18n.t('integral.navigation.listing'), url: url_helpers.send("list_backend_#{model_name.route_key}_url"), authorize_class: self, authorize_action: :list },
+                  { label: I18n.t('integral.navigation.list'), url: url_helpers.send("list_backend_#{model_name.route_key}_url"), authorize_class: self, authorize_action: :list },
                 ]
               }
             end

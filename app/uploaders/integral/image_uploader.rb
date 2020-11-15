@@ -1,7 +1,6 @@
 module Integral
   # Handles uploading images
   class ImageUploader < CarrierWave::Uploader::Base
-    include ::CarrierWave::Backgrounder::Delay
     include CarrierWave::MiniMagick
     include CarrierWave::ImageOptimizer
 

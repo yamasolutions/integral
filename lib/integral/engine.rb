@@ -24,7 +24,6 @@ module Integral
     require 'pundit'
     require 'carrierwave'
     require 'carrierwave-aws'
-    require 'carrierwave_backgrounder'
     require 'carrierwave-imageoptimizer'
     require 'ckeditor'
     require 'paper_trail'

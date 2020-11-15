@@ -1,12 +1,12 @@
 module Integral
   # Grids to manage displaying of data when filtering & sorting is required
   module Grids
-    # Manages Image filtering & sorting
-    class ImagesGrid
+    # Manages file filtering & sorting
+    class FilesGrid
       include Datagrid
 
       scope do
-        Integral::Image.all.order('title DESC')
+        Integral::Storage::File.all.order('title DESC')
       end
 
       filter(:title) do |value|

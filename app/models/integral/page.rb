@@ -52,8 +52,6 @@ module Integral
 
     # Scopes
     scope :search, ->(query) { where('lower(title) LIKE ? OR lower(path) LIKE ?', "%#{query.downcase}%", "%#{query.downcase}%") }
-    # TODO: Remove this on Rails 6 upgrade
-    scope :not_archived, -> { where.not(status: :archived) }
 
     # Return all available parents
     # TODO: Update parent behaviour

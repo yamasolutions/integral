@@ -19,7 +19,6 @@ Gem::Specification.new do |s|
   s.add_dependency 'breadcrumbs_on_rails', '~> 3.0' # Breadcrumbs
   s.add_dependency 'carrierwave', '~> 1.0' # File uploader
   s.add_dependency 'carrierwave-imageoptimizer', '~> 1.4' # Image compression
-  s.add_dependency 'carrierwave_backgrounder_revived', "~> 1.0.0" # Delayed file processing
   s.add_dependency 'carrierwave-aws', '~> 1.3.0' # Remote file uploading
   # NOTE: image2 plugin for Ckeditor has been monkey patched to remove height modifications
   s.add_dependency 'ckeditor', '~> 4.3.0' # WYSIWYG Editor
@@ -51,7 +50,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'parsley-rails', '~> 2.4.4' # Jquery form validation plugin
   s.add_dependency 'premailer-rails', '~> 1.11' # Stylesheet inlining for email
   s.add_dependency 'pundit', '~> 1.1' # Authorization
-  s.add_dependency 'rails', '~> 6.0.1'
+  s.add_dependency 'rails', '6.1.0.rc1'
   s.add_dependency 'webpacker', '~> 5.1'
   s.add_dependency 'rails-settings-cached', '~> 0.6' # Persisted settings
   # s.add_dependency 'rails5_before_render', '~> 0.3' # Callbacks after an action before rendering

@@ -219,6 +219,7 @@ en:
       my_account: Account & profile
       settings: Settings
       listing: Listing
+      storage_files: Storage
 
     posts:
       index:
@@ -261,7 +262,7 @@ en:
         edit: "Edit %{type_singular}"
         update: "Update %{type_singular}"
         index: "%{type_plural}"
-        list: "%{type_singular} Listing"
+        list: "%{type_singular} List"
       notifications:
         clone_success: "%{type} successfully cloned."
         clone_failure: "%{type} clone failed."
@@ -343,6 +344,9 @@ en:
           columns:
             title: 'Title'
             description: 'Description'
+      storage_files:
+        index:
+          title: Storage
       settings:
         index:
           title: Settings

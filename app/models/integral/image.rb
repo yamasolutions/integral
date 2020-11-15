@@ -3,11 +3,6 @@ module Integral
   class Image < ApplicationRecord
     before_save :touch_list_items
 
-    acts_as_integral({
-      notifications: { enabled: false },
-      backend_main_menu: { order: 40 },
-      backend_create_menu: { order: 30 }
-    }) # Integral Goodness
     acts_as_paranoid # Soft-deletion
 
     validates :file, presence: true
@@ -15,7 +10,6 @@ module Integral
     validates :description, length: { maximum: 160 }
 
     mount_uploader :file, ImageUploader
-    process_in_background :file
 
     # Delegations
     delegate :url, to: :file
@@ -91,14 +85,6 @@ module Integral
 
     def touch_list_items
       list_items.find_each(&:touch)
-    end
-
-    # Override CarrierwaveBackgrounder Method
-    #
-    # CarrierwaveBackgrounder should not be attempting to process images when processing is
-    # disabled through Carrierwave
-    def enqueue_file_background_job?
-      !remove_file? && !process_file_upload && file_updated? && ImageUploader.enable_processing
     end
   end
 end

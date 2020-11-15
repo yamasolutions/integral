@@ -1,6 +1,9 @@
 {
   "dependencies": {
+    "@excid3/uppy-activestorage-upload": "https://github.com/excid3/uppy-activestorage-upload",
     "@rails/webpacker": "5.2.1",
+    "@uppy/core": "^1.14.0",
+    "@uppy/dashboard": "^1.12.10",
     "stimulus": "^1.1.1"
   },
   "devDependencies": {

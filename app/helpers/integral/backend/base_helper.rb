@@ -12,6 +12,10 @@ module Integral
         Integral.webpacker
       end
 
+      def decorated_current_user
+        @decorated_current_user ||= current_user.decorate
+      end
+
       def render_main_menu
         render_menu(extract_menu_items(Integral::ActsAsIntegral.backend_main_menu_items, :integral_backend_main_menu_item))
       end

@@ -7,7 +7,7 @@
           .card-section
             .grid-x.grid-padding-x
               .cell.medium-4
-                = image_tag @resource.avatar.url(:small), class: :avatar
+                = image_tag decorated_resource.avatar, class: :avatar
               .cell.medium-8
                 = link_to edit_backend_user_url(@resource), class: :settings do
                   = icon('cog')

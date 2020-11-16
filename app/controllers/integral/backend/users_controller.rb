@@ -98,10 +98,10 @@ module Integral
 
       def resource_params
         unless params[:user][:password].present?
-          return params.require(:user).permit(:name, :email, :avatar, :locale, :notify_me, role_ids: [])
+          return params.require(:user).permit(:name, :email, :avatar_as, :locale, :notify_me, role_ids: [])
         end
 
-        params.require(:user).permit(:name, :email, :avatar, :locale, :notify_me, :password, :password_confirmation, role_ids: [])
+        params.require(:user).permit(:name, :email, :avatar_as, :locale, :notify_me, :password, :password_confirmation, role_ids: [])
       end
 
       def authorize_with_instance

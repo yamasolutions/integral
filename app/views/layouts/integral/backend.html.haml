@@ -58,10 +58,10 @@
                         %p.notification-list-loader.js-loader--notifications
                           = icon('spinner', class: 'fa-pulse fa-fw')
                 %li
-                  %button.button.clear.avatar{ type: 'button', data: { toggle: 'profile-dropdown'}}= image_tag(current_user.avatar.url(:thumbnail), class: 'avatar')
+                  %button.button.clear.avatar{ type: 'button', data: { toggle: 'profile-dropdown'}}= image_tag(decorated_current_user.avatar, class: 'avatar')
                   #profile-dropdown.dropdown-pane.dropdown-pane--profile{ data: { dropdown: true, hover: 'true', 'hover-pane'=> 'true', 'v-offset'=> '35', 'hover-delay'=> 50 }}
                     .section
-                      = image_tag(current_user.avatar.url(:thumbnail), class: 'avatar')
+                      = image_tag(decorated_current_user.avatar, class: 'avatar')
                       %span.name= current_user.name
                       %span.email= current_user.email
                     .section

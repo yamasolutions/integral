@@ -8,6 +8,7 @@ module Integral
     }) # Integral Goodness
 
     mount_uploader :avatar, AvatarUploader
+    has_one_attached :avatar_as
 
     # Included devise modules. Others available are:
     # :confirmable, :timeoutable, :omniauthable, registerable and lockable

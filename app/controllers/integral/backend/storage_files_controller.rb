@@ -9,16 +9,24 @@ module Integral
         @resource = resource_klass.new(resource_params)
 
         if @resource.save
-          # flash.now[:notice] = notification_message('creation_success')
-          # render json: @resource.to_list_item, status: :created
           render json: { uploadURL: main_app.url_for(@resource.attachment) }, status: :created
         else
-          # flash.now[:error] = notification_message('creation_failure')
           head :unprocessable_entity
         end
       end
 
       private
+
+      def respond_to_record_selector
+        # TODO: This is currently case sensitive
+        records = resource_klass.joins(attachment_attachment: :blob).
+          where("active_storage_blobs.content_type LIKE ?", "image/%").
+          where("integral_files.title LIKE ?", "%#{params[:search]}%").
+          order('integral_files.updated_at DESC').
+          paginate(page: params[:page])
+
+        render json: { content: render_to_string(partial: 'integral/backend/shared/record_selector/collection', locals: { collection: records }) }
+      end
 
       def resource_klass
         Integral::Storage::File

@@ -7,24 +7,21 @@
 
 .image-select
   = f.label attribute
-  .image-container
-    = f.hidden_field "#{attribute}_id"
-    = image_tag image_url('integral/image-not-set.png'), class: "placeholder #{placeholderHiddenClass}"
-    %img.actual{ src: image_path }
-    %ul.menu.align-left.menu-unlinked{ class: placeholderHiddenClass }
+  .image-container{ data: { controller: 'image-preview', endpoint_url: list_backend_storage_files_url(format: :json) } }
+    = f.hidden_field "#{attribute}_id", { data: { target: 'image-preview.idField' } }
+    = image_tag image_url('integral/image-not-set.png'), class: placeholderHiddenClass, data: { target: 'image-preview.placeholderImage' }
+    %img{ src: image_path, data: { target: 'image-preview.previewImage' } }
+    %ul.menu.align-left.menu-unlinked{ class: placeholderHiddenClass, data: { target: 'image-preview.createActionsList' } }
       %li
-        %button.button.clear.add
+        %button.button.clear{ type: :button, data: { target: 'image-preview.addButton', action: 'image-preview#add' } }
           = t('integral.actions.add_image')
 
-    %ul.menu.align-right.menu-linked{ class: unlinkHiddenClass }
+    %ul.menu.align-right.menu-linked{ class: unlinkHiddenClass, data: { target: 'image-preview.editActionsList' } }
       %li
-        %button.button.clear.remove
-          = icon('trash')
+        %button.button.clear{ type: :button, data: { target: 'image-preview.removeButton', action: 'image-preview#remove' } }= icon('trash')
       %li
-        %button.button.clear.edit
-          = icon('pencil-square-o')
+        %button.button.clear{ type: :button, data: { target: 'image-preview.editButton', action: 'image-preview#edit' } }= icon('pencil-square-o')
 
   - if help_text.present?
-    %br
     %p.help-text= help_text
 

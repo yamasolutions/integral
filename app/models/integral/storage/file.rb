@@ -53,6 +53,18 @@ module Integral
           authorize_action: :new,
         }
       end
+
+      # @return [Hash] the instance as a list item
+      def to_list_item
+        {
+          id: id,
+          title: title,
+          subtitle: attachment.byte_size,
+          description: description,
+          image: attachment,
+          url: 'https://google.com' # TODO: Update this
+        }
+      end
     end
   end
 end

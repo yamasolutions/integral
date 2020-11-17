@@ -1,0 +1,32 @@
+.reveal.record-selector.fixed.large{ data: { action: 'open->resource-selector#search', resource_selector_template: true, reveal: true, 'multiple-opened' => 'true' } }
+  .modal-header
+    %button.close-button{ type: 'button', data: { close: '' }, aria: { label: "Close Search" }}
+      %span{ aria: { hidden: 'true' } } &times;
+    %h2
+  .modal-content
+    .grid-x.grid-padding-x
+      .cell.medium-9
+        .top-bar
+          .top-bar-left
+            .filter.search= text_field_tag :search, '', placeholder: 'Search..', data: { target: 'resource-selector.searchField', action: 'input->resource-selector#search' }
+
+          .top-bar-right
+            %button.button.create-button{ data: { target: 'resource-selector.uploadButton', action: 'resource-selector#upload' } }
+              = icon('cloud-upload')
+              = t('integral.actions.upload')
+        .loader.text-center{ data: { target: 'resource-selector.loadIndicator' } }
+          = icon('spinner', class: 'fa-pulse fa-3x fa-fw')
+          %span.sr-only Loading..
+
+        .records{ data: { target: 'resource-selector.collectionContainer' } }
+
+      .cell.medium-3
+        .sidebar
+          %h2 Details
+          %img{ data: { target: 'resource-selector.sidebarImage' } }
+          %p.title{ data: { target: 'resource-selector.sidebarTitle' } }
+          %p.description{ data: { target: 'resource-selector.sidebarDescription' } }
+  .modal-footer
+    %ul.menu.align-right
+      %li
+        %button.button.select{ disabled: true, data: { target: 'resource-selector.submitButton', action: 'resource-selector#select' } }= t('integral.actions.select')

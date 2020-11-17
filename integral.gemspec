@@ -43,7 +43,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'i18n-js', '~> 3.0.11' # Clientside translations
   s.add_dependency 'inky-rb' # , "~> 0.6" #  Responsive email-ready HTML helpers
   s.add_dependency 'meta-tags', '~> 2.4' # Meta Tag Management (SEO)
-  s.add_dependency 'mini_magick', '~> 4.6' # File manipulation
+  s.add_dependency 'image_processing', '~> 1.12' # Image manipulation
   s.add_dependency 'nprogress-rails', '~> 0.2.0'
   s.add_dependency 'paper_trail', '~> 11.0' # Audit trail
   s.add_dependency 'paranoia', '~> 2.0' # Soft-delete records

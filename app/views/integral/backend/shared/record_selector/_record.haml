@@ -1,11 +1,11 @@
 :ruby
-  if list_item[:image].respond_to?(:url)
-    thumbnail_url = list_item[:image].url(:small)
-    list_item[:image] = list_item[:image].url(:large)
+  if list_item[:image].respond_to?(:attached?)
+    thumbnail_url = main_app.url_for(list_item[:image].representation(resize_to_limit: [100, 100]))
+    list_item[:image] = main_app.url_for(list_item[:image].representation(resize_to_limit: [1200, 1200]))
   else
     thumbnail_url = list_item[:image]
   end
 
 .cell.large-2.medium-3.small-4
-  .record{ data: list_item }
+  .record{ data: list_item.merge!({action: 'click->resource-selector#preselect' }) }
     %img{ src: thumbnail_url }

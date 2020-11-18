@@ -1,3 +1,0 @@
-- initialize = defined?(initialize) ? initialize : false
-.image-selector
-  = render partial: 'integral/backend/shared/record_selector/modal', locals: { search_path: list_backend_storage_files_path, title: t('integral.prompts.select_image'), name: 'Image', create_modal: '#new_image_modal', initialize: initialize, data_attributes: { 'image-selector' => true }}

@@ -4,6 +4,8 @@ module Integral
     class File < ApplicationRecord
       has_one_attached :attachment
 
+      delegate :attached?, to: :attachment
+
       validates :title, presence: true, length: { maximum: 150 }
       validates :description, length: { maximum: 300 }
 
@@ -61,8 +63,8 @@ module Integral
           title: title,
           subtitle: attachment.byte_size,
           description: description,
-          image: attachment,
-          url: 'https://google.com' # TODO: Update this
+          image: attachment, # TODO: We probably want the representation here - i.e. preview for non images and variant for images
+          url: 'https://google.com' # TODO: Update this - We probably want the attachment blob URL here
         }
       end
     end

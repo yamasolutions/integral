@@ -31,7 +31,7 @@ export default class extends Controller {
   }
 
   updateImage(image) {
-    this.idFieldTarget.val = image.id
+    this.idFieldTarget.value = image.id
     this.previewImageTarget.src = image.image
     this.previewImageTarget.classList.remove('hide')
     this.placeholderImageTarget.classList.add('hide')

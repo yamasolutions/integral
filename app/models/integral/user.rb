@@ -7,8 +7,8 @@ module Integral
       backend_create_menu: { order: 50 }
     }) # Integral Goodness
 
-    mount_uploader :avatar, AvatarUploader
-    has_one_attached :avatar_as
+    has_one_attached :avatar
+    mount_uploader :avatar_old, AvatarUploader
 
     # Included devise modules. Others available are:
     # :confirmable, :timeoutable, :omniauthable, registerable and lockable

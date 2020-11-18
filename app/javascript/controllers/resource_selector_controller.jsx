@@ -1,9 +1,8 @@
 import { Controller } from "stimulus"
 
-// const Uppy = require('@uppy/core')
-// const Dashboard = require('@uppy/dashboard')
-// const directUploadUrl = document.querySelector("meta[name='direct-upload-url']").getAttribute("content")
-// const ActiveStorageUpload = require('@excid3/uppy-activestorage-upload')
+const Uppy = require('@uppy/core')
+const Dashboard = require('@uppy/dashboard')
+import IntegralStorageFileUpload from 'utils/integral/file_upload';
 
 /**
  * Handles resource selection within Integral backend;
@@ -18,17 +17,29 @@ export default class extends Controller {
   connect() {
     console.log('Connected to resource selector')
     this.selectedItems = []
+
+    this.uppy = this.setupUppy()
   }
 
-  // handleInput(event) {
-  //   debugger
-  //   this.search()
-  // }
+  changePage(event) {
+    event.preventDefault()
+
+    let params = new URLSearchParams(event.currentTarget.href.split('?')[1])
+    this.search(params.get('page'))
+  }
+
+  open(event) {
+    this.search()
+  }
+
+  upload() {
+    this.uppy.getPlugin('Dashboard').openModal()
+  }
 
   // TODO: Add a delay to allow user to finish typing before sending request - otherwise multiple requests made when only one was necessary
-  search() {
+  search(page=1) {
     let url = this.element.dataset.resourceSelectorUrl + '?' + new URLSearchParams({
-      page: 1,
+      page: page,
       search: this.searchFieldTarget.value
     })
 
@@ -40,6 +51,9 @@ export default class extends Controller {
         this.collectionContainerTarget.innerHTML = data.content
         this.loadIndicatorTarget.classList.add('hide')
         this.collectionContainerTarget.classList.remove('hide')
+        this.collectionContainerTarget.querySelectorAll('.pagination a').forEach(element => element.addEventListener('click', (event) => {
+          this.changePage(event)
+        }))
       }).catch((error) => {
         console.warn(error);
 
@@ -67,5 +81,66 @@ export default class extends Controller {
     this.sidebarTitleTarget.innerHTML = selectedResource.dataset.title
     this.sidebarDescriptionTarget.innerHTML = selectedResource.dataset.description
     this.sidebarImageTarget.setAttribute('src', selectedResource.dataset.image)
+  }
+
+  setupUppy() {
+    let directUploadUrl = document.querySelector("meta[name='direct-upload-url']").getAttribute("content")
+    let integralFileUploadUrl = document.querySelector("meta[name='integral-file-upload-url']").getAttribute("content")
+
+    let uppy = Uppy({
+      allowMultipleUploads: false,
+      restrictions: {
+        // maxFileSize: null,
+        // maxTotalFileSize: null,
+        maxNumberOfFiles: 1,
+        allowedFileTypes: ['image/*']
+      },
+    })
+
+    uppy.use(IntegralStorageFileUpload, {
+      directUploadUrl: directUploadUrl,
+      integralFileUploadUrl: integralFileUploadUrl,
+      authenticityToken: this.element.dataset.token
+    })
+
+    uppy.use(Dashboard, {
+      showProgressDetails: true,
+      proudlyDisplayPoweredByUppy: false,
+      closeAfterFinish: true,
+      metaFields: [
+        { id: 'name', name: 'Name', placeholder: 'File name' },
+        { id: 'description', name: 'Description', placeholder: 'Describe what the file is about' }
+      ],
+    })
+
+    uppy.on('complete', (result) => {
+      this.processUploads(result)
+    })
+
+    return uppy
+  }
+
+  processUploads(result) {
+    result.successful.forEach(file => {
+      let data = file.response.data
+      let resourceElement = this.collectionContainerTarget.querySelector('.placeholder .cell').cloneNode(true)
+
+      for (const [key, value] of Object.entries(data)) {
+        resourceElement.querySelector('.record').setAttribute(`data-${key}`, value);
+      }
+      resourceElement.querySelector('img').setAttribute('src', data.image)
+      // resourceElement.querySelector('.title').innerHTML = data.title
+      // resourceElement.querySelector('.subtitle').innerHTML = data.subtitle
+
+      this.collectionContainerTarget.querySelector('.grid-x').prepend(resourceElement)
+      setTimeout(() => {
+        resourceElement.querySelector('.record').click()
+      }, 200); // Not sure why but timeout was required here otherwise click was not registered
+    })
+
+    if (this.collectionContainerTarget.querySelector('.no-records') != null) {
+      this.collectionContainerTarget.querySelector('.no-records').classList.remove('hide')
+    }
+    this.uppy.reset()
   }
 }

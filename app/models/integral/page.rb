@@ -25,7 +25,7 @@ module Integral
 
     # Associations
     belongs_to :parent, class_name: 'Integral::Page', optional: true
-    belongs_to :image, class_name: 'Integral::Image', optional: true
+    belongs_to :image, class_name: 'Integral::Storage::File', optional: true
 
     has_many :resource_alternates, as: :resource
     has_many :alternates, through: :resource_alternates, source_type: "Integral::Page"
@@ -93,6 +93,7 @@ module Integral
     end
 
     # @return [Hash] the instance as a card
+    # TODO: Move this into decorator method called #to_backend_card
     def to_card
       attributes = [{ key: I18n.t('integral.records.attributes.status'), value: I18n.t("integral.records.status.#{status}") }]
       if Integral.multilingual_frontend?
@@ -103,8 +104,10 @@ module Integral
         { key: I18n.t('integral.records.attributes.updated_at'), value: I18n.l(updated_at) }
       ]
 
+      image_url = image.attached? ? Rails.application.routes.url_helpers.rails_blob_path(image.attachment) : nil
+
       {
-        # image: image_url,
+        image: image_url,
         description: title,
         url: "#{Rails.application.routes.default_url_options[:host]}#{path}",
         attributes: attributes

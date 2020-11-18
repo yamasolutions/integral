@@ -27,8 +27,8 @@ module Integral
     # Associations
     belongs_to :user, -> { with_deleted }
     belongs_to :category
-    belongs_to :image, class_name: 'Integral::Image', optional: true
-    belongs_to :preview_image, class_name: 'Integral::Image', optional: true
+    belongs_to :image, class_name: 'Integral::Storage::File', optional: true
+    belongs_to :preview_image, class_name: 'Integral::Storage::File', optional: true
 
     has_many :resource_alternates, as: :resource
     has_many :alternates, through: :resource_alternates, source_type: "Integral::Post"
@@ -86,7 +86,7 @@ module Integral
 
     # @return [Hash] the instance as a card
     def to_card
-      image_url = featured_image.file.url if featured_image
+      image_url = image.attached? ? Rails.application.routes.url_helpers.rails_blob_path(image.attachment) : nil
       attributes = [{ key: I18n.t('integral.records.attributes.status'), value: I18n.t("integral.records.status.#{status}") }]
       if Integral.multilingual_frontend?
         attributes += [{ key: I18n.t('integral.records.attributes.locale'), value: I18n.t("integral.language.#{locale}") }]

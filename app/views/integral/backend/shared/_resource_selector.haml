@@ -1,4 +1,4 @@
-.reveal.record-selector.fixed.large{ data: { action: 'open->resource-selector#search', resource_selector_template: true, reveal: true, 'multiple-opened' => 'true' } }
+.reveal.record-selector.fixed.large{ data: { action: 'open->resource-selector#open', resource_selector_template: true, reveal: true, 'multiple-opened' => 'true', token: form_authenticity_token } }
   .modal-header
     %button.close-button{ type: 'button', data: { close: '' }, aria: { label: "Close Search" }}
       %span{ aria: { hidden: 'true' } } &times;

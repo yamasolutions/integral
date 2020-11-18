@@ -132,7 +132,8 @@ class IntegralStorageFileUpload extends Plugin {
           .then((data) => {
             const uppyResponse = {
               status: 'success',
-              uploadURL: data.uploadURL
+              uploadURL: data.image,
+              data
             };
 
             this.uppy.setFileState(file.id, { uppyResponse });

@@ -1,9 +1,14 @@
-- attribute = attribute.present? ? attribute : :image
-- help_text = help_text.present? ? help_text : ''
-- image = f.object.send(attribute)
-- image_path = image&.file&.url(:medium)
-- unlinkHiddenClass = image.present? ? '' : 'hide'
-- placeholderHiddenClass = image.present? ? 'hide' : ''
+:ruby
+  attribute = attribute.present? ? attribute : :image
+  help_text = help_text.present? ? help_text : ''
+  image = f.object.send(attribute)
+
+  unlinkHiddenClass = image.present? ? '' : 'hide'
+  placeholderHiddenClass = image.present? ? 'hide' : ''
+
+  if image&.attached?
+    image_path = main_app.url_for(image&.attachment)
+  end
 
 .image-select
   = f.label attribute

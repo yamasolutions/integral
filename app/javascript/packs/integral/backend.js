@@ -14,7 +14,6 @@ document.addEventListener('turbolinks:load', () => {
 
 function setupUppy(element) {
   let target = element.querySelector('[data-behavior="uppy-target"]')
-  let form = element.querySelector('form')
   let directUploadUrl = document.querySelector("meta[name='direct-upload-url']").getAttribute("content")
   let integralFileUploadUrl = document.querySelector("meta[name='integral-file-upload-url']").getAttribute("content")
 
@@ -23,7 +22,7 @@ function setupUppy(element) {
   uppy.use(IntegralStorageFileUpload, {
     directUploadUrl: directUploadUrl,
     integralFileUploadUrl: integralFileUploadUrl,
-    authenticityToken: form.querySelector('[name="authenticity_token"]').value
+    authenticityToken: element.dataset.token
   })
 
   uppy.use(Dashboard, {
@@ -36,9 +35,5 @@ function setupUppy(element) {
       { id: 'name', name: 'Name', placeholder: 'File name' },
       { id: 'description', name: 'Description', placeholder: 'Describe what the file is about' }
     ],
-  })
-
-  uppy.on('complete', (result) => {
-    console.log('Uploads Complete!')
   })
 }

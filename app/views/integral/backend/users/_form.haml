@@ -35,15 +35,15 @@
         = f.input :notify_me
         .cell
           .card{ data: { controller: 'image-upload' } }
-            = f.input :avatar_as, as: :hidden, input_html: { data: { target: 'image-upload.idField' } }
+            = f.input :avatar, as: :hidden, input_html: { data: { target: 'image-upload.idField' } }
             = f.label(:avatar)
 
-            - if @resource.avatar_as.attached?
-              = image_tag main_app.url_for(@resource.avatar_as), data: { target: 'image-upload.previewImage' }
+            - if @resource.avatar.attached?
+              = image_tag main_app.url_for(@resource.avatar), data: { target: 'image-upload.previewImage' }
             - else
               %img{ data: { target: 'image-upload.previewImage' } }
-            %button.button.clear{ class: @resource.avatar_as.attached? ? '' : 'hide', type: :button, data: { target: 'image-upload.updateButton', action: 'image-upload#open' } } Update Avatar
-            %button.button.clear{ class: @resource.avatar_as.attached? ? 'hide' : '',  type: :button, data: { target: 'image-upload.createButton', action: 'image-upload#open' } } Create Avatar
+            %button.button.clear{ class: @resource.avatar.attached? ? '' : 'hide', type: :button, data: { target: 'image-upload.updateButton', action: 'image-upload#open' } } Update Avatar
+            %button.button.clear{ class: @resource.avatar.attached? ? 'hide' : '',  type: :button, data: { target: 'image-upload.createButton', action: 'image-upload#open' } } Create Avatar
 
         = f.input :locale, collection: Integral::User.available_locales, prompt: t('integral.backend.users.prompts.select_language'), include_blank: false
 

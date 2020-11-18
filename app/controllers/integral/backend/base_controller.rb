@@ -197,7 +197,7 @@ module Integral
       end
 
       def respond_to_resource_selector
-        records = resource_klass.search(params[:search]).order('updated_at DESC').paginate(page: params[:page])
+        records = resource_klass.search(params[:search]).order('updated_at DESC').paginate(page: params[:page]).with_attached_attachment
         render json: { content: render_to_string(partial: 'integral/backend/shared/resource_selector/collection', locals: { collection: records }) }
       end
 

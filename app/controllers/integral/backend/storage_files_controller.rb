@@ -25,7 +25,7 @@ module Integral
           where("active_storage_blobs.content_type LIKE ?", "image/%").
           where("integral_files.title LIKE ?", "%#{params[:search]}%").
           order('integral_files.updated_at DESC').
-          paginate(page: params[:page])
+          paginate(page: params[:page]).with_attached_attachment
 
         render json: { content: render_to_string(partial: 'integral/backend/shared/resource_selector/collection', locals: { collection: collection }) }
       end

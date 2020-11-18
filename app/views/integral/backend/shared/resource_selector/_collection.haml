@@ -8,7 +8,6 @@
     = image_tag image_path('integral/backend/data-unavailable.png')
 - else
   .grid-x.small-up-3.medium-up-4.large-up-6
-    - collection.each do |obj|
-      = render partial: 'integral/backend/shared/resource_selector/resource', locals: { list_item: obj.to_list_item }
+    = render partial: 'integral/backend/shared/resource_selector/resource', collection: collection.map(&:to_list_item), as: :list_item
   .text-center
     = will_paginate collection, renderer: FoundationPagination::Rails

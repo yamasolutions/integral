@@ -68,13 +68,13 @@ module Integral
 
     # @return [Hash] the instance as a list item
     def to_list_item
-      subtitle = published_at.present? ? I18n.t('integral.blog.posted_ago', time: time_ago_in_words(published_at)) : I18n.t('integral.users.status.draft')
+      subtitle = published_at.present? ? I18n.t('integral.blog.posted_ago', time: time_ago_in_words(published_at)) : I18n.t('integral.statuses.draft')
       {
         id: id,
         title: title,
         subtitle: subtitle,
         description: description,
-        image: featured_image,
+        image: featured_image&.attachment,
         url: frontend_url
       }
     end
@@ -84,38 +84,17 @@ module Integral
       Integral::Engine.routes.url_helpers.send(route, slug)
     end
 
-    # @return [Hash] the instance as a card
-    def to_card
-      image_url = image.attached? ? Rails.application.routes.url_helpers.rails_blob_path(image.attachment) : nil
-      attributes = [{ key: I18n.t('integral.records.attributes.status'), value: I18n.t("integral.records.status.#{status}") }]
-      if Integral.multilingual_frontend?
-        attributes += [{ key: I18n.t('integral.records.attributes.locale'), value: I18n.t("integral.language.#{locale}") }]
-      end
-      attributes += [
-        { key: I18n.t('integral.records.attributes.slug'), value: slug },
-        { key: I18n.t('integral.records.attributes.author'), value: author.name },
-        { key: I18n.t('integral.records.attributes.views'), value: view_count },
-        { key: I18n.t('integral.records.attributes.updated_at'), value: I18n.l(updated_at) }
-      ]
-
-      {
-        image: image_url,
-        description: title,
-        url: frontend_url,
-        attributes: attributes
-      }
-    end
-
+    # TODO: Look to get rid of this - instead pass in the selector path to ActsAsIntegral - set to false by default then try and guess the path if set to true
     # @return [Hash] listable options to be used within a RecordSelector widget
     def self.listable_options
       {
-        icon: 'rss',
-        record_title: I18n.t('integral.backend.record_selector.posts.record'),
-        selector_path: Engine.routes.url_helpers.list_backend_posts_path,
-        selector_title: I18n.t('integral.backend.record_selector.posts.title')
+        selector_path: Engine.routes.url_helpers.list_backend_posts_path
+        # record_title: I18n.t('integral.backend.record_selector.posts.record'),
+        # selector_title: I18n.t('integral.backend.record_selector.posts.title')
       }
     end
 
+    # TODO: Get rid of this - Pass into ActsAsIntegral and set some kind of default - perhaps this can be used as override
     def self.integral_icon
       'rss'
     end

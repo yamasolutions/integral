@@ -1,17 +1,24 @@
 module Integral
   module Storage
     # Storage File view-level logic
-    class FileDecorator < Draper::Decorator
+    class FileDecorator < BaseDecorator
       delegate_all
 
-      # # @return [String] URL to backend activity
-      # def activity_url(activity_id)
-      #   Integral::Engine.routes.url_helpers.activity_backend_img_url(object.id, activity_id)
-      # end
+      # @return [Hash] the instance as a card
+      def to_backend_card
+        attributes = [
+          { key: I18n.t('integral.records.attributes.type'), value: attachment.content_type },
+          { key: I18n.t('integral.records.attributes.size'), value: h.number_to_human_size(attachment.byte_size) },
+          { key: I18n.t('integral.records.attributes.updated_at'), value: I18n.l(updated_at) },
+          { key: I18n.t('integral.records.attributes.created_at'), value: I18n.l(created_at) }
+        ]
 
-      # @return [String] URL to backend page
-      def backend_url
-        Integral::Engine.routes.url_helpers.backend_storage_file_url(object)
+        {
+          image: h.main_app.rails_blob_path(attachment),
+          description: description,
+          url: backend_url,
+          attributes: attributes
+        }
       end
     end
   end

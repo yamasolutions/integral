@@ -2,6 +2,15 @@ module Integral
   module Backend
     # Storage files controller
     class StorageFilesController < BaseController
+      before_action :authorize_with_klass, except: %i[activities activity]
+      before_action :set_resource, except: %i[create new index list]
+
+      # GET /new
+      # Resource creation screen
+      def new
+        add_breadcrumb I18n.t('integral.actions.upload')
+        @resource = resource_klass.new
+      end
 
       # POST /
       # Resource creation
@@ -44,6 +53,15 @@ module Integral
 
       def resource_params
         params.require(:storage_file).permit(:title, :description, :attachment)
+      end
+
+      def dataset_at_a_glance
+        resource_klass.joins(attachment_attachment: :blob).distinct.pluck(:content_type).sort.map do |content_type|
+          {
+            scope: resource_klass.joins(attachment_attachment: :blob).where("active_storage_blobs.content_type = ?", content_type),
+            label: content_type
+          }
+        end
       end
     end
   end

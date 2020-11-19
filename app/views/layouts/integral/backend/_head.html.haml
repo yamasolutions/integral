@@ -7,6 +7,7 @@
   %meta{ name: 'turbolinks-root', content: "/#{Integral.backend_namespace}" }
   %meta{ name: "direct-upload-url", content: rails_direct_uploads_path }
   %meta{ name: "integral-file-upload-url", content: backend_storage_files_url }
+  %meta{ name: "integral-file-list-url", content: list_backend_storage_files_url(format: :json) }
 
   %title= page_title
 

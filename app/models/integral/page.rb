@@ -73,7 +73,7 @@ module Integral
         title: title,
         # subtitle: '',
         description: description,
-        image: image&.url,
+        image: image&.attachment,
         url: "#{Rails.application.routes.default_url_options[:host]}#{path}"
       }
     end
@@ -90,28 +90,6 @@ module Integral
 
     def self.integral_icon
       'file'
-    end
-
-    # @return [Hash] the instance as a card
-    # TODO: Move this into decorator method called #to_backend_card
-    def to_card
-      attributes = [{ key: I18n.t('integral.records.attributes.status'), value: I18n.t("integral.records.status.#{status}") }]
-      if Integral.multilingual_frontend?
-        attributes += [{ key: I18n.t('integral.records.attributes.locale'), value: I18n.t("integral.language.#{locale}") }]
-      end
-      attributes += [
-        { key: I18n.t('integral.records.attributes.path'), value: path },
-        { key: I18n.t('integral.records.attributes.updated_at'), value: I18n.l(updated_at) }
-      ]
-
-      image_url = image.attached? ? Rails.application.routes.url_helpers.rails_blob_path(image.attachment) : nil
-
-      {
-        image: image_url,
-        description: title,
-        url: "#{Rails.application.routes.default_url_options[:host]}#{path}",
-        attributes: attributes
-      }
     end
 
     # @return [Array] contains available template label and key pairs

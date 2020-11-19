@@ -18,7 +18,9 @@ export default class extends Controller {
     console.log('Connected to resource selector')
     this.selectedItems = []
 
-    this.uppy = this.setupUppy()
+    if (this.hasUploadButtonTarget) {
+      this.uppy = this.setupUppy()
+    }
   }
 
   changePage(event) {
@@ -86,15 +88,11 @@ export default class extends Controller {
   setupUppy() {
     let directUploadUrl = document.querySelector("meta[name='direct-upload-url']").getAttribute("content")
     let integralFileUploadUrl = document.querySelector("meta[name='integral-file-upload-url']").getAttribute("content")
+    let fileRestrictions = JSON.parse(this.uploadButtonTarget.dataset.fileRestrictions)
 
     let uppy = Uppy({
       allowMultipleUploads: false,
-      restrictions: {
-        // maxFileSize: null,
-        // maxTotalFileSize: null,
-        maxNumberOfFiles: 1,
-        allowedFileTypes: ['image/*']
-      },
+      restrictions: fileRestrictions
     })
 
     uppy.use(IntegralStorageFileUpload, {

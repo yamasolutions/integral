@@ -111,6 +111,7 @@ en:
       unblock: Unblock
       create: Create
       clone: Clone
+      download: Download
       save: Save
       delete: Delete
       destroy: Delete
@@ -156,6 +157,7 @@ en:
       active: Active
     records:
       attributes:
+        id: ID
         category: Category
         locale: Language
         image: Image
@@ -166,6 +168,7 @@ en:
         author: Author
         user: User
         updated_at: Last updated
+        created_at: Created at
         status: Status
         title: Title
         tags: Tags
@@ -173,6 +176,7 @@ en:
         type: Type
         path: Path
         slug: Slug
+        size: Size
       status:
         archived: Archived
         draft: Draft
@@ -419,15 +423,11 @@ en:
           title: 'New Page'
         create:
           title: 'Create Page'
-      images:
+      storage_files:
         new:
-          title: 'New Image'
-        index:
-          title: 'Image listing'
-          no_images_available: 'No images available. Try uploading some!'
-          new_image: 'New image'
+          title: New Upload
         edit:
-          title: Edit Image
+          title: Edit File
       users:
         available_locales:
           en: English

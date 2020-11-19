@@ -1,5 +1,6 @@
 import "controllers";
 
+// TODO: Move all this
 const Uppy = require('@uppy/core')
 const Dashboard = require('@uppy/dashboard')
 

@@ -16,8 +16,11 @@ class ResourceSelector extends EventEmitter {
     const defaultOptions = {
       filters: {},
       allowMultiSelection: false,
-      allowFileUpload: false,
-      fileRestrictions: {}
+      allowFileUpload: true,
+      fileRestrictions: {
+        maxNumberOfFiles: 1,
+        allowedFileTypes: ['image/*']
+      }
     };
 
     this.opts = Object.assign({}, defaultOptions, opts);
@@ -28,15 +31,19 @@ class ResourceSelector extends EventEmitter {
     this.container.setAttribute('data-controller', 'resource-selector');
     this.container.setAttribute('data-resource-selector-url', url);
     this.container.querySelector('h2').textContent = title;
+    if (this.opts.allowFileUpload) {
+      this.container.querySelector("[data-target='resource-selector.uploadButton']").dataset.fileRestrictions = JSON.stringify(this.opts.fileRestrictions)
+    } else {
+      this.container.querySelector("[data-target='resource-selector.uploadButton'").remove()
+    }
 
+    // Append to body and initialize
     document.querySelector('body').appendChild(this.container);
-
     window.jQuery(this.container).foundation();
 
     this.container.addEventListener("resources-selected", (event) => {
       this.emit('resources-selected', event.detail)
     });
-
   }
 
   open() {
@@ -45,4 +52,5 @@ class ResourceSelector extends EventEmitter {
   }
 };
 
+window.ResourceSelector = ResourceSelector;
 export default ResourceSelector;

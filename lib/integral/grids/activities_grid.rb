@@ -12,10 +12,11 @@ module Integral
         [Integral::PostVersion,
          Integral::CategoryVersion,
          Integral::ListVersion,
-         Integral::ImageVersion,
+         Integral::Storage::FileVersion,
          Integral::UserVersion].concat(Integral.additional_tracked_classes.map { |klass| klass.version_class_name.constantize }).each do |version|
           scope = scope.union(version.select(fields).all)
         end
+
         scope = scope.order('created_at DESC')
       end
 

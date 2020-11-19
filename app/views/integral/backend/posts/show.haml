@@ -23,7 +23,7 @@
                 - if policy(resource_klass).manager?
                   = link_to t('integral.actions.view_history'), activities_backend_resource_url(@resource.id), icon: :history, wrapper: :cell
 
-      .cell.medium-6.flex-container= render_card(:object, { title: 'Essentials', record: @resource })
+      .cell.medium-6.flex-container= render_card(:object, { title: 'Essentials', resource: decorated_resource })
       - if Integral.multilingual_frontend?
         .cell.medium-6.flex-container= render_card(:resource_alternates)
 

@@ -1,6 +1,6 @@
 module Integral
   # Category view-level logic
-  class CategoryDecorator < Draper::Decorator
+  class CategoryDecorator < BaseDecorator
     delegate_all
 
     # @return [String] URL to backend activity

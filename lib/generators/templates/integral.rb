@@ -136,4 +136,14 @@ Integral.configure do |config|
   # Default is 4
   #
   # config.title_length_minimum = 10
+
+  # Configure the accepted file content types
+  # Default is ['application/pdf', 'image/*', 'video/*']
+  #
+  # config.accepted_file_types = ['*']
+
+  # Configure the maximum file upload size in bytes
+  # Default is 104857600 (100MB)
+  #
+  # config.maximum_file_size = 52428800 (50MB)
 end

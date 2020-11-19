@@ -12,7 +12,7 @@
 
 .image-select
   = f.label attribute
-  .image-container{ data: { controller: 'image-preview', endpoint_url: list_backend_storage_files_url(format: :json) } }
+  .image-container{ data: { controller: 'image-preview' } }
     = f.hidden_field "#{attribute}_id", { data: { target: 'image-preview.idField' } }
     = image_tag image_url('integral/image-not-set.png'), class: placeholderHiddenClass, data: { target: 'image-preview.placeholderImage' }
     %img{ src: image_path, data: { target: 'image-preview.previewImage' } }

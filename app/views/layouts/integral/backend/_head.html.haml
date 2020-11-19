@@ -8,6 +8,8 @@
   %meta{ name: "direct-upload-url", content: rails_direct_uploads_path }
   %meta{ name: "integral-file-upload-url", content: backend_storage_files_url }
   %meta{ name: "integral-file-list-url", content: list_backend_storage_files_url(format: :json) }
+  %meta{ name: "integral-file-accepted-types", content: Integral.accepted_file_types.join(',') }
+  %meta{ name: "integral-file-maximum-size", content: Integral.maximum_file_size }
 
   %title= page_title
 
@@ -18,4 +20,3 @@
   = javascript_pack_tag 'integral/backend'
 
   = csrf_meta_tags
-

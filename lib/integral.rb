@@ -126,6 +126,12 @@ module Integral
   mattr_accessor :title_length_minimum
   @@title_length_minimum = 4
 
+  mattr_accessor :accepted_file_types
+  @@accepted_file_types = ['application/pdf', 'image/*', 'video/*']
+
+  mattr_accessor :maximum_file_size
+  @@maximum_file_size = 104857600 # 100MB
+
   # @return [Boolean] Whether or not the frontend is multilingual
   def self.multilingual_frontend?
     Integral.frontend_locales.count > 1

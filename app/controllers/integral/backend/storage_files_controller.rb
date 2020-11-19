@@ -19,7 +19,7 @@ module Integral
 
         if @resource.save
           resource_data = @resource.to_list_item
-          resource_data[:image] = main_app.url_for(resource_data[:image])
+          resource_data[:image] = main_app.url_for(resource_data[:image].representation(resize_to_limit: [500, 500]))
           render json: resource_data, status: :created
         else
           head :unprocessable_entity
@@ -59,7 +59,7 @@ module Integral
         resource_klass.joins(attachment_attachment: :blob).distinct.pluck(:content_type).sort.map do |content_type|
           {
             scope: resource_klass.joins(attachment_attachment: :blob).where("active_storage_blobs.content_type = ?", content_type),
-            label: content_type
+            label: content_type.truncate(30)
           }
         end
       end

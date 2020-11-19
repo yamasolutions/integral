@@ -14,7 +14,7 @@ module Integral
         ]
 
         {
-          image: h.main_app.rails_blob_path(attachment),
+          image: h.main_app.url_for(attachment.representation(resize_to_limit: [500, 500])),
           description: description,
           url: backend_url,
           attributes: attributes

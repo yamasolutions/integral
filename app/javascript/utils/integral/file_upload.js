@@ -121,7 +121,7 @@ class IntegralStorageFileUpload extends Plugin {
 
           // TODO: Remove the file extension from name? If so should remove it initially
           formData.set('storage_file[title]', file.meta.name)
-          formData.set('storage_file[description]', file.meta.description)
+          formData.set('storage_file[description]', file.meta.description  || '')
           formData.set('storage_file[attachment]', blob.signed_id)
           formData.set('authenticity_token', this.opts.authenticityToken)
 

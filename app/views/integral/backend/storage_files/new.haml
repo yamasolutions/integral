@@ -1,6 +1,3 @@
 .grid-container
-  %div{ data: { uppy: true, token: form_authenticity_token } }
-    = simple_form_for [:backend, Integral::Storage::File.new] do |f|
-      = f.input :attachment, as: :hidden
-
-    %div{ data: { behavior: 'uppy-target' } }
+  %div{ data: { controller: 'file-upload', token: form_authenticity_token } }
+    %div{ data: { target: 'file-upload.container' } }

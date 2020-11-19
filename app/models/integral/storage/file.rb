@@ -63,8 +63,7 @@ module Integral
           title: title,
           subtitle: attachment.byte_size,
           description: description,
-          image: attachment, # TODO: We probably want the representation here - i.e. preview for non images and variant for images
-          url: 'https://google.com' # TODO: Update this - We probably want the attachment blob URL here
+          image: attachment # Can't pass representation here because it's a method
         }
       end
     end

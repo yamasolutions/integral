@@ -1,13 +1,12 @@
 import { Controller } from "stimulus"
 
 const Uppy = require('@uppy/core')
-const Dashboard = require('@uppy/dashboard')
 
 require('@uppy/core/dist/style.css')
 require('@uppy/dashboard/dist/style.css')
 
-import IntegralStorageFileUpload from 'utils/integral/file_upload';
-
+import IntegralStorageFileUpload from 'utils/integral/file-upload/uploader'
+import Dashboard from 'utils/integral/file-upload/dashboard'
 
 export default class extends Controller {
   static targets = [ "container" ]
@@ -34,13 +33,7 @@ export default class extends Controller {
     uppy.use(Dashboard, {
       target: this.containerTarget,
       inline: true,
-      width: '100%',
-      showProgressDetails: true,
-      proudlyDisplayPoweredByUppy: false,
-      metaFields: [
-        { id: 'name', name: 'Name', placeholder: 'File name' },
-        { id: 'description', name: 'Description', placeholder: 'Describe what the file is about' }
-      ],
+      width: '100%'
     })
   }
 }

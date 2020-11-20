@@ -18,7 +18,7 @@
               %button#open-sidebar.app-dashboard-open-sidebar-button.show-for-medium{ data: { 'app-dashboard-toggle-shrink' => true }, 'aria-label' => "open menu", type: "button" }
                 = icon('bars')
 
-          .app-dashboard-sidebar-inner
+          #dashboard--sidebar-inner.app-dashboard-sidebar-inner{ 'data-turbolinks-permanent' => true }
             -# TODO - Set multi-open to false. Currently hides - is-active items. Bug in Foundation
             %ul.menu.vertical{ 'data-responsive-menu' => 'accordion medium-dropdown' }
               = render partial: 'layouts/integral/backend/main_menu_items'

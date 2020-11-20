@@ -1,8 +1,11 @@
 import { Controller } from "stimulus"
 
 const Uppy = require('@uppy/core')
-const Dashboard = require('@uppy/dashboard')
-import IntegralStorageFileUpload from 'utils/integral/file_upload';
+const directUploadUrl = document.querySelector("meta[name='direct-upload-url']").getAttribute("content")
+const integralFileUploadUrl = document.querySelector("meta[name='integral-file-upload-url']").getAttribute("content")
+
+import Dashboard from 'utils/integral/file-upload/dashboard'
+import IntegralStorageFileUpload from 'utils/integral/file-upload/uploader';
 
 /**
  * Handles resource selection within Integral backend;
@@ -86,8 +89,6 @@ export default class extends Controller {
   }
 
   setupUppy() {
-    let directUploadUrl = document.querySelector("meta[name='direct-upload-url']").getAttribute("content")
-    let integralFileUploadUrl = document.querySelector("meta[name='integral-file-upload-url']").getAttribute("content")
     let fileRestrictions = JSON.parse(this.uploadButtonTarget.dataset.fileRestrictions)
 
     let uppy = Uppy({
@@ -102,13 +103,7 @@ export default class extends Controller {
     })
 
     uppy.use(Dashboard, {
-      showProgressDetails: true,
-      proudlyDisplayPoweredByUppy: false,
-      closeAfterFinish: true,
-      metaFields: [
-        { id: 'name', name: 'Name', placeholder: 'File name' },
-        { id: 'description', name: 'Description', placeholder: 'Describe what the file is about' }
-      ],
+      closeAfterFinish: true
     })
 
     uppy.on('complete', (result) => {

@@ -90,8 +90,11 @@ class IntegralStorageFileUpload extends Plugin {
 
       const { data, meta } = file;
 
-      if (!data.name && meta.name) {
-        data.name = meta.name;
+      if (meta.name) {
+        Object.defineProperty(data, 'name', {
+          writable: true,
+          value: meta.name.replace(/-|\s/g, "-")
+        });
       }
 
       const upload = new DirectUpload(data, this.opts.directUploadUrl, directHandlers);
@@ -119,8 +122,8 @@ class IntegralStorageFileUpload extends Plugin {
           this.uppy.log('[Integral] Creating file...');
           let formData = new FormData()
 
-          // TODO: Remove the file extension from name? If so should remove it initially
-          formData.set('storage_file[title]', file.meta.name)
+          const nameWithoutExtension = file.meta.name.slice(0, file.meta.name.lastIndexOf('.'))
+          formData.set('storage_file[title]', nameWithoutExtension)
           formData.set('storage_file[description]', file.meta.description  || '')
           formData.set('storage_file[attachment]', blob.signed_id)
           formData.set('authenticity_token', this.opts.authenticityToken)

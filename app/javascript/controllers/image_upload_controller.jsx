@@ -1,7 +1,7 @@
 import { Controller } from "stimulus"
 
 const Uppy = require('@uppy/core')
-const Dashboard = require('@uppy/dashboard')
+import Dashboard from 'utils/integral/file-upload/dashboard'
 const directUploadUrl = document.querySelector("meta[name='direct-upload-url']").getAttribute("content")
 const ActiveStorageUpload = require('@excid3/uppy-activestorage-upload')
 
@@ -12,7 +12,6 @@ export default class extends Controller {
     const uppy = new Uppy({
       autoProceed: true,
       allowMultipleUploads: false,
-      debug: true,
       restrictions: {
         maxNumberOfFiles: 1,
         allowedFileTypes: ['image/*']
@@ -24,8 +23,6 @@ export default class extends Controller {
     })
 
     uppy.use(Dashboard, {
-      showProgressDetails: true,
-      proudlyDisplayPoweredByUppy: false,
       closeAfterFinish: true
     })
 

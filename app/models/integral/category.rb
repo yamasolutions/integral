@@ -2,6 +2,7 @@ module Integral
   # Represents a user post category
   class Category < ApplicationRecord
     acts_as_integral({
+      icon: 'tags',
       backend_main_menu: { enabled: false },
       backend_create_menu: { enabled: false }
     })
@@ -27,10 +28,6 @@ module Integral
 
     # Callbacks
     after_initialize :set_defaults
-
-    def self.integral_icon
-      'tags'
-    end
 
     def to_param
       id

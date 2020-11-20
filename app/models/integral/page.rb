@@ -5,11 +5,11 @@ module Integral
 
     acts_as_paranoid # Soft-deletion
     acts_as_integral({
+      icon: 'file',
+      listable: { enabled: true },
       backend_main_menu: { order: 20 },
       backend_create_menu: { order: 10 }
     }) # Integral Goodness
-
-    acts_as_listable # Listable Item
 
     has_paper_trail versions: { class_name: 'Integral::PageVersion' }
 
@@ -76,20 +76,6 @@ module Integral
         image: image&.attachment,
         url: "#{Rails.application.routes.default_url_options[:host]}#{path}"
       }
-    end
-
-    # @return [Hash] listable options to be used within a RecordSelector widget
-    def self.listable_options
-      {
-        icon: 'file',
-        record_title: I18n.t('integral.backend.record_selector.pages.record'),
-        selector_path: Engine.routes.url_helpers.list_backend_pages_path,
-        selector_title: I18n.t('integral.backend.record_selector.pages.title')
-      }
-    end
-
-    def self.integral_icon
-      'file'
     end
 
     # @return [Array] contains available template label and key pairs

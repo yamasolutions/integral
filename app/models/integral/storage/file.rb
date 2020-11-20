@@ -10,6 +10,7 @@ module Integral
       validates :description, length: { maximum: 300 }
 
       acts_as_integral({
+        icon: 'cloud',
         notifications: { enabled: false },
         backend_main_menu: { order: 80 },
         backend_create_menu: { order: 80 }
@@ -20,10 +21,6 @@ module Integral
       has_paper_trail versions: { class_name: 'Integral::Storage::FileVersion' } # Version Tracking
 
       scope :search, ->(query) { where('lower(title) LIKE ?', "%#{query.downcase}%") }
-
-      def self.integral_icon
-        'cloud'
-      end
 
       # @return [Hash] hash representing the class, used to render within the main menu
       def self.integral_backend_main_menu_item

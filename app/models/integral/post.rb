@@ -6,11 +6,12 @@ module Integral
     include Webhook::Observable
 
     acts_as_integral({
+      icon: 'rss',
+      listable: { enabled: Integral.blog_enabled? },
       backend_main_menu: { order: 30, enabled: Integral.blog_enabled? },
       backend_create_menu: { order: 20, enabled: Integral.blog_enabled? }
     }) # Integral Goodness
     acts_as_paranoid # Soft-deletion
-    acts_as_listable if Integral.blog_enabled? # Listable Item
     acts_as_taggable # Tagging
 
     has_paper_trail versions: { class_name: 'Integral::PostVersion' }
@@ -82,21 +83,6 @@ module Integral
     def frontend_url
       route = Integral.multilingual_frontend? ? "post_#{locale}_url" : 'page_url'
       Integral::Engine.routes.url_helpers.send(route, slug)
-    end
-
-    # TODO: Look to get rid of this - instead pass in the selector path to ActsAsIntegral - set to false by default then try and guess the path if set to true
-    # @return [Hash] listable options to be used within a RecordSelector widget
-    def self.listable_options
-      {
-        selector_path: Engine.routes.url_helpers.list_backend_posts_path
-        # record_title: I18n.t('integral.backend.record_selector.posts.record'),
-        # selector_title: I18n.t('integral.backend.record_selector.posts.title')
-      }
-    end
-
-    # TODO: Get rid of this - Pass into ActsAsIntegral and set some kind of default - perhaps this can be used as override
-    def self.integral_icon
-      'rss'
     end
 
     # @return [String] Current tag context

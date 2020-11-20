@@ -4,6 +4,7 @@ module Integral
     default_scope { includes(:list_items) }
 
     acts_as_integral({
+      icon: 'list',
       backend_main_menu: { order: 50 },
       backend_create_menu: { order: 40 }
     }) # Integral Goodness
@@ -50,10 +51,6 @@ module Integral
       end
 
       new_list
-    end
-
-    def self.integral_icon
-      'list'
     end
 
     private

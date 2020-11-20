@@ -35,10 +35,9 @@ module Integral
       ActsAsListable.objects.each do |listable|
         object_data = {
           object_type: listable.to_s,
-          resource_selector: listable.to_s.parameterize,
           true_value: 'Integral::Object',
           resource_selector_title: 'Select resource..',
-          resource_selector_url: Engine.routes.url_helpers.list_backend_posts_path(format: :json)
+          resource_selector_url: listable.integral_resource_selector_url
         }
 
         collection << [listable.model_name.human, listable.to_s, data: object_data]

@@ -103,7 +103,10 @@ Update the empty `SpecialOffer` model with the following;
 # app/models/special_offer.rb
 
 class SpecialOffer < ApplicationRecord
-  acts_as_integral
+  acts_as_integral({
+    icon: 'percent' # Font awesome icon name representing model - https://fontawesome.com/v4.7.0/icons/
+  })
+
   has_paper_trail class_name: 'SpecialOfferVersion'
 
   # Validations
@@ -114,15 +117,6 @@ class SpecialOffer < ApplicationRecord
 
   # Associations
   belongs_to :image, class_name: 'Integral::Image', optional: true
-
-  def self.decorator_class
-    Integral::BaseDecorator
-  end
-
-  # @return [String] font awesome icon name representing modal - https://fontawesome.com/v4.7.0/icons/
-  def self.integral_icon
-    'percent'
-  end
 
   # @return [Hash] dataset to render an integral backend instance card
   def to_card

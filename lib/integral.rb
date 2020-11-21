@@ -87,17 +87,13 @@ module Integral
   mattr_accessor :editor_image_size_limit
   @@editor_image_size_limit = [1600, 1600]
 
-  mattr_accessor :image_thumbnail_size
-  @@image_thumbnail_size = [50, 50]
-
-  mattr_accessor :image_small_size
-  @@image_small_size = [500, 500]
-
-  mattr_accessor :image_medium_size
-  @@image_medium_size = [800, 800]
-
-  mattr_accessor :image_large_size
-  @@image_large_size = [1600, 1600]
+  mattr_accessor :image_sizes
+  @@image_sizes = {
+    thumbnail: [50, 50],
+    small: [500, 500],
+    medium: [800, 800],
+    large: [1600, 1600]
+  }
 
   mattr_accessor :additional_page_templates
   @@additional_page_templates = []

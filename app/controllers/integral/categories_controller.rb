@@ -14,7 +14,7 @@ module Integral
       @meta_data = {
         page_title: page_title,
         page_description: page_description,
-        image: @resource&.image&.url
+        image: @resource.image_url(size: :large)
       }
 
       @posts = Integral::Post.published.where(category_id: @resource.id).includes(:image).order('published_at DESC').paginate(page: params[:page]).decorate
@@ -40,7 +40,7 @@ module Integral
     end
 
     def find_resource
-      @resource = Integral::Category.find(params[:id])
+      @resource = Integral::Category.find(params[:id]).decorate
     end
 
     def set_breadcrumbs

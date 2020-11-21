@@ -4,4 +4,4 @@
     .sidebar-articles
       -# TODO: Use collection rendering - possibly create a post sidebar item partial?
       - @popular_posts.decorate.each do |post|
-        = render 'integral/shared/sidebar/item', url: integral.post_url(post.slug), image: post.image(:small), title: post.title, subtitle: t('integral.blog.posted_ago', time: time_ago_in_words(post.published_at))
+        = render 'integral/shared/sidebar/item', url: integral.post_url(post.slug), image: post.image_url(size: :small), title: post.title, subtitle: t('integral.blog.posted_ago', time: time_ago_in_words(post.published_at))

@@ -25,7 +25,7 @@ module Integral
         page_title: @post.title,
         page_description: @post.description,
         open_graph: {
-          image: @post.preview_image(:large)
+          image: @post.preview_image_url(size: :large)
         }
       }
       template = 'default' # TODO: Implement post templates
@@ -71,9 +71,9 @@ module Integral
 
     def find_post
       @post = if current_user.present?
-                Integral::Post.where(locale: params[:locale]).friendly.find(params[:id]).decorate
+                Integral::Post.where(locale: I18n.locale).friendly.find(params[:id]).decorate
               else
-                Integral::Post.where(locale: params[:locale]).friendly.published.find(params[:id]).decorate
+                Integral::Post.where(locale: I18n.locale).friendly.published.find(params[:id]).decorate
               end
 
       @post.decorate

@@ -27,5 +27,11 @@ module Integral
     def body
       object.body&.html_safe
     end
+
+    def image_url(size: nil, transform: nil)
+      return fallback_image_url if image.nil?
+
+      app_url_helpers.url_for(image_variant(image, size: size, transform: transform))
+    end
   end
 end

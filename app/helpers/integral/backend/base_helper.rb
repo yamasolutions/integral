@@ -152,7 +152,7 @@ module Integral
         data = [
           { scope: Integral::Page, label: 'Pages' },
           { scope: Integral::List, label: 'Lists' },
-          { scope: Integral::Image, label: 'Images' },
+          { scope: Integral::Storage::File, label: 'Files' },
           { scope: Integral::User, label: 'Users' }
         ]
 

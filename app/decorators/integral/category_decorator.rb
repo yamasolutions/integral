@@ -18,13 +18,14 @@ module Integral
       object.posts.published.order('published_at DESC').limit(limit).decorate
     end
 
-    # @return [String] image URL associated to the category
-    def image_url
-      if object.image.present?
-        object.image.url
-      else
-        helpers.image_url('integral/image-not-set.png')
-      end
+    def image_url(size: nil, transform: nil)
+      return fallback_image_url if image.nil?
+
+      app_url_helpers.url_for(image_variant(image, size: size, transform: transform))
+    end
+
+    def fallback_image_url
+      h.image_url('integral/defaults/no_image_available.jpg')
     end
   end
 end

@@ -11,7 +11,7 @@ module Integral
         page_title: @page.title,
         page_description: @page.description,
         open_graph: {
-          image: @page.image&.url(:large)
+          image: @page.image_url(size: :large)
         }
       }
 

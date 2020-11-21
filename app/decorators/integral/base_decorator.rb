@@ -5,12 +5,12 @@ module Integral
 
     # @return [String] URL to backend activity
     def activity_url(activity_id)
-      Integral::Engine.routes.url_helpers.send("activity_backend_#{object.class.model_name.singular_route_key}_url", object.id, activity_id)
+      engine_url_helpers.send("activity_backend_#{object.class.model_name.singular_route_key}_url", object.id, activity_id)
     end
 
     # @return [String] URL to backend Image page
     def backend_url
-      Integral::Engine.routes.url_helpers.send("backend_#{object.class.model_name.singular_route_key}_url", object.id)
+      engine_url_helpers.send("backend_#{object.class.model_name.singular_route_key}_url", object.id)
     end
 
     def to_backend_card
@@ -26,6 +26,26 @@ module Integral
         url: backend_url,
         attributes: attributes
       }
+    end
+
+    private
+
+    def image_variant(image, size: nil, transform: nil)
+      if size
+        image.variant(resize_to_limit: Integral.image_sizes[size])
+      elsif transform
+        image.variant(transform)
+      else
+        image.variant(resize_to_limit: Integral.image_sizes[:medium])
+      end
+    end
+
+    def engine_url_helpers
+      Integral::Engine.routes.url_helpers
+    end
+
+    def app_url_helpers
+      Rails.application.routes.url_helpers
     end
   end
 end

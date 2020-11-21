@@ -72,25 +72,25 @@ module Integral
 
     # Large Version
     version :large do
-      process resize_to_fit: Integral.image_large_size
+      process resize_to_fit: Integral.image_sizes[:large]
       process optimize: [{ quality: Integral.image_compression_quality }]
     end
 
     # Medium Version
     version :medium do
-      process resize_to_fit: Integral.image_medium_size
+      process resize_to_fit: Integral.image_sizes[:medium]
       process optimize: [{ quality: Integral.image_compression_quality }]
     end
 
     # Small Version
     version :small do
-      process resize_to_fit: Integral.image_small_size
+      process resize_to_fit: Integral.image_sizes[:small]
       process optimize: [{ quality: Integral.image_compression_quality }]
     end
 
     # Thumbnail Version
     version :thumbnail, from_version: :small do
-      process resize_to_fill: Integral.image_thumbnail_size
+      process resize_to_fill: Integral.image_sizes[:thumbnail]
       process optimize: [{ quality: Integral.image_compression_quality }]
     end
 

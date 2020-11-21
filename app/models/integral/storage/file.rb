@@ -5,6 +5,7 @@ module Integral
       has_one_attached :attachment
 
       delegate :attached?, to: :attachment
+      delegate :variant, to: :attachment
 
       validates :title, presence: true, length: { maximum: 150 }
       validates :description, length: { maximum: 300 }

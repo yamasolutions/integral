@@ -45,8 +45,8 @@ module Integral
           "name": object.author&.name
         },
         "image": [
-          preview_image(:large),
-          image(:large)
+          preview_image_url(size: :large),
+          image_url(size: :large)
         ],
         "publisher": {
           "@type": 'Organization',
@@ -77,20 +77,20 @@ module Integral
       header_tags
     end
 
-    # Preview image for the post if present. Otherwise returns featured image
-    def preview_image(size = :small)
-      preview_image = object&.preview_image&.url(size)
-      return preview_image if preview_image.present?
+    def preview_image_url(size: nil, transform: nil)
+      return image_url(size: size, transform: transform) if preview_image.nil?
 
-      image(size, false)
+      app_url_helpers.url_for(image_variant(image, size: size, transform: transform))
     end
 
-    # Image for the post if present. Otherwise returns default image
-    def image(size = :small, fallback = true)
-      image = object&.image&.url(size)
-      return image if image.present?
+    def image_url(size: nil, transform: nil)
+      return fallback_image_url if image.nil?
 
-      h.image_url('integral/defaults/no_image_available.jpg') if fallback
+      app_url_helpers.url_for(image_variant(image, size: size, transform: transform))
+    end
+
+    def fallback_image_url
+      h.image_url('integral/defaults/no_image_available.jpg')
     end
 
     # Date the post was published
@@ -103,7 +103,7 @@ module Integral
     # @return [String] URL to backend post page
     def backend_url
       if Integral.blog_enabled?
-        Integral::Engine.routes.url_helpers.backend_post_url(object.id)
+        engine_url_helpers.backend_post_url(object.id)
       else
         ''
       end
@@ -112,7 +112,7 @@ module Integral
     # @return [String] URL to backend activity
     def activity_url(activity_id)
       if Integral.blog_enabled?
-        Integral::Engine.routes.url_helpers.activity_backend_post_url(object.id, activity_id)
+        engine_url_helpers.activity_backend_post_url(object.id, activity_id)
       else
         ''
       end

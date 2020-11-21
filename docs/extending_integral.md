@@ -116,7 +116,7 @@ class SpecialOffer < ApplicationRecord
   scope :search, ->(search) { where('lower(title) LIKE ?', "%#{search.downcase}%") }
 
   # Associations
-  belongs_to :image, class_name: 'Integral::Image', optional: true
+  belongs_to :image, class_name: 'Integral::Storage::File', optional: true
 
   # @return [Hash] dataset to render an integral backend instance card
   def to_card

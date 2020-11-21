@@ -1,7 +1,7 @@
 .cell.small-3.flex-container
   .card.post-card
     = link_to integral.post_url(post.slug) do
-      = image_tag post.image(:medium), class: 'post-card-image', alt: post.title
+      = image_tag post.image_url, class: 'post-card-image', alt: post.title
       .card-section
         %h3= post.title
         %p= post.description

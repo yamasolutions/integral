@@ -15,7 +15,7 @@ module Integral
 
     # Associations
     has_many :posts # TODO: Touch the posts on change
-    belongs_to :image, class_name: 'Integral::Image', optional: true
+    belongs_to :image, class_name: 'Integral::Storage::File', optional: true
 
     # Validations
     validates :slug, presence: true

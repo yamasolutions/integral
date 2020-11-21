@@ -81,7 +81,7 @@ module Integral
     end
 
     def frontend_url
-      route = Integral.multilingual_frontend? ? "post_#{locale}_url" : 'page_url'
+      route = Integral.multilingual_frontend? ? "post_#{locale}_url" : 'post_url'
       Integral::Engine.routes.url_helpers.send(route, slug)
     end
 

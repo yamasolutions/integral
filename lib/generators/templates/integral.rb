@@ -97,25 +97,21 @@ Integral.configure do |config|
   #
   # config.image_compression_quality = 100
 
-  # Configure the maximum dimensions of an image thumbnail version.
-  # Default is [50, 50]
+  # Configure the image dimension presets
   #
-  # config.image_thumbnail_size = [100, 100]
-
-  # Configure the maximum dimensions of an image small version.
-  # Default is [500, 500]
+  # Default is {
+  #   thumbnail: [50, 50],
+  #   small: [500, 500],
+  #   medium: [800, 800],
+  #   large: [1600, 1600]
+  # }
   #
-  # config.image_small_size = [500, 500]
-
-  # Configure the maximum dimensions of an image medium version.
-  # Default is [800, 800]
-  #
-  # config.image_medium_size = [800, 800]
-
-  # Configure the maximum dimensions of an image large version.
-  # Default is [1600, 1600]
-  #
-  # config.image_large_size = [1600, 1600]
+  # config.image_sizes = {
+  #   thumbnail: [100, 100],
+  #   small: [800, 800],
+  #   medium: [1200, 1200],
+  #   large: [2400, 2400]
+  # }
 
   # Configure the maximum description length for Posts & Pages
   # Default is 300

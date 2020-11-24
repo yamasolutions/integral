@@ -8,8 +8,7 @@ module Integral
       backend_create_menu: { order: 50 }
     }) # Integral Goodness
 
-    has_one_attached :avatar
-    mount_uploader :avatar_old, AvatarUploader
+    has_one_attached :image
 
     # Included devise modules. Others available are:
     # :confirmable, :timeoutable, :omniauthable, registerable and lockable
@@ -31,6 +30,9 @@ module Integral
     has_paper_trail versions: { class_name: 'Integral::UserVersion' }
 
     scope :search, ->(search) { where('lower(name) LIKE ?', "%#{search.downcase}%") }
+
+    # Aliases
+    alias avatar image
 
     # Checks if the User has a given role
     #

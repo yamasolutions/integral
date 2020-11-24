@@ -2,15 +2,15 @@
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
 #
-# This file is the source Rails uses to define your schema when running `rails
-# db:schema:load`. When creating a new database, `rails db:schema:load` tends to
+# This file is the source Rails uses to define your schema when running `bin/rails
+# db:schema:load`. When creating a new database, `bin/rails db:schema:load` tends to
 # be faster and is potentially less error prone than running all of your
 # migrations from scratch. Old migrations may fail to apply correctly if those
 # migrations use external dependencies or application code.
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_08_060023) do
+ActiveRecord::Schema.define(version: 2020_11_24_024702) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -75,32 +75,6 @@ ActiveRecord::Schema.define(version: 2020_10_08_060023) do
     t.boolean "processed", default: false
     t.boolean "newsletter_opt_in", default: true
     t.string "context"
-  end
-
-  create_table "integral_image_versions", force: :cascade do |t|
-    t.string "item_type", null: false
-    t.integer "item_id", null: false
-    t.string "event", null: false
-    t.string "whodunnit"
-    t.text "object"
-    t.text "object_changes"
-    t.datetime "created_at"
-    t.index ["item_type", "item_id"], name: "index_integral_image_versions_on_item_type_and_item_id"
-  end
-
-  create_table "integral_images", id: :serial, force: :cascade do |t|
-    t.string "title"
-    t.string "description"
-    t.string "file"
-    t.integer "width"
-    t.integer "height"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.datetime "deleted_at"
-    t.boolean "file_processing", default: true, null: false
-    t.integer "file_size"
-    t.integer "lock_version"
-    t.index ["deleted_at"], name: "index_integral_images_on_deleted_at"
   end
 
   create_table "integral_list_item_connections", id: false, force: :cascade do |t|

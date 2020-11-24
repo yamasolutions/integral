@@ -38,22 +38,10 @@ FactoryBot.define do
     factory :list_manager do
       role_ids { [ Integral::Role.find_by_name('ListManager').id ] }
     end
-
-    factory :image_manager do
-      role_ids { [ Integral::Role.find_by_name('ImageManager').id ] }
-    end
   end
 
   factory :role, class: Integral::Role do
     name { 'some_role' }
-  end
-
-  factory :image, class: Integral::Image do
-    title
-    description
-    width { 1 }
-    height { 2 }
-    file { Rack::Test::UploadedFile.new(File.join(Integral::Engine.root, 'spec', 'support', 'image.jpg')) }
   end
 
   factory :integral_page, class: 'Integral::Page' do

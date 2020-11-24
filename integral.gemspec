@@ -17,9 +17,6 @@ Gem::Specification.new do |s|
   s.add_dependency 'active_record_union', '~> 1.3.0' # Table Unions - Used joining Versioning tables
   s.add_dependency 'acts-as-taggable-on', '~> 6.0' # Tagging
   s.add_dependency 'breadcrumbs_on_rails', '~> 3.0' # Breadcrumbs
-  s.add_dependency 'carrierwave', '~> 1.0' # File uploader
-  s.add_dependency 'carrierwave-imageoptimizer', '~> 1.4' # Image compression
-  s.add_dependency 'carrierwave-aws', '~> 1.3.0' # Remote file uploading
   # NOTE: image2 plugin for Ckeditor has been monkey patched to remove height modifications
   s.add_dependency 'ckeditor', '~> 4.3.0' # WYSIWYG Editor
   s.add_dependency 'jquery-rails', '~> 4.4' # Jquery for Rails
@@ -73,7 +70,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'rspec-rails', '~> 4.0' # Testing framework
   s.add_development_dependency 'generator_spec', '~> 0.9' # Testing framework
   s.add_development_dependency 'shoulda-matchers', '~> 3.1' # Extra matchers for testing
-  s.add_development_dependency 'pg', '~> 0.21' # Database
+  s.add_development_dependency 'pg', '~> 1.1' # Database
 
   s.add_development_dependency 'capybara', '~> 3.32' # Acceptance testing framework
   s.add_development_dependency 'launchy', '~> 2.4' # Automatically launch test pages

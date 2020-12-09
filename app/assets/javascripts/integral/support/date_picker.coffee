@@ -45,6 +45,8 @@ class this.DatePicker
     $(@selector).each (i, dp) =>
       dp = $(dp)
 
+      alternateSelector = ''
+      alternateFormat = '' # i.e. "DD, d MM, yy"
       minRaw = dp[0].min
       maxRaw = dp[0].max
       minDate = new Date minRaw if minRaw
@@ -52,6 +54,9 @@ class this.DatePicker
       disabledDates = dp.data('disabled-dates')
       showButtonPanel = if dp.data('date-picker-button-panel') == true then true else false
       closeText = if dp.data('date-picker-close-text') then dp.data('date-picker-close-text') else 'Close'
+      if dp.data('date-picker-alternate-selector')
+        alternateSelector = dp.data('date-picker-alternate-selector')
+        alternateFormat = dp.data('date-picker-alternate-format')
 
       dp.datepicker
         dateFormat: "yy-mm-dd"
@@ -76,3 +81,5 @@ class this.DatePicker
             return [false] if (parsedDate.getFullYear() == currentDate.getFullYear() and parsedDate.getDate() == currentDate.getDate() and parsedDate.getMonth() == currentDate.getMonth())
 
           [true]
+        altField: alternateSelector
+        altFormat: alternateFormat

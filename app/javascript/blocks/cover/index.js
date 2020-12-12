@@ -28,7 +28,8 @@ export const settings = {
   category: 'formatting',
 	styles: [
 		{ name: 'left', label: 'Left Side', isDefault: true },
-		{ name: 'right', label: 'Right Side' }
+		{ name: 'right', label: 'Right Side' },
+		{ name: 'full-width', label: 'Full Width' }
   ],
   // example: {
   //   innerBlocks: [

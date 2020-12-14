@@ -1,0 +1,33 @@
+.wp-block-integral-contact-form {
+  margin: 1.5rem 0;
+  form {
+    width: 75%;
+    margin: 0 auto;
+    .button {
+      margin-top: 1rem;
+    }
+  }
+}
+
+.block-editor-block-list__block[data-type="integral/contact-form"] > div {
+  display: flex;
+  height: 300px;
+  padding: 3rem;
+  margin: 1rem 0;
+  align-items: center;
+  justify-content: center;
+  background-color: $white;
+  p {
+    font-size: 1.25rem;
+    margin-right: 3rem;
+  }
+  .contact-form-outline {
+    background-image: image_url('contact-form-block.svg');
+    height: 100%;
+    width: 25%;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+  }
+}
+

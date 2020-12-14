@@ -69,6 +69,7 @@ en:
     share_modal:
       title: Share
     contact_form:
+      newsletter_opt_in: "I'd like to receive newsletter updates."
       placeholders:
         name: Name
         email: Email

@@ -29,6 +29,7 @@ import * as callout from './callout';
 import * as card from './card';
 import * as accordion from './accordion';
 import * as recentPosts from './recent-posts';
+import * as contactForm from './contact-form';
 
 import ColumnEdit from './column/edit';
 import ButtonEdit from './button/edit';
@@ -240,7 +241,7 @@ export const registerBlocks = () => {
   registerBlockType(callout.name, callout.settings);
   registerBlockType(card.name, card.settings);
   registerBlockType(recentPosts.name, recentPosts.settings);
-
+  registerBlockType(contactForm.name, contactForm.settings);
 
   // Register custom block styles
   registerBlockStyle( 'core/button', {

@@ -285,4 +285,9 @@ export const registerBlocks = () => {
     name: 'padded',
     label: 'Padded'
   } );
+
+  registerBlockStyle( 'core/group', {
+    name: 'padded',
+    label: 'Padded'
+  } );
 };

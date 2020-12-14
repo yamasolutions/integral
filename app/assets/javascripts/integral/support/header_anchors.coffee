@@ -5,7 +5,7 @@ class this.HeaderAnchors
   @init: ->
     # Add self links to h2, h3 & h4 anchors
     # This allows users to click the anchor to link to
-    $('.wysiwyg-content h2[id], .wysiwyg-content h3[id], .wysiwyg-content h4[id]').each ->
+    $('.block-editor-content h2[id], .block-editor-content h3[id], .block-editor-content h4[id]').each ->
       anchor = document.createElement("a")
       anchor.setAttribute('href', '#' + @id)
       @appendChild(anchor)

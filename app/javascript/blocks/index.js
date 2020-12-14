@@ -25,6 +25,7 @@ import { addFilter } from '@wordpress/hooks';
 /**
  * Internal dependencies
  */
+import * as book_now from './book-now';
 import * as featured_program from './featured-program';
 import * as callout from './callout';
 import * as card from './card';
@@ -33,6 +34,7 @@ import * as coverButton from './cover-button';
 import * as review from './review';
 import * as accordion from './accordion';
 import * as recentPosts from './recent-posts';
+import * as contactForm from './contact-form';
 import * as sponsors from './sponsors';
 import * as parkLayout from './park-layout';
 import ColumnEdit from './column/edit';
@@ -245,11 +247,13 @@ export const registerBlocks = () => {
   registerBlockType(callout.name, callout.settings);
   registerBlockType(card.name, card.settings);
   registerBlockType(recentPosts.name, recentPosts.settings);
+  registerBlockType(contactForm.name, contactForm.settings);
 
   registerBlockType(cover.name, cover.settings);
   registerBlockType(coverButton.name, coverButton.settings);
   registerBlockType(review.name, review.settings);
   registerBlockType(featured_program.name, featured_program.settings);
+  registerBlockType(book_now.name, book_now.settings);
   registerBlockType(sponsors.name, sponsors.settings);
   registerBlockType(parkLayout.name, parkLayout.settings);
 

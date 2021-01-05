@@ -52,6 +52,8 @@
                         Unread
                       %span.subtitle User Notifications
                     .section
+                      - if current_user.notifications.unread.count > 25
+                        = link_to 'Mark all notifications as read', read_all_notifications_backend_user_url(current_user), method: :put, remote: true, class: 'notification-read-all', data: { confirm: 'Are you sure you want to mark all notifications as read?' }
                       %ul.menu.vertical.notification-list
                         = render recent_user_notifications.decorate, cached: true
                       - if current_user.multiple_page_notifications?

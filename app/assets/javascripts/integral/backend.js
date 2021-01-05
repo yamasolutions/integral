@@ -107,6 +107,10 @@ function ready() {
     }
   });
 
+  $('.notification-read-all').on( "ajax:success", function(event, response) {
+    location.reload();
+  });
+
   $("[data-form-subscribe-notifications], [data-form-unsubscribe-notifications]").submit(function( event ) {
     $(event.target).find('.button').attr('disabled', true)
   });

@@ -1,5 +1,7 @@
+$primary-color: #1b8ecf;
+
 @function theme($selector) {
-  @return #1b8ecf;
+  @return $primary-color;
 }
 
 @function color($color) {
@@ -61,4 +63,42 @@ html.wp-toolbar {
   background-color: $white;
   width: 100%;
   border-top: 1px solid #e2e4e7;
+}
+
+
+$choices-primary-color: $primary-color;
+
+@import "choices.js/src/styles/choices.scss";
+
+.choices {
+  width: 12rem;
+  height: 2rem;
+  background-color: #f6f8fb;
+  &__inner {
+    border: none;
+    padding: 0.1rem .5rem !important;
+    min-height: unset !important;
+    margin-top: 0.25rem;
+    .choices__item {
+      padding: 2px 6px !important;
+      font-size: .65rem !important;
+      flex: none !important;
+      pointer-events: none;
+      button {
+        pointer-events: all;
+      }
+    }
+    .choices__list {
+      flex: 1;
+      display: flex;
+      overflow: auto;
+    }
+  }
+  &__input {
+    display: none !important;
+    background-color: transparent !important;
+    outline: none !important;
+    border: none !important;
+    box-shadow: none !important;
+  }
 }

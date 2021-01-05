@@ -244,8 +244,8 @@ module Integral
 
       helper_method :resource_grid
       def resource_grid
-        @resource_grid ||= resource_grid_klass.new(grid_options.except('page')) do |scope|
-          scope.page(grid_options['page']).per_page(25)
+        @resource_grid ||= resource_grid_klass.new(resource_grid_options.except('page')) do |scope|
+          scope.page(resource_grid_options['page']).per_page(25)
         end
       end
 
@@ -333,15 +333,47 @@ module Integral
         @resource = scope.find(params[:id])
       end
 
-      def grid_options
-        default_grid_options = { 'order' => 'updated_at',
-                                 'page' => 1,
-                                 'descending' => true }
-        grid_params = params[:grid].present? ? params[:grid].permit(*white_listed_grid_params) : {}
-        grid_params.delete_if { |_k, v| v.empty? }
-        default_grid_options.merge(grid_params)
+      # Pull retained resource grid options from session - if not available set and use defaults
+      def retained_resource_grid_options
+        if session[:integral_grid_options]&.fetch(resource_grid_klass.to_s, nil).nil?
+          session[:integral_grid_options] = {} if session[:integral_grid_options].nil?
+          session[:integral_grid_options][resource_grid_klass.to_s] = default_resource_grid_options
+        end
+
+        session[:integral_grid_options][resource_grid_klass.to_s]
       end
-      helper_method :grid_options
+
+      def clear_retained_resource_grid_options
+        session[:integral_grid_options][resource_grid_klass.to_s] = nil
+        redirect_to list_backend_resources_url
+      end
+
+      def default_resource_grid_options
+        {
+          'order' => 'updated_at',
+          'page' => 1,
+          'descending' => true
+        }
+      end
+
+      def resource_grid_params
+        grid_params = params[:grid].present? ? params[:grid].permit(*white_listed_grid_params) : {}
+
+        grid_params.delete_if { |_k, v| (v.kind_of?(Array) && v.delete_if(&:blank?).empty?) || v.empty? }
+      end
+
+      def resource_grid_options
+        @resource_grid_options ||= begin
+                                     clear_retained_resource_grid_options if params[:clear_retained_options].present?
+                                     if resource_grid_params.present?
+                                       options = retained_resource_grid_options.slice('order', 'descending', 'page').merge(resource_grid_params)
+                                       session[:integral_grid_options][resource_grid_klass.to_s] = options
+                                     else
+                                       retained_resource_grid_options
+                                     end
+                                   end
+      end
+      helper_method :resource_grid_options
 
       def activity_grid_options
         default_grid_options = { 'order' => 'date',

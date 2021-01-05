@@ -535,13 +535,13 @@ p.help-text
   &:after
     @include font-awesome('\f002')
     position: absolute
-    right: 1em
+    left: 1em
     top: 0em
     line-height: 2.25
     pointer-events: none
-    color: $body-font-color-secondary
+    color: transparentize($body-font-color-secondary, 0.5)
   input
-    padding-right: 3em
+    padding-left: 3em
 .filter
   display: flex
   input, select

@@ -36,6 +36,9 @@ class this.Grid
     @form.on 'change', 'select[data-filter]', (ev) =>
       @_redrawGrid()
 
+    @form.on 'change', 'input[type=search][data-filter]', (ev) =>
+      @_redrawGrid()
+
     @container.on 'click', 'button[data-sort]', (ev) =>
       @_updateSort(ev.target.dataset.sort, ev.target.dataset.desc)
 

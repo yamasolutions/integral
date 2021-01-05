@@ -3,7 +3,7 @@ module Integral
     # Users controller
     class UsersController < BaseController
       before_action :set_resource, except: %i[create new index list account]
-      before_action :authorize_with_klass, except: %i[activities activity show edit update account notifications read_notification]
+      before_action :authorize_with_klass, except: %i[activities activity show edit update account notifications read_notification read_all_notifications]
       before_action :authorize_with_instance, only: %i[show edit update]
 
       # GET /:id/edit
@@ -56,6 +56,15 @@ module Integral
       # PUT /:id/read_notification
       def read_notification
         if current_user.notifications.find(params[:notification_id]).read!
+          head :ok
+        else
+          head :unprocessable_entity
+        end
+      end
+
+      # PUT /:id/read_all_notifications
+      def read_all_notifications
+        if current_user.notifications.unread.update_all(read_at: Time.now)
           head :ok
         else
           head :unprocessable_entity

@@ -137,6 +137,7 @@ en:
       view_all: View All
       view_more: View More
       open_in_new_tab: Open in new tab
+      clear_filters: Clear Filters
     prompts:
       select_image: Select Image..
       select_type: Select Type..

@@ -22,7 +22,7 @@ module Integral
         return @app.call(env) if request.path_info.starts_with?(backend_path)
 
         # Rewrites path if the request linked to an Integral::Page or Integral::Category
-        rewrite_path(env, request.path_info)
+        rewrite_path(env, request)
 
         @app.call(env)
       end
@@ -61,11 +61,13 @@ module Integral
       # @param path [String] Path the request is linked to
       #
       # @return [String] Path Rails needs to link the request to the correct Integral::Page record
-      def rewrite_path(env, path)
+      def rewrite_path(env, request)
+        path = request.path_info
         locale = Integral.frontend_locales.find { |locale| path.starts_with?("/#{locale}/") || path == "/#{locale}" } || Integral.frontend_locales.first if Integral.multilingual_frontend?
 
         page_id = page_identifier(path)
         if page_id
+          request.update_param(:original_path, env['PATH_INFO'])
           env['PATH_INFO'] = localized_path("/pages/#{page_id}", locale)
         else
           category_id = category_identifier(path, locale)

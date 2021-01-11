@@ -6,6 +6,7 @@ export default class extends Controller {
   initialize() {
     $(this.element).select2()
 
+    // Unfortunately no way to disable search through plugin
     var $searchfield = $(this.element).parent().find('.select2-search__field');
     $searchfield.prop('disabled', true);
     $searchfield.css("display", "none");
@@ -25,6 +26,7 @@ export default class extends Controller {
       });
     });
 
+    // Unfortunately no way to disable search through plugin
     $(this.element).on('select2:opening select2:closing', function( event ) {
       var $searchfield = $(this).parent().find('.select2-search__field');
       $searchfield.prop('disabled', true);

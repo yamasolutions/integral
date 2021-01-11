@@ -381,14 +381,18 @@ module Integral
                                  'descending' => true,
                                  'item_id' => @resource.id,
                                  'object' => resource_klass.to_s }
-        grid_params = params[:grid].present? ? params[:grid].permit(*white_listed_grid_params) : {}
-        grid_params.delete_if { |_k, v| v.empty? }
+        grid_params = params[:grid].present? ? params[:grid].permit(*white_listed_activity_grid_params) : {}
+        grid_params.delete_if { |_k, v| (v.kind_of?(Array) && v.delete_if(&:blank?).empty?) || v.empty? }
         default_grid_options.merge(grid_params)
       end
       helper_method :activity_grid_options
 
       def white_listed_grid_params
         raise NotImplementedError, 'Specify the accepted grid parameters'
+      end
+
+      def white_listed_activity_grid_params
+        [ :descending, :order, :page, :title, user: [], object: [], action: [] ]
       end
 
       def authorize_with_klass

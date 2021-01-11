@@ -10,8 +10,8 @@
     .top-bar-right
       = render_resource_grid_form do |f|
         - if Integral.multilingual_frontend?
-          %li= f.input :locale, collection: Integral.frontend_locales.map { |locale| [t("integral.language.#{locale}"), locale] }, label: t('integral.records.attributes.locale'), wrapper_html: { class: 'filter' }, input_html: { multiple: true, data: { filter: true, controller: 'grid-filter', action: 'grid-filter#hideDropdown' } }, required: false
-        %li= f.input :status, collection: resource_klass.available_statuses, label: t('integral.records.attributes.status'), wrapper_html: { class: 'filter' }, input_html: { multiple: true, data: { filter: true, controller: 'grid-filter', action: 'grid-filter#hideDropdown' } }, required: false
+          %li= f.input :locale, collection: Integral.frontend_locales.map { |locale| [t("integral.language.#{locale}"), locale] }, label: t('integral.records.attributes.locale'), wrapper_html: { class: 'filter' }, input_html: { multiple: true, data: { filter: true, controller: 'grid-filter' } }, required: false
+        %li= f.input :status, collection: resource_klass.available_statuses, label: t('integral.records.attributes.status'), wrapper_html: { class: 'filter' }, input_html: { multiple: true, data: { filter: true, controller: 'grid-filter' } }, required: false
         %li= f.input :title, as: :search, placeholder: t('integral.actions.search'), wrapper_html: { class: 'filter search' }, hint: false, label: false, input_html: { data: { filter: true }}
 
   = render_resource_grid

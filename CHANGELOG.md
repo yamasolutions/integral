@@ -15,6 +15,12 @@ recommendations of [keepachangelog.com](http://keepachangelog.com/).
 
 - Frontend multiple language support, controlled through the `frontend_locales` config option
 - Add Block Editor (Gutenberg)
+- Notifications - Add read all notifications button
+- Backend List - Add page entry info (includes total amount of records found)
+- Backend List - Allow multiple dropdown option selection
+- Backend List - Retain previously used filters
+- Alternates management - Make it easier to find alternates by grouping alternates by language and providing search functionality
+- Page parent selection - Make it easier to find the parent by grouping pages by language and providing search functionality
 
 ### Fixed
 

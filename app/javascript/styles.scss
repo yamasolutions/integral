@@ -1,5 +1,7 @@
+$primary-color: #1b8ecf;
+
 @function theme($selector) {
-  @return #1b8ecf;
+  @return $primary-color;
 }
 
 @function color($color) {
@@ -61,4 +63,33 @@ html.wp-toolbar {
   background-color: $white;
   width: 100%;
   border-top: 1px solid #e2e4e7;
+}
+
+@import 'select2/src/scss/core.scss';
+
+.select2 {
+  &-selection {
+    border-radius: 0 !important;
+    border-color: #d4dfef !important;
+    height: 2rem !important;
+  }
+
+  &-results__option {
+    font-size: 0.9rem !important;
+  }
+
+  &-selection__rendered {
+    flex: 1 !important;
+    display: flex !important;
+    overflow: auto !important;
+  }
+
+  &-selection__choice {
+    margin-top: 3px !important;
+  }
+
+  &-selection--single span {
+    color: #0a0a0a !important;
+    font-size: 14px;
+  }
 }

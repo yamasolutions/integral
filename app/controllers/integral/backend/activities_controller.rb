@@ -45,12 +45,17 @@ module Integral
         Integral::Version
       end
 
-      def grid_options
-        grid_params = params[:grid].present? ? params[:grid].permit(:descending, :order, :page, :user, :action, :object, :created_at, :item_id) : {}
-        grid_params.delete_if { |_k, v| v.empty? }
-        { 'order' => 'date', 'page' => 1, descending: true }.merge(grid_params)
+      def white_listed_grid_params
+        [ :descending, :order, :page, :created_at, :item_id, object: [], action: [], user: [] ]
       end
-      helper_method :grid_options
+
+      def default_resource_grid_options
+        {
+          'order' => 'date',
+          'page' => 1,
+          'descending' => true
+        }
+      end
 
       def render_default_action_bar?
         false

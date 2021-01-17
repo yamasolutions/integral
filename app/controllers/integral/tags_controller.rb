@@ -2,6 +2,7 @@ module Integral
   # Front end tags controller
   class TagsController < BlogController
     before_action :find_tag, only: [:show]
+    before_action :validate_page_has_results, only: [:show]
 
     # GET /
     # List blog tags
@@ -36,6 +37,12 @@ module Integral
     def set_breadcrumbs
       super
       add_breadcrumb t('integral.breadcrumbs.blog'), :posts_url
+    end
+
+    def validate_page_has_results
+      if !params[:page].nil? && Integral::Post.tagged_with(@tag.name).published.paginate(page: params[:page]).empty?
+        raise ActionController::RoutingError, 'Invalid Page Number'
+      end
     end
   end
 end

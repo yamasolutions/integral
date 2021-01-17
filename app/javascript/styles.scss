@@ -92,4 +92,14 @@ html.wp-toolbar {
     color: #0a0a0a !important;
     font-size: 14px;
   }
+  &-search--inline .select2-search__field {
+    height: 1rem;
+    margin-top: 8px;
+    margin-bottom: 0;
+    font-size: 0.9rem !important;
+  }
+
+  &-search--dropdown .select2-search__field {
+    border: solid 0.5px #d4dfef;
+  }
 }

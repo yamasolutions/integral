@@ -25,6 +25,8 @@ module Integral
 
     # Validations
     validates :name, :email, presence: true
+    validate :validate_email_availability
+
     validates :name, length: { minimum: 3, maximum: 25 }
 
     has_paper_trail versions: { class_name: 'Integral::UserVersion' }
@@ -103,6 +105,12 @@ module Integral
 
     def send_devise_notification(notification, *args)
       devise_mailer.send(notification, self, *args).deliver_later
+    end
+
+    def validate_email_availability
+      if self.class.unscoped.where(email: self.email).exists?
+        errors.add(:email, 'has already been taken')
+      end
     end
   end
 end

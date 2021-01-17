@@ -25,12 +25,13 @@ module Integral
       # POST /
       # User creation
       def create
-        @resource = User.invite!(resource_params, current_user)
+        @resource = User.new(resource_params)
 
-        if @resource.errors.present?
-          respond_failure(notification_message('creation_failure'), 'new')
-        else
+        if @resource.valid?
+          @resource = User.invite!(resource_params, current_user)
           respond_successfully(notification_message('creation_success'), backend_user_path(@resource))
+        else
+          respond_failure(notification_message('creation_failure'), 'new')
         end
       end
 

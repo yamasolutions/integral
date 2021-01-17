@@ -21,6 +21,7 @@ recommendations of [keepachangelog.com](http://keepachangelog.com/).
 - Backend List - Retain previously used filters
 - Alternates management - Make it easier to find alternates by grouping alternates by language and providing search functionality
 - Page parent selection - Make it easier to find the parent by grouping pages by language and providing search functionality
+- Model level validation of email uniqueness
 
 ### Fixed
 

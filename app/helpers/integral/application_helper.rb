@@ -21,7 +21,7 @@ module Integral
     end
 
     def render_blocks(content)
-      BlockListRenderer.render(content)
+      BlockEditor::BlockListRenderer.render(content)
     end
 
     # @param [Integral::List] list the list to render

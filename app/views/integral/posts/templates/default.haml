@@ -24,7 +24,7 @@
                 = icon('share', class: 'show-for-medium')
                 = t('integral.actions.share')
         %section.wysiwyg-content.wysiwyg-content--post
-          = render_blocks(@post.body)
+          = @post.render_active_block_list
         = render partial: 'integral/posts/article_footer'
       .hide-for-large= render partial: 'similar_posts'
 

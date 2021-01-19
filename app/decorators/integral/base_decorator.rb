@@ -12,5 +12,9 @@ module Integral
     def backend_url
       Integral::Engine.routes.url_helpers.send("backend_#{object.class.model_name.singular_route_key}_url", object.id)
     end
+
+    def render_active_block_list
+      helpers.render_blocks(active_block_list.content)
+    end
   end
 end

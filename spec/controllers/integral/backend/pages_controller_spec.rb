@@ -7,9 +7,8 @@ module Integral
 
       let(:title) { 'foobar title' }
       let(:description) { Faker::Lorem.paragraph(8)[0..150] }
-      let(:body) { "<p>#{Faker::Lorem.paragraph(8)[0..150]}</p>" }
       let(:path) { '/foo/bar' }
-      let(:page_params) { { title: title, description: description, path: path, body: body } }
+      let(:page_params) { { title: title, description: description, path: path } }
       let(:user) { create(:page_manager) }
 
       describe 'GET index' do
@@ -210,7 +209,6 @@ module Integral
               it { expect(page.title).to eql title }
               it { expect(page.description).to eql description }
               it { expect(page.path).to eql path }
-              it { expect(page.body).to eql body }
             end
 
             context 'when invalid parameters supplied' do

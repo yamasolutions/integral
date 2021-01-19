@@ -6,7 +6,8 @@
       .grid-y
         = f.input :title
         = f.input :description
-        = f.input :body, as: :block_editor
+        = f.simple_fields_for :active_block_list do |block_list|
+          = block_list.input :content, as: :block_editor
 
     .cell.medium-4.large-3
       -# Right Column

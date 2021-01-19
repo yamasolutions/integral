@@ -16,10 +16,10 @@ require 'integral/grids/posts_grid'
 require 'integral/grids/images_grid'
 require 'integral/acts_as_listable'
 require 'integral/acts_as_integral'
-require 'integral/blocks/base'
-require 'integral/blocks/recent_posts'
-require 'integral/blocks/contact_form'
-require 'integral/block_list_renderer'
+require 'integral/block_editor/blocks/base'
+require 'integral/block_editor/blocks/recent_posts'
+require 'integral/block_editor/blocks/contact_form'
+require 'integral/block_editor/block_list_renderer'
 require 'integral/list_renderer'
 require 'integral/swiper_list_renderer'
 require 'integral/list_item_renderer'
@@ -148,6 +148,6 @@ module Integral
   def self.dynamic_blocks
     # TODO: Allow host app to add additional blocks
     # i.e. blocks.concat Integral.additional_dynamic_blocks
-    [ Integral::Blocks::ContactForm, Integral::Blocks::RecentPosts ]
+    [ Integral::BlockEditor::Blocks::ContactForm, Integral::BlockEditor::Blocks::RecentPosts ]
   end
 end

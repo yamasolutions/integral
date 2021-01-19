@@ -2,8 +2,8 @@ module Integral
   # Represents a user post
   class Post < ApplicationRecord
     include ActionView::Helpers::DateHelper
-    include LazyContentable
     include Webhook::Observable
+    include BlockEditor::Listable
 
     acts_as_integral({
       backend_main_menu: { order: 30, enabled: Integral.blog_enabled? },
@@ -38,7 +38,7 @@ module Integral
                                                 maximum: Integral.title_length_maximum }
     validates :description, presence: true, length: { minimum: Integral.description_length_minimum,
                                                       maximum: Integral.description_length_maximum }
-    validates :body, :user, :slug, presence: true
+    validates :user, :slug, presence: true
     validates :locale, presence: true
 
     # Nested forms
@@ -197,6 +197,7 @@ module Integral
       return if self.persisted?
 
       self.locale ||= Integral.frontend_locales.first
+      self.active_block_list ||= Integral::BlockEditor::BlockList.new
     end
   end
 end

@@ -1,7 +1,7 @@
 module Integral
   # Represents a public viewable page
   class Page < ApplicationRecord
-    include LazyContentable
+    include BlockEditor::Listable
 
     acts_as_paranoid # Soft-deletion
     acts_as_integral({
@@ -186,6 +186,7 @@ module Integral
       return if self.persisted?
 
       self.locale ||= Integral.frontend_locales.first
+      self.active_block_list ||= Integral::BlockEditor::BlockList.new
     end
   end
 end

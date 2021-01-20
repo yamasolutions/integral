@@ -18,7 +18,6 @@ export default class extends Controller {
   static targets = [ "output", "input", "maximize", "minimize" ]
 
   connect() {
-    // console.log('Block Editor Stimulus Controller - Connecting')
     const settings = {
       imageSizes: false,
       disableCustomFontSizes: true,

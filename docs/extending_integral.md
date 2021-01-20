@@ -144,6 +144,7 @@ end
 * Registers with the backend main menu
 * Registers with the backend create menu
 * Registers with the main dashboard 'at a glance' chart
+* Enables tracking
 * Enables notification subscriptions
 
 Next, create the `SpecialOfferVersion` which is the model that stores `SpecialOffer` changes;
@@ -256,7 +257,7 @@ module Integral
 end
 ```
 
-If you haven't already make sure you're loading `/lib` in your application:
+If you haven't already, make sure you're loading `/lib` in your application:
 ```
 # config/application.rb
 
@@ -274,14 +275,6 @@ mv app/views/integral/backend/posts/ app/views/integral/backend/special_offers
 ```
 3. Make any changes necessary such as updating the form to only contain fields relating to `special_offers`
 4. Remove the additional Integral backend views which were generated that you are not using
-
-To add special offer activities to the activities page and recent activity widget we're going to update the Integral config file;
-
-```
-# config/initializers/integral.rb
-
-config.additional_tracked_classes = [SpecialOffer]
-```
 
 Lastly we need to create the authorization policy.
 

@@ -197,7 +197,6 @@ module Integral
       return if self.persisted?
 
       self.locale ||= Integral.frontend_locales.first
-      self.active_block_list ||= Integral::BlockEditor::BlockList.new
     end
   end
 end

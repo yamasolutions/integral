@@ -90,6 +90,7 @@ module Integral
           resources :users do
             get 'list', on: :collection
             member do
+              put 'read_all_notifications'
               put 'read_notification'
               get 'notifications'
               put 'block'

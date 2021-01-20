@@ -29,11 +29,12 @@
 
             %p{data: { target: 'alternate-resource.emptyMessage' }, class: @resource.alternates.published.empty? ? '' : 'hide' } No alternates selected.
 
-            = select_tag :alternates, options_for_select(resource_klass.published.where.not(id: @resource.id).order('path ASC').map { |page| ["#{page.title} - #{page.path}", page.id, {disabled: @resource.alternate_ids.include?(page.id), data: { title: page.title, description: page.description, path: page.path, url: backend_page_url(page.id) } }] }), prompt: "Select an alternate..", data: { target: 'alternate-resource.dropdown', action: 'alternate-resource#add' }
+            = select_tag :alternates, grouped_options_for_select(grouped_page_alternate_options), prompt: "Select an alternate..", data: { target: 'alternate-resource.dropdown', action: 'alternate-resource#add' }
             %p.help-text Reference any published resources which serve as alternates. Example - versions of the same piece of content in different languages
 
         = f.input :template, collection: Integral::Page.available_templates, prompt: t('integral.backend.pages.prompts.choose_template'), include_blank: false
-        = f.association :parent, collection: @resource.available_parents.map {|p| [p.title, p.id]}, include_blank: true
+        = f.input :parent, as: :grouped_select, collection: grouped_page_parent_options, group_method: :last, include_blank: true, input_html: { data: { controller: 'select2' } }
+
         = render partial: 'integral/backend/shared/image_preview', locals: { f:f }
 
     .cell= f.button :button

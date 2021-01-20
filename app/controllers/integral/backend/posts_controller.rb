@@ -35,14 +35,15 @@ module Integral
 
       def resource_params
         permitted_post_params = %i[title slug body description tag_list image_id preview_image_id status lock_version locale user_id category_id]
-        permitted_post_params.concat [alternate_ids: []]
+        permitted_post_params.concat [ alternate_ids: [] ]
+        permitted_post_params.concat [ { active_block_list_attributes: [ :id, :content ] } ]
         permitted_post_params.concat Integral.additional_post_params
 
         params.require(:post).permit(*permitted_post_params)
       end
 
       def white_listed_grid_params
-        %i[descending order page user action object title status locale]
+        [ :descending, :order, :page, :title, status: [], locale: [], user: [] ]
       end
 
       def resource_klass

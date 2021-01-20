@@ -3,6 +3,7 @@ module Integral
   class PostsController < BlogController
     before_action :find_post, only: [:show]
     before_action :find_related_posts, only: [:show]
+    before_action :validate_page_has_results, only: [:index]
     after_action :increment_post_count, only: [:show]
 
     # GET /
@@ -82,6 +83,12 @@ module Integral
       # the request path will not match the post_path, and we should do
       # a 301 redirect that uses the current friendly id.
       redirect_to post_url(@post.slug), status: :moved_permanently if request.path != post_path(@post.slug)
+    end
+
+    def validate_page_has_results
+      if !params[:page].nil? && Integral::Post.published.where(locale: I18n.locale).paginate(page: params[:page]).empty?
+        raise ActionController::RoutingError, 'Invalid Page Number'
+      end
     end
   end
 end

@@ -1,0 +1,97 @@
+.table--resources {
+  @include table-hover;
+  @include breakpoint(medium down) {
+    tbody td {
+      padding: 0.5em;
+    }
+  }
+  @include breakpoint(small down) {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+  }
+  td.actions {
+    min-width: 10em;
+    @include breakpoint(medium down) {
+      min-width: 9em;
+    }
+  }
+  .avatar {
+    max-width: 20px;
+    margin-right: 0.1em;
+  }
+
+  thead {
+    th {
+      &.ordered button {
+        &:after {
+          font-size: .65em;
+        }
+      }
+      &.desc button:after {
+        @include font-awesome('\f078');
+      }
+      &.asc button:after {
+        @include font-awesome('\f077');
+      }
+      button {
+        cursor: pointer;
+      }
+    }
+    i {
+      opacity: 0.5;
+    }
+  }
+  tfoot {
+    .pagination {
+      float: left;
+      li {
+        a {
+          border-radius: 50%;
+          &:hover {
+            background-color: $primary-color;
+            color: $white;
+          }
+        }
+        &:last-of-type a {
+          background-color: rgba(212, 223, 239, 0.35);
+          &:hover {
+            background-color: $primary-color;
+          }
+        }
+        &.active a {
+          opacity: 0.5;
+          &:hover {
+            background-color: transparent;
+            color: $body-font-color-secondary;
+          }
+        }
+      }
+    }
+    .pagination_status {
+      float: right;
+      font-size: 0.9em;
+    }
+  }
+
+  tbody {
+    color: $body-font-color-secondary;
+    font-size: 0.95em;
+    .label {
+      color: $body-font-color-secondary;
+      border-radius: 1em;
+      background-color: rgba(212, 223, 239, 0.3);
+      font-size: 0.9em;
+      padding: 0.5em 1em;
+    }
+    tr.empty-grid {
+      &:hover {
+        background-color: transparent;
+      }
+      img {
+        margin-left: 2em;
+      }
+    }
+  }
+}
+

@@ -69,6 +69,7 @@ en:
     share_modal:
       title: Share
     contact_form:
+      newsletter_opt_in: "I'd like to receive newsletter updates."
       placeholders:
         name: Name
         email: Email
@@ -137,6 +138,7 @@ en:
       view_all: View All
       view_more: View More
       open_in_new_tab: Open in new tab
+      clear_filters: Clear Filters
     prompts:
       select_image: Select Image..
       select_type: Select Type..
@@ -215,6 +217,9 @@ en:
       images: Images
       image: Image
       lists: Lists
+      list: List
+      new: New
+      edit: Edit
       log_out: Logout
       my_account: Account & profile
       settings: Settings

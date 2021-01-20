@@ -1,14 +1,3 @@
-/**
- * Mixin to add a FontAwesome icon to an element
- */
-@mixin font-awesome($content)
-  font-family: FontAwesome
-  font-weight: normal
-  font-style: normal
-  display: inline-block
-  text-decoration: inherit
-  content: $content
-
 // Grids
 [data-grid]
   .load-indicator
@@ -24,18 +13,6 @@
       width: 100%
       text-align: center
       color: $primary-color
-
-  .integral-grid
-    thead th
-      &.ordered button
-        &:after
-          font-size: .65em
-      &.desc button:after
-        @include font-awesome('\f078')
-      &.asc button:after
-        @include font-awesome('\f077')
-      button
-        cursor: pointer
 
 #action-bar
   padding: 0 .5rem
@@ -552,25 +529,19 @@ p.help-text
     &.collection_radio_buttons
       font-size: 0.7em
       color: $body-font-color-secondary
-
-.radio_buttons .radio label
-  font-size: 1rem
-  color: $body-font-color-secondary
-  margin-bottom: 0
-
 // Filters
 .filter.search
   position: relative
   &:after
     @include font-awesome('\f002')
     position: absolute
-    right: 1em
+    left: 1em
     top: 0em
     line-height: 2.25
     pointer-events: none
-    color: $body-font-color-secondary
+    color: transparentize($body-font-color-secondary, 0.5)
   input
-    padding-right: 3em
+    padding-left: 3em
 .filter
   display: flex
   input, select
@@ -658,7 +629,7 @@ ul.breadcrumbs
   .top-bar
     padding: 0
   .filters
-    li
+    > li
       margin: 0.5em 0 0.5em 2em
       @include breakpoint(small down)
         width: 100%
@@ -685,63 +656,6 @@ ul.breadcrumbs
       margin-right: 1em
       border-radius: 3px
 
-// move into object listing file
-table
-  @include breakpoint(medium down)
-    tbody td
-      padding: 0.5em
-  @include breakpoint(small down)
-    display: block
-    width: 100%
-    overflow-x: auto
-  td.actions
-    min-width: 10em
-    @include breakpoint(medium down)
-      min-width: 9em
-  .avatar
-    max-width: 20px
-    margin-right: 0.1em
-  thead
-    i
-      opacity: 0.5
-    &:hover
-      background: transparent
-  tfoot
-    .pagination
-      float: left
-      li
-        a
-          border-radius: 50%
-          &:hover
-            background-color: $primary-color
-            color: $white
-        &:last-of-type a
-          background-color: rgba(212, 223, 239, 0.35)
-          &:hover
-            background-color: $primary-color
-        &.active a
-          opacity: 0.5
-          &:hover
-            background-color: transparent
-            color: $body-font-color-secondary
-    .pagination_status
-      float: right
-      font-size: 0.9em
-
-  tbody
-    color: $body-font-color-secondary
-    font-size: 0.95em
-    .label
-      color: $body-font-color-secondary
-      border-radius: 1em
-      background-color: rgba(212, 223, 239, 0.3)
-      font-size: 0.9em
-      padding: 0.5em 1em
-    tr.empty-grid
-      &:hover
-        background-color: transparent
-      img
-        margin-left: 2em
 
 \:focus
   outline: none !important
@@ -789,7 +703,6 @@ table
 .card-action-title
   display: flex
   justify-content: space-between
-
 
 .button--action-pane
   cursor: pointer

@@ -75,9 +75,6 @@ module Integral
         scope Integral.backend_namespace do
           # User Authentication
           devise_for :users, class_name: 'Integral::User', module: :devise
-
-          # WYSIWYG Editor
-          mount Ckeditor::Engine => '/ckeditor'
         end
 
         namespace :backend, path: Integral.backend_namespace do

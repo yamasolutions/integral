@@ -26,7 +26,6 @@ module Integral
     require 'carrierwave-aws'
     require 'carrierwave_backgrounder'
     require 'carrierwave-imageoptimizer'
-    require 'ckeditor'
     require 'paper_trail'
     require 'diffy'
     require 'active_record_union'
@@ -102,15 +101,6 @@ module Integral
         'integral/tiles/*',
         # Defaults
         'integral/defaults/*',
-        # CKEditor Overrides
-        'ckeditor/my_contents.css',
-        'ckeditor/my_styles.js',
-        'ckeditor/my_config.js',
-        'ckeditor/filebrowser/*',
-        'ckeditor/skins/*',
-        'ckeditor/lang/*',
-        'ckeditor/plugins/*',
-
         # Frontend
         'integral/frontend.js',
         'integral/frontend.css',

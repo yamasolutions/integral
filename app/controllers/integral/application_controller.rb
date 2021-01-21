@@ -140,5 +140,9 @@ module Integral
     def verify_user
       raise ActionController::RoutingError, 'Not Found' if current_user.blank?
     end
+
+    def raise_pagination_out_of_range
+      raise ActionController::RoutingError, 'Invalid Page - No Results Found'
+    end
   end
 end

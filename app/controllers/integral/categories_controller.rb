@@ -1,7 +1,9 @@
 module Integral
   # Front end categories controller
   class CategoriesController < BlogController
-    before_action :find_resource, only: [:show]
+    before_action :set_resource, only: [:show]
+    before_action :set_collection, only: [:show]
+    before_action :validate_page_has_results, only: [:show]
 
     # GET /:id
     # Presents all posts with particular category
@@ -17,7 +19,6 @@ module Integral
         image: @resource&.image&.url
       }
 
-      @posts = Integral::Post.published.where(category_id: @resource.id).includes(:image).order('published_at DESC').paginate(page: params[:page]).decorate
     end
 
     def url_for(options={})
@@ -39,13 +40,21 @@ module Integral
       url
     end
 
-    def find_resource
-      @resource = Integral::Category.find(params[:id])
+    def set_resource
+      @resource = Integral::Category.where(locale: I18n.locale).find(params[:id])
+    end
+
+    def set_collection
+      @posts = Integral::Post.published.where(category_id: @resource.id).includes(:image).order('published_at DESC').paginate(page: params[:page]).decorate
     end
 
     def set_breadcrumbs
       super
       add_breadcrumb t('integral.breadcrumbs.blog'), :posts_url
+    end
+
+    def validate_page_has_results
+      raise_pagination_out_of_range if @posts.empty? && params[:page].present?
     end
   end
 end

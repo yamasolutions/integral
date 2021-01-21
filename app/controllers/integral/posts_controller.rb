@@ -87,7 +87,7 @@ module Integral
 
     def validate_page_has_results
       if !params[:page].nil? && Integral::Post.published.where(locale: I18n.locale).paginate(page: params[:page]).empty?
-        raise ActionController::RoutingError, 'Invalid Page Number'
+        raise_pagination_out_of_range
       end
     end
   end

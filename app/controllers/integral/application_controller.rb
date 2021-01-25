@@ -8,10 +8,9 @@ module Integral
 
     around_action :set_locale_from_url
 
-    # TODO: Upgrade BeforeRender (currently does not supper Rails 5)
-    # Commented until before_render is Rails 5 compatible, currently using :render override
-    # Search Engine Optimization
-    # before_render :load_meta_tags
+    def validate_routed_through_alias
+      raise ActionController::RoutingError, 'Resource cannot be directly accessed' unless params[:integral_original_path].present?
+    end
 
     # Override added as workaround for before_render Rails 5 incompatibility
     def render(*args, &block)

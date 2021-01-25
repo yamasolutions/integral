@@ -1,6 +1,7 @@
 module Integral
   # Front end categories controller
   class CategoriesController < BlogController
+    before_action :validate_routed_through_alias, only: [:show]
     before_action :set_resource, only: [:show]
     before_action :set_collection, only: [:show]
     before_action :validate_page_has_results, only: [:show]

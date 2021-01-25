@@ -36,7 +36,7 @@ module Integral
         post 'contact', to: 'contact#contact'
         post 'newsletter_signup', to: 'contact#newsletter_signup'
 
-        # Dynamic pages (URLs are rewritten in Integral::Middleware::PageRouter)
+        # Dynamic pages (URLs are rewritten in Integral::Middleware::AliasRouter)
         if Integral.multilingual_frontend?
           localized do
             resources :pages, only: %i[show]

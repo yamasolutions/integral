@@ -3,7 +3,7 @@ require 'devise_invitable'
 
 require 'integral/version'
 require 'integral/router'
-require 'integral/middleware/page_router'
+require 'integral/middleware/alias_router'
 require 'integral/engine'
 require 'integral/button_link_renderer'
 require 'integral/google_tag_manager'

@@ -26,7 +26,7 @@ recommendations of [keepachangelog.com](http://keepachangelog.com/).
 
 ### Fixed
 
--
+- Category and pages are now only available through their public route (i.e company/contact), not the Rails route (i.e. /pages/43)
 
 ### Dependancies
 

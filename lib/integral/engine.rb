@@ -32,7 +32,6 @@ module Integral
     require 'i18n-js'
     require 'meta-tags'
     require 'sitemap_generator'
-    # require 'before_render'
     require 'friendly_id'
     require 'acts-as-taggable-on'
     require 'paranoia'
@@ -54,7 +53,7 @@ module Integral
     end
 
     # Dynamic page routing
-    config.middleware.use Integral::Middleware::PageRouter
+    config.middleware.use Integral::Middleware::AliasRouter
 
     # Engine customization
     config.to_prepare do

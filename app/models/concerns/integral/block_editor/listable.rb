@@ -5,7 +5,7 @@ module Integral
 
       included do
         has_many :block_lists, as: :listable, class_name: 'Integral::BlockEditor::BlockList'
-        has_one :active_block_list, class_name: 'Integral::BlockEditor::BlockList', as: :listable
+        has_one :active_block_list, -> { where active: true }, class_name: 'Integral::BlockEditor::BlockList', as: :listable
 
         validates :active_block_list, presence: true
 
@@ -19,7 +19,7 @@ module Integral
       def set_block_list_defaults
         return if self.persisted?
 
-        self.active_block_list ||= Integral::BlockEditor::BlockList.new
+        self.active_block_list ||= self.build_active_block_list(listable: self)
       end
     end
   end

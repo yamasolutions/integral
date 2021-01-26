@@ -5,12 +5,21 @@ module Integral
       before_action :authorize_with_klass, except: %i[activities activity]
       before_action :set_resource, except: %i[create new index list]
 
+      # POST /
+      # Resource creation
+      def create
+        super do
+          @resource.active_block_list.listable = @resource
+        end
+      end
+
       # POST /:id/duplicate
       # Duplicate a resource
       def duplicate
         super do |cloned_resource|
           cloned_resource.title = "Copy #{@resource.title[0...Integral.title_length_maximum - 5]}"
           cloned_resource.view_count = 0
+          cloned_resource.build_active_block_list(content: @resource.active_block_list.content, listable: cloned_resource)
           cloned_resource.tag_list = @resource.tag_list_on(@resource.tag_context)
           cloned_resource.slug = @resource.slug
           cloned_resource.status = :draft

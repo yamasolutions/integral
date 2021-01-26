@@ -41,6 +41,7 @@ ActiveRecord::Schema.define(version: 2021_01_20_004651) do
   create_table "integral_block_lists", force: :cascade do |t|
     t.string "name"
     t.text "content"
+    t.boolean "active", default: false
     t.string "listable_type"
     t.bigint "listable_id"
     t.datetime "created_at", precision: 6, null: false
@@ -213,7 +214,6 @@ ActiveRecord::Schema.define(version: 2021_01_20_004651) do
     t.integer "image_id"
     t.integer "lock_version"
     t.string "locale"
-    t.integer "active_block_list_id"
     t.index ["deleted_at"], name: "index_integral_pages_on_deleted_at"
     t.index ["image_id"], name: "index_integral_pages_on_image_id"
   end
@@ -253,7 +253,6 @@ ActiveRecord::Schema.define(version: 2021_01_20_004651) do
     t.integer "preview_image_id"
     t.bigint "category_id"
     t.string "locale"
-    t.integer "active_block_list_id"
     t.index ["category_id"], name: "index_integral_posts_on_category_id"
     t.index ["deleted_at"], name: "index_integral_posts_on_deleted_at"
     t.index ["image_id"], name: "index_integral_posts_on_image_id"

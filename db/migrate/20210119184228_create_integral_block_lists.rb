@@ -9,6 +9,7 @@ class CreateIntegralBlockLists < ActiveRecord::Migration[6.0]
     create_table :integral_block_lists do |t|
       t.string :name
       t.text :content
+      t.boolean :active, default: false
       t.references :listable, polymorphic: true
       t.timestamps
     end
@@ -23,9 +24,6 @@ class CreateIntegralBlockLists < ActiveRecord::Migration[6.0]
       t.datetime :created_at
     end
     add_index :integral_block_list_versions, %i(item_type item_id)
-
-    add_column :integral_pages, :active_block_list_id, :integer
-    add_column :integral_posts, :active_block_list_id, :integer
 
     Integral::Post.unscoped.each do |resource|
       resource.update_column(:active_block_list_id, Integral::BlockEditor::BlockList.create!(content: resource.body, listable: resource).id)

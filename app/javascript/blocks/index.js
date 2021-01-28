@@ -17,7 +17,7 @@ import {
   unregisterBlockType,
   registerBlockStyle,
   unregisterBlockStyle,
-  unregisterBlockVariation,
+  unregisterBlockVariation
 } from '@wordpress/blocks';
 import { createHigherOrderComponent } from '@wordpress/compose'
 import { addFilter } from '@wordpress/hooks';
@@ -27,10 +27,11 @@ import { addFilter } from '@wordpress/hooks';
  */
 import * as callout from './callout';
 import * as card from './card';
+import * as cover from './cover';
+import * as coverButton from './cover-button';
 import * as accordion from './accordion';
 import * as recentPosts from './recent-posts';
 import * as contactForm from './contact-form';
-
 import ColumnEdit from './column/edit';
 import ButtonEdit from './button/edit';
 import ImageEdit from './image/edit';
@@ -243,6 +244,9 @@ export const registerBlocks = () => {
   registerBlockType(recentPosts.name, recentPosts.settings);
   registerBlockType(contactForm.name, contactForm.settings);
 
+  registerBlockType(cover.name, cover.settings);
+  registerBlockType(coverButton.name, coverButton.settings);
+
   // Register custom block styles
   registerBlockStyle( 'core/button', {
     name: 'primary',
@@ -272,4 +276,3 @@ export const registerBlocks = () => {
     label: 'Padded'
   } );
 };
-

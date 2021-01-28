@@ -61,15 +61,15 @@ export const settings = {
     let activeClass = attributes.isOpenByDefault ? "is-active" : "";
 
     return (
-      <ul className="accordion" data-accordion data-multi-expand="true" data-allow-all-closed="true">
-        <li className= { classnames("accordion-item", activeClass) } data-accordion-item>
+      <div className="accordion" data-accordion data-multi-expand="true" data-allow-all-closed="true">
+        <div className= { classnames("accordion-item", activeClass) } data-accordion-item>
           <a href="#" className="accordion-title">{ attributes.title }</a>
 
           <div className="accordion-content" data-tab-content>
             <InnerBlocks.Content />
           </div>
-        </li>
-      </ul>
+        </div>
+      </div>
     );
   }
 };

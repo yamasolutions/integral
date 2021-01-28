@@ -15,7 +15,7 @@ recommendations of [keepachangelog.com](http://keepachangelog.com/).
 ### Added
 
 - Frontend multiple language support, controlled through the `frontend_locales` config option
-- Add Block Editor (Gutenberg)
+- Add Block Editor (Gutenberg) - replaces Ckeditor
 - Notifications - Add read all notifications button
 - Backend List - Add page entry info (includes total amount of records found)
 - Backend List - Allow multiple dropdown option selection

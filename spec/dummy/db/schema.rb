@@ -10,25 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_08_060023) do
+ActiveRecord::Schema.define(version: 2021_01_20_004651) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "ckeditor_assets", id: :serial, force: :cascade do |t|
-    t.string "data_file_name", null: false
-    t.string "data_content_type"
-    t.integer "data_file_size"
-    t.integer "assetable_id"
-    t.string "assetable_type", limit: 30
-    t.string "type", limit: 30
-    t.integer "width"
-    t.integer "height"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.index ["assetable_type", "assetable_id"], name: "idx_ckeditor_assetable"
-    t.index ["assetable_type", "type", "assetable_id"], name: "idx_ckeditor_assetable_type"
-  end
 
   create_table "friendly_id_slugs", id: :serial, force: :cascade do |t|
     t.string "slug", null: false
@@ -40,6 +25,28 @@ ActiveRecord::Schema.define(version: 2020_10_08_060023) do
     t.index ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type"
     t.index ["sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_id"
     t.index ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type"
+  end
+
+  create_table "integral_block_list_versions", force: :cascade do |t|
+    t.string "item_type", null: false
+    t.integer "item_id", null: false
+    t.string "event", null: false
+    t.string "whodunnit"
+    t.text "object"
+    t.text "object_changes"
+    t.datetime "created_at"
+    t.index ["item_type", "item_id"], name: "index_integral_block_list_versions_on_item_type_and_item_id"
+  end
+
+  create_table "integral_block_lists", force: :cascade do |t|
+    t.string "name"
+    t.text "content"
+    t.boolean "active", default: false
+    t.string "listable_type"
+    t.bigint "listable_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["listable_type", "listable_id"], name: "index_integral_block_lists_on_listable_type_and_listable_id"
   end
 
   create_table "integral_categories", force: :cascade do |t|
@@ -198,7 +205,6 @@ ActiveRecord::Schema.define(version: 2020_10_08_060023) do
     t.string "title"
     t.string "path"
     t.text "description"
-    t.text "body"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "status", default: 0, null: false
@@ -234,7 +240,6 @@ ActiveRecord::Schema.define(version: 2020_10_08_060023) do
   create_table "integral_posts", id: :serial, force: :cascade do |t|
     t.string "title"
     t.string "description"
-    t.text "body"
     t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

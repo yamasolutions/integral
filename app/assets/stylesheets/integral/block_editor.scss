@@ -1,0 +1,79 @@
+@import 'integral/frontend/foundation_settings';
+@import 'foundation';
+@import url('https://fonts.googleapis.com/css?family=Noto+Sans+JP:100,400,700&display=swap&subset=japanese');
+
+.editor-styles-wrapper {
+  textarea {
+    all: initial;
+  }
+
+  @include foundation-global-styles;
+  @include foundation-xy-grid-classes;
+  // @include foundation-grid;
+  @include foundation-flex-grid;
+  @include foundation-flex-classes;
+  @include foundation-typography;
+  // @include foundation-forms;
+  @include foundation-button;
+  @include foundation-accordion;
+  @include foundation-accordion-menu;
+  @include foundation-badge;
+  @include foundation-breadcrumbs;
+  @include foundation-button-group;
+  @include foundation-callout;
+  @include foundation-card;
+  @include foundation-close-button;
+  @include foundation-menu;
+  @include foundation-menu-icon;
+  @include foundation-drilldown-menu;
+  @include foundation-dropdown;
+  @include foundation-dropdown-menu;
+  @include foundation-responsive-embed;
+  @include foundation-label;
+  @include foundation-media-object;
+  @include foundation-off-canvas;
+  @include foundation-orbit;
+  @include foundation-pagination;
+  @include foundation-progress-bar;
+  @include foundation-slider;
+  @include foundation-sticky;
+  @include foundation-reveal;
+  @include foundation-switch;
+  @include foundation-table(true);
+  @include foundation-tabs;
+  @include foundation-thumbnail;
+  @include foundation-title-bar;
+  @include foundation-tooltip;
+  @include foundation-top-bar;
+  @include foundation-visibility-classes;
+  @include foundation-float-classes;
+
+  background: $body-background;
+  font-family: $body-font-family;
+  color: $body-font-color;
+
+  textarea {
+    min-height: unset;
+    width: 100%;
+  }
+
+  .components-button {
+    padding: .5rem;
+  }
+
+  .block-editor-block-list__block {
+    width: 100%;
+  }
+
+  .block-editor-image-placeholder {
+    display: flex;
+    height: 13rem;
+    background-color: $light-gray;
+    justify-content: center;
+    align-items: center;
+  }
+
+  @import 'integral/frontend/blocks';
+  @import 'integral/backend/blocks';
+}
+

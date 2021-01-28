@@ -1,7 +1,8 @@
 module Integral
   # Front end tags controller
   class TagsController < BlogController
-    before_action :find_tag, only: [:show]
+    before_action :set_resource, only: [:show]
+    before_action :set_collection, only: [:show]
     before_action :validate_page_has_results, only: [:show]
 
     # GET /
@@ -25,14 +26,16 @@ module Integral
         page_title: page_title,
         page_description: page_description
       }
-
-      @tagged_posts = PostDecorator.decorate_collection(Integral::Post.tagged_with(@tag.name).where(locale: I18n.locale).published.distinct.order("published_at DESC").paginate(:page => params[:page]))
     end
 
     private
 
-    def find_tag
+    def set_resource
       @tag = Integral::Post.tag_counts_on("published_#{I18n.locale}").find_by_name!(params[:id])
+    end
+
+    def set_collection
+      @tagged_posts = PostDecorator.decorate_collection(Integral::Post.tagged_with(@tag.name).where(locale: I18n.locale).published.distinct.order("published_at DESC").paginate(:page => params[:page]))
     end
 
     def set_breadcrumbs
@@ -41,9 +44,7 @@ module Integral
     end
 
     def validate_page_has_results
-      if Integral::Post.tagged_with(@tag.name).published.paginate(page: params[:page]).empty?
-        raise ActionController::RoutingError, 'Invalid Page - No Results Found'
-      end
+      raise_pagination_out_of_range if @tagged_posts.empty? && params[:page].present?
     end
   end
 end

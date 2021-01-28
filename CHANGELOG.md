@@ -8,12 +8,14 @@ recommendations of [keepachangelog.com](http://keepachangelog.com/).
 ### Breaking Changes
 
 - Homepage is no longer specified within settings area. Instead set homepage path to `/`
+- Removed `additional_tracked_classes` config option - this is now controlled through the `acts_as_integral` concern
 - Bump to Ruby 2.7.2
 - Bump to Rails 6.0
 
 ### Added
 
 - Frontend multiple language support, controlled through the `frontend_locales` config option
+- Add Block Editor (Gutenberg) - replaces Ckeditor
 - Notifications - Add read all notifications button
 - Backend List - Add page entry info (includes total amount of records found)
 - Backend List - Allow multiple dropdown option selection
@@ -24,7 +26,7 @@ recommendations of [keepachangelog.com](http://keepachangelog.com/).
 
 ### Fixed
 
--
+- Category and pages are now only available through their public route (i.e company/contact), not the Rails route (i.e. /pages/43)
 
 ### Dependancies
 

@@ -160,21 +160,8 @@
     var checkIsDirty = function() {
       $dirtyForms = $("form").filter('.' + settings.dirtyClass);
 
-      /** CKEDITOR DIRTY CHECKER START **/
-      editors = $('form:not(.submitting) textarea.ckeditor')
-      cleanEditors = 0;
-      editors.each(function() {
-        isDirty = CKEDITOR.instances[this.id].checkDirty();
-
-        if (!isDirty) {
-          cleanEditors++;
-        }
-      });
-
-      /** CKEDITOR DIRTY CHECKER END **/
-
-      // Checks no dirty forms + no dirty editors
-      if (($dirtyForms.length == 0) && cleanEditors == editors.length) {
+      // Checks no dirty forms
+      if ($dirtyForms.length == 0) {
         return false;
       }
       return true;

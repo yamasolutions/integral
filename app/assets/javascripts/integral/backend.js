@@ -21,7 +21,6 @@
 //= require rails.validations.simple_form
 //= require parsley
 //= require cocoon
-//= require ckeditor/loader
 //= require i18n
 //= require i18n/translations
 //= require_directory ./support
@@ -100,6 +99,12 @@ function ready() {
   ImageUploader.init();
   new RemoteForm($('.remote-form'));
   Grid.init();
+
+  $('#resource_form').on('keypress', e => {
+    if (e.keyCode == 13) {
+      return false;
+    }
+  });
 
   $('.notification-read-all').on( "ajax:success", function(event, response) {
     location.reload();
@@ -250,83 +255,6 @@ function ready() {
   // Prompts users of dirty forms before allowing them to navigate away from the page
   $('[data-confirm-dirty-form]').areYouSure();
 
-  // Mark CKEditor containers as loaded to hide loading indicators
-  CKEDITOR.on( 'instanceReady', function( evt ) {
-    parent = evt.editor.container.$.parentElement;
-    $(parent).addClass('loaded');
-  });
-
-  // Remove particular inputs from CKEditor dialogs
-  CKEDITOR.on( 'dialogDefinition', function( ev ) {
-    // Take the dialog name and its definition from the event data.
-    var dialogName = ev.data.name;
-    var dialogDefinition = ev.data.definition;
-
-    if ( dialogName == 'image2' ) {
-      var infoTab = dialogDefinition.getContents('info');
-
-      // Remove unused inputs
-      infoTab.remove('height');
-      infoTab.remove('lock');
-
-      // Do not validate width input
-      infoTab.get('width').validate = function() {
-        return true;
-      }
-    }
-
-    // Remove unused inputs for link
-    if ( dialogName == 'link' ) {
-      var advancedTab = dialogDefinition.getContents('advanced');
-      var targetTab = dialogDefinition.getContents('target');
-      var linkTargets = targetTab.get('linkTargetType');
-
-      // Remove unhelpful inputs
-      advancedTab.remove('download');
-      advancedTab.remove('advId');
-      advancedTab.remove('advName');
-      advancedTab.remove('advLangDir');
-      advancedTab.remove('advLangCode');
-      advancedTab.remove('advAccessKey');
-      advancedTab.remove('advTabIndex');
-      advancedTab.remove('advCharset');
-      advancedTab.remove('advContentType');
-      advancedTab.remove('advRel');
-      advancedTab.remove('advRel');
-
-      // Remove unnecessary link target options
-      linkTargets['items'] = [['Not Set', ''], ['New Tab/Window', '_blank']];
-    }
-
-    if ( dialogName == 'iframe' ) {
-      var generalTab = dialogDefinition.getContents('info');
-
-      // Remove unhelpful inputs
-      generalTab.remove('scrolling');
-      generalTab.remove('frameborder');
-      generalTab.remove('name');
-      generalTab.remove('title');
-      generalTab.remove('longdesc');
-    }
-
-    if ( dialogName == 'table' || dialogName == 'tableProperties' ) {
-      var advancedTab = dialogDefinition.getContents('advanced');
-      var infoTab = dialogDefinition.getContents('info');
-
-      // Remove unhelpful inputs
-      advancedTab.remove('advId');
-      advancedTab.remove('advLangDir');
-      infoTab.remove('txtCellSpace');
-      infoTab.remove('txtCellPad');
-      infoTab.remove('txtBorder');
-      infoTab.remove('txtHeight');
-
-      // Set default width to blank (let CSS set it)
-      txtWidth = infoTab.get( 'txtWidth' );
-      txtWidth['default'] = '';
-    }
-  });
-
   // For small devices close the sidebar menu when a user navigates away from the page.
   // Prevents issues when user navigates back to that page
   if (Foundation.MediaQuery.is('small down')) {
@@ -349,42 +277,6 @@ function ready() {
 
   // Set the locale for clientside validations
   I18n.locale = $('body').data('locale') || 'en';
-
-  // CKEditor Initialization
-  // TODO: Fork Ckeditor and remove obtrusive JS causing the below to throw warnings
-  for(name in CKEDITOR.instances) {
-    CKEDITOR.instances[name].destroy(true);
-  }
-
-  $('.ckeditor textarea').each(function() {
-    editor = $(this);
-    options = {
-      "language": I18n.locale,
-      "bodyClass": editor.data('ckeditor-class'),
-      "toolbar": editor.data('ckeditor-toolbar') || 'default'
-    }
-
-    CKEDITOR.replace(editor.attr('id'), options);
-  });
-
-  // Populate CKeditor with example content
-  $(".ckeditor .populate-button").on( "click", function(ev) {
-    ev.preventDefault();
-    button = $(ev.target);
-    exampleContent = button.data('example-content');
-    editorId = button.closest('.ckeditor').find('textarea').attr('id');
-
-    CKEDITOR.instances[editorId].setData(exampleContent);
-  });
-
-  // Display 'No Data' row for grids which are empty
-  $('table.wice-grid').each(function() {
-    table = $(this);
-    if (table.find('tbody tr').size() < 2) {
-      table.find('tr.empty-grid').removeClass('hide');
-      table.find('tfoot').addClass('hide');
-    }
-  });
 
   // Used for Autocomplete
   var filterSuggestions = function(suggestableInput, suggestions) {

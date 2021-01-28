@@ -5,7 +5,9 @@
       .grid-y
         = f.input :title, input_html: { id: 'resource_title' }
         = f.input :description
-        = f.input :body, as: :ckeditor, input_html: { value: @resource.editor_body, id: 'resource_body_editor', ckeditor: { language: current_user.locale }, data: { 'ckeditor-class' => 'integral-post' } }
+        = f.simple_fields_for :active_block_list do |block_list|
+          = block_list.input :content, as: :block_editor
+
     .cell.medium-3
       .grid-y
         .cell

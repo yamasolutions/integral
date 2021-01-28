@@ -5,10 +5,5 @@ module Integral
     def title
       object.title
     end
-
-    # @return [String] formatted body
-    def body
-      object.body&.html_safe
-    end
   end
 end

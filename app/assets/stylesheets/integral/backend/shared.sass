@@ -491,38 +491,6 @@ p.help-text
     @include font-awesome('\f05a')
     margin-right: 0.5em
 
-.input.ckeditor
-  .cke
-    display: none
-  &:after
-    margin: 5rem 0
-    position: initial
-    top: 1em
-    display: block
-    font: normal normal normal 14px/1 FontAwesome
-    content: "\f110"
-    animation: fa-spin 1s infinite steps(8)
-    font-size: 3rem
-    text-align: center
-    color: #0089ec
-  &.loaded
-    &:after
-      display: none
-    .populate-button
-      display: block
-    .cke
-      display: block
-  a.populate-button
-    margin: 0.5rem 0
-    display: none
-    font-size: 0.75rem
-    color: $body-font-color-secondary
-    &:hover
-      color: $primary-color
-    i
-      width: 2em
-      text-align: center
-
 .radios
   label
     margin-bottom: 0
@@ -579,28 +547,6 @@ p.help-text
         color: $secondary-color
         i
           width: 1.25em
-
-.ckeditor
-  .cke_chrome
-    border: none
-  .cke .cke_inner
-    .cke_wysiwyg_frame, .cke_wysiwyg_div
-      background-color: transparent
-    .cke_contents
-      border-left: 0.5px solid #d4dfef
-      border-right: 1.5px solid #d4dfef
-    .cke_bottom
-      border-radius: 0 0 5px 5px
-      border: 0.5px solid #d4dfef
-      background-color: #edf1f7
-    .cke_top
-      border: 0.5px solid #d4dfef
-      border-radius: 5px 5px 0 0
-      background-color: rgba(212, 223, 239, 0.4)
-    .cke_toolgroup, .cke_combo_button
-      background: transparent
-      border: none
-
 
 ul.breadcrumbs
   a

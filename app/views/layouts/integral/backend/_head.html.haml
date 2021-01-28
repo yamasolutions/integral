@@ -5,6 +5,8 @@
   %meta{:name => "viewport", :content => "width=device-width, initial-scale=1, maximum-scale=1"}
   %meta{ name: "ROBOTS", content: "NOINDEX, NOFOLLOW" }
   %meta{ name: 'turbolinks-root', content: "/#{Integral.backend_namespace}" }
+  - if disable_turbolinks?
+    %meta{ name: 'turbolinks-visit-control', content: :reload }
 
   %title= page_title
 
@@ -14,6 +16,7 @@
   = javascript_include_tag 'integral/backend', 'data-turbolinks-track' => true
   = javascript_pack_tag 'integral/backend'
   = stylesheet_pack_tag 'integral/backend'
+  = stylesheet_link_tag 'integral/block_editor'
 
   = csrf_meta_tags
 

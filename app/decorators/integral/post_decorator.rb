@@ -94,10 +94,5 @@ module Integral
         ''
       end
     end
-
-    # @return [String] formatted body
-    def body
-      object.body&.html_safe
-    end
   end
 end

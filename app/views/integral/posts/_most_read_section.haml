@@ -3,6 +3,6 @@
   .grid-x.grid-padding-x
     - most_read_posts.each do |post|
       .cell.small-6.medium-3
-        = link_to post do
+        = link_to integral.post_url(post.slug) do
           = image_tag post.image(:medium), alt: post.title
           .inline-articles-title= post.title

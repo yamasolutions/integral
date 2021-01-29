@@ -15,7 +15,7 @@ Gem::Specification.new do |s|
   s.files = Dir['{app,config,db,lib}/**/*', 'MIT-LICENSE', 'Rakefile', 'README.md', 'spec/factories.rb', 'spec/support/image.jpg', 'public/**/*']
 
   s.add_dependency 'active_record_union', '~> 1.3.0' # Table Unions - Used joining Versioning tables
-  s.add_dependency 'acts-as-taggable-on', '~> 6.0' # Tagging
+  s.add_dependency 'acts-as-taggable-on', '~> 7' # Tagging
   s.add_dependency 'breadcrumbs_on_rails', '~> 3.0' # Breadcrumbs
   s.add_dependency 'carrierwave', '~> 1.0' # File uploader
   s.add_dependency 'carrierwave-imageoptimizer', '~> 1.4' # Image compression
@@ -49,10 +49,9 @@ Gem::Specification.new do |s|
   s.add_dependency 'parsley-rails', '~> 2.4.4' # Jquery form validation plugin
   s.add_dependency 'premailer-rails', '~> 1.11' # Stylesheet inlining for email
   s.add_dependency 'pundit', '~> 1.1' # Authorization
-  s.add_dependency 'rails', '~> 6.0.1'
-  s.add_dependency 'webpacker', '~> 5.1'
+  s.add_dependency 'rails', '~> 6.1.1'
   s.add_dependency 'rails-settings-cached', '~> 0.6' # Persisted settings
-  s.add_dependency 'sass-rails', '~> 5.0' # Sass
+  s.add_dependency 'sass-rails', '~> 6.0' # Sass
   s.add_dependency 'simple_form', '~> 5.0' # Form builder
   s.add_dependency 'sitemap_generator', '~> 6.0.1' # Sitemap Generator
   s.add_dependency "toastr-rails", "~> 1.0" # Javascript notification Toastr
@@ -61,10 +60,10 @@ Gem::Specification.new do |s|
   s.add_dependency 'will_paginate', '~> 3.1' # Pagination
   s.add_dependency 'will_paginate-foundation', '~> 6.2' # Pagination for Foundation
   s.add_dependency 'fast_jsonapi', '~> 1.5' # Object Serialization
-  s.add_dependency 'route_translator', '~> 8.0.0' # Multilingual routing
+  s.add_dependency 'route_translator', '~> 8.0' # Multilingual routing
 
   s.add_development_dependency 'database_cleaner', '~> 1.5' # Manages database test states
-  s.add_development_dependency 'factory_bot_rails', '~> 4.8' # Create reusable object templates
+  s.add_development_dependency 'factory_bot_rails', '~> 5.0' # Create reusable object templates
   s.add_development_dependency 'faker', '~> 1.6' # Random data generator
   s.add_development_dependency 'pry-rails', '~> 0.3' # Debugger
   s.add_development_dependency 'rails-controller-testing', '~> 1.0' # Rails controller testing

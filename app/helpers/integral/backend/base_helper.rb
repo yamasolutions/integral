@@ -1,12 +1,9 @@
-require "webpacker/helper"
-
 module Integral
   # View helper methods for Backend pages
   module Backend
     # Base Backend Helper
     module BaseHelper
       include Integral::SupportHelper
-      include ::Webpacker::Helper
 
       def grouped_page_parent_options
         @resource.available_parents.order('updated_at DESC').group_by(&:locale).map do |result|
@@ -33,10 +30,6 @@ module Integral
             result[1].map { |page| ["#{page.title} - #{page.path} (##{page.id})", page.id, {disabled: @resource.alternate_ids.include?(page.id), data: { title: page.title, description: page.description, path: page.path, url: backend_page_url(page.id) } }] }
           ]
         end.to_h
-      end
-
-      def current_webpacker_instance
-        Integral.webpacker
       end
 
       def render_main_menu

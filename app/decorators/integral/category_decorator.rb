@@ -19,13 +19,7 @@ module Integral
     end
 
     def image_url(size: nil, transform: nil)
-      return fallback_image_url if image.nil?
-
       app_url_helpers.url_for(image_variant(image, size: size, transform: transform))
-    end
-
-    def fallback_image_url
-      h.image_url('integral/defaults/no_image_available.jpg')
     end
   end
 end

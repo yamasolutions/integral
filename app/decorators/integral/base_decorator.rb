@@ -28,9 +28,15 @@ module Integral
       }
     end
 
+    def render_active_block_list
+      helpers.render_blocks(active_block_list.content)
+    end
+
     private
 
     def image_variant(image, size: nil, transform: nil)
+      return fallback_image_url if image.nil?
+
       if size
         image.variant(resize_to_limit: Integral.image_sizes[size])
       elsif transform
@@ -40,16 +46,16 @@ module Integral
       end
     end
 
+    def fallback_image_url
+      h.image_url('integral/defaults/no_image_available.jpg')
+    end
+
     def engine_url_helpers
       Integral::Engine.routes.url_helpers
     end
 
     def app_url_helpers
       Rails.application.routes.url_helpers
-    end
-
-    def render_active_block_list
-      helpers.render_blocks(active_block_list.content)
     end
   end
 end

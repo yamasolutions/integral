@@ -39,7 +39,7 @@ module Integral
     # @return [String] image linked to whodunnit
     def whodunnit_avatar_url
       if whodunnit.present?
-        whodunnit.avatar
+        whodunnit.decorate.avatar_url
       else
         ActionController::Base.helpers.asset_path('integral/defaults/user_avatar.jpg')
       end

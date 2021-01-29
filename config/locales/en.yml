@@ -317,16 +317,6 @@ en:
           page_editor: Page Editor
           post_manager: Post Manager
           list_manager: List Manager
-      record_selector:
-        posts:
-          record: Post
-          title: Select a Post..
-        pages:
-          record: Page
-          title: Select a Page..
-        images:
-          record: Image
-          title: Select an Image..
       activities:
         index:
           title: Website Activity

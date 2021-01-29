@@ -23,7 +23,7 @@
           - if @activity.whodunnit.present?
             = link_to backend_user_url(@activity.whodunnit.id) do
               %span.val.thumb
-                = image_tag @activity.whodunnit.avatar.url(:thumbnail), class: :avatar
+                = image_tag @activity.whodunnit.avatar_url, class: :avatar
                 = @activity.whodunnit.name
 
   .cell.medium-3

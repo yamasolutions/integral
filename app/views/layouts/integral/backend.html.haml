@@ -60,10 +60,10 @@
                         %p.notification-list-loader.js-loader--notifications
                           = icon('spinner', class: 'fa-pulse fa-fw')
                 %li
-                  %button.button.clear.avatar{ type: 'button', data: { toggle: 'profile-dropdown'}}= image_tag(decorated_current_user.avatar, class: 'avatar')
+                  %button.button.clear.avatar{ type: 'button', data: { toggle: 'profile-dropdown'}}= image_tag(decorated_current_user.avatar_url, class: 'avatar')
                   #profile-dropdown.dropdown-pane.dropdown-pane--profile{ data: { dropdown: true, hover: 'true', 'hover-pane'=> 'true', 'v-offset'=> '35', 'hover-delay'=> 50 }}
                     .section
-                      = image_tag(decorated_current_user.avatar, class: 'avatar')
+                      = image_tag(decorated_current_user.avatar_url, class: 'avatar')
                       %span.name= current_user.name
                       %span.email= current_user.email
                     .section
@@ -113,5 +113,4 @@
             = render partial: 'integral/backend/shared/breadcrumbs'
             = yield
     = render partial: 'integral/backend/shared/resource_selector'
-    -# = render partial: 'integral/backend/shared/record_selector/modal', locals: { search_path: list_backend_img_index_path, title: t('integral.prompts.select_image'), name: 'Media', create_modal: '#new_image_modal', initialize: true }
     = render partial: 'integral/backend/shared/activity_modal'

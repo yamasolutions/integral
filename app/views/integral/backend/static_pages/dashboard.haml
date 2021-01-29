@@ -9,12 +9,11 @@
         .cell.medium-6.flex-container= render_card(:object, { title: t('.recent_post'), resource: Integral::Post.published.last.decorate })
 
       .cell.medium-6.flex-container= render_card(:object, { title: t('.recent_page'), resource: Integral::Page.published.last.decorate })
-      .cell.xlarge-6.flex-container= render_card(:recent_user_activity)
   .cell.large-6
     -# Right Column
     .grid-x
-      .cell= render_card(:recent_activity)
-      .cell= render_card(:recent_user_activity)
+      .cell.xlarge-6= render_card(:recent_activity)
+      .cell.xlarge-6= render_card(:recent_user_activity)
       .cell= render_card(:at_a_glance)
       .cell
         .card

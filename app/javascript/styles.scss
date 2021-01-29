@@ -43,6 +43,11 @@ $header-height: 50px;
   div {
     outline: 0;
   }
+
+  .block-editor-url-popover__additional-controls,
+  .block-editor-media-replace-flow__options .components-form-file-upload {
+    display: none;
+  }
 }
 
 // In order to use mix-blend-mode, this element needs to have an explicitly set background-color.

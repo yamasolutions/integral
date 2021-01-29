@@ -4,14 +4,14 @@
     %h2
       Recent
       = resource_klass.model_name.human.pluralize
-  %table.hover
+  %table.table--resources
     - resource_klass.limit(5).order('updated_at DESC').decorate.each do |resource|
       %tr
         %td= resource.title
         %td
-          = link_to backend_resource_url(resource.id), class: 'button--action-pane' do
+          = link_to backend_resource_url(resource), class: 'button--action-pane' do
             = icon('eye')
-          -# = link_to edit_backend_resource_url(resource.id), class: 'button--action-pane' do
+          -# = link_to edit_backend_resource_url(resource), class: 'button--action-pane' do
           -#   = icon('edit')
 
   = link_to t('integral.actions.view_all'), list_backend_resources_url, class: 'button clear expanded'

@@ -2,7 +2,6 @@ FactoryBot.define do
   sequence(:name) { |n| Faker::Name.name[0..20] }
   sequence(:email) { |n| Faker::Internet.email }
   sequence(:title) { |n| Faker::Book.title }
-  sequence(:body) { |n| File.read(File.join(Integral::Engine.root.join('public', 'integral', 'ckeditor_demo_content.html'))) }
   sequence(:phone_number) { |n| Faker::PhoneNumber.phone_number[0..19] }
   sequence(:description) { |n| Faker::Lorem.paragraph(8)[50..150] }
   sequence(:tag_list) { |n| Faker::Hipster.words(Faker::Number.between(1, 5), true, true) }
@@ -48,7 +47,6 @@ FactoryBot.define do
     title
     path { "/#{Faker::Lorem.words(2).join('/')}" }
     description
-    body
   end
 
   factory :integral_post, class: 'Integral::Post' do
@@ -59,7 +57,6 @@ FactoryBot.define do
     user
     slug { Faker::Internet.slug(nil, '-') }
     image
-    body
     view_count
     created_at { Faker::Time.backward(30) }
     published_at { Faker::Time.backward(30) }

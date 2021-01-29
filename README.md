@@ -10,7 +10,7 @@ Out of the box integral provides;
     * Activity tracking
     * User notifications
     * User authentication & authorization
-    * Page & Post management with full WYSWIYG editing
+    * Page & Post management with block editor
     * File management using Active Storage + direct uploads
     * List management
     * Settings management

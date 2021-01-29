@@ -3,7 +3,7 @@ require 'devise_invitable'
 
 require 'integral/version'
 require 'integral/router'
-require 'integral/middleware/page_router'
+require 'integral/middleware/alias_router'
 require 'integral/engine'
 require 'integral/button_link_renderer'
 require 'integral/google_tag_manager'
@@ -16,9 +16,10 @@ require 'integral/grids/posts_grid'
 require 'integral/grids/files_grid'
 require 'integral/acts_as_listable'
 require 'integral/acts_as_integral'
-require 'integral/widgets/recent_posts'
-require 'integral/widgets/swiper_list'
-require 'integral/content_renderer'
+require 'integral/block_editor/blocks/base'
+require 'integral/block_editor/blocks/recent_posts'
+require 'integral/block_editor/blocks/contact_form'
+require 'integral/block_editor/block_list_renderer'
 require 'integral/list_renderer'
 require 'integral/swiper_list_renderer'
 require 'integral/list_item_renderer'
@@ -57,9 +58,6 @@ module Integral
   mattr_accessor :additional_settings_params
   @@additional_settings_params = []
 
-  mattr_accessor :additional_widgets
-  @@additional_widgets = []
-
   mattr_accessor :additional_post_params
   @@additional_post_params = []
 
@@ -97,9 +95,6 @@ module Integral
 
   mattr_accessor :additional_page_templates
   @@additional_page_templates = []
-
-  mattr_accessor :additional_tracked_classes
-  @@additional_tracked_classes = []
 
   mattr_accessor :compression_enabled
   @@compression_enabled = true
@@ -146,5 +141,12 @@ module Integral
   # @return [Boolean] Enables Dynamic Routing of the homepage using Integral::Middleware::Router
   def self.dynamic_homepage_enabled?
     Integral.root_path.nil?
+  end
+
+  # @return [Array] Dynamic block editor block types
+  def self.dynamic_blocks
+    # TODO: Allow host app to add additional blocks
+    # i.e. blocks.concat Integral.additional_dynamic_blocks
+    [ Integral::BlockEditor::Blocks::ContactForm, Integral::BlockEditor::Blocks::RecentPosts ]
   end
 end

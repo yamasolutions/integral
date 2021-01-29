@@ -36,7 +36,7 @@ module Integral
         post 'contact', to: 'contact#contact'
         post 'newsletter_signup', to: 'contact#newsletter_signup'
 
-        # Dynamic pages (URLs are rewritten in Integral::Middleware::PageRouter)
+        # Dynamic pages (URLs are rewritten in Integral::Middleware::AliasRouter)
         if Integral.multilingual_frontend?
           localized do
             resources :pages, only: %i[show]
@@ -75,9 +75,6 @@ module Integral
         scope Integral.backend_namespace do
           # User Authentication
           devise_for :users, class_name: 'Integral::User', module: :devise
-
-          # WYSIWYG Editor
-          mount Ckeditor::Engine => '/ckeditor'
         end
 
         namespace :backend, path: Integral.backend_namespace do
@@ -90,6 +87,7 @@ module Integral
           resources :users do
             get 'list', on: :collection
             member do
+              put 'read_all_notifications'
               put 'read_notification'
               get 'notifications'
               put 'block'
@@ -117,6 +115,7 @@ module Integral
             get 'list', on: :collection
             member do
               post 'duplicate'
+              get 'block_editor'
               get 'activities', controller: 'pages'
               get 'activities/:activity_id', to: 'pages#activity', as: :activity
             end

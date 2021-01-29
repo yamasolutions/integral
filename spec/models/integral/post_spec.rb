@@ -27,7 +27,6 @@ module Integral
       it { is_expected.to validate_presence_of :title }
       it { is_expected.to validate_length_of(:title).is_at_least(Integral.title_length_minimum) }
       it { is_expected.to validate_length_of(:title).is_at_most(Integral.title_length_maximum) }
-      it { is_expected.to validate_presence_of :body }
       it { is_expected.to validate_presence_of :user }
       it { is_expected.to validate_presence_of :description }
       it { is_expected.to validate_length_of(:description).is_at_least(Integral.description_length_minimum) }

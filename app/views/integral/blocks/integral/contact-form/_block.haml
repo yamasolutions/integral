@@ -1,0 +1,10 @@
+.wp-block-integral-contact-form
+  = simple_form_for Integral::Enquiry.new(newsletter_opt_in: true), url: integral.contact_path, validate: true, remote: true, html: { class: 'remote-form', data: { 'contact-form' => true, 'remote-form-event' => 'contactFormSubmission', 'remote-form-reset-on-success' => 'false' } }  do |f|
+    = f.hidden_field :context, value: I18n.locale
+    = f.input :name, label: false, placeholder: t('integral.contact_form.placeholders.name')
+    = f.input :email, label: false, placeholder: t('integral.contact_form.placeholders.email')
+    = f.input :subject, label: false, placeholder: t('integral.contact_form.placeholders.subject')
+    = f.input :message, label: false, placeholder: t('integral.contact_form.placeholders.message'), as: :text
+    = f.input :newsletter_opt_in, label: t('integral.contact_form.newsletter_opt_in'), as: :boolean
+    = f.button :submit , t('integral.contact_form.submit'), class: 'button expanded hollow'
+

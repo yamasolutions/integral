@@ -33,7 +33,6 @@ module Integral
       fill_in 'Title', with: builder.title
       fill_in 'Description', with: builder.description
       fill_in 'Path', with: builder.path
-      fill_in_ckeditor 'resource_body_editor', with: builder.body
 
       click_on 'Create Page'
       sleep 1
@@ -47,8 +46,6 @@ module Integral
       within("#resource_form") do
         fill_in 'Title', with: builder.title
         fill_in 'Description', with: builder.description
-
-        fill_in_ckeditor 'resource_body_editor', with: builder.body
       end
 
       first(:button, 'Update Page').click

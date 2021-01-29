@@ -69,12 +69,6 @@ module Integral
       end
     end
 
-    describe '#body' do
-      it 'returns formatted body' do
-        expect(subject.body).to eq post.body
-      end
-    end
-
     describe '#image' do
       context 'when image is available' do
         it 'returns image URL' do

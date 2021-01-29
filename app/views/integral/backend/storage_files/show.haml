@@ -17,7 +17,7 @@
                   = link_to t('integral.actions.edit'), edit_backend_resource_url(@resource.id), icon: :edit, wrapper: :cell
                 = link_to t('integral.actions.download'), rails_blob_path(@resource.attachment, disposition: "attachment"), target: :blank, icon: 'download', wrapper: :cell
                 - if policy(resource_klass).destroy?
-                  = link_to t('integral.actions.delete'), backend_resource_url(@resource.id), method: :delete, data: { confirm: t('integral.actions.confirmation.deletion') }, icon: :remove, wrapper: :cell
+                  = link_to t('integral.actions.delete'), backend_resource_url(@resource), method: :delete, data: { confirm: t('integral.actions.confirmation.deletion') }, icon: :remove, wrapper: :cell
 
       .cell.medium-6.flex-container= render_card(:object, { title: 'Essentials', resource: decorated_resource })
       .cell.xlarge-6.flex-container= render_card(:recent_user_activity)

@@ -1,6 +1,7 @@
 module Integral
   # Renders dynamic pages
   class PagesController < Integral.frontend_parent_controller.constantize
+    before_action :validate_routed_through_alias, only: [:show]
     before_action :find_page, only: [:show]
     before_action :set_breadcrumbs
 

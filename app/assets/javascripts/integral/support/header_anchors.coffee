@@ -5,9 +5,10 @@ class this.HeaderAnchors
   @init: ->
     # Add self links to h2, h3 & h4 anchors
     # This allows users to click the anchor to link to
-    $('.wysiwyg-content h2 a[name], .wysiwyg-content h3 a[name], .wysiwyg-content h4 a[name]').each ->
-      @dataset.turbolinks = false
-      @href = '#' + @name
+    $('.wysiwyg-content h2[id], .wysiwyg-content h3[id], .wysiwyg-content h4[id]').each ->
+      anchor = document.createElement("a")
+      anchor.setAttribute('href', '#' + @id)
+      @appendChild(anchor)
 
     # TL currently has a bug in which it reloads pages when an anchor link for the same page is clicked.
     # Workaround: As long as that link has data-turbolinks=false we don't need to preventDefault

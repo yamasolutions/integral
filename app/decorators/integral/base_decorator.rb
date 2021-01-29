@@ -47,5 +47,9 @@ module Integral
     def app_url_helpers
       Rails.application.routes.url_helpers
     end
+
+    def render_active_block_list
+      helpers.render_blocks(active_block_list.content)
+    end
   end
 end

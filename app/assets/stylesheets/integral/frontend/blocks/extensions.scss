@@ -1,0 +1,133 @@
+.section--summary, .section--features, .section--setup, .section--heroku-ready, .section--production-ready {
+  @include xy-grid-container;
+  margin: 3rem auto;
+}
+
+.text-summary {
+  margin: 3rem auto;
+  width: 80%;
+}
+
+.text-benefits {
+  font-size: 75%;
+  margin-top: -.5rem;
+  i {
+    color: $primary-color;
+    margin-right: .25rem;
+  }
+}
+
+.mb-0 {
+  margin-bottom: 0 !important;
+}
+
+.card {
+  hr {
+    border-bottom: .35rem solid $primary-color;
+    width: 15%;
+    margin: 1rem 0;
+  }
+}
+
+.section--hero {
+  padding-top: 2rem;
+  padding-bottom: 8rem;
+  background: linear-gradient(300deg, #dee1e1, #fff);
+  background-color: #f3f4f4;
+  @include breakpoint(medium only) {
+    .cell:first-of-type {
+      padding-right: 0;
+    }
+    .cell:last-of-type {
+      padding-left: 0;
+    }
+  }
+  @include breakpoint(small down) {
+    padding-top: 1rem;
+    padding-bottom: 6rem;
+  }
+
+  img {
+    position: relative;
+    z-index: 1;
+    // @include breakpoint(medium only) {
+    //   width: 200%;
+    // }
+    // @include breakpoint(small down) {
+    //   position: initial;
+    //   max-width: 100%;
+    // }
+  }
+
+  .button {
+    margin-bottom: 0;
+    margin-top: 1rem;
+  }
+  i:last-of-type {
+    margin-left: .5rem;
+  }
+}
+
+.section--anchors {
+  margin: 4rem 0;
+  -webkit-clip-path: polygon(0 10vw,100% 0,100% 100%,0 100%);
+  clip-path: polygon(0 10vw,100% 0,100% 100%,0 100%);
+  background-color: $white;
+  margin-top: calc(-10vw + -1.77778rem);
+  padding-top: calc(10vw + .88889rem);
+  text-align: center;
+  a {
+    color: #868b90;
+    font-weight: bold;
+    &:hover {
+      color: $primary-color;
+    }
+  }
+}
+
+
+.section--features {
+  padding-bottom: 10rem;
+  // img {
+  //   z-index: 1;
+  //   position: relative;
+  //   transform: scale(1.2);
+  // }
+}
+
+
+.section--partners {
+  -webkit-clip-path: polygon(0 10vw,100% 0,100% calc(100% - 10vw),0 100%);
+  clip-path: polygon(0 10vw,100% 0,100% calc(100% - 10vw),0 100%);
+  padding-top: calc(10vw + 2.22222rem);
+  padding-bottom: calc(10vw + .44444rem);
+  margin-top: calc(-10vw + -2.22222rem);
+  background: #f3f4f4;
+  text-align: center;
+  h5 {
+    font-weight: bold;
+    margin: 1rem 0;
+    margin-bottom: 0;
+  }
+  i {
+    font-size: 3rem;
+    color: $primary-color;
+  }
+}
+
+.section--frontend-framework {
+  position: relative;
+  overflow: hidden;
+  -webkit-clip-path: polygon(0 0,100% 10vw,100% 100%,0 calc(100% - 10vw));
+  clip-path: polygon(0 0,100% 10vw,100% 100%,0 calc(100% - 10vw));
+  padding-top: calc(10vw + .88889rem);
+  padding-bottom: calc(10vw + 4.44444rem);
+  background: #1a66cb;
+  img {
+    position: absolute;
+    top: 0;
+    @include breakpoint(small down) {
+      position: initial;
+    }
+  }
+}

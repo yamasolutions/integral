@@ -7,11 +7,10 @@ module Integral
 
       let(:title) { 'foobar title' }
       let(:slug) { 'foobar-title' }
-      let(:body) { '<p>foobar body.</p>' }
       let(:description) { Faker::Lorem.paragraph(8)[0..150] }
       let(:tag_list) { 'foo,bar,tags' }
       let(:category) { create(:integral_category) }
-      let(:post_params) { { title: title, body: body, description: description, tag_list: tag_list, slug: slug, user_id: user.id, category_id: category.id } }
+      let(:post_params) { { title: title, description: description, tag_list: tag_list, slug: slug, user_id: user.id, category_id: category.id } }
       let(:user) { create(:post_manager) }
       let!(:user_post) { create(:integral_post) }
 
@@ -165,14 +164,14 @@ module Integral
           context 'when valid parameters supplied' do
             it { expect(response).to redirect_to(edit_backend_post_path(user_post.id)) }
             it { expect(user_post.title).to eql title }
-            it { expect(user_post.body).to eql body }
+            it { expect(user_post.description).to eql description }
           end
 
           context 'when invalid parameters supplied' do
-            let(:body) { '' }
+            let(:description) { '' }
 
             it { expect(user_post.title).not_to eql title }
-            it { expect(user_post.body).not_to eql body }
+            it { expect(user_post.description).not_to eql description }
             it { expect(response).to render_template 'edit' }
           end
         end

@@ -20,21 +20,5 @@ module Features
       # Ideally shouldn't have to pass visible: false here but doesn't work otherwise (?)
       find('a.button.hollow', text: 'Logout', visible: false).click
     end
-
-    # Fills in CKeditor
-    #
-    # Example usage:
-    # fill_in_ckeditor 'email_body', :with => 'This is my message!'
-    #
-    # @param locator [String] Used to locate the editor
-    # @param opts [Hash] contains what to fill the editor with and other options (See Capybara docs)
-    def fill_in_ckeditor(locator, opts)
-      sleep 1
-      content = opts.fetch(:with).to_json
-      page.execute_script <<-SCRIPT
-              CKEDITOR.instances['#{locator}'].setData(#{content});
-                                                           $('textarea##{locator}').text(#{content});
-      SCRIPT
-    end
   end
 end

@@ -5,7 +5,9 @@
       .grid-y
         = f.input :title, input_html: { id: 'resource_title' }
         = f.input :description
-        = f.input :body, as: :ckeditor, input_html: { value: @resource.editor_body, id: 'resource_body_editor', ckeditor: { language: current_user.locale }, data: { 'ckeditor-class' => 'integral-post' } }
+        = f.simple_fields_for :active_block_list do |block_list|
+          = block_list.input :content, as: :block_editor
+
     .cell.medium-3
       .grid-y
         .cell
@@ -30,7 +32,7 @@
 
             %p{data: { target: 'alternate-resource.emptyMessage' }, class: @resource.alternates.published.empty? ? '' : 'hide' } No alternates selected.
 
-            = select_tag :alternates, options_for_select(resource_klass.published.where.not(id: @resource.id).order('title ASC').map { |page| ["#{page.title} - #{page.slug}", page.id, {disabled: @resource.alternate_ids.include?(page.id), data: { title: page.title, description: page.description, path: page.slug, url: backend_post_url(page.id) } }] }), prompt: "Select an alternate..", data: { target: 'alternate-resource.dropdown', action: 'alternate-resource#add' }
+            = select_tag :alternates, grouped_options_for_select(grouped_post_alternate_options), prompt: "Select an alternate..", data: { target: 'alternate-resource.dropdown', action: 'alternate-resource#add' }
             %p.help-text Reference any published resources which serve as alternates. Example - versions of the same piece of content in different languages
 
         = f.association :user

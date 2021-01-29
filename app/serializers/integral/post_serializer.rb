@@ -3,7 +3,7 @@ module Integral
   class PostSerializer
     include FastJsonapi::ObjectSerializer
 
-    attributes :title, :description, :status, :slug, :created_at, :updated_at, :published_at, :body
+    attributes :title, :description, :status, :slug, :created_at, :updated_at, :published_at
 
     attribute :author do |post|
       post.author&.name

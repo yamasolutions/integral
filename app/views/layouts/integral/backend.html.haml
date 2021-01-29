@@ -52,6 +52,8 @@
                         Unread
                       %span.subtitle User Notifications
                     .section
+                      - if current_user.notifications.unread.count > 25
+                        = link_to 'Mark all as read', read_all_notifications_backend_user_url(current_user), method: :put, remote: true, class: 'notification-read-all', data: { confirm: 'Are you sure you want to mark all notifications as read?' }
                       %ul.menu.vertical.notification-list
                         = render recent_user_notifications.decorate, cached: true
                       - if current_user.multiple_page_notifications?
@@ -111,4 +113,5 @@
             = render partial: 'integral/backend/shared/breadcrumbs'
             = yield
     = render partial: 'integral/backend/shared/resource_selector'
+    -# = render partial: 'integral/backend/shared/record_selector/modal', locals: { search_path: list_backend_img_index_path, title: t('integral.prompts.select_image'), name: 'Media', create_modal: '#new_image_modal', initialize: true }
     = render partial: 'integral/backend/shared/activity_modal'

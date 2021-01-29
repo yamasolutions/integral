@@ -26,7 +26,7 @@ module Integral
       # Copy required migrations
       def copy_migrations
         rake 'integral:install:migrations'
-        rails 'active_storage:install'
+        rake 'active_storage:install'
       end
 
       # Create, migrate and run setup on database - setup is incase DB was already present

@@ -1,7 +1,7 @@
 - options = local_assigns.reverse_merge({ order: true, columns: resource_grid_columns })
 
 = render_data_grid do
-  %table.integral-grid.wice-grid.table-striped.hover
+  %table.table--resources
     %thead
       %tr
         - resource_grid.html_columns(*options[:columns]).uniq { |col| col.name }.sort_by{ |item| options[:columns].index item.name }.each do |column|
@@ -17,5 +17,12 @@
       - else
         = render partial: 'integral/backend/shared/grid/empty'
 
-  = render partial: 'integral/backend/shared/grid/pagination', locals: { records: resource_grid.assets }
+  .top-bar
+    .top-bar-left
+      = render partial: 'integral/backend/shared/grid/pagination', locals: { records: resource_grid.assets }
+    .top-bar-right
+      %p
+        = link_to t('integral.actions.clear_filters'), { clear_retained_options: true }
+        |
+        = page_entries_info resource_grid.assets
   = icon('spinner', class: 'fa-pulse fa-3x fa-fw load-indicator')

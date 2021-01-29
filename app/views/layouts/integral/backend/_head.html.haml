@@ -11,6 +11,9 @@
   %meta{ name: "integral-file-accepted-types", content: Integral.accepted_file_types.join(',') }
   %meta{ name: "integral-file-maximum-size", content: Integral.maximum_file_size }
 
+  - if disable_turbolinks?
+    %meta{ name: 'turbolinks-visit-control', content: :reload }
+
   %title= page_title
 
   %link{ href: 'https://fonts.googleapis.com/css?family=Nunito:400,600', rel: 'stylesheet', type: 'text/css' }
@@ -18,5 +21,7 @@
   = stylesheet_link_tag    'integral/backend', media: 'all', 'data-turbolinks-track' => true
   = javascript_include_tag 'integral/backend', 'data-turbolinks-track' => true
   = javascript_pack_tag 'integral/backend'
+  = stylesheet_pack_tag 'integral/backend'
+  = stylesheet_link_tag 'integral/block_editor'
 
   = csrf_meta_tags

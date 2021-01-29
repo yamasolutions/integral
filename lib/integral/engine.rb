@@ -22,14 +22,12 @@ module Integral
     require 'breadcrumbs_on_rails'
     require 'foundation-rails'
     require 'pundit'
-    require 'ckeditor'
     require 'paper_trail'
     require 'diffy'
     require 'active_record_union'
     require 'i18n-js'
     require 'meta-tags'
     require 'sitemap_generator'
-    # require 'before_render'
     require 'friendly_id'
     require 'acts-as-taggable-on'
     require 'paranoia'
@@ -51,7 +49,7 @@ module Integral
     end
 
     # Dynamic page routing
-    config.middleware.use Integral::Middleware::PageRouter
+    config.middleware.use Integral::Middleware::AliasRouter
 
     # Engine customization
     config.to_prepare do
@@ -98,15 +96,6 @@ module Integral
         'integral/tiles/*',
         # Defaults
         'integral/defaults/*',
-        # CKEditor Overrides
-        'ckeditor/my_contents.css',
-        'ckeditor/my_styles.js',
-        'ckeditor/my_config.js',
-        'ckeditor/filebrowser/*',
-        'ckeditor/skins/*',
-        'ckeditor/lang/*',
-        'ckeditor/plugins/*',
-
         # Frontend
         'integral/frontend.js',
         'integral/frontend.css',
@@ -120,6 +109,9 @@ module Integral
         'integral/backend/logo.png',
         'integral/backend/data-unavailable.png',
         'integral/image-not-set.png',
+
+        # Block Editor
+        'integral/block_editor.css',
 
         # Emails
         'integral/emails.css',

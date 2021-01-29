@@ -1,0 +1,107 @@
+$primary-color: #1b8ecf;
+
+@function theme($selector) {
+  @return $primary-color;
+}
+
+@function color($color) {
+  @return $color;
+}
+
+@import "~@wordpress/base-styles/colors";
+@import "~@wordpress/base-styles/variables";
+@import "~@wordpress/base-styles/mixins";
+@import "~@wordpress/base-styles/breakpoints";
+@import "~@wordpress/base-styles/animations";
+@import "~@wordpress/base-styles/z-index";
+
+.block-editor {
+  label {
+    font-size: $default-font-size;
+  }
+}
+@import "~@wordpress/components/src/style";
+@import "~@wordpress/block-editor/src/style";
+@import "~@wordpress/block-library/src/style";
+
+// Internal
+@import "components/sidebar/styles";
+@import "components/header/styles";
+@import "components/block-editor/styles";
+
+$header-height: 50px;
+
+.block-editor {
+  @include reset;
+  margin: 0;
+  padding: 0;
+  font-family: $default-font;
+  font-size: $default-font-size;
+  position: relative;
+
+  a,
+  div {
+    outline: 0;
+  }
+}
+
+// In order to use mix-blend-mode, this element needs to have an explicitly set background-color.
+// We scope it to .wp-toolbar to be wp-admin only, to prevent bleed into other implementations.
+html.wp-toolbar {
+	background: $white;
+}
+
+// The modals are shown outside the .block-editor wrapper, they need these styles.
+.block-editor, .components-modal__frame {
+  @include reset;
+}
+
+.block-editor-block-breadcrumb {
+  position: absolute;
+  bottom: 0;
+  z-index: 1;
+  background-color: $white;
+  width: 100%;
+  border-top: 1px solid #e2e4e7;
+}
+
+@import 'select2/src/scss/core.scss';
+
+.select2 {
+  &-selection {
+    border-radius: 0 !important;
+    border-color: #d4dfef !important;
+    height: 2rem !important;
+  }
+
+  &-results__option {
+    font-size: 0.9rem !important;
+  }
+
+  &-selection__rendered {
+    flex: 1 !important;
+    display: flex !important;
+    overflow: auto !important;
+  }
+
+  &-selection__choice {
+    margin-top: 3px !important;
+  }
+
+  &-selection--single span {
+    color: #0a0a0a !important;
+    font-size: 14px;
+  }
+  &-search--inline .select2-search__field {
+    height: 1rem;
+    margin-top: 8px;
+    margin-bottom: 0;
+    font-size: 0.9rem !important;
+  }
+
+  &-search--dropdown .select2-search__field {
+    border: solid 0.5px #d4dfef;
+  }
+}
+
+@import "trix/dist/trix";

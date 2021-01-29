@@ -2,8 +2,8 @@ module Integral
   # Represents a user post
   class Post < ApplicationRecord
     include ActionView::Helpers::DateHelper
-    include LazyContentable
     include Webhook::Observable
+    include BlockEditor::Listable
 
     acts_as_integral({
       icon: 'rss',
@@ -39,7 +39,7 @@ module Integral
                                                 maximum: Integral.title_length_maximum }
     validates :description, presence: true, length: { minimum: Integral.description_length_minimum,
                                                       maximum: Integral.description_length_maximum }
-    validates :body, :user, :slug, presence: true
+    validates :user, :slug, presence: true
     validates :locale, presence: true
 
     # Nested forms

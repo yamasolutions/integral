@@ -4,7 +4,7 @@ module Integral
     # Runs setup for an Integral Application
     class InstallGenerator < Rails::Generators::Base
       source_root File.expand_path('../templates', __dir__)
-      desc 'Creates Integral, Carrierwave, CarrierwaveBackgrounder & Sitemap initializers'
+      desc 'Creates Integral initializers and routes then sets up database'
 
       # Copies over necessary initialiser files
       def copy_initializer_files
@@ -28,6 +28,7 @@ module Integral
       # Copy required migrations
       def copy_migrations
         rake 'integral:install:migrations'
+        rake 'active_storage:install'
       end
 
       # Create, migrate and run setup on database - setup is incase DB was already present

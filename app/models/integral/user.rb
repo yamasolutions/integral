@@ -9,6 +9,7 @@ module Integral
 
     mount_uploader :avatar, AvatarUploader
     process_in_background :avatar
+    has_one_attached :image
 
     # Included devise modules. Others available are:
     # :confirmable, :timeoutable, :omniauthable, registerable and lockable

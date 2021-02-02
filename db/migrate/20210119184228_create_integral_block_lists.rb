@@ -26,11 +26,11 @@ class CreateIntegralBlockLists < ActiveRecord::Migration[6.0]
     add_index :integral_block_list_versions, %i(item_type item_id)
 
     Integral::Post.unscoped.each do |resource|
-      resource.update_column(:active_block_list_id, Integral::BlockEditor::BlockList.create!(content: resource.body, listable: resource).id)
+      Integral::BlockEditor::BlockList.create!(content: resource.body, listable: resource, active: true)
     end
 
     Integral::Page.unscoped.each do |resource|
-      resource.update_column(:active_block_list_id, Integral::BlockEditor::BlockList.create!(content: resource.body, listable: resource).id)
+      Integral::BlockEditor::BlockList.create!(content: resource.body, listable: resource, active: true)
     end
 
     remove_column :integral_pages, :body

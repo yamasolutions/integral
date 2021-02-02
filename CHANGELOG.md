@@ -14,6 +14,7 @@ recommendations of [keepachangelog.com](http://keepachangelog.com/).
 
 ### Added
 
+- Add model, DB migrations and conversion tasks for switching from Carrierwave to Active Storage
 - Frontend multiple language support, controlled through the `frontend_locales` config option
 - Add Block Editor (Gutenberg) - replaces Ckeditor
 - Notifications - Add read all notifications button

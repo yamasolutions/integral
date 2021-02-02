@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_29_174938) do
+ActiveRecord::Schema.define(version: 2021_02_02_025646) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -101,32 +101,6 @@ ActiveRecord::Schema.define(version: 2021_01_29_174938) do
     t.datetime "deleted_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "integral_image_versions", force: :cascade do |t|
-    t.string "item_type", null: false
-    t.integer "item_id", null: false
-    t.string "event", null: false
-    t.string "whodunnit"
-    t.text "object"
-    t.text "object_changes"
-    t.datetime "created_at"
-    t.index ["item_type", "item_id"], name: "index_integral_image_versions_on_item_type_and_item_id"
-  end
-
-  create_table "integral_images", id: :serial, force: :cascade do |t|
-    t.string "title"
-    t.string "description"
-    t.string "file"
-    t.integer "width"
-    t.integer "height"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.datetime "deleted_at"
-    t.boolean "file_processing", default: true, null: false
-    t.integer "file_size"
-    t.integer "lock_version"
-    t.index ["deleted_at"], name: "index_integral_images_on_deleted_at"
   end
 
   create_table "integral_list_item_connections", id: false, force: :cascade do |t|
@@ -328,7 +302,6 @@ ActiveRecord::Schema.define(version: 2021_01_29_174938) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string "name"
-    t.string "avatar"
     t.string "locale", default: "en", null: false
     t.string "invitation_token"
     t.datetime "invitation_created_at"
@@ -339,7 +312,6 @@ ActiveRecord::Schema.define(version: 2021_01_29_174938) do
     t.integer "invited_by_id"
     t.integer "invitations_count", default: 0
     t.datetime "deleted_at"
-    t.boolean "avatar_processing", default: true, null: false
     t.integer "lock_version"
     t.boolean "admin", default: false
     t.boolean "notify_me", default: true

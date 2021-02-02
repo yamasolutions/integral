@@ -8,11 +8,14 @@ namespace :integral do
     desc "Converts all Integral Images to Integral Files"
     task convert_images_to_files: [:environment] do
       carry_out_tasks Integral::Image, {} do |asset|
-        Integral::Storage::File.create!(
+        file = Integral::Storage::File.new(
           id: asset.id,
           title: asset.title,
           description: asset.description
+
         )
+        file.attachment.attach(io: open(asset.file.url), filename: asset.file.file.path.split("/").last)
+        file.save!
       end
     end
   end

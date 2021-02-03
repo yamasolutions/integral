@@ -6,8 +6,8 @@ namespace :integral do
     end
 
     desc "Converts all Integral Images to Integral Files"
-    task convert_images_to_files: [:environment] do
-      carry_out_tasks Integral::Image, {} do |asset|
+    task :convert_images_to_files, [:start_index, :finish_index] => [:environment] do |task, args|
+      carry_out_tasks Integral::Image, { start: args[:start_index], finish: args[:finish_index] } do |asset|
         file = Integral::Storage::File.new(
           id: asset.id,
           title: asset.title,
@@ -16,6 +16,7 @@ namespace :integral do
         )
         file.attachment.attach(io: open(asset.file.url), filename: asset.file.file.path.split("/").last)
         file.save!
+        puts "AS attachment created for Integral::Storage::File##{file.id}"
       end
     end
   end

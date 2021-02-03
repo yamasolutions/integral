@@ -12,6 +12,7 @@ recommendations of [keepachangelog.com](http://keepachangelog.com/).
 - Bump to Ruby 2.7.2
 - Bump to Rails 6.1
 - Replace Carrierwave with ActiveStorage
+- Upgrade Font Awesome from 4.7.0 to 5.x
 
 ### Added
 

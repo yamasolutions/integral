@@ -20,13 +20,13 @@
               %li
                 - if category.posts.count.zero?
                   = link_to backend_category_url(category.id), method: :delete, data: { confirm: t('integral.actions.confirmation.deletion'), button_delete_category: true }, remote: true do
-                    = icon('remove')
+                    = icon('trash')
                     = t('integral.actions.delete')
 
 
                 - else
                   %button.disabled{ title: "Cannot delete categories which include posts.", data: { tooltip: true, position: "bottom", alignment: "center" } }
-                    = icon('remove')
+                    = icon('trash')
                     = t('integral.actions.delete')
 
 

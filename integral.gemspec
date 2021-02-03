@@ -28,7 +28,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'devise', '>= 4.5', '< 4.8' # Authentication
   s.add_dependency 'devise_invitable', '~> 1.7' # Invitable authentication
   s.add_dependency 'draper', '~> 3.0' # Object decoration
-  s.add_dependency 'font-awesome-sass', '~> 4.3' # Grid Icons
+  s.add_dependency 'font-awesome-sass', '~> 5.15' # Icons
   s.add_dependency 'foundation-rails', '~> 6.6.2' # Foundation UI Framework
   s.add_dependency 'friendly_id', '~> 5.2' # Slugging
   s.add_dependency 'gaffe', '~> 1.2' # Custom error pages

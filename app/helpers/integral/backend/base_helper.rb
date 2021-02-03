@@ -8,6 +8,25 @@ module Integral
       include Integral::SupportHelper
       include ::Webpacker::Helper
 
+      # Override FontAwesomeSass icon Helper
+      #
+      # Font style is either passed in together with name
+      # or not passed in and solid (fas) is assumed.
+      def icon(name, text=nil, html_options={})
+        name = name.to_s if name.is_a?(Symbol)
+
+        if name.include?(' ')
+          name << " #{html_options[:class]}" if html_options.key?(:class)
+          html_options[:class] = name
+
+          html = content_tag(:i, nil, html_options)
+          html << ' ' << text.to_s unless text.blank?
+          html
+        else
+          super('fas', name, text, html_options)
+        end
+      end
+
       def grouped_page_parent_options
         @resource.available_parents.order('updated_at DESC').group_by(&:locale).map do |result|
           [

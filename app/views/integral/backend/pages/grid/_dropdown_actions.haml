@@ -2,10 +2,10 @@
   = link_to t('integral.actions.edit'), edit_backend_resource_url(resource), icon: :edit, wrapper: :li
 - unless resource.archived?
   = link_to t('integral.actions.view_on_site'), resource.path, icon: :eye, wrapper: :li
-= link_to t('integral.actions.open_in_new_tab'), backend_resource_url(resource), target: :blank, icon: 'external-link', wrapper: :li
+= link_to t('integral.actions.open_in_new_tab'), backend_resource_url(resource), target: :blank, icon: 'external-link-alt', wrapper: :li
 - if policy(resource_klass).duplicate?
   = link_to t('integral.actions.clone'), duplicate_backend_resource_url(resource), method: :post, data: { confirm: t('integral.actions.confirmation.clone') }, icon: :clone, wrapper: :li
 - if policy(Integral::Version).manager?
   = link_to t('integral.actions.view_history'), activities_backend_resource_url(resource), icon: :history, wrapper: :li
 - if policy(resource_klass).destroy?
-  = link_to t('integral.actions.delete'), backend_resource_url(resource), method: :delete, data: { confirm: t('integral.actions.confirmation.deletion') }, icon: :remove, wrapper: :li
+  = link_to t('integral.actions.delete'), backend_resource_url(resource), method: :delete, data: { confirm: t('integral.actions.confirmation.deletion') }, icon: :trash, wrapper: :li

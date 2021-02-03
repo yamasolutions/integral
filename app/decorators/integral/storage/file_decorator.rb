@@ -14,7 +14,7 @@ module Integral
         ]
 
         {
-          image: h.main_app.url_for(attachment.representation(resize_to_limit: [500, 500])),
+          image: app_url_helpers.url_for(attachment.representation(resize_to_limit: [500, 500])),
           description: description,
           url: backend_url,
           attributes: attributes

@@ -13,7 +13,7 @@ module Integral
         { key: I18n.t('integral.records.attributes.created_at'), value: I18n.l(created_at) }
       ]
 
-      image_url = object.image&.attached? ? h.main_app.url_for(image.attachment) : nil
+      image_url = object.image&.attached? ? app_url_helpers.url_for(image.attachment) : nil
 
       {
         image: image_url,

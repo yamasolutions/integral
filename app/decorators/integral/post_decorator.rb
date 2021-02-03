@@ -5,7 +5,7 @@ module Integral
 
     # @return [Hash] the instance as a card
     def to_backend_card
-      image_url = object.image&.attached? ? h.main_app.url_for(image.attachment) : nil
+      image_url = object.image&.attached? ? app_url_helpers.url_for(image.attachment) : nil
       attributes = [{ key: I18n.t('integral.records.attributes.status'), value: I18n.t("integral.records.status.#{status}") }]
       if Integral.multilingual_frontend?
         attributes += [{ key: I18n.t('integral.records.attributes.locale'), value: I18n.t("integral.language.#{locale}") }]

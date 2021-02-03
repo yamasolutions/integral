@@ -8,7 +8,7 @@ module Integral
 
     def avatar_url
       if object.avatar.attached?
-        h.main_app.url_for(object.avatar)
+        app_url_helpers.url_for(object.avatar)
       else
         ActionController::Base.helpers.asset_path('integral/defaults/user_avatar.jpg')
       end

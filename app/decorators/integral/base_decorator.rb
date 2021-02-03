@@ -34,6 +34,10 @@ module Integral
 
     private
 
+    def image_variant_url(image, size: nil, transform: nil)
+      app_url_helpers.url_for(image_variant(image, size: size, transform: transform))
+    end
+
     def image_variant(image, size: nil, transform: nil)
       return fallback_image_url if image.nil?
 

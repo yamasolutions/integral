@@ -80,11 +80,11 @@ module Integral
     def preview_image_url(size: nil, transform: nil)
       return image_url(size: size, transform: transform) if preview_image.nil?
 
-      app_url_helpers.url_for(image_variant(image, size: size, transform: transform))
+      image_variant_url(preview_image, size: size, transform: transform)
     end
 
     def image_url(size: nil, transform: nil)
-      app_url_helpers.url_for(image_variant(image, size: size, transform: transform))
+      image_variant_url(image, size: size, transform: transform)
     end
 
     # Date the post was published

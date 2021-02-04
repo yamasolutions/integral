@@ -14,7 +14,8 @@ namespace :integral do
           description: asset.description
 
         )
-        file.attachment.attach(io: open(asset.file.url), filename: asset.file.file.path.split("/").last)
+        asset_url = "#{CarrierWave::Uploader::Base.asset_host}/#{URI.encode_www_form_component(asset.file.file.path)}"
+        file.attachment.attach(io: open(asset_url), filename: asset.file.file.path.split("/").last)
         file.save!
         puts "AS attachment created for Integral::Storage::File##{file.id}"
       end
@@ -27,7 +28,8 @@ require 'open-uri'
 def convert_uploaders_to_attachments(klass, uploader, attachment)
   carry_out_tasks klass, {} do |asset|
     if asset.send(uploader).present? && !asset.send(attachment).attached?
-      asset.send(attachment).attach(io: open(asset.send(uploader).url), filename: asset.send(uploader).file.path.split("/").last)
+      asset_url = "#{CarrierWave::Uploader::Base.asset_host}/#{URI.encode_www_form_component(asset.send(uploader).file.path)}"
+      asset.send(attachment).attach(io: open(asset_url), filename: asset.send(uploader).file.path.split("/").last)
       puts "AS attachment created for #{klass}##{asset.id}"
     end
   end

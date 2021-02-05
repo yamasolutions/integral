@@ -134,16 +134,20 @@ module Integral
       Rails.application.routes.url_helpers.rails_blob_path(list_item.image.attachment)
     end
 
-    # @parameter version [Symbol] the version of the image so use if associated image is a file
-    #
-    # @return [String] the image URL
-    def image(version = nil)
-      image = provide_attr(:image)
+    def image
+      if list_item.image.present?
+        return list_item.image
+      elsif object_available? && object_data[:image].present?
+        object_data[:image]
+      end
+    end
 
-      return image.file.url(version) if image.respond_to?(:file)
-      return image if image.present?
-
-      fallback_image
+    def image_url(size: :medium)
+      if image.present?
+        Rails.application.routes.url_helpers.url_for(image.variant(resize_to_limit: Integral.image_sizes[size]))
+      else
+        fallback_image_url
+      end
     end
 
     # @return [Boolean] whether or not title is a required attribute
@@ -153,7 +157,7 @@ module Integral
     end
 
     # @return [String] path to fallback image for list items
-    def fallback_image
+    def fallback_image_url
       ActionController::Base.helpers.image_path('integral/defaults/no_image_available.jpg')
     end
 

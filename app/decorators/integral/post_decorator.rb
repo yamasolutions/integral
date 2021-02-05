@@ -2,6 +2,7 @@ module Integral
   # Page view-level logic
   class PostDecorator < BaseDecorator
     decorates_association :category
+    decorates_association :user
 
     # @return [Hash] the instance as a card
     def to_backend_card
@@ -61,8 +62,7 @@ module Integral
 
     # @return [String] avatar image
     def avatar
-      avatar_url = user&.avatar&.url(:thumbnail)
-      h.image_tag avatar_url, class: 'user-avatar' unless avatar_url.nil?
+      h.image_tag user.avatar_url, class: 'user-avatar' if user.present?
     end
 
     # Tags to be used within the header of an article to describe the subject

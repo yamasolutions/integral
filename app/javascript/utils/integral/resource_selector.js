@@ -44,6 +44,10 @@ class ResourceSelector extends EventEmitter {
     this.container.addEventListener("resources-selected", (event) => {
       this.emit('resources-selected', event.detail)
     });
+
+    window.jQuery(this.container).on("closed.zf.reveal", (event) => {
+      this.emit('closed')
+    });
   }
 
   open() {

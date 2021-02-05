@@ -8,7 +8,7 @@
       .cell.medium-9
         .top-bar
           .top-bar-left
-            .filter.search= text_field_tag :search, '', placeholder: 'Search..', data: { target: 'resource-selector.searchField', action: 'input->resource-selector#search' }
+            .filter.search= text_field_tag :search, '', placeholder: 'Search..', data: { target: 'resource-selector.searchField', action: 'input->resource-selector#searchInput' }
 
           .top-bar-right
             %button.button.create-button{ data: { target: 'resource-selector.uploadButton', action: 'resource-selector#upload' } }

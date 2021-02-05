@@ -22,7 +22,7 @@ export default class extends Controller {
   }
 
   remove() {
-    this.idFieldTarget.val = ''
+    this.idFieldTarget.value = ''
     this.previewImageTarget.src = ''
     this.previewImageTarget.classList.add('hide')
     this.placeholderImageTarget.classList.remove('hide')

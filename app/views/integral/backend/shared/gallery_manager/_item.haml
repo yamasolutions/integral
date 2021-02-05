@@ -1,0 +1,15 @@
+- formatted_item = Integral::ListItemRenderer.new(f.object)
+.cell.small-6.gallery-manager--item-wrapper{ data: { action: 'populate->gallery-manager-item#populate', controller: 'gallery-manager-item', modal: "gallery-item-modal-#{f.object.class.name.parameterize}-#{f.object.id}"}}
+  .gallery-manager--item-container{ data: { open: "gallery-item-modal-#{f.object.class.name.parameterize}-#{f.object.id}"}, class: formatted_item.list_item.link? ? 'video' : '' }
+    = link_to_remove_association f, class: '', wrapper_class: 'gallery-item-container' do
+      = icon('close')
+
+    = f.hidden_field :title, value: "Project Gallery List Item"
+    = f.hidden_field :type, value: 'Integral::Basic'
+    = f.hidden_field :image_id, data: { target: 'gallery-manager-item.imageField' }
+    = f.hidden_field :priority, data: { target: 'gallery-manager-item.priorityField' }
+    - if formatted_item.list_item.image.present?
+      = image_tag formatted_item.image_url(size: :small), data: { target: 'gallery-manager-item.image' }
+    - else
+      = image_tag '', data: { target: 'gallery-manager-item.image' }
+

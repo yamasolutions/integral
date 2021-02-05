@@ -82,9 +82,6 @@ module Integral
   mattr_accessor :frontend_parent_controller
   @@frontend_parent_controller = 'Integral::ApplicationController'
 
-  mattr_accessor :editor_image_size_limit
-  @@editor_image_size_limit = [1600, 1600]
-
   mattr_accessor :image_sizes
   @@image_sizes = {
     thumbnail: [50, 50],

@@ -51,7 +51,7 @@ module Integral
 
     def set_breadcrumbs
       super
-      add_breadcrumb t('integral.breadcrumbs.blog'), :posts_url
+      add_breadcrumb t('integral.breadcrumbs.blog'), integral.posts_url
     end
 
     def validate_page_has_results

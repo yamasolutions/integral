@@ -7,6 +7,7 @@ FactoryBot.define do
   sequence(:tag_list) { |n| Faker::Hipster.words(Faker::Number.between(1, 5), true, true) }
   sequence(:view_count) { rand(5000) }
   sequence(:url) { Faker::Internet.url }
+  sequence(:integral_image) { |n| FactoryBot.create(:integral_storage_file, attachment: Rack::Test::UploadedFile.new(File.join(Integral::Engine.root, 'app', 'assets', 'images', 'integral', 'defaults', 'no_image_available.jpg'))) }
 
   factory :integral_user, class: Integral::User, aliases: [:user, :recipient, :actor] do
     name
@@ -43,6 +44,12 @@ FactoryBot.define do
     name { 'some_role' }
   end
 
+  factory :integral_storage_file, class: 'Integral::Storage::File' do
+    title
+    description
+    attachment { Rack::Test::UploadedFile.new(File.join(Integral::Engine.root, 'app', 'assets', 'images', 'integral', 'defaults', 'no_image_available.jpg')) }
+  end
+
   factory :integral_page, class: 'Integral::Page' do
     title
     path { "/#{Faker::Lorem.words(2).join('/')}" }
@@ -56,7 +63,7 @@ FactoryBot.define do
     category
     user
     slug { Faker::Internet.slug(nil, '-') }
-    image
+    integral_image
     view_count
     created_at { Faker::Time.backward(30) }
     published_at { Faker::Time.backward(30) }
@@ -81,7 +88,7 @@ FactoryBot.define do
     title
     description
     slug { Faker::Internet.slug(nil, '-') }
-    image
+    integral_image
   end
 
   factory :integral_post_viewing, class: 'Integral::PostViewing' do

@@ -18,7 +18,6 @@ export default class extends Controller {
   static targets = [ "uploadButton", "submitButton", "loadIndicator", "collectionContainer", "searchField", "sidebarDescription", "sidebarTitle", "sidebarImage" ]
 
   connect() {
-    console.log('Connected to resource selector')
     this.selectedItems = []
 
     if (this.hasUploadButtonTarget) {
@@ -42,6 +41,10 @@ export default class extends Controller {
   }
 
   // TODO: Add a delay to allow user to finish typing before sending request - otherwise multiple requests made when only one was necessary
+  searchInput() {
+    this.search()
+  }
+
   search(page=1) {
     let url = this.element.dataset.resourceSelectorUrl + '?' + new URLSearchParams({
       page: page,

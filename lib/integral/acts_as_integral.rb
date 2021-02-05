@@ -83,8 +83,8 @@ module Integral
           class << self
             attr_accessor :integral_options
 
-            def decorator_class
-              super || Integral::BaseDecorator
+            def decorator_class(called_on = self)
+              super(called_on) || Integral::BaseDecorator
             end
 
             # @return [String] Font awesome icon name representing model - https://fontawesome.com/v4.7.0/icons/

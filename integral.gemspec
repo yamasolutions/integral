@@ -17,7 +17,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'active_record_union', '~> 1.3.0' # Table Unions - Used joining Versioning tables
   s.add_dependency 'acts-as-taggable-on', '~> 6.0' # Tagging
   s.add_dependency 'breadcrumbs_on_rails', '~> 3.0' # Breadcrumbs
-  s.add_dependency 'carrierwave', '~> 1.0' # File uploader
+  s.add_dependency 'carrierwave', '>= 1', '< 3' # File uploader
   s.add_dependency 'carrierwave-imageoptimizer', '~> 1.4' # Image compression
   s.add_dependency 'carrierwave_backgrounder_revived', "~> 1.0.0" # Delayed file processing
   s.add_dependency 'carrierwave-aws', '~> 1.3.0' # Remote file uploading

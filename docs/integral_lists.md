@@ -108,7 +108,7 @@ acts_as_integral({
       title: title,
       subtitle: subtitle,
       description: description,
-      image: attachment,  # Expects ActiveStorage::Attachment as #representation will be called
+      image: attachment,  # Expects Integral::Storage::File or ActiveStorage::Attachment as #representation will be called
       url: Integral::Engine.routes.url_helpers.post_url(self)
     }
   end

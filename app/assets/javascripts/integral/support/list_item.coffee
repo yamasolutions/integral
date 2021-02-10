@@ -247,7 +247,7 @@ class this.ListItem
     if @imageSelector
       @imageSelector.open()
     else
-      @imageSelector = new window.ResourceSelector('Select image..', document.querySelector("meta[name='integral-file-list-url']").getAttribute("content"))
+      @imageSelector = new window.ResourceSelector('Select image..', document.querySelector("meta[name='integral-file-list-url']").getAttribute("content"), filters: { type: 'image/%' })
 
       @imageSelector.on 'resources-selected', (event) =>
         @handleImageSelection(event.resources[0])

@@ -1,10 +1,10 @@
 import { Controller } from "stimulus"
 
 export default class extends Controller {
-  static targets = [ "priorityField", "imageField", "image" ]
+  static targets = [ "priorityField", "objectField", "image" ]
 
   populate() {
     this.imageTarget.src = event.detail.image
-    this.imageFieldTarget.value = event.detail.id
+    this.objectFieldTarget.value = event.detail.id
   }
 }

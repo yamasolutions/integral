@@ -8,6 +8,10 @@ module Integral
       include Integral::SupportHelper
       include ::Webpacker::Helper
 
+      def storage_file_content_type_options
+        ActiveStorage::Blob.distinct.pluck(:content_type).sort
+      end
+
       def grouped_page_parent_options
         @resource.available_parents.order('updated_at DESC').group_by(&:locale).map do |result|
           [

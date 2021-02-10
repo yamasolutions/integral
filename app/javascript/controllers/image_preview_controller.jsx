@@ -6,7 +6,7 @@ export default class extends Controller {
   static targets = [ "idField", "placeholderImage", "previewImage", "createActionsList", "addButton", "editActionsList", "removeButton", "editButton" ]
 
   connect() {
-    this.resourceSelector = new ResourceSelector('Select Image..', document.querySelector("meta[name='integral-file-list-url']").getAttribute("content"))
+    this.resourceSelector = new ResourceSelector('Select Image..', document.querySelector("meta[name='integral-file-list-url']").getAttribute("content"), { filters: { type: 'image/%' } })
 
     this.resourceSelector.on('resources-selected', (event) => {
       this.updateImage(event.resources[0])

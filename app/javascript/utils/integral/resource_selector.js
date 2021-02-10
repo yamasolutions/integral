@@ -23,14 +23,15 @@ class ResourceSelector extends EventEmitter {
       }
     };
 
-    this.opts = Object.assign({}, defaultOptions, opts);
+    this.opts = Object.assign({}, defaultOptions, opts)
 
     // Create container from template
-    this.container = document.querySelector('[data-resource-selector-template]').cloneNode(true);
-    this.container.removeAttribute('data-resource-selector-template');
-    this.container.setAttribute('data-controller', 'resource-selector');
-    this.container.setAttribute('data-resource-selector-url', url);
-    this.container.querySelector('h2').textContent = title;
+    this.container = document.querySelector('[data-resource-selector-template]').cloneNode(true)
+    this.container.removeAttribute('data-resource-selector-template')
+    this.container.setAttribute('data-controller', 'resource-selector')
+    this.container.setAttribute('data-resource-selector-url', url)
+    this.container.setAttribute('data-resource-selector-default-filters', JSON.stringify(this.opts.filters))
+    this.container.querySelector('h2').textContent = title
     if (this.opts.allowFileUpload) {
       this.container.querySelector("[data-target='resource-selector.uploadButton']").dataset.fileRestrictions = JSON.stringify(this.opts.fileRestrictions)
     } else {
@@ -38,8 +39,8 @@ class ResourceSelector extends EventEmitter {
     }
 
     // Append to body and initialize
-    document.querySelector('body').appendChild(this.container);
-    window.jQuery(this.container).foundation();
+    document.querySelector('body').appendChild(this.container)
+    window.jQuery(this.container).foundation()
 
     this.container.addEventListener("resources-selected", (event) => {
       this.emit('resources-selected', event.detail)
@@ -51,8 +52,8 @@ class ResourceSelector extends EventEmitter {
   }
 
   open() {
-    window.jQuery(this.container).foundation('open');
-    this.container.dispatchEvent(new CustomEvent('open'));
+    window.jQuery(this.container).foundation('open')
+    this.container.dispatchEvent(new CustomEvent('open'))
   }
 };
 

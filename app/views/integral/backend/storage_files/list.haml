@@ -9,6 +9,8 @@
         = link_to t('integral.actions.upload'), new_backend_resource_url, class: 'button hollow'
     .top-bar-right
       = render_resource_grid_form do |f|
+        %li= f.input :type, collection: storage_file_content_type_options, label: t('integral.records.attributes.type'), wrapper_html: { class: 'filter' }, input_html: { data: { filter: true } }, required: false
+
         %li= f.input :title, placeholder: t('integral.actions.search'), wrapper_html: { class: 'filter search' }, hint: false, label: false
 
   = render_resource_grid

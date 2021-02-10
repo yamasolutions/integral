@@ -311,7 +311,7 @@ en:
       roles:
         labels:
           user_manager: User Manager
-          image_manager: Image Manager
+          file_manager: File Manager
           page_manager: Page Manager
           page_reader: Page Reader
           page_editor: Page Editor

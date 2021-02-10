@@ -1,2 +1,4 @@
 %td= resource.title.truncate(50)
+%td
+  %span.label= resource.attachment.content_type
 %td= l(resource.updated_at, format: :long)

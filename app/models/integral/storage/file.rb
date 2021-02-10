@@ -6,6 +6,7 @@ module Integral
 
       delegate :attached?, to: :attachment
       delegate :variant, to: :attachment
+      delegate :representation, to: :attachment
 
       validates :title, presence: true, length: { maximum: 150 }
       validates :description, length: { maximum: 300 }
@@ -13,6 +14,7 @@ module Integral
       acts_as_integral({
         icon: 'cloud',
         notifications: { enabled: false },
+        listable: { enabled: true },
         backend_main_menu: { order: 80 },
         backend_create_menu: { order: 80 }
       }) # Integral Goodness
@@ -22,6 +24,7 @@ module Integral
       has_paper_trail versions: { class_name: 'Integral::Storage::FileVersion' } # Version Tracking
 
       scope :search, ->(query) { where('lower(title) LIKE ?', "%#{query.downcase}%") }
+      scope :search_by_type, ->(type) { joins(attachment_attachment: :blob).where("active_storage_blobs.content_type LIKE ?", type) }
 
       # @return [Hash] hash representing the class, used to render within the main menu
       def self.integral_backend_main_menu_item
@@ -61,7 +64,7 @@ module Integral
           title: title,
           subtitle: attachment.byte_size,
           description: description,
-          image: attachment # Can't pass representation here because it's a method
+          image: attachment
         }
       end
     end

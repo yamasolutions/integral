@@ -23,6 +23,12 @@ export default class extends Controller {
     if (this.hasUploadButtonTarget) {
       this.uppy = this.setupUppy()
     }
+
+    if (this.element.dataset.resourceSelectorDefaultFilters) {
+      this.defaultFilters = JSON.parse(this.element.dataset.resourceSelectorDefaultFilters)
+    } else {
+      this.defaultFilters = {}
+    }
   }
 
   changePage(event) {
@@ -46,10 +52,8 @@ export default class extends Controller {
   }
 
   search(page=1) {
-    let url = this.element.dataset.resourceSelectorUrl + '?' + new URLSearchParams({
-      page: page,
-      search: this.searchFieldTarget.value
-    })
+    let searchFilters = Object.assign({}, this.defaultFilters, { page: page, search: this.searchFieldTarget.value })
+    let url = this.element.dataset.resourceSelectorUrl + '?' + new URLSearchParams(searchFilters)
 
     fetch(url, {
       method: 'GET'

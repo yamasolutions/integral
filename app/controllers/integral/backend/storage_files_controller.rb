@@ -19,7 +19,7 @@ module Integral
 
         if @resource.save
           resource_data = @resource.to_list_item
-          resource_data[:image] = main_app.url_for(resource_data[:image].representation(resize_to_limit: [500, 500]))
+          resource_data[:image] = main_app.url_for(resource_data[:image].representation(resize_to_limit: Integral.image_sizes[:medium]))
           render json: resource_data, status: :created
         else
           head :unprocessable_entity
@@ -29,12 +29,18 @@ module Integral
       private
 
       def respond_to_resource_selector
-        # TODO: This is currently case sensitive
-        collection = resource_klass.joins(attachment_attachment: :blob).
-          where("active_storage_blobs.content_type LIKE ?", "image/%").
-          where("integral_files.title LIKE ?", "%#{params[:search]}%").
-          order('integral_files.updated_at DESC').
-          paginate(page: params[:page]).with_attached_attachment
+        page = params.fetch(:page, 1)
+        options = {
+          'order' => 'updated_at',
+          'descending' => true,
+          'type' => params.fetch(:type, nil),
+          'title' => params.fetch(:search, nil)
+        }
+
+        puts options
+        collection = resource_grid_klass.new(options) do |scope|
+          scope.page(page).per_page(25)
+        end.assets
 
         render json: { content: render_to_string(partial: 'integral/backend/shared/resource_selector/collection', locals: { collection: collection }) }
       end
@@ -48,7 +54,7 @@ module Integral
       end
 
       def white_listed_grid_params
-        %i[descending order page user action object title]
+        %i[descending order page user action object title type]
       end
 
       def resource_params

@@ -113,25 +113,29 @@ module Integral
     end
 
     # Returns the non object image path
-    def object_image
+    def object_image_url(size: :medium)
       image = object_data[:image] if object_available?
 
-      return Rails.application.routes.url_helpers.rails_blob_path(image) if image.respond_to?(:attached?) && image.attached?
-      return image if image.present?
-
-      fallback_image
+      if image.respond_to?(:attached?) && image.attached?
+        url_helpers.url_for(image.representation(resize_to_limit: Integral.image_sizes[size]))
+      elsif image.present?
+        image
+      else
+        fallback_image_url
+      end
     end
 
-    # @return [Boolean] whether item has an image linked to it (which isn't through an object)
-    def non_object_image?
-      list_item.image.present? && list_item.image.attached?
+    def non_object_image
+      list_item.image if list_item.image.present? && list_item.image.attached?
     end
 
     # Returns the non object image path
-    def non_object_image
-      return fallback_image unless non_object_image?
-
-      Rails.application.routes.url_helpers.rails_blob_path(list_item.image.attachment)
+    def non_object_image_url(size: :medium)
+      if non_object_image.present?
+        url_helpers.url_for(non_object_image.representation(resize_to_limit: Integral.image_sizes[size]))
+      else
+        fallback_image_url
+      end
     end
 
     def image
@@ -144,7 +148,7 @@ module Integral
 
     def image_url(size: :medium)
       if image.present?
-        Rails.application.routes.url_helpers.url_for(image.variant(resize_to_limit: Integral.image_sizes[size]))
+        url_helpers.url_for(image.representation(resize_to_limit: Integral.image_sizes[size]))
       else
         fallback_image_url
       end
@@ -202,6 +206,10 @@ module Integral
       return list_item.html_classes unless opts[:html_classes].present?
 
       "#{list_item.html_classes} #{opts[:html_classes]}"
+    end
+
+    def url_helpers
+      Rails.application.routes.url_helpers
     end
   end
 end

@@ -19,7 +19,7 @@ class MediaUpload extends Component {
     this.openModal = this.openModal.bind( this );
     this.onSelect = this.onSelect.bind( this );
 
-    this.resourceSelector = new ResourceSelector('Select Image..', document.querySelector("meta[name='integral-file-list-url']").getAttribute("content"));
+    this.resourceSelector = new ResourceSelector('Select Image..', document.querySelector("meta[name='integral-file-list-url']").getAttribute("content"), { filters: { type: 'image/%' }});
     this.resourceSelector.on('resources-selected', (event) => {
       this.onSelect(event.resources[0]);
     });

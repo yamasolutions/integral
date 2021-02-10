@@ -4,7 +4,7 @@ export default class extends Controller {
   static targets = [ "container" ]
 
   connect() {
-    this.resourceSelector = new ResourceSelector('Select Image..', document.querySelector("meta[name='integral-file-list-url']").getAttribute("content"))
+    this.resourceSelector = new ResourceSelector('Select Image..', document.querySelector("meta[name='integral-file-list-url']").getAttribute("content"), { filters: { type: 'image/%' } })
 
     // Handle resource selection
     this.resourceSelector.on('resources-selected', (event) => {
@@ -13,7 +13,7 @@ export default class extends Controller {
 
     // Handle close when resource was not selected
     this.resourceSelector.on('closed', (event) => {
-      if (this.containerTarget.lastElementChild.querySelector("[data-target='gallery-manager-item.imageField']").value == '') {
+      if (this.containerTarget.lastElementChild.querySelector("[data-target='gallery-manager-item.objectField']").value == '') {
         this.containerTarget.lastElementChild.remove()
       }
     })

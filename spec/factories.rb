@@ -63,7 +63,7 @@ FactoryBot.define do
     category
     user
     slug { Faker::Internet.slug(nil, '-') }
-    integral_image
+    image { create(:integral_storage_file) }
     view_count
     created_at { Faker::Time.backward(30) }
     published_at { Faker::Time.backward(30) }
@@ -88,7 +88,7 @@ FactoryBot.define do
     title
     description
     slug { Faker::Internet.slug(nil, '-') }
-    integral_image
+    image { create(:integral_storage_file) }
   end
 
   factory :integral_post_viewing, class: 'Integral::PostViewing' do

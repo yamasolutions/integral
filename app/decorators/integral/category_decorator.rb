@@ -19,7 +19,7 @@ module Integral
     end
 
     def image_url(size: nil, transform: nil)
-      app_url_helpers.url_for(image_variant(image, size: size, transform: transform))
+      image_variant_url(image, size: size, transform: transform)
     end
   end
 end

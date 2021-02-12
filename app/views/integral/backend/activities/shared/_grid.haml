@@ -39,5 +39,5 @@
       %p
         = link_to t('integral.actions.clear_filters'), { clear_retained_options: true }
         |
-        = page_entries_info grid.assets
+        = page_entries_info grid.assets, model: Integral::Version
   = icon('spinner', class: 'fa-pulse fa-3x fa-fw load-indicator')

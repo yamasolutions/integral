@@ -343,9 +343,6 @@ en:
           columns:
             title: 'Title'
             description: 'Description'
-      storage_files:
-        index:
-          title: Storage
       settings:
         index:
           title: Settings
@@ -419,6 +416,8 @@ en:
         create:
           title: 'Create Page'
       storage_files:
+        index:
+          title: Storage
         new:
           title: New Upload
         edit:
@@ -555,3 +554,24 @@ en:
       integral/post:
         one: Post
         other: Posts
+
+  will_paginate:
+    models:
+      integral/post:
+        one: Post
+        other: Posts
+      integral/page:
+        one: Page
+        other: Pages
+      integral/list:
+        one: List
+        other: Lists
+      integral/user:
+        one: User
+        other: Users
+      integral/storage/file:
+        one: File
+        other: Files
+      integral/version:
+        one: Activity
+        other: Activities

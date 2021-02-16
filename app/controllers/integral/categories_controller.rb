@@ -36,7 +36,11 @@ module Integral
     private
 
     def canonical_url
-      url = "#{Rails.application.routes.default_url_options[:host]}/#{Integral.blog_namespace}/#{@resource.slug}"
+      url = if Integral.multilingual_frontend?
+              "#{Rails.application.routes.default_url_options[:host]}/#{I18n.locale}/#{Integral.blog_namespace}/#{@resource.slug}"
+            else
+              "#{Rails.application.routes.default_url_options[:host]}/#{Integral.blog_namespace}/#{@resource.slug}"
+            end
       url += "?page=#{params[:page]}" if params[:page].present?
       url
     end

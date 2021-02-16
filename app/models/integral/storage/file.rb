@@ -26,6 +26,8 @@ module Integral
       scope :search, ->(query) { where('lower(title) LIKE ?', "%#{query.downcase}%") }
       scope :search_by_type, ->(type) { joins(attachment_attachment: :blob).where("active_storage_blobs.content_type LIKE ?", type) }
 
+      after_create_commit :eagerly_process_image_variants
+
       # @return [Hash] hash representing the class, used to render within the main menu
       def self.integral_backend_main_menu_item
         {
@@ -66,6 +68,12 @@ module Integral
           description: description,
           image: attachment
         }
+      end
+
+      def eagerly_process_image_variants
+        if attachment.attached? && attachment.image?
+          ProcessImageVariantsJob.perform_later(self)
+        end
       end
     end
   end

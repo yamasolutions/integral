@@ -18,9 +18,9 @@ module Integral
         # Return early if request is not a GET
         return @app.call(env) unless request.get?
 
-        # Return early if request is within backend area
+        # Return early if request is within backend or Active Storage path directory
         backend_path = "/#{Integral.backend_namespace}/"
-        return @app.call(env) if request.path_info.starts_with?(backend_path)
+        return @app.call(env) if request.path_info.starts_with?(backend_path) || request.path_info.starts_with?(ActiveStorage.routes_prefix)
 
         # Rewrites path if the request linked to an Integral::Page or Integral::Category
         process_path(env, request)

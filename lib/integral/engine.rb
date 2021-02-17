@@ -2,7 +2,6 @@ module Integral
   # Integral Engine
   class Engine < ::Rails::Engine
     require 'haml'
-    require 'htmlcompressor'
     require 'groupdate'
     require 'turbolinks'
     require 'toastr-rails'

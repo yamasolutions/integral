@@ -34,7 +34,6 @@ Gem::Specification.new do |s|
   s.add_dependency 'gaffe', '~> 1.2' # Custom error pages
   s.add_dependency "groupdate", "~> 3.0" # Group By
   s.add_dependency 'haml-rails', '~> 1.0' # HAML
-  s.add_dependency 'htmlcompressor', '~> 0.2.0' # Compression
   s.add_dependency 'i18n-js', '~> 3.0.11' # Clientside translations
   s.add_dependency 'inky-rb' # , "~> 0.6" #  Responsive email-ready HTML helpers
   s.add_dependency 'meta-tags', '~> 2.4' # Meta Tag Management (SEO)

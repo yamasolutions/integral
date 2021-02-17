@@ -93,12 +93,6 @@ module Integral
   mattr_accessor :additional_page_templates
   @@additional_page_templates = []
 
-  mattr_accessor :compression_enabled
-  @@compression_enabled = true
-
-  mattr_accessor :image_compression_quality
-  @@image_compression_quality = 85
-
   mattr_accessor :editable_persisted_images
   @@editable_persisted_images = false
 
@@ -128,11 +122,6 @@ module Integral
   # @return [Boolean] Shortcut to find out if blog is enabled
   def self.blog_enabled?
     Integral.blog_enabled == true
-  end
-
-  # @return [Boolean] Compression status
-  def self.compression_enabled?
-    Integral.compression_enabled == true
   end
 
   # @return [Boolean] Enables Dynamic Routing of the homepage using Integral::Middleware::Router

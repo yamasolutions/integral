@@ -72,21 +72,11 @@ Integral.configure do |config|
   #   '/blog/'
   # ]
 
-  # Toggle production compression (HTML, JS, Gzip, minification, etc)
-  # Default is true
-  #
-  # config.compression_enabled = false
-
   # Configure whether images can be re-uploaded once the record has been saved.
   # If you're using a CDN this should be false to prevent caching issues.
   # Default is false
   #
   # config.editable_persisted_images = false
-
-  # Configure image compression quality. 100 for lossless.
-  # Default is 85
-  #
-  # config.image_compression_quality = 100
 
   # Configure the image dimension presets
   #

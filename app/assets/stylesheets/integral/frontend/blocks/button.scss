@@ -15,7 +15,10 @@
     }
   }
 
-  &.expanded .wp-block-button__link { @include button-expand; }
+  &.expanded {
+    display: initial;
+    .wp-block-button__link { @include button-expand; }
+  }
 
   @if $button-responsive-expanded {
     @each $size in $breakpoint-classes {

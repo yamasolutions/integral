@@ -26,6 +26,7 @@ module Integral
       # User creation
       def create
         @resource = User.new(resource_params)
+        @resource.define_singleton_method(:password_required?) { false }
 
         if @resource.valid?
           @resource = User.invite!(resource_params, current_user)
@@ -107,11 +108,11 @@ module Integral
       end
 
       def resource_params
-        unless params[:user][:password].present?
-          return params.require(:user).permit(:name, :email, :avatar, :locale, :notify_me, role_ids: [])
-        end
+        attributes = [:name, :email, :locale, :notify_me, role_ids: []]
+        attributes.prepend(:password, :password_confirmation) if params[:user][:password].present?
+        attributes.prepend(:image) if params[:user][:image].present?
 
-        params.require(:user).permit(:name, :email, :avatar, :locale, :notify_me, :password, :password_confirmation, role_ids: [])
+        params.require(:user).permit(*attributes)
       end
 
       def authorize_with_instance

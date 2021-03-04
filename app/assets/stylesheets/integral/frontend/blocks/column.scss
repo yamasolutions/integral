@@ -2,8 +2,13 @@
   display: flex;
   flex: 1;
   margin: 0 10px;
+}
 
-  @include breakpoint(medium down) {
-    margin: 20px 0;
+.wp-block-columns:not(.is-style-no-stack) {
+  > .wp-block-column {
+    @include breakpoint(medium down) {
+      margin: 20px 0;
+    }
   }
 }
+

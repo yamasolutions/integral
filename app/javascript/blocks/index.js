@@ -285,9 +285,12 @@ export const registerBlocks = () => {
     name: 'padded',
     label: 'Padded'
   } );
-
   registerBlockStyle( 'core/group', {
     name: 'padded',
     label: 'Padded'
+  } );
+  registerBlockStyle( 'core/columns', {
+    name: 'no-stack',
+    label: 'No Stacking'
   } );
 };

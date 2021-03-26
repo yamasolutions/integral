@@ -11,7 +11,7 @@ Out of the box integral provides;
     * User notifications
     * User authentication & authorization
     * Page & Post management with block editor
-    * Image management (w/ background image processing)
+    * File management using Active Storage + direct uploads
     * List management
     * Settings management
 * Frontend features

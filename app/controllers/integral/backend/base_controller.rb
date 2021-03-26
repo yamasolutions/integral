@@ -48,7 +48,7 @@ module Integral
             if params[:gridview].present?
               render json: { content: render_to_string(partial: "integral/backend/shared/grid/grid") }
             else
-              respond_to_record_selector
+              respond_to_resource_selector
             end
           end
         end
@@ -196,9 +196,9 @@ module Integral
         I18n.locale = current_user.locale if current_user.present?
       end
 
-      def respond_to_record_selector
+      def respond_to_resource_selector
         records = resource_klass.search(params[:search]).order('updated_at DESC').paginate(page: params[:page])
-        render json: { content: render_to_string(partial: 'integral/backend/shared/record_selector/collection', locals: { collection: records }) }
+        render json: { content: render_to_string(partial: 'integral/backend/shared/resource_selector/collection', locals: { collection: records }) }
       end
 
       def respond_successfully(flash_message, redirect_path)

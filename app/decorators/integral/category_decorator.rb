@@ -1,6 +1,6 @@
 module Integral
   # Category view-level logic
-  class CategoryDecorator < Draper::Decorator
+  class CategoryDecorator < BaseDecorator
     delegate_all
 
     # @return [String] URL to backend activity
@@ -18,13 +18,8 @@ module Integral
       object.posts.published.order('published_at DESC').limit(limit).decorate
     end
 
-    # @return [String] image URL associated to the category
-    def image_url
-      if object.image.present?
-        object.image.url
-      else
-        helpers.image_url('integral/image-not-set.png')
-      end
+    def image_url(size: nil, transform: nil)
+      image_variant_url(image, size: size, transform: transform)
     end
   end
 end

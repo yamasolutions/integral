@@ -3,12 +3,12 @@ module Integral
   class User < ApplicationRecord
     acts_as_paranoid # Soft-deletion
     acts_as_integral({
+      icon: 'user',
       backend_main_menu: { order: 60 },
       backend_create_menu: { order: 50 }
     }) # Integral Goodness
 
-    mount_uploader :avatar, AvatarUploader
-    process_in_background :avatar
+    has_one_attached :image
 
     # Included devise modules. Others available are:
     # :confirmable, :timeoutable, :omniauthable, registerable and lockable
@@ -33,6 +33,9 @@ module Integral
 
     scope :search, ->(search) { where('lower(name) LIKE ?', "%#{search.downcase}%") }
 
+    # Aliases
+    alias avatar image
+
     # Checks if the User has a given role
     #
     # @param role_sym [Symbol] role(s) to check - Can be array of symbols or one symbol
@@ -42,10 +45,6 @@ module Integral
       role_sym = [role_sym] unless role_sym.is_a?(Array)
 
       roles.map { |r| r.name.underscore.to_sym }.any? { |user_role| role_sym.include?(user_role) }
-    end
-
-    def self.integral_icon
-      'user'
     end
 
     # @return [Array] containing available locales

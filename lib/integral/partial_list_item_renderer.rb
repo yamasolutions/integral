@@ -14,9 +14,10 @@ module Integral
         subtitle: subtitle,
         description: description,
         url: url,
-        image: image(@opts[:image_version]),
+        image: image,
         type: list_item.type,
-        object: object_available? ? list_item.object.decorate : nil
+        object: object_available? ? list_item.object.decorate : nil,
+        renderer: self
       }
 
       controller.render partial: @opts[:partial_path], locals: partial_opts, layout: false

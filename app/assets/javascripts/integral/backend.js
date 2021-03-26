@@ -26,7 +26,6 @@
 //= require_directory ./support
 //= require ./support/lib/underscore
 //= require ./support/lib/html.sortable
-//= require ./support/lib/jquery_form
 //= require ./support/lib/jquery.are-you-sure
 //= require ./support/lib/js.cookie
 //= require ./support/lib/typeahead
@@ -92,11 +91,8 @@ function ready() {
   $(document).foundation();
   jQuery('input, textarea').characterCounter();
   SlugGenerator.check_for_slugs();
-  RecordSelector.init();
-  new ImageSelector();
   new ChartManager();
   NotificationManager.flash();
-  ImageUploader.init();
   new RemoteForm($('.remote-form'));
   Grid.init();
 

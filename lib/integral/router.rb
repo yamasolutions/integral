@@ -100,13 +100,13 @@ module Integral
           # Notification subscription management
           resources :notification_subscriptions, only: [:update]
 
-          # Image Management
-          resources :images, as: :img do
+          # File Management
+          resources :storage_files, path: :storage do
             get 'list', on: :collection
 
             member do
-              get 'activities', controller: 'images'
-              get 'activities/:activity_id', to: 'images#activity', as: :activity
+              get 'activities', controller: 'storage_files'
+              get 'activities/:activity_id', to: 'storage_files#activity', as: :activity
             end
           end
 

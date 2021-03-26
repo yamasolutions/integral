@@ -7,6 +7,7 @@ FactoryBot.define do
   sequence(:tag_list) { |n| Faker::Hipster.words(Faker::Number.between(1, 5), true, true) }
   sequence(:view_count) { rand(5000) }
   sequence(:url) { Faker::Internet.url }
+  sequence(:integral_image) { |n| FactoryBot.create(:integral_storage_file, attachment: Rack::Test::UploadedFile.new(File.join(Integral::Engine.root, 'app', 'assets', 'images', 'integral', 'defaults', 'no_image_available.jpg'))) }
 
   factory :integral_user, class: Integral::User, aliases: [:user, :recipient, :actor] do
     name
@@ -37,22 +38,16 @@ FactoryBot.define do
     factory :list_manager do
       role_ids { [ Integral::Role.find_by_name('ListManager').id ] }
     end
-
-    factory :image_manager do
-      role_ids { [ Integral::Role.find_by_name('ImageManager').id ] }
-    end
   end
 
   factory :role, class: Integral::Role do
     name { 'some_role' }
   end
 
-  factory :image, class: Integral::Image do
+  factory :integral_storage_file, class: 'Integral::Storage::File' do
     title
     description
-    width { 1 }
-    height { 2 }
-    file { Rack::Test::UploadedFile.new(File.join(Integral::Engine.root, 'spec', 'support', 'image.jpg')) }
+    attachment { Rack::Test::UploadedFile.new(File.join(Integral::Engine.root, 'app', 'assets', 'images', 'integral', 'defaults', 'no_image_available.jpg')) }
   end
 
   factory :integral_page, class: 'Integral::Page' do
@@ -68,7 +63,7 @@ FactoryBot.define do
     category
     user
     slug { Faker::Internet.slug(nil, '-') }
-    image
+    image { create(:integral_storage_file) }
     view_count
     created_at { Faker::Time.backward(30) }
     published_at { Faker::Time.backward(30) }
@@ -93,7 +88,7 @@ FactoryBot.define do
     title
     description
     slug { Faker::Internet.slug(nil, '-') }
-    image
+    image { create(:integral_storage_file) }
   end
 
   factory :integral_post_viewing, class: 'Integral::PostViewing' do

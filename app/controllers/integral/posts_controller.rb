@@ -31,14 +31,14 @@ module Integral
     # GET /<post.slug>
     # Presents blog postings
     def show
-      add_breadcrumb I18n.t('integral.breadcrumbs.blog'), :posts_url
+      add_breadcrumb I18n.t('integral.breadcrumbs.blog'), integral.posts_url
       add_breadcrumb @post.title, nil
 
       @meta_data = {
         page_title: @post.title,
         page_description: @post.description,
         open_graph: {
-          image: @post.preview_image(:large)
+          image: @post.preview_image_url(size: :large)
         }
       }
       template = 'default' # TODO: Implement post templates
@@ -58,7 +58,7 @@ module Integral
         end
       elsif
         Integral.frontend_locales.reject{ |l| l == I18n.locale}.each do |locale|
-          alternative_urls[locale.to_s] = self.send("posts_#{locale}_url")
+          alternative_urls[locale.to_s] = integral.send("posts_#{locale}_url")
         end
       end
       alternative_urls
@@ -84,9 +84,9 @@ module Integral
 
     def find_post
       @post = if current_user.present?
-                Integral::Post.where(locale: params[:locale]).friendly.find(params[:id]).decorate
+                Integral::Post.where(locale: I18n.locale).friendly.find(params[:id]).decorate
               else
-                Integral::Post.where(locale: params[:locale]).friendly.published.find(params[:id]).decorate
+                Integral::Post.where(locale: I18n.locale).friendly.published.find(params[:id]).decorate
               end
 
       @post.decorate
@@ -94,7 +94,7 @@ module Integral
       # If an old id or a numeric id was used to find the record, then
       # the request path will not match the post_path, and we should do
       # a 301 redirect that uses the current friendly id.
-      redirect_to post_url(@post.slug), status: :moved_permanently if request.path != post_path(@post.slug)
+      redirect_to integral.post_url(@post.slug), status: :moved_permanently if request.path != integral.post_path(@post.slug)
     end
 
     def validate_page_has_results

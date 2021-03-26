@@ -15,8 +15,6 @@
               %li= link_to t('integral.navigation.posts', locale: current_user.locale), integral.backend_posts_url
             - if policy(Integral::Page).manager?
               %li= link_to t('integral.navigation.pages', locale: current_user.locale), integral.backend_pages_url
-            - if policy(Integral::Image).manager?
-              %li= link_to t('integral.navigation.images', locale: current_user.locale), integral.backend_img_index_url
             - if policy(Integral::List).manager?
               %li= link_to t('integral.navigation.lists', locale: current_user.locale), integral.backend_lists_url
             - if policy(Integral::Version).manager?

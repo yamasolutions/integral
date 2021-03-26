@@ -8,6 +8,10 @@ module Integral
       include Integral::SupportHelper
       include ::Webpacker::Helper
 
+      def storage_file_content_type_options
+        ActiveStorage::Blob.distinct.pluck(:content_type).sort
+      end
+
       def grouped_page_parent_options
         @resource.available_parents.order('updated_at DESC').group_by(&:locale).map do |result|
           [
@@ -37,6 +41,10 @@ module Integral
 
       def current_webpacker_instance
         Integral.webpacker
+      end
+
+      def decorated_current_user
+        @decorated_current_user ||= current_user.decorate
       end
 
       def render_main_menu
@@ -175,7 +183,7 @@ module Integral
         data = [
           { scope: Integral::Page, label: 'Pages' },
           { scope: Integral::List, label: 'Lists' },
-          { scope: Integral::Image, label: 'Images' },
+          { scope: Integral::Storage::File, label: 'Files' },
           { scope: Integral::User, label: 'Users' }
         ]
 

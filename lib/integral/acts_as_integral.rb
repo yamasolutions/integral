@@ -1,11 +1,16 @@
 module Integral
   # Handles adding Integral behaviour to a class
   module ActsAsIntegral
-    DEFAULT_OPTIONS ={ notifications: { enabled: true },
-                       tracking: { enabled: true },
-                       cards: { at_a_glance: true, },
-                       backend_main_menu: { enabled: true, order: 11 },
-                       backend_create_menu: { enabled: true, order: 1 }}.freeze
+    DEFAULT_OPTIONS = {
+      icon: 'home',
+      notifications: { enabled: true },
+      tracking: { enabled: true },
+      cards: { at_a_glance: true },
+      backend_main_menu: { enabled: true, order: 11 },
+      backend_create_menu: { enabled: true, order: 1 },
+      listable: { enabled: false }
+    }.freeze
+
     class << self
       attr_writer :backend_main_menu_items
       attr_writer :backend_create_menu_items
@@ -78,6 +83,19 @@ module Integral
           class << self
             attr_accessor :integral_options
 
+            def decorator_class(called_on = self)
+              super(called_on) || Integral::BaseDecorator
+            end
+
+            # @return [String] Font awesome icon name representing model - https://fontawesome.com/v4.7.0/icons/
+            def integral_icon
+              integral_options[:icon]
+            end
+
+            def integral_resource_selector_url
+              url_helpers.send("list_backend_#{model_name.route_key}_url", format: :json)
+            end
+
             # @return [Hash] hash representing the class, used to render within the main menu
             def integral_backend_main_menu_item
               {
@@ -91,7 +109,7 @@ module Integral
                 list_items: [
                   { label: I18n.t('integral.navigation.dashboard'), url: url_helpers.send("backend_#{model_name.route_key}_url"), authorize_class: self, authorize_action: :index },
                   { label: I18n.t('integral.actions.create'), url: url_helpers.send("new_backend_#{model_name.singular_route_key}_url"), authorize_class: self, authorize_action: :new },
-                  { label: I18n.t('integral.navigation.listing'), url: url_helpers.send("list_backend_#{model_name.route_key}_url"), authorize_class: self, authorize_action: :list },
+                  { label: I18n.t('integral.navigation.list'), url: url_helpers.send("list_backend_#{model_name.route_key}_url"), authorize_class: self, authorize_action: :list },
                 ]
               }
             end
@@ -121,6 +139,7 @@ module Integral
           Integral::ActsAsIntegral.add_tracked_class(self) if integral_options.dig(:tracking, :enabled)
 
           include Integral::Notification::Subscribable if integral_options.dig(:notifications, :enabled)
+          acts_as_listable if integral_options.dig(:listable, :enabled)
         end
       end
     end

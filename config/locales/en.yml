@@ -112,6 +112,7 @@ en:
       unblock: Unblock
       create: Create
       clone: Clone
+      download: Download
       save: Save
       delete: Delete
       destroy: Delete
@@ -158,6 +159,7 @@ en:
       active: Active
     records:
       attributes:
+        id: ID
         category: Category
         locale: Language
         image: Image
@@ -168,6 +170,7 @@ en:
         author: Author
         user: User
         updated_at: Last updated
+        created_at: Created at
         status: Status
         title: Title
         tags: Tags
@@ -175,6 +178,7 @@ en:
         type: Type
         path: Path
         slug: Slug
+        size: Size
       status:
         archived: Archived
         draft: Draft
@@ -224,6 +228,7 @@ en:
       my_account: Account & profile
       settings: Settings
       listing: Listing
+      storage_files: Storage
 
     posts:
       index:
@@ -266,7 +271,7 @@ en:
         edit: "Edit %{type_singular}"
         update: "Update %{type_singular}"
         index: "%{type_plural}"
-        list: "%{type_singular} Listing"
+        list: "%{type_singular} List"
       notifications:
         clone_success: "%{type} successfully cloned."
         clone_failure: "%{type} clone failed."
@@ -306,22 +311,12 @@ en:
       roles:
         labels:
           user_manager: User Manager
-          image_manager: Image Manager
+          file_manager: File Manager
           page_manager: Page Manager
           page_reader: Page Reader
           page_editor: Page Editor
           post_manager: Post Manager
           list_manager: List Manager
-      record_selector:
-        posts:
-          record: Post
-          title: Select a Post..
-        pages:
-          record: Page
-          title: Select a Page..
-        images:
-          record: Image
-          title: Select an Image..
       activities:
         index:
           title: Website Activity
@@ -420,15 +415,13 @@ en:
           title: 'New Page'
         create:
           title: 'Create Page'
-      images:
-        new:
-          title: 'New Image'
+      storage_files:
         index:
-          title: 'Image listing'
-          no_images_available: 'No images available. Try uploading some!'
-          new_image: 'New image'
+          title: Storage
+        new:
+          title: New Upload
         edit:
-          title: Edit Image
+          title: Edit File
       users:
         available_locales:
           en: English
@@ -561,3 +554,24 @@ en:
       integral/post:
         one: Post
         other: Posts
+
+  will_paginate:
+    models:
+      integral/post:
+        one: Post
+        other: Posts
+      integral/page:
+        one: Page
+        other: Pages
+      integral/list:
+        one: List
+        other: Lists
+      integral/user:
+        one: User
+        other: Users
+      integral/storage/file:
+        one: File
+        other: Files
+      integral/version:
+        one: Activity
+        other: Activities

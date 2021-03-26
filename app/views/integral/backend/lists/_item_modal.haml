@@ -12,7 +12,7 @@
           = f.input :object_id, as: :hidden, input_html: { class: 'object-id-field' }
 
           .object-preview.hoverable
-            = image_tag image_path(formatted_item.object_image)
+            = image_tag image_path(formatted_item.object_image_url)
             .object-data
               %h5= formatted_item.title
               %span.subtitle= formatted_item.subtitle
@@ -33,14 +33,13 @@
       .cell.medium-8
         = f.input :description, input_html: { 'data-character-counter' => 'true' }, wrapper_html: { class: 'alternative' }, as: :string, hint: false
       .cell.medium-4
-        = f.input :image_id, as: :hidden, input_html: { class: 'image-field', data: { image_present: formatted_item.non_object_image?, fallback_image: formatted_item.fallback_image } }
+        = f.input :image_id, as: :hidden, input_html: { class: 'image-field', data: { image_present: formatted_item.non_object_image.present?, fallback_image: formatted_item.fallback_image_url } }
         .image-preview.center
           .image-container
-            = image_tag formatted_item.non_object_image, class: 'clickable hoverable'
-            -# %span.material-icons.grey-text.text-darken-3.clickable edit
+            = image_tag formatted_item.non_object_image_url, class: 'clickable hoverable'
         = link_to 'Unlink', '#', class: 'btn unlink-btn'
 
   .modal-footer
-    = link_to_remove_association 'Remove', f, class: 'button hollow secondary modal-close' #, wrapper_class: 'list-item-container'
+    = link_to_remove_association 'Remove', f, class: 'button hollow secondary modal-close'
     = link_to t('integral.actions.apply'), '#', class: 'button confirm-btn'
 

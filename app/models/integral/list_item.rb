@@ -6,7 +6,7 @@ module Integral
 
     # Associations
     belongs_to :list, optional: true, touch: true
-    belongs_to :image, optional: true
+    belongs_to :image, class_name: 'Integral::Storage::File', optional: true
     has_many :list_item_connections, foreign_key: 'parent_id'
     has_many :children, -> { order(:priority) }, through: :list_item_connections
     has_many :inverse_list_item_connections, class_name: "ListItemConnection", foreign_key: "child_id"
@@ -34,13 +34,13 @@ module Integral
 
       ActsAsListable.objects.each do |listable|
         object_data = {
-          icon: listable.listable_options[:icon],
           object_type: listable.to_s,
-          record_selector: listable.to_s.parameterize,
-          true_value: 'Integral::Object'
+          true_value: 'Integral::Object',
+          resource_selector_title: 'Select resource..',
+          resource_selector_url: listable.integral_resource_selector_url
         }
 
-        collection << [listable.listable_options[:record_title], listable.to_s, data: object_data]
+        collection << [listable.model_name.human, listable.to_s, data: object_data]
       end
 
       collection

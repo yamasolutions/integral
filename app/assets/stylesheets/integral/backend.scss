@@ -9,6 +9,7 @@
 @import "integral/backend/modules/alternate-resource";
 @import "integral/backend/modules/dropdown_pane_notifications";
 @import "integral/backend/modules/dropdown_pane_profile";
+@import "integral/backend/modules/gallery-manager";
 @import "integral/backend/modules/table-resources";
 @import 'integral/backend/shared';
 @import 'integral/backend/notifications';
@@ -129,4 +130,28 @@ hr {
 
 .flex-auto {
   flex: auto;
+}
+
+.uppy-StatusBar-progress {
+  background-color: $primary-color !important;
+}
+
+.uppy-StatusBar.is-complete .uppy-StatusBar-progress {
+  background-color: #1bb240 !important;
+}
+
+.uppy-StatusBar.is-waiting .uppy-StatusBar-actionBtn--upload {
+  background-color: $primary-color !important;
+}
+
+.uppy-DashboardContent-bar {
+  z-index: 10 !important;
+}
+
+.uppy-Dashboard-Item-previewIcon {
+  z-index: 1 !important;
+}
+
+.uppy-Dashboard--modal {
+  z-index: 1005 !important;
 }

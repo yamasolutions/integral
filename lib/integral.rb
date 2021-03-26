@@ -13,7 +13,7 @@ require 'integral/grids/pages_grid'
 require 'integral/grids/users_grid'
 require 'integral/grids/lists_grid'
 require 'integral/grids/posts_grid'
-require 'integral/grids/images_grid'
+require 'integral/grids/files_grid'
 require 'integral/acts_as_listable'
 require 'integral/acts_as_integral'
 require 'integral/block_editor/blocks/base'
@@ -82,20 +82,13 @@ module Integral
   mattr_accessor :frontend_parent_controller
   @@frontend_parent_controller = 'Integral::ApplicationController'
 
-  mattr_accessor :editor_image_size_limit
-  @@editor_image_size_limit = [1600, 1600]
-
-  mattr_accessor :image_thumbnail_size
-  @@image_thumbnail_size = [50, 50]
-
-  mattr_accessor :image_small_size
-  @@image_small_size = [500, 500]
-
-  mattr_accessor :image_medium_size
-  @@image_medium_size = [800, 800]
-
-  mattr_accessor :image_large_size
-  @@image_large_size = [1600, 1600]
+  mattr_accessor :image_sizes
+  @@image_sizes = {
+    thumbnail: [50, 50],
+    small: [500, 500],
+    medium: [800, 800],
+    large: [1600, 1600]
+  }
 
   mattr_accessor :additional_page_templates
   @@additional_page_templates = []
@@ -120,6 +113,12 @@ module Integral
 
   mattr_accessor :title_length_minimum
   @@title_length_minimum = 4
+
+  mattr_accessor :accepted_file_types
+  @@accepted_file_types = ['application/pdf', 'image/*', 'video/*']
+
+  mattr_accessor :maximum_file_size
+  @@maximum_file_size = 104857600 # 100MB
 
   # @return [Boolean] Whether or not the frontend is multilingual
   def self.multilingual_frontend?

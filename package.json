@@ -3,6 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@excid3/uppy-activestorage-upload": "https://github.com/excid3/uppy-activestorage-upload",
+    "@uppy/core": "^1.14.0",
+    "@uppy/dashboard": "^1.12.10",
+    "@uppy/companion-client": "0.27.2",
+    "@uppy/utils": "0.27.1",
+    "@rails/activestorage": "^6.0.0",
+    "cuid": "^2.1.1",
     "@babel/core": "7.9.0",
     "@rails/actiontext": "^6.1.1",
     "@rails/webpacker": "^5.2.1",

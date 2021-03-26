@@ -17,7 +17,7 @@ module Integral
       @meta_data = {
         page_title: page_title,
         page_description: page_description,
-        image: @resource&.image&.url
+        image: @resource.image_url(size: :large)
       }
 
     end
@@ -36,13 +36,17 @@ module Integral
     private
 
     def canonical_url
-      url = "#{Rails.application.routes.default_url_options[:host]}/#{Integral.blog_namespace}/#{@resource.slug}"
+      url = if Integral.multilingual_frontend?
+              "#{Rails.application.routes.default_url_options[:host]}/#{I18n.locale}/#{Integral.blog_namespace}/#{@resource.slug}"
+            else
+              "#{Rails.application.routes.default_url_options[:host]}/#{Integral.blog_namespace}/#{@resource.slug}"
+            end
       url += "?page=#{params[:page]}" if params[:page].present?
       url
     end
 
     def set_resource
-      @resource = Integral::Category.where(locale: I18n.locale).find(params[:id])
+      @resource = Integral::Category.where(locale: I18n.locale).find(params[:id]).decorate
     end
 
     def set_collection
@@ -51,7 +55,7 @@ module Integral
 
     def set_breadcrumbs
       super
-      add_breadcrumb t('integral.breadcrumbs.blog'), :posts_url
+      add_breadcrumb t('integral.breadcrumbs.blog'), integral.posts_url
     end
 
     def validate_page_has_results

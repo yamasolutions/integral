@@ -2,6 +2,30 @@ module Integral
   # Page view-level logic
   class PostDecorator < BaseDecorator
     decorates_association :category
+    decorates_association :user
+
+    # @return [Hash] the instance as a card
+    def to_backend_card
+      image_url = object.image&.attached? ? app_url_helpers.url_for(image.attachment) : nil
+      attributes = [{ key: I18n.t('integral.records.attributes.status'), value: I18n.t("integral.records.status.#{status}") }]
+      if Integral.multilingual_frontend?
+        attributes += [{ key: I18n.t('integral.records.attributes.locale'), value: I18n.t("integral.language.#{locale}") }]
+      end
+      attributes += [
+        { key: I18n.t('integral.records.attributes.slug'), value: slug },
+        { key: I18n.t('integral.records.attributes.author'), value: author.name },
+        { key: I18n.t('integral.records.attributes.views'), value: view_count },
+        { key: I18n.t('integral.records.attributes.updated_at'), value: I18n.l(updated_at) },
+        { key: I18n.t('integral.records.attributes.created_at'), value: I18n.l(created_at) }
+      ]
+
+      {
+        image: image_url,
+        description: title,
+        url: backend_url,
+        attributes: attributes
+      }
+    end
 
     # Enables pagination
     def self.collection_decorator_class
@@ -22,8 +46,8 @@ module Integral
           "name": object.author&.name
         },
         "image": [
-          preview_image(:large),
-          image(:large)
+          preview_image_url(size: :large),
+          image_url(size: :large)
         ],
         "publisher": {
           "@type": 'Organization',
@@ -38,8 +62,7 @@ module Integral
 
     # @return [String] avatar image
     def avatar
-      avatar_url = user&.avatar&.url(:thumbnail)
-      h.image_tag avatar_url, class: 'user-avatar' unless avatar_url.nil?
+      h.image_tag user.avatar_url, class: 'user-avatar' if user.present?
     end
 
     # Tags to be used within the header of an article to describe the subject
@@ -54,20 +77,14 @@ module Integral
       header_tags
     end
 
-    # Preview image for the post if present. Otherwise returns featured image
-    def preview_image(size = :small)
-      preview_image = object&.preview_image&.url(size)
-      return preview_image if preview_image.present?
+    def preview_image_url(size: nil, transform: nil)
+      return image_url(size: size, transform: transform) if preview_image.nil?
 
-      image(size, false)
+      image_variant_url(preview_image, size: size, transform: transform)
     end
 
-    # Image for the post if present. Otherwise returns default image
-    def image(size = :small, fallback = true)
-      image = object&.image&.url(size)
-      return image if image.present?
-
-      h.image_url('integral/defaults/no_image_available.jpg') if fallback
+    def image_url(size: nil, transform: nil)
+      image_variant_url(image, size: size, transform: transform)
     end
 
     # Date the post was published
@@ -80,7 +97,7 @@ module Integral
     # @return [String] URL to backend post page
     def backend_url
       if Integral.blog_enabled?
-        Integral::Engine.routes.url_helpers.backend_post_url(object.id)
+        engine_url_helpers.backend_post_url(object.id)
       else
         ''
       end
@@ -89,7 +106,7 @@ module Integral
     # @return [String] URL to backend activity
     def activity_url(activity_id)
       if Integral.blog_enabled?
-        Integral::Engine.routes.url_helpers.activity_backend_post_url(object.id, activity_id)
+        engine_url_helpers.activity_backend_post_url(object.id, activity_id)
       else
         ''
       end

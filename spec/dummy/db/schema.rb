@@ -2,15 +2,15 @@
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
 #
-# This file is the source Rails uses to define your schema when running `rails
-# db:schema:load`. When creating a new database, `rails db:schema:load` tends to
+# This file is the source Rails uses to define your schema when running `bin/rails
+# db:schema:load`. When creating a new database, `bin/rails db:schema:load` tends to
 # be faster and is potentially less error prone than running all of your
 # migrations from scratch. Old migrations may fail to apply correctly if those
 # migrations use external dependencies or application code.
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_20_004651) do
+ActiveRecord::Schema.define(version: 2021_02_02_025646) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -84,7 +84,7 @@ ActiveRecord::Schema.define(version: 2021_01_20_004651) do
     t.string "context"
   end
 
-  create_table "integral_image_versions", force: :cascade do |t|
+  create_table "integral_file_versions", force: :cascade do |t|
     t.string "item_type", null: false
     t.integer "item_id", null: false
     t.string "event", null: false
@@ -92,22 +92,15 @@ ActiveRecord::Schema.define(version: 2021_01_20_004651) do
     t.text "object"
     t.text "object_changes"
     t.datetime "created_at"
-    t.index ["item_type", "item_id"], name: "index_integral_image_versions_on_item_type_and_item_id"
+    t.index ["item_type", "item_id"], name: "index_integral_file_versions_on_item_type_and_item_id"
   end
 
-  create_table "integral_images", id: :serial, force: :cascade do |t|
+  create_table "integral_files", force: :cascade do |t|
     t.string "title"
     t.string "description"
-    t.string "file"
-    t.integer "width"
-    t.integer "height"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
     t.datetime "deleted_at"
-    t.boolean "file_processing", default: true, null: false
-    t.integer "file_size"
-    t.integer "lock_version"
-    t.index ["deleted_at"], name: "index_integral_images_on_deleted_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "integral_list_item_connections", id: false, force: :cascade do |t|
@@ -309,7 +302,6 @@ ActiveRecord::Schema.define(version: 2021_01_20_004651) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string "name"
-    t.string "avatar"
     t.string "locale", default: "en", null: false
     t.string "invitation_token"
     t.datetime "invitation_created_at"
@@ -320,7 +312,6 @@ ActiveRecord::Schema.define(version: 2021_01_20_004651) do
     t.integer "invited_by_id"
     t.integer "invitations_count", default: 0
     t.datetime "deleted_at"
-    t.boolean "avatar_processing", default: true, null: false
     t.integer "lock_version"
     t.boolean "admin", default: false
     t.boolean "notify_me", default: true

@@ -6,11 +6,12 @@ module Integral
     include BlockEditor::Listable
 
     acts_as_integral({
+      icon: 'rss',
+      listable: { enabled: Integral.blog_enabled? },
       backend_main_menu: { order: 30, enabled: Integral.blog_enabled? },
       backend_create_menu: { order: 20, enabled: Integral.blog_enabled? }
     }) # Integral Goodness
     acts_as_paranoid # Soft-deletion
-    acts_as_listable if Integral.blog_enabled? # Listable Item
     acts_as_taggable # Tagging
 
     has_paper_trail versions: { class_name: 'Integral::PostVersion' }
@@ -27,8 +28,8 @@ module Integral
     # Associations
     belongs_to :user, -> { with_deleted }
     belongs_to :category
-    belongs_to :image, class_name: 'Integral::Image', optional: true
-    belongs_to :preview_image, class_name: 'Integral::Image', optional: true
+    belongs_to :image, class_name: 'Integral::Storage::File', optional: true
+    belongs_to :preview_image, class_name: 'Integral::Storage::File', optional: true
 
     has_many :resource_alternates, as: :resource
     has_many :alternates, through: :resource_alternates, source_type: "Integral::Post"
@@ -68,13 +69,13 @@ module Integral
 
     # @return [Hash] the instance as a list item
     def to_list_item
-      subtitle = published_at.present? ? I18n.t('integral.blog.posted_ago', time: time_ago_in_words(published_at)) : I18n.t('integral.users.status.draft')
+      subtitle = published_at.present? ? I18n.t('integral.blog.posted_ago', time: time_ago_in_words(published_at)) : I18n.t('integral.statuses.draft')
       {
         id: id,
         title: title,
         subtitle: subtitle,
         description: description,
-        image: featured_image,
+        image: featured_image&.attachment,
         url: frontend_url
       }
     end
@@ -82,42 +83,6 @@ module Integral
     def frontend_url
       route = Integral.multilingual_frontend? ? "post_#{locale}_url" : 'post_url'
       Integral::Engine.routes.url_helpers.send(route, slug)
-    end
-
-    # @return [Hash] the instance as a card
-    def to_card
-      image_url = featured_image.file.url if featured_image
-      attributes = [{ key: I18n.t('integral.records.attributes.status'), value: I18n.t("integral.records.status.#{status}") }]
-      if Integral.multilingual_frontend?
-        attributes += [{ key: I18n.t('integral.records.attributes.locale'), value: I18n.t("integral.language.#{locale}") }]
-      end
-      attributes += [
-        { key: I18n.t('integral.records.attributes.slug'), value: slug },
-        { key: I18n.t('integral.records.attributes.author'), value: author.name },
-        { key: I18n.t('integral.records.attributes.views'), value: view_count },
-        { key: I18n.t('integral.records.attributes.updated_at'), value: I18n.l(updated_at) }
-      ]
-
-      {
-        image: image_url,
-        description: title,
-        url: frontend_url,
-        attributes: attributes
-      }
-    end
-
-    # @return [Hash] listable options to be used within a RecordSelector widget
-    def self.listable_options
-      {
-        icon: 'rss',
-        record_title: I18n.t('integral.backend.record_selector.posts.record'),
-        selector_path: Engine.routes.url_helpers.list_backend_posts_path,
-        selector_title: I18n.t('integral.backend.record_selector.posts.title')
-      }
-    end
-
-    def self.integral_icon
-      'rss'
     end
 
     # @return [String] Current tag context

@@ -6,7 +6,6 @@ module Integral
       let(:dataset) {[
         { scope: Integral::Page, label: 'Total Pages' },
         { scope: Integral::List, label: 'Total Lists' },
-        { scope: Integral::Image, label: 'Total Images' },
         { scope: Integral::User, label: 'Total Users' }
       ]}
       let(:graph_markup) { "
@@ -14,7 +13,6 @@ module Integral
                            <ul>
                            <li data-value='3'>= Total Pages: 3</li>
                            <li data-value='0'>= Total Lists: 0</li>
-                           <li data-value='0'>= Total Images: 0</li>
                            <li data-value='0'>= Total Users: 0</li>
                            </ul>
                            </canvas>
@@ -24,7 +22,6 @@ module Integral
       before do
         Integral::Page.delete_all
         Integral::List.delete_all
-        Integral::Image.delete_all
         Integral::User.delete_all
       end
 

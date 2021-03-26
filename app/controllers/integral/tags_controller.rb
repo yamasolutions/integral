@@ -15,7 +15,7 @@ module Integral
     # GET /:id
     # Presents blog tags
     def show
-      add_breadcrumb t('integral.breadcrumbs.tags'), :tags_url
+      add_breadcrumb t('integral.breadcrumbs.tags'), integral.tags_url
       add_breadcrumb @tag.name, nil
 
       page_title = "Posts tagged with #{@tag.name}"
@@ -40,7 +40,7 @@ module Integral
 
     def set_breadcrumbs
       super
-      add_breadcrumb t('integral.breadcrumbs.blog'), :posts_url
+      add_breadcrumb t('integral.breadcrumbs.blog'), integral.posts_url
     end
 
     def validate_page_has_results

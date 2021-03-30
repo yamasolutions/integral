@@ -1,6 +1,7 @@
 module Integral
   # Renders dynamic pages
   class PagesController < Integral.frontend_parent_controller.constantize
+    before_action :validate_routed_through_alias, only: [:show]
     before_action :find_page, only: [:show]
     before_action :set_breadcrumbs
 
@@ -11,7 +12,7 @@ module Integral
         page_title: @page.title,
         page_description: @page.description,
         open_graph: {
-          image: @page.image&.url(:large)
+          image: @page.image_url(size: :large)
         }
       }
 

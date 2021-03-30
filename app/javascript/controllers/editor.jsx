@@ -13,9 +13,9 @@ import {
 import { InterfaceSkeleton as EditorSkeleton } from '@wordpress/interface';
 import { BlockBreadcrumb } from '@wordpress/block-editor';
 
-// /**
-//  * Internal dependencies
-//  */
+/**
+ * Internal dependencies
+ */
 import Notices from 'components/notices';
 import Sidebar from 'components/sidebar';
 import BlockEditor from 'components/block-editor';

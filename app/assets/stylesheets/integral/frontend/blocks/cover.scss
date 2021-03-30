@@ -1,0 +1,32 @@
+.wp-block-integral-cover {
+  background-color: $primary-color;
+  margin: 2rem 0;
+  padding: 4rem 3rem;
+  overflow: auto;
+  position: relative;
+  width: 100%;
+  @include breakpoint(small down) {
+    padding: 4rem 1rem;
+  }
+
+  img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    filter: brightness(80%);
+  }
+  .integral-cover-card {
+    position: relative;
+    float: none;
+    margin: 0 auto;
+    background-color: transparent;
+    max-width: 500px;
+    text-align: center;
+    color: $white;
+    padding: 0;
+    width: 100%;
+  }
+}

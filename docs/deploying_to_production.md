@@ -40,20 +40,11 @@ config.action_mailer.smtp_settings = {
 }
 ```
 
-### File uploading (Carrierwave) setup
+### File uploading (Active Storage) setup
 
-Integral uses [Carrierwave](https://github.com/carrierwaveuploader/carrierwave) to manage file uploading and assumes you will be storing the files on [Amazon S3](https://aws.amazon.com/s3/).
+Integral uses [Active Storage](https://edgeguides.rubyonrails.org/active_storage_overview.html) to manage file storage.
 
-To configure file uploading set the following environmental variables;
-* ``` AWS_S3_BUCKET_NAME ```
-* ``` AWS_ACCESS_KEY_ID ```
-* ``` AWS_SECRET_ACCESS_KEY ```
-* ``` AWS_REGION ```
-
-This information can be found on your Amazon S3 account.
-
-If you are not using Amazon S3 you can change the Carrierwave config file ```config/initializers/carrierwave.rb```. This file was automatically copied in when you installed Integral. You'll also want to update ```config/sitemap.rb``` as the sitemap generator assumes you're using S3.
-
+See Rails docs for more information on [how to configure Active Storage](https://edgeguides.rubyonrails.org/active_storage_overview.html#setup). By default files are stored locally. For a production environment we recommend storing files on [Amazon S3](https://aws.amazon.com/s3/).
 
 ## Suggested additional setup
 
@@ -65,8 +56,6 @@ By default all jobs will run asynchronously, which means when someone uploads a 
 * [A comparison of queue adapters](https://github.com/collectiveidea/delayed_job)
 
 Integral does not impose a specific queue adapter as this will vary between applications. If you have a small application and want to get started as soon as possible we recommend [Delayed Jobs](https://github.com/collectiveidea/delayed_job).
-
-Note: When you decide on a queue adapter you'll need to update the [Carrierwave Backgrounder](https://github.com/patricklindsay/carrierwave_backgrounder) config at `config/initializers/carrierwave_backgrounder.rb`
 
 ### Site Security
 It goes without saying but we'll say it anyway - Make sure to enable (and force) SSL for all your applications.

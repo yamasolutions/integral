@@ -1,5 +1,2 @@
-- if type == 'Integral::Link'
-  -# Assumes url is a YouTube embed URL i.e -> https://www.youtube.com/embed/mNzvpFcJXU
-  %iframe{ src: "#{url}?enablejsapi=1", frameborder: '0',  allow: 'autoplay; encrypted-media', allowfullscreen: true }
-- else
-  = image_tag image
+-# TODO: Support video
+= image_tag renderer.image_url(size: :medium), alt: title

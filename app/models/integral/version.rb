@@ -21,7 +21,7 @@ module Integral
     def self.available_objects
       available = []
 
-      [Integral::Post, Integral::Category, Integral::Page, Integral::List, Integral::Image, Integral::User].concat(Integral.additional_tracked_classes).each do |item|
+      ActsAsIntegral.tracked_classes.each do |item|
         available << [item.model_name.human, item]
       end
 

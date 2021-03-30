@@ -66,26 +66,6 @@ namespace :integral do
 
     puts 'Complete.'
   end
-
-  # Generates images used for demos and testing
-  #
-  # Usage: be rake integral:generate_images[100] - Generates 100 images taken from lorempixel
-  #
-  desc 'Generates Image objects used for demos and testing'
-  task :generate_images, [:amount] => [:environment] do |_t, args|
-    amount_of_posts = args[:amount].to_i
-    amount_of_posts = 10 if amount_of_posts.zero?
-
-    puts "Generating #{amount_of_posts} sample images.."
-
-    amount_of_posts.times do
-      image = FactoryBot.build(:image)
-      image.remote_file_url = 'http://lorempixel.com/400/300'
-      image.save
-    end
-
-    puts 'Complete.'
-  end
 end
 
 def yarn_install_available?

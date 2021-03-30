@@ -5,12 +5,21 @@ module Integral
       before_action :authorize_with_klass, except: %i[activities activity]
       before_action :set_resource, except: %i[create new index list]
 
+      # POST /
+      # Resource creation
+      def create
+        super do
+          @resource.active_block_list.listable = @resource
+        end
+      end
+
       # POST /:id/duplicate
       # Duplicate a resource
       def duplicate
         super do |cloned_resource|
           cloned_resource.title = "Copy #{@resource.title[0...Integral.title_length_maximum - 5]}"
           cloned_resource.path += "-#{SecureRandom.hex[1..5]}"
+          cloned_resource.build_active_block_list(content: @resource.active_block_list.content, listable: cloned_resource)
         end
       end
 
@@ -40,7 +49,7 @@ module Integral
       end
 
       def white_listed_grid_params
-        %i[descending order page user action object title status locale]
+        [ :descending, :order, :page, :title, status: [], locale: [] ]
       end
 
       def resource_klass

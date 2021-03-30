@@ -2,6 +2,7 @@ module Integral
   # Represents a user post category
   class Category < ApplicationRecord
     acts_as_integral({
+      icon: 'tags',
       backend_main_menu: { enabled: false },
       backend_create_menu: { enabled: false }
     })
@@ -14,7 +15,7 @@ module Integral
 
     # Associations
     has_many :posts # TODO: Touch the posts on change
-    belongs_to :image, class_name: 'Integral::Image', optional: true
+    belongs_to :image, class_name: 'Integral::Storage::File', optional: true
 
     # Validations
     validates :slug, presence: true
@@ -27,10 +28,6 @@ module Integral
 
     # Callbacks
     after_initialize :set_defaults
-
-    def self.integral_icon
-      'tags'
-    end
 
     def to_param
       id

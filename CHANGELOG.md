@@ -8,17 +8,28 @@ recommendations of [keepachangelog.com](http://keepachangelog.com/).
 ### Breaking Changes
 
 - Homepage is no longer specified within settings area. Instead set homepage path to `/`
+- Removed `additional_tracked_classes` config option - this is now controlled through the `acts_as_integral` concern
 - Bump to Ruby 2.7.2
-- Bump to Rails 6.0
+- Bump to Rails 6.1
+- Replace Carrierwave with ActiveStorage
 
 ### Added
 
 - Frontend multiple language support, controlled through the `frontend_locales` config option
-- Add Block Editor (Gutenberg)
+- Add Block Editor (Gutenberg) - replaces Ckeditor
+- Switch from Carrierwave to Active Storage for backend file management
+- Improved file management - Allow multi file uploads and accept any file types which exist within `accepted_file_types` config option
+- Notifications - Add read all notifications button
+- Backend List - Add page entry info (includes total amount of records found)
+- Backend List - Allow multiple dropdown option selection
+- Backend List - Retain previously used filters
+- Alternates management - Make it easier to find alternates by grouping alternates by language and providing search functionality
+- Page parent selection - Make it easier to find the parent by grouping pages by language and providing search functionality
+- Model level validation of email uniqueness
 
 ### Fixed
 
--
+- Category and pages are now only available through their public route (i.e company/contact), not the Rails route (i.e. /pages/43)
 
 ### Dependancies
 

@@ -23,6 +23,7 @@ class this.ListItem
     @objectWrapper = @modal.find('.object-wrapper')
     @linkAttribute = @modal.find('.link-attribute')
     @unlinkButton = @modal.find('.unlink-btn')
+    @resourceSelectors = {}
 
     if @object()
       @objectData = @objectPreview.data()
@@ -75,14 +76,10 @@ class this.ListItem
       @handleObjectUpdate()
 
     @objectPreview.click =>
-      @_openSelector()
+      @_createAndOpenSelector()
 
     @imagePreview.click =>
-      selectorOpts =
-        preselectedId: @imageField.val()
-        callbackSuccess: @handleImageSelection
-
-      RecordSelector.open('Image', selectorOpts)
+      @_createAndOpenImageSelector()
 
     @unlinkButton.click (ev) =>
       ev.preventDefault()
@@ -110,7 +107,7 @@ class this.ListItem
     @urlField.addClass 'required'
 
   handleObjectTypeSelection: ->
-    @_openSelector()
+    @_createAndOpenSelector()
 
   handleObjectSelectionFail: =>
     @fakeTypeField.val('Integral::Basic')
@@ -121,8 +118,7 @@ class this.ListItem
     @unlinkButton.show()
 
   handleObjectSelection: (data) =>
-    objectType = @fakeTypeField.find(":selected").data('object-type')
-    @objectTypeField.val(objectType)
+    @objectTypeField.val(@fakeTypeField.find(":selected").data('object-type'))
     @objectData = data
 
     # Update object preview
@@ -222,7 +218,7 @@ class this.ListItem
       excluded: 'input:not(.reveal[aria-hidden=false] input)'
       classHandler: (element) =>
         element.$element.closest('.input-field')
-  
+
     if formValidator.validate()
       @modal.foundation('close')
       sortable('.sortable', 'enable')
@@ -239,11 +235,34 @@ class this.ListItem
       @container.trigger 'modal-close'
 
 
-  _openSelector: ->
-    selectorOpts =
-      preselectedId: @objectIdField.val()
-      callbackSuccess: @handleObjectSelection
-      callbackFailure: @handleObjectSelectionFail
+  _createSelector: (data) ->
+    selector = new window.ResourceSelector(data.resourceSelectorTitle, data.resourceSelectorUrl, { allowFileUpload: false })
 
-    RecordSelector.open(@fakeTypeField.find(":selected").data('record-selector'), selectorOpts)
+    selector.on 'resources-selected', (event) =>
+      @handleObjectSelection(event.resources[0])
+
+    selector
+
+  _createAndOpenImageSelector: ->
+    if @imageSelector
+      @imageSelector.open()
+    else
+      @imageSelector = new window.ResourceSelector('Select image..', document.querySelector("meta[name='integral-file-list-url']").getAttribute("content"), filters: { type: 'image/%' })
+
+      @imageSelector.on 'resources-selected', (event) =>
+        @handleImageSelection(event.resources[0])
+
+      setTimeout =>
+        @imageSelector.open()
+      , 200
+
+  _createAndOpenSelector: ->
+    currentSelection = @fakeTypeField.find(":selected").data()
+
+    unless @resourceSelectors[currentSelection.objectType]
+      @resourceSelectors[currentSelection.objectType] = @_createSelector(currentSelection)
+
+    setTimeout =>
+      @resourceSelectors[currentSelection.objectType].open()
+    , 200
 

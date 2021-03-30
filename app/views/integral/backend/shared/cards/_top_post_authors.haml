@@ -11,7 +11,7 @@
       - post_users.each do |record|
         %tr
           %td
-            = image_tag record.avatar.url(:thumbnail), alt: record.name, class: 'avatar'
+            = image_tag record.avatar_url, alt: record.name, class: 'avatar'
             = record.name
           %td
             %span.badge.secondary= user_ids[record.id]

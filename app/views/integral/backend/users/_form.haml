@@ -18,7 +18,7 @@
                   %th Editor
                   %th Manager
                 %tbody
-                  - for object_name in ['Page', 'Post', 'List', 'Image', 'User']
+                  - for object_name in ['Page', 'Post', 'List', 'File', 'User']
                     %tr
                       %th= object_name
                       - for role_type in ['Reader', 'Contributer', 'Editor', 'Manager']
@@ -34,12 +34,17 @@
       .grid-y
         = f.input :notify_me
         .cell
-          .card
+          .card{ data: { controller: 'image-upload' } }
+            = f.input :avatar, as: :hidden, input_html: { data: { target: 'image-upload.idField' } }
             = f.label(:avatar)
-            - if @resource.avatar.present?
-              = image_tag @resource.avatar.url(:medium)
-              = f.input :avatar, as: :string, disabled: true, label: false
-            = f.input :avatar, label: false
+
+            - if @resource.avatar.attached?
+              = image_tag main_app.url_for(@resource.avatar), data: { target: 'image-upload.previewImage' }
+            - else
+              %img{ data: { target: 'image-upload.previewImage' } }
+            %button.button.clear{ class: @resource.avatar.attached? ? '' : 'hide', type: :button, data: { target: 'image-upload.updateButton', action: 'image-upload#open' } } Update Avatar
+            %button.button.clear{ class: @resource.avatar.attached? ? 'hide' : '',  type: :button, data: { target: 'image-upload.createButton', action: 'image-upload#open' } } Create Avatar
+
         = f.input :locale, collection: Integral::User.available_locales, prompt: t('integral.backend.users.prompts.select_language'), include_blank: false
 
     .cell= f.button :button

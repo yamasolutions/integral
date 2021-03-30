@@ -2,33 +2,18 @@
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
 #
-# This file is the source Rails uses to define your schema when running `rails
-# db:schema:load`. When creating a new database, `rails db:schema:load` tends to
+# This file is the source Rails uses to define your schema when running `bin/rails
+# db:schema:load`. When creating a new database, `bin/rails db:schema:load` tends to
 # be faster and is potentially less error prone than running all of your
 # migrations from scratch. Old migrations may fail to apply correctly if those
 # migrations use external dependencies or application code.
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_08_060023) do
+ActiveRecord::Schema.define(version: 2021_02_02_025646) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "ckeditor_assets", id: :serial, force: :cascade do |t|
-    t.string "data_file_name", null: false
-    t.string "data_content_type"
-    t.integer "data_file_size"
-    t.integer "assetable_id"
-    t.string "assetable_type", limit: 30
-    t.string "type", limit: 30
-    t.integer "width"
-    t.integer "height"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.index ["assetable_type", "assetable_id"], name: "idx_ckeditor_assetable"
-    t.index ["assetable_type", "type", "assetable_id"], name: "idx_ckeditor_assetable_type"
-  end
 
   create_table "friendly_id_slugs", id: :serial, force: :cascade do |t|
     t.string "slug", null: false
@@ -40,6 +25,28 @@ ActiveRecord::Schema.define(version: 2020_10_08_060023) do
     t.index ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type"
     t.index ["sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_id"
     t.index ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type"
+  end
+
+  create_table "integral_block_list_versions", force: :cascade do |t|
+    t.string "item_type", null: false
+    t.integer "item_id", null: false
+    t.string "event", null: false
+    t.string "whodunnit"
+    t.text "object"
+    t.text "object_changes"
+    t.datetime "created_at"
+    t.index ["item_type", "item_id"], name: "index_integral_block_list_versions_on_item_type_and_item_id"
+  end
+
+  create_table "integral_block_lists", force: :cascade do |t|
+    t.string "name"
+    t.text "content"
+    t.boolean "active", default: false
+    t.string "listable_type"
+    t.bigint "listable_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["listable_type", "listable_id"], name: "index_integral_block_lists_on_listable_type_and_listable_id"
   end
 
   create_table "integral_categories", force: :cascade do |t|
@@ -77,7 +84,7 @@ ActiveRecord::Schema.define(version: 2020_10_08_060023) do
     t.string "context"
   end
 
-  create_table "integral_image_versions", force: :cascade do |t|
+  create_table "integral_file_versions", force: :cascade do |t|
     t.string "item_type", null: false
     t.integer "item_id", null: false
     t.string "event", null: false
@@ -85,22 +92,15 @@ ActiveRecord::Schema.define(version: 2020_10_08_060023) do
     t.text "object"
     t.text "object_changes"
     t.datetime "created_at"
-    t.index ["item_type", "item_id"], name: "index_integral_image_versions_on_item_type_and_item_id"
+    t.index ["item_type", "item_id"], name: "index_integral_file_versions_on_item_type_and_item_id"
   end
 
-  create_table "integral_images", id: :serial, force: :cascade do |t|
+  create_table "integral_files", force: :cascade do |t|
     t.string "title"
     t.string "description"
-    t.string "file"
-    t.integer "width"
-    t.integer "height"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
     t.datetime "deleted_at"
-    t.boolean "file_processing", default: true, null: false
-    t.integer "file_size"
-    t.integer "lock_version"
-    t.index ["deleted_at"], name: "index_integral_images_on_deleted_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "integral_list_item_connections", id: false, force: :cascade do |t|
@@ -198,7 +198,6 @@ ActiveRecord::Schema.define(version: 2020_10_08_060023) do
     t.string "title"
     t.string "path"
     t.text "description"
-    t.text "body"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "status", default: 0, null: false
@@ -234,7 +233,6 @@ ActiveRecord::Schema.define(version: 2020_10_08_060023) do
   create_table "integral_posts", id: :serial, force: :cascade do |t|
     t.string "title"
     t.string "description"
-    t.text "body"
     t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -304,7 +302,6 @@ ActiveRecord::Schema.define(version: 2020_10_08_060023) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string "name"
-    t.string "avatar"
     t.string "locale", default: "en", null: false
     t.string "invitation_token"
     t.datetime "invitation_created_at"
@@ -315,7 +312,6 @@ ActiveRecord::Schema.define(version: 2020_10_08_060023) do
     t.integer "invited_by_id"
     t.integer "invitations_count", default: 0
     t.datetime "deleted_at"
-    t.boolean "avatar_processing", default: true, null: false
     t.integer "lock_version"
     t.boolean "admin", default: false
     t.boolean "notify_me", default: true

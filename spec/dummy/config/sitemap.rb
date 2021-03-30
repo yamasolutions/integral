@@ -20,7 +20,11 @@ SitemapGenerator::Sitemap.default_host = Rails.application.routes.default_url_op
 # SitemapGenerator::Sitemap.sitemaps_host = "https://s3-#{ENV.fetch('AWS_REGION')}.amazonaws.com/#{ENV.fetch('AWS_S3_BUCKET_NAME')}/"
 # SitemapGenerator::Sitemap.public_path = 'tmp/'
 # SitemapGenerator::Sitemap.sitemaps_path = 'sitemaps/'
-# SitemapGenerator::Sitemap.adapter = SitemapGenerator::WaveAdapter.new
+# SitemapGenerator::Sitemap.adapter = SitemapGenerator::AwsSdkAdapter.new(ENV.fetch('AWS_S3_BUCKET_NAME'),
+#   aws_access_key_id: ENV.fetch('AWS_ACCESS_KEY_ID'),
+#   aws_secret_access_key: ENV.fetch('AWS_SECRET_ACCESS_KEY'),
+#   aws_region: ENV.fetch('AWS_REGION')
+# )
 
 SitemapGenerator::Sitemap.create do
   # Add page paths

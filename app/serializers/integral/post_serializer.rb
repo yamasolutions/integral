@@ -3,7 +3,7 @@ module Integral
   class PostSerializer
     include FastJsonapi::ObjectSerializer
 
-    attributes :title, :description, :status, :slug, :created_at, :updated_at, :published_at, :body
+    attributes :title, :description, :status, :slug, :created_at, :updated_at, :published_at
 
     attribute :author do |post|
       post.author&.name
@@ -14,15 +14,15 @@ module Integral
     end
 
     attribute :url do |post|
-      post&.frontend_url
+      post.frontend_url
     end
 
     attribute :featured_image do |post|
-      post&.featured_image&.url(:large)
+      post.image&.attached? ? Rails.application.routes.url_helpers.rails_blob_path(post.image.attachment) : nil
     end
 
     attribute :preview_image do |post|
-      post&.preview_image&.url(:large)
+      post.preview_image&.attached? ? Rails.application.routes.url_helpers.rails_blob_path(post.preview_image.attachment) : nil
     end
   end
 end

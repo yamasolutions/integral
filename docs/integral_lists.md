@@ -90,25 +90,15 @@ Remember to use `find_by_id` which if a record isn't found will return nil, and 
 
 ## Making a custom object listable
 
-If you have created a custom object and would like Users to be able to select it as a ListItem through the UI you need to do three things;
-1. Mark the object as listable
+If you have created a custom object and would like Users to be able to select it as a ListItem through the UI you need to do the following;
+1. Enable listable through `acts_as_integral` options
 
 ```
-acts_as_listable
+acts_as_integral({
+  listable: { enabled: true }
+})
 ```
-2. Set the listable options
-```
-  # @return [Hash] listable options to be used within a RecordSelector widget
-  def self.listable_options
-    {
-      icon: 'rss',
-      record_title: I18n.t('integral.backend.record_selector.posts.record'),
-      selector_path: Engine.routes.url_helpers.list_backend_posts_path,
-      selector_title: I18n.t('integral.backend.record_selector.posts.title')
-    }
-  end
-```
-3. Set list item values to represent object instances
+2. Set list item values to represent object instances
 ```
   # @return [Hash] the instance as a list item
   def to_list_item
@@ -118,7 +108,7 @@ acts_as_listable
       title: title,
       subtitle: subtitle,
       description: description,
-      image: image,
+      image: attachment,  # Expects Integral::Storage::File or ActiveStorage::Attachment as #representation will be called
       url: Integral::Engine.routes.url_helpers.post_url(self)
     }
   end
@@ -141,6 +131,6 @@ Lists can only have items 2 levels deep.
 * List Item 2
   * Child 1
 
-## Future work
+## Further Questions?
 
-Most of the future work planned for lists involves techical debt or performance improvements. Check the [Wish List](https://github.com/yamasolutions/integral/wiki/Wish-List) for more information.
+Fill an issue on [GitHub]((https://github.com/yamasolutions/integral)

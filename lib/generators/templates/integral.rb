@@ -66,11 +66,6 @@ Integral.configure do |config|
   #
   # config.additional_page_templates = [:full_width]
 
-  # Add additional tracked classes to include within activity tracking
-  # Default is []
-  #
-  # config.additional_tracked_classes = [MyCustomClass]
-
   # Configure what page paths are protected from user entry to prevent accidentally overriding
   # config.black_listed_paths = [
   #   '/admin/',
@@ -81,10 +76,6 @@ Integral.configure do |config|
   # Default is true
   #
   # config.compression_enabled = false
-
-  # Configure the maximum dimensions of images uploaded through CKeditor
-  # Default is [1600, 1600]
-  # config.editor_image_size_limit = [800, 800]
 
   # Configure whether images can be re-uploaded once the record has been saved.
   # If you're using a CDN this should be false to prevent caching issues.
@@ -97,25 +88,21 @@ Integral.configure do |config|
   #
   # config.image_compression_quality = 100
 
-  # Configure the maximum dimensions of an image thumbnail version.
-  # Default is [50, 50]
+  # Configure the image dimension presets
   #
-  # config.image_thumbnail_size = [100, 100]
-
-  # Configure the maximum dimensions of an image small version.
-  # Default is [500, 500]
+  # Default is {
+  #   thumbnail: [50, 50],
+  #   small: [500, 500],
+  #   medium: [800, 800],
+  #   large: [1600, 1600]
+  # }
   #
-  # config.image_small_size = [500, 500]
-
-  # Configure the maximum dimensions of an image medium version.
-  # Default is [800, 800]
-  #
-  # config.image_medium_size = [800, 800]
-
-  # Configure the maximum dimensions of an image large version.
-  # Default is [1600, 1600]
-  #
-  # config.image_large_size = [1600, 1600]
+  # config.image_sizes = {
+  #   thumbnail: [100, 100],
+  #   small: [800, 800],
+  #   medium: [1200, 1200],
+  #   large: [2400, 2400]
+  # }
 
   # Configure the maximum description length for Posts & Pages
   # Default is 300
@@ -136,4 +123,14 @@ Integral.configure do |config|
   # Default is 4
   #
   # config.title_length_minimum = 10
+
+  # Configure the accepted file content types
+  # Default is ['application/pdf', 'image/*', 'video/*']
+  #
+  # config.accepted_file_types = ['*']
+
+  # Configure the maximum file upload size in bytes
+  # Default is 104857600 (100MB)
+  #
+  # config.maximum_file_size = 52428800 (50MB)
 end

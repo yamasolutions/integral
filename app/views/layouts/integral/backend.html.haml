@@ -18,7 +18,7 @@
               %button#open-sidebar.app-dashboard-open-sidebar-button.show-for-medium{ data: { 'app-dashboard-toggle-shrink' => true }, 'aria-label' => "open menu", type: "button" }
                 = icon('bars')
 
-          .app-dashboard-sidebar-inner
+          #dashboard--sidebar-inner.app-dashboard-sidebar-inner{ 'data-turbolinks-permanent' => true }
             -# TODO - Set multi-open to false. Currently hides - is-active items. Bug in Foundation
             %ul.menu.vertical{ 'data-responsive-menu' => 'accordion medium-dropdown' }
               = render partial: 'layouts/integral/backend/main_menu_items'
@@ -52,16 +52,18 @@
                         Unread
                       %span.subtitle User Notifications
                     .section
+                      - if current_user.notifications.unread.count > 25
+                        = link_to 'Mark all as read', read_all_notifications_backend_user_url(current_user), method: :put, remote: true, class: 'notification-read-all', data: { confirm: 'Are you sure you want to mark all notifications as read?' }
                       %ul.menu.vertical.notification-list
                         = render recent_user_notifications.decorate, cached: true
                       - if current_user.multiple_page_notifications?
                         %p.notification-list-loader.js-loader--notifications
                           = icon('spinner', class: 'fa-pulse fa-fw')
                 %li
-                  %button.button.clear.avatar{ type: 'button', data: { toggle: 'profile-dropdown'}}= image_tag(current_user.avatar.url(:thumbnail), class: 'avatar')
+                  %button.button.clear.avatar{ type: 'button', data: { toggle: 'profile-dropdown'}}= image_tag(decorated_current_user.avatar_url, class: 'avatar')
                   #profile-dropdown.dropdown-pane.dropdown-pane--profile{ data: { dropdown: true, hover: 'true', 'hover-pane'=> 'true', 'v-offset'=> '35', 'hover-delay'=> 50 }}
                     .section
-                      = image_tag(current_user.avatar.url(:thumbnail), class: 'avatar')
+                      = image_tag(decorated_current_user.avatar_url, class: 'avatar')
                       %span.name= current_user.name
                       %span.email= current_user.email
                     .section
@@ -110,7 +112,5 @@
           #content-area
             = render partial: 'integral/backend/shared/breadcrumbs'
             = yield
-    = render partial: 'integral/backend/shared/record_selector/modal', locals: { search_path: list_backend_img_index_path, title: t('integral.prompts.select_image'), name: 'Media', create_modal: '#new_image_modal', initialize: true }
-    .record-image
-      = render partial: 'integral/backend/shared/image_selector'
+    = render partial: 'integral/backend/shared/resource_selector'
     = render partial: 'integral/backend/shared/activity_modal'

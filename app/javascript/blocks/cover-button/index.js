@@ -56,7 +56,7 @@ export const settings = {
       <PlainText
         onChange={ content => setAttributes({ title: content }) }
         value={ attributes.title }
-        placeholder="Cover Button CTA"
+        placeholder="Enter text"
         className="wp-block-integral-cover-button"
       />
     ]);

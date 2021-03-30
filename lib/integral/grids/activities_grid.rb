@@ -9,13 +9,10 @@ module Integral
         fields = [:id, :item_type, :item_id, :event, :whodunnit, :created_at]
         scope = Integral::PageVersion.select(fields).all
 
-        [Integral::PostVersion,
-         Integral::CategoryVersion,
-         Integral::ListVersion,
-         Integral::ImageVersion,
-         Integral::UserVersion].concat(Integral.additional_tracked_classes.map { |klass| klass.version_class_name.constantize }).each do |version|
+        ActsAsIntegral.tracked_classes.map { |klass| klass.version_class_name.constantize }.each do |version|
           scope = scope.union(version.select(fields).all)
         end
+
         scope = scope.order('created_at DESC')
       end
 

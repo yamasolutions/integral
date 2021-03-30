@@ -3,12 +3,12 @@ module Integral
   class User < ApplicationRecord
     acts_as_paranoid # Soft-deletion
     acts_as_integral({
+      icon: 'user',
       backend_main_menu: { order: 60 },
       backend_create_menu: { order: 50 }
     }) # Integral Goodness
 
-    mount_uploader :avatar, AvatarUploader
-    process_in_background :avatar
+    has_one_attached :image
 
     # Included devise modules. Others available are:
     # :confirmable, :timeoutable, :omniauthable, registerable and lockable
@@ -25,11 +25,16 @@ module Integral
 
     # Validations
     validates :name, :email, presence: true
+    validate :validate_email_availability
+
     validates :name, length: { minimum: 3, maximum: 25 }
 
     has_paper_trail versions: { class_name: 'Integral::UserVersion' }
 
     scope :search, ->(search) { where('lower(name) LIKE ?', "%#{search.downcase}%") }
+
+    # Aliases
+    alias avatar image
 
     # Checks if the User has a given role
     #
@@ -40,10 +45,6 @@ module Integral
       role_sym = [role_sym] unless role_sym.is_a?(Array)
 
       roles.map { |r| r.name.underscore.to_sym }.any? { |user_role| role_sym.include?(user_role) }
-    end
-
-    def self.integral_icon
-      'user'
     end
 
     # @return [Array] containing available locales
@@ -103,6 +104,12 @@ module Integral
 
     def send_devise_notification(notification, *args)
       devise_mailer.send(notification, self, *args).deliver_later
+    end
+
+    def validate_email_availability
+      if self.class.unscoped.where(email: self.email).exists?
+        errors.add(:email, 'has already been taken')
+      end
     end
   end
 end

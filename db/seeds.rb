@@ -13,7 +13,7 @@ Integral::Role.create!(name: 'PageEditor')
 Integral::Role.create!(name: 'PageManager')
 
 Integral::Role.create!(name: 'UserManager')
-Integral::Role.create!(name: 'ImageManager')
+Integral::Role.create!(name: 'FileManager')
 Integral::Role.create!(name: 'PostManager')
 Integral::Role.create!(name: 'ListManager')
 
@@ -29,23 +29,27 @@ renderer = ApplicationController.renderer.new(
   http_host: host.to_s.sub(/^https?\:\/\//, '').sub(/^www./,''),
   https: host.scheme == 'https')
 
-Integral::Page.create!(title: 'Integral CMS - Demo Page',
+page = Integral::Page.new(title: 'Integral CMS - Demo Page',
                        description:'Integral CMS demo page. Integral is a rails content management system (CMS) which gives developers the ability to create a modern website with all the bells and whistles without the hassle.',
                        path: '/',
-                       body: renderer.render('integral/pages/_demo', layout: false),
+                       active_block_list: Integral::BlockEditor::BlockList.new(content: renderer.render('integral/pages/_demo', layout: false), active: true),
                        status: 1)
+page.active_block_list.listable = page
+page.save!
 
 if Integral.blog_enabled?
   # Demo Post
   category = Integral::Category.create!(title: 'Uncategorised', description: "Posts which we haven't yet categorized but are sure to grab your attention", slug: 'uncategorized')
-  Integral::Post.create!(title: 'Integral CMS - Demo Post',
-                         description:'Integral CMS demo post. Integral is a rails content management system (CMS) which gives developers the ability to create a modern website with all the bells and whistles without the hassle.',
-                         body: File.read(File.join(Integral::Engine.root.join('public', 'integral', 'ckeditor_demo_content.html'))),
+  post = Integral::Post.new(title: 'Integral CMS - Demo Post',
+                         description: 'Integral CMS demo post. Integral is a rails content management system (CMS) which gives developers the ability to create a modern website with all the bells and whistles without the hassle.',
+                         active_block_list: Integral::BlockEditor::BlockList.new(content: renderer.render('integral/posts/_demo', layout: false), active: true),
                          slug: 'integral-demo',
                          user: user,
                          tag_list: 'integral-cms,example-tag',
                          status: 1,
                          category: category)
+  post.active_block_list.listable = post
+  post.save!
 end
 
 # Main Menu

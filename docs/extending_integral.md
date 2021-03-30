@@ -103,7 +103,10 @@ Update the empty `SpecialOffer` model with the following;
 # app/models/special_offer.rb
 
 class SpecialOffer < ApplicationRecord
-  acts_as_integral
+  acts_as_integral({
+    icon: 'percent' # Font awesome icon name representing model - https://fontawesome.com/v4.7.0/icons/
+  })
+
   has_paper_trail class_name: 'SpecialOfferVersion'
 
   # Validations
@@ -113,16 +116,7 @@ class SpecialOffer < ApplicationRecord
   scope :search, ->(search) { where('lower(title) LIKE ?', "%#{search.downcase}%") }
 
   # Associations
-  belongs_to :image, class_name: 'Integral::Image', optional: true
-
-  def self.decorator_class
-    Integral::BaseDecorator
-  end
-
-  # @return [String] font awesome icon name representing modal - https://fontawesome.com/v4.7.0/icons/
-  def self.integral_icon
-    'percent'
-  end
+  belongs_to :image, class_name: 'Integral::Storage::File', optional: true
 
   # @return [Hash] dataset to render an integral backend instance card
   def to_card
@@ -144,6 +138,7 @@ end
 * Registers with the backend main menu
 * Registers with the backend create menu
 * Registers with the main dashboard 'at a glance' chart
+* Enables tracking
 * Enables notification subscriptions
 
 Next, create the `SpecialOfferVersion` which is the model that stores `SpecialOffer` changes;
@@ -256,7 +251,7 @@ module Integral
 end
 ```
 
-If you haven't already make sure you're loading `/lib` in your application:
+If you haven't already, make sure you're loading `/lib` in your application:
 ```
 # config/application.rb
 
@@ -274,14 +269,6 @@ mv app/views/integral/backend/posts/ app/views/integral/backend/special_offers
 ```
 3. Make any changes necessary such as updating the form to only contain fields relating to `special_offers`
 4. Remove the additional Integral backend views which were generated that you are not using
-
-To add special offer activities to the activities page and recent activity widget we're going to update the Integral config file;
-
-```
-# config/initializers/integral.rb
-
-config.additional_tracked_classes = [SpecialOffer]
-```
 
 Lastly we need to create the authorization policy.
 

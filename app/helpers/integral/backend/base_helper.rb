@@ -8,8 +8,43 @@ module Integral
       include Integral::SupportHelper
       include ::Webpacker::Helper
 
+      def storage_file_content_type_options
+        ActiveStorage::Blob.distinct.pluck(:content_type).sort
+      end
+
+      def grouped_page_parent_options
+        @resource.available_parents.order('updated_at DESC').group_by(&:locale).map do |result|
+          [
+            t("language.#{result[0]}"),
+            result[1].map { |page| [ "#{page.title} - #{page.path} (##{page.id})", page.id ] }
+          ]
+        end.to_h
+      end
+
+      def grouped_post_alternate_options
+        Integral::Post.published.where.not(id: @resource.id).order('updated_at DESC').group_by(&:locale).map do |result|
+          [
+            t("language.#{result[0]}"),
+            result[1].map { |post| ["#{post.title} - #{post.slug} (##{post.id})", post.id, {disabled: @resource.alternate_ids.include?(post.id), data: { title: post.title, description: post.description, path: post.slug, url: backend_post_url(post.id) } }] }
+          ]
+        end.to_h
+      end
+
+      def grouped_page_alternate_options
+        Integral::Page.published.where.not(id: @resource.id).order('updated_at DESC').group_by(&:locale).map do |result|
+          [
+            t("language.#{result[0]}"),
+            result[1].map { |page| ["#{page.title} - #{page.path} (##{page.id})", page.id, {disabled: @resource.alternate_ids.include?(page.id), data: { title: page.title, description: page.description, path: page.path, url: backend_page_url(page.id) } }] }
+          ]
+        end.to_h
+      end
+
       def current_webpacker_instance
         Integral.webpacker
+      end
+
+      def decorated_current_user
+        @decorated_current_user ||= current_user.decorate
       end
 
       def render_main_menu
@@ -148,7 +183,7 @@ module Integral
         data = [
           { scope: Integral::Page, label: 'Pages' },
           { scope: Integral::List, label: 'Lists' },
-          { scope: Integral::Image, label: 'Images' },
+          { scope: Integral::Storage::File, label: 'Files' },
           { scope: Integral::User, label: 'Users' }
         ]
 

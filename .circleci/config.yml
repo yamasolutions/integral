@@ -38,7 +38,6 @@ jobs:
 
       # Precompile assets to reduce chance of timeout
       - run: bundle exec rake app:assets:precompile
-      - run: bundle exec rake app:ckeditor:nondigest
 
       # Run the tests
       - run: bundle exec rspec spec/

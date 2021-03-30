@@ -15,7 +15,7 @@ Integral is a content management system (CMS) for Rails 6+. The aim of Integral 
     * User notifications
     * User authentication & authorization
     * Page & Post management with full WYSWIYG editing
-    * Image management (w/ background image processing)
+    * File management using Active Storage + direct uploads
     * List management
     * Settings management
 * Frontend features

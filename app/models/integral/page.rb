@@ -1,15 +1,15 @@
 module Integral
   # Represents a public viewable page
   class Page < ApplicationRecord
-    include LazyContentable
+    include BlockEditor::Listable
 
     acts_as_paranoid # Soft-deletion
     acts_as_integral({
+      icon: 'file',
+      listable: { enabled: true },
       backend_main_menu: { order: 20 },
       backend_create_menu: { order: 10 }
     }) # Integral Goodness
-
-    acts_as_listable # Listable Item
 
     has_paper_trail versions: { class_name: 'Integral::PageVersion' }
 
@@ -25,7 +25,7 @@ module Integral
 
     # Associations
     belongs_to :parent, class_name: 'Integral::Page', optional: true
-    belongs_to :image, class_name: 'Integral::Image', optional: true
+    belongs_to :image, class_name: 'Integral::Storage::File', optional: true
 
     has_many :resource_alternates, as: :resource
     has_many :alternates, through: :resource_alternates, source_type: "Integral::Page"
@@ -52,8 +52,6 @@ module Integral
 
     # Scopes
     scope :search, ->(query) { where('lower(title) LIKE ? OR lower(path) LIKE ?', "%#{query.downcase}%", "%#{query.downcase}%") }
-    # TODO: Remove this on Rails 6 upgrade
-    scope :not_archived, -> { where.not(status: :archived) }
 
     # Return all available parents
     # TODO: Update parent behaviour
@@ -75,41 +73,8 @@ module Integral
         title: title,
         # subtitle: '',
         description: description,
-        image: image&.url,
+        image: image&.attachment,
         url: "#{Rails.application.routes.default_url_options[:host]}#{path}"
-      }
-    end
-
-    # @return [Hash] listable options to be used within a RecordSelector widget
-    def self.listable_options
-      {
-        icon: 'file',
-        record_title: I18n.t('integral.backend.record_selector.pages.record'),
-        selector_path: Engine.routes.url_helpers.list_backend_pages_path,
-        selector_title: I18n.t('integral.backend.record_selector.pages.title')
-      }
-    end
-
-    def self.integral_icon
-      'file'
-    end
-
-    # @return [Hash] the instance as a card
-    def to_card
-      attributes = [{ key: I18n.t('integral.records.attributes.status'), value: I18n.t("integral.records.status.#{status}") }]
-      if Integral.multilingual_frontend?
-        attributes += [{ key: I18n.t('integral.records.attributes.locale'), value: I18n.t("integral.language.#{locale}") }]
-      end
-      attributes += [
-        { key: I18n.t('integral.records.attributes.path'), value: path },
-        { key: I18n.t('integral.records.attributes.updated_at'), value: I18n.l(updated_at) }
-      ]
-
-      {
-        # image: image_url,
-        description: title,
-        url: "#{Rails.application.routes.default_url_options[:host]}#{path}",
-        attributes: attributes
       }
     end
 

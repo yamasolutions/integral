@@ -13,8 +13,9 @@ import { InspectorControls, RichText, MediaUpload, PlainText } from '@wordpress/
 import { cover as icon } from '@wordpress/icons';
 
 const BLOCKS_TEMPLATE = [
-    [ 'core/heading', { content: 'Cover Title' } ],
-    [ 'core/list', { values: '<li>Example list item 1</li><li>Example list item 2</li><li>Example list item 3</li>' } ],
+    [ 'core/heading', { content: 'Example Cover Title' } ],
+    [ 'core/paragraph', { content: 'Break up content and draw attention to something using a cover block' } ],
+    [ 'integral/cover-button', { content: 'Example Call To Action' } ]
 ];
 const ALLOWED_BLOCKS = [ 'core/heading', 'core/paragraph', 'core/list' ];
 const name = 'integral/cover';

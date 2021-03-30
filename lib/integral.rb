@@ -3,7 +3,7 @@ require 'devise_invitable'
 
 require 'integral/version'
 require 'integral/router'
-require 'integral/middleware/page_router'
+require 'integral/middleware/alias_router'
 require 'integral/engine'
 require 'integral/button_link_renderer'
 require 'integral/google_tag_manager'
@@ -13,13 +13,13 @@ require 'integral/grids/pages_grid'
 require 'integral/grids/users_grid'
 require 'integral/grids/lists_grid'
 require 'integral/grids/posts_grid'
-require 'integral/grids/images_grid'
+require 'integral/grids/files_grid'
 require 'integral/acts_as_listable'
 require 'integral/acts_as_integral'
-require 'integral/blocks/base'
-require 'integral/blocks/recent_posts'
-require 'integral/blocks/contact_form'
-require 'integral/block_list_renderer'
+require 'integral/block_editor/blocks/base'
+require 'integral/block_editor/blocks/recent_posts'
+require 'integral/block_editor/blocks/contact_form'
+require 'integral/block_editor/block_list_renderer'
 require 'integral/list_renderer'
 require 'integral/swiper_list_renderer'
 require 'integral/list_item_renderer'
@@ -82,26 +82,16 @@ module Integral
   mattr_accessor :frontend_parent_controller
   @@frontend_parent_controller = 'Integral::ApplicationController'
 
-  mattr_accessor :editor_image_size_limit
-  @@editor_image_size_limit = [1600, 1600]
-
-  mattr_accessor :image_thumbnail_size
-  @@image_thumbnail_size = [50, 50]
-
-  mattr_accessor :image_small_size
-  @@image_small_size = [500, 500]
-
-  mattr_accessor :image_medium_size
-  @@image_medium_size = [800, 800]
-
-  mattr_accessor :image_large_size
-  @@image_large_size = [1600, 1600]
+  mattr_accessor :image_sizes
+  @@image_sizes = {
+    thumbnail: [50, 50],
+    small: [500, 500],
+    medium: [800, 800],
+    large: [1600, 1600]
+  }
 
   mattr_accessor :additional_page_templates
   @@additional_page_templates = []
-
-  mattr_accessor :additional_tracked_classes
-  @@additional_tracked_classes = []
 
   mattr_accessor :compression_enabled
   @@compression_enabled = true
@@ -123,6 +113,12 @@ module Integral
 
   mattr_accessor :title_length_minimum
   @@title_length_minimum = 4
+
+  mattr_accessor :accepted_file_types
+  @@accepted_file_types = ['application/pdf', 'image/*', 'video/*']
+
+  mattr_accessor :maximum_file_size
+  @@maximum_file_size = 104857600 # 100MB
 
   # @return [Boolean] Whether or not the frontend is multilingual
   def self.multilingual_frontend?
@@ -148,6 +144,6 @@ module Integral
   def self.dynamic_blocks
     # TODO: Allow host app to add additional blocks
     # i.e. blocks.concat Integral.additional_dynamic_blocks
-    [ Integral::Blocks::ContactForm, Integral::Blocks::RecentPosts, ::Blocks::Sponsors, ::Blocks::ParkLayout, ::Blocks::BookNow ]
+    [ Integral::BlockEditor::Blocks::ContactForm, Integral::BlockEditor::Blocks::RecentPosts, ::Blocks::Sponsors, ::Blocks::ParkLayout, ::Blocks::BookNow ]
   end
 end

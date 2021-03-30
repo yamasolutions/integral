@@ -6,6 +6,7 @@
   width: auto;
   .wp-block-button__link {
     @include button($style: none);
+    font-weight: $button-font-weight;
   }
 
   // Sizes

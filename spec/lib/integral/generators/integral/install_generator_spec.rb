@@ -20,14 +20,6 @@ module Integral
         assert_file "config/app.yml"
       end
 
-      it "creates a default Carrierwave initializer" do
-        assert_file "config/initializers/carrierwave.rb"
-      end
-
-      it "creates a default Carrierwave Backgrounder initializer" do
-        assert_file "config/initializers/carrierwave_backgrounder.rb"
-      end
-
       it "creates a default Sitemap Generator file" do
         assert_file "config/sitemap.rb"
       end

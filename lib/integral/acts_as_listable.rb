@@ -24,13 +24,6 @@ module Integral
             raise NotImplementedError
           end
 
-          # @return [Hash] listable options to be used within a RecordSelector widget.
-          # Expects the following keys: record_title, selector_path, selector_title
-          # TODO: Move these options into acts_as_listable initializer
-          def self.listable_options
-            raise NotImplementedError
-          end
-
           before_save :touch_list_items
 
           # Touch all list items the instance is associated with

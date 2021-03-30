@@ -29,9 +29,6 @@ module Integral
               end
 
       @page = scope.find(params[:id]).decorate
-
-      # Redirect users accessing pages anyway other than the canonical URL for example /pages/123
-      redirect_to @page.path if @page.path != params[:original_path]
     end
 
     def set_breadcrumbs

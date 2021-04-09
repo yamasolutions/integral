@@ -246,7 +246,7 @@ en:
         subtitle: Subjects discussed within this blog
         description: Tags used within our blog
       show:
-        title: "Posts tagged with %{tag_name} within our blog"
+        title: "Posts tagged with %{tag_name}"
         subtitle: Related Articles
         description: "All posts tagged %{tag_name} within our blog"
     blog:

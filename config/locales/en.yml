@@ -246,8 +246,9 @@ en:
         subtitle: Subjects discussed within this blog
         description: Tags used within our blog
       show:
+        title: "Posts tagged with %{tag_name} within our blog"
         subtitle: Related Articles
-        description: "All articles tagged %{tag_name} within our blog"
+        description: "All posts tagged %{tag_name} within our blog"
     blog:
       posted_ago: "Published %{time} ago"
       widgets:

@@ -1,8 +1,6 @@
 module Integral
   # Represents a generic list such as a gallery or menu
   class List < ApplicationRecord
-    default_scope { includes(:list_items) }
-
     acts_as_integral({
       icon: 'list',
       backend_main_menu: { order: 50 },

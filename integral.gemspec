@@ -58,6 +58,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'will_paginate-foundation', '~> 6.2' # Pagination for Foundation
   s.add_dependency 'fast_jsonapi', '~> 1.5' # Object Serialization
   s.add_dependency 'route_translator', '~> 8.0' # Multilingual routing
+  s.add_dependency 'block_editor', '~> 0.1.0' # Block Editor
 
   s.add_development_dependency 'database_cleaner', '~> 1.5' # Manages database test states
   s.add_development_dependency 'factory_bot_rails', '~> 4.8' # Create reusable object templates

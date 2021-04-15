@@ -1,6 +1,7 @@
 module Integral
   # Integral Engine
   class Engine < ::Rails::Engine
+    require 'block_editor'
     require 'haml'
     require 'htmlcompressor'
     require 'groupdate'
@@ -109,9 +110,6 @@ module Integral
         'integral/backend/logo.png',
         'integral/backend/data-unavailable.png',
         'integral/image-not-set.png',
-
-        # Block Editor
-        'integral/block_editor.css',
 
         # Emails
         'integral/emails.css',

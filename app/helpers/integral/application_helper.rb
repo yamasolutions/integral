@@ -13,15 +13,8 @@ module Integral
       end
     end
 
-    # @param [String] content HTML, most likely generated from the WYSIWYG editor
-    #
-    # @return [String] Processed HTML. Any Integral Widgets placeholders replaced with content.
-    def render_content(content)
-      Integral::ContentRenderer.render(content)
-    end
-
     def render_blocks(content)
-      BlockEditor::BlockListRenderer.render(content)
+      ::BlockEditor::BlockListRenderer.render(content)
     end
 
     # @param [Integral::List] list the list to render

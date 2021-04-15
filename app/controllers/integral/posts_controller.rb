@@ -12,7 +12,7 @@ module Integral
       add_breadcrumb I18n.t('integral.breadcrumbs.blog'), nil
 
       @latest_post = Integral::Post.published.where(locale: I18n.locale).order('published_at DESC').first&.decorate
-      @posts = Integral::Post.published.where(locale: I18n.locale).includes(:image, :user).order('published_at DESC').paginate(page: params[:page])
+      @posts = Integral::Post.published.where(locale: I18n.locale).order('published_at DESC').paginate(page: params[:page])
       @posts = @posts.where.not(id: @latest_post.id) if @latest_post
 
       page_title = t('integral.posts.index.title')

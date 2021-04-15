@@ -1,4 +1,5 @@
-= render_posts_as_json_ld(@posts.decorate)
+- cache @posts do
+  = render_posts_as_json_ld(@posts.decorate)
 
 = render layout: 'integral/shared/blog/layout', locals: { title: t('.title') } do
   - if @latest_post.present?

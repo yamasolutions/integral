@@ -3,7 +3,7 @@ module Integral
   module BlogHelper
     # @return [Relation] featured categories - currently all which have posts associated to them
     def featured_categories
-      @featured_categories ||= Integral::Category.where(locale: I18n.locale).where(id: Integral::Post.published.select(:category_id).uniq.map(&:category_id))
+      @featured_categories ||= Integral::Category.joins(:posts).where(locale: I18n.locale).where(posts: { status: :published }).distinct
     end
 
     # @param post [Integral::Post] post to convert to JSON-LD

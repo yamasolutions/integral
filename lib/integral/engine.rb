@@ -92,34 +92,7 @@ module Integral
     end
 
     initializer 'integral.assets.precompile' do |app|
-      assets_for_precompile = [
-        # Dashboard tiles
-        'integral/tiles/*',
-        # Defaults
-        'integral/defaults/*',
-        # Frontend
-        'integral/frontend.js',
-        'integral/frontend.css',
-        'integral/posts-hero-banner.jpg',
-        'integral/demo/*',
-        'logo.png',
-
-        # Backend
-        'integral/backend.js',
-        'integral/backend.css',
-        'integral/backend/logo.png',
-        'integral/backend/data-unavailable.png',
-        'integral/image-not-set.png',
-
-        # Emails
-        'integral/emails.css',
-        'integral/emails/colors.css',
-
-        # Errors
-        'errors.css'
-      ]
-
-      app.config.assets.precompile.concat assets_for_precompile
+      app.config.assets.precompile << "integral_manifest.js"
     end
 
     initializer "webpacker.proxy" do |app|

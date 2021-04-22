@@ -1,3 +1,4 @@
+import "styles.scss"
 import "controllers"
 
 window.Trix = require("trix")

@@ -31,7 +31,6 @@ Gem::Specification.new do |s|
   s.add_dependency 'font-awesome-sass', '~> 4.3' # Grid Icons
   s.add_dependency 'foundation-rails', '~> 6.6.2' # Foundation UI Framework
   s.add_dependency 'friendly_id', '~> 5.2' # Slugging
-  s.add_dependency 'gaffe', '~> 1.2' # Custom error pages
   s.add_dependency "groupdate", "~> 3.0" # Group By
   s.add_dependency 'haml-rails', '~> 1.0' # HAML
   s.add_dependency 'htmlcompressor', '~> 0.2.0' # Compression

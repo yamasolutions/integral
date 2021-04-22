@@ -37,7 +37,6 @@ module Integral
     require 'will_paginate'
     require 'will_paginate-foundation'
     require 'rails-settings-cached'
-    require 'gaffe'
     require 'fast_jsonapi'
     require 'route_translator'
     require 'webpacker'

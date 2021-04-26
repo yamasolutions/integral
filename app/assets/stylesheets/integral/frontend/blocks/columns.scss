@@ -1,7 +1,0 @@
-.wp-block-columns {
-  display: flex;
-  margin: 20px 0;
-  @include breakpoint(medium down) {
-    display: block;
-  }
-}

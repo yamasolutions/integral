@@ -6,12 +6,16 @@ module Integral
       object.name
     end
 
-    def avatar_url
-      if object.avatar.attached?
-        app_url_helpers.url_for(object.avatar)
-      else
-        ActionController::Base.helpers.asset_path('integral/defaults/user_avatar.jpg')
-      end
+    def image_url(size: :small, transform: nil)
+      image_variant_url(image, size: size, transform: transform)
+    end
+
+    def avatar_url(size: :thumbnail, transform: nil)
+      image_url(size: size, transform: transform)
+    end
+
+    def fallback_image_url
+      h.image_url('integral/defaults/user_avatar.jpg')
     end
   end
 end

@@ -6,7 +6,7 @@
       %p.timeline-content-event= activity.event
       - if activity.whodunnit.present?
         = link_to activity.whodunnit_url, class: 'timeline-content-user' do
-          = image_tag activity.whodunnit_avatar_url, class: :avatar
+          = activity.whodunnit.avatar_circle
           %span= activity.whodunnit_name.truncate(30)
       - else
         %p.timeline-content-user

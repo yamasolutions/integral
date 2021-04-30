@@ -107,7 +107,13 @@ module Integral
     end
 
     def validate_email_availability
-      if self.class.unscoped.where(email: self.email).exists?
+      scope = if persisted?
+                self.class.unscoped.where.not(id: id)
+              else
+                self.class.unscoped
+              end
+
+      if scope.where(email: self.email).exists?
         errors.add(:email, 'has already been taken')
       end
     end

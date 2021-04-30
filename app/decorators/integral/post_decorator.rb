@@ -62,7 +62,7 @@ module Integral
 
     # @return [String] avatar image
     def avatar
-      h.image_tag user.avatar_url, class: 'user-avatar' if user.present?
+      h.image_tag user.avatar_url, class: 'user-avatar', alt: user.name if user.present?
     end
 
     # Tags to be used within the header of an article to describe the subject

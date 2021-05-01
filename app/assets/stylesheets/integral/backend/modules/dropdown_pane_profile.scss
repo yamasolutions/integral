@@ -25,11 +25,15 @@
       border-radius: 5px 5px 0 0;
       background-color: $primary-color;
       color: $white;
-      .avatar {
+      .avatar, .avatar-circle {
         float: left;
         margin-right: 1em;
         width: 60px;
         height: 60px;
+        object-fit: cover;
+        .avatar-text {
+          font-size: 20px;
+        }
       }
       .name {
         font-size: 1.3em

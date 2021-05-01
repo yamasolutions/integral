@@ -42,12 +42,6 @@ module Integral
     yield(self)
   end
 
-  mattr_accessor :avatar_colors
-  @@avatar_colors = [
-    '#00AA55', '#009FD4', '#B381B3', '#939393', '#E3BC00',
-    '#D47500', '#DC2A2A', '#696969', '#ff0000', '#ff80ed'
-  ]
-
   mattr_accessor :backend_namespace
   @@backend_namespace = 'admin'
 

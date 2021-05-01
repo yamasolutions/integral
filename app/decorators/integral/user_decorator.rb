@@ -16,13 +16,11 @@ module Integral
 
     def avatar_circle
       if object.avatar.attached?
-        h.image_tag(avatar_url)
+        h.image_tag(avatar_url, class: 'avatar', alt: object.name)
       else
         initials = object.name.split(' ').map { |name| name[0] }.join[0..1]
-        avatar_color = Integral.avatar_colors[initials.first.to_s.downcase.ord % 10]
 
-        style = "background-color: #{avatar_color};"
-        h.content_tag :div, class: 'avatar-circle', style: style do
+        h.content_tag :div, class: "avatar-circle avatar-circle-bg-#{initials.first.to_s.downcase.ord % 10}" do
           h.content_tag :div, initials, class: 'avatar-text'
         end
       end

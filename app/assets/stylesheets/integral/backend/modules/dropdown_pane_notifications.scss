@@ -141,9 +141,12 @@
     &:hover {
       opacity: 1;
     }
-    img {
+    img, .avatar-circle {
       width: 15px;
       height: 15px;
+    }
+    .avatar-text {
+      font-size: 8px;
     }
   }
 }

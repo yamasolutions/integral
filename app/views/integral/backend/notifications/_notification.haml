@@ -9,7 +9,7 @@
       %span.notification-whodunnit
         - if notification.whodunnit.present?
           = link_to notification.whodunnit_url do
-            = image_tag notification.whodunnit_avatar_url, class: :avatar
+            = notification.whodunnit.avatar_circle
             %span= notification.whodunnit_name.truncate(30)
         - else
           = image_tag notification.whodunnit_avatar_url, class: :avatar

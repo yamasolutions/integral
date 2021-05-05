@@ -154,8 +154,8 @@ function ready() {
       // Populate modal with content & filters
       $modal.find('[data-title]').html($button.data('recent-activity-title'))
       $modal.find('[data-timeline]').html($button.closest('.card').find('.timeline').html())
-      $form.find("input[name='grid[user]']").val($button.data('recent-activity-user'))
-      $form.find("input[name='grid[object]']").val($button.data('recent-activity-object'))
+      $form.find("input[name='grid[user][]']").val($button.data('recent-activity-user'))
+      $form.find("input[name='grid[object][]']").val($button.data('recent-activity-object'))
       $form.find("input[name='grid[created_at]']").val($button.data('recent-activity-created-at'))
       $form.find("input[name='grid[item_id]']").val($button.data('recent-activity-item-id'))
 

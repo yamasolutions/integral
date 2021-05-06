@@ -179,6 +179,7 @@ en:
         path: Path
         slug: Slug
         size: Size
+        tag_list: Tag list
       status:
         archived: Archived
         draft: Draft

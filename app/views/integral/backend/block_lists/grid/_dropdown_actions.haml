@@ -1,0 +1,4 @@
+- if policy(Integral::Page).update?
+  = link_to t('integral.actions.edit'), edit_backend_resource_url(resource), icon: :edit, wrapper: :li
+- if policy(Integral::Page).destroy?
+  = link_to t('integral.actions.delete'), backend_resource_url(resource), method: :delete, data: { confirm: t('integral.actions.confirmation.deletion') }, icon: :remove, wrapper: :li

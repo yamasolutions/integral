@@ -110,6 +110,16 @@ module Integral
             end
           end
 
+          # Reusable Blocks Management
+          resources :block_lists do
+            get 'list', on: :collection
+            # member do
+            #   post 'duplicate'
+            #   get 'activities', controller: 'pages'
+            #   get 'activities/:activity_id', to: 'pages#activity', as: :activity
+            # end
+          end
+
           # Page Management
           resources :pages do
             get 'list', on: :collection

@@ -1,0 +1,11 @@
+.card.listing
+  %h2.show-for-small-only= page_title
+  - if policy(Integral::Page).create?
+    = link_to t('integral.actions.create'), new_backend_resource_url, class: 'button hollow show-for-small-only create'
+
+  .top-bar
+    - if policy(Integral::Page).create?
+      .top-bar-left.hide-for-small-only
+        = link_to t('integral.actions.create'), new_backend_resource_url, class: 'button hollow'
+
+  = render_resource_grid

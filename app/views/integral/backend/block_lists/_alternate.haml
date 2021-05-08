@@ -1,0 +1,13 @@
+- url = alternate.persisted? ? backend_page_url(alternate.id) : root_url
+
+.alternate-resource
+  %input{ type: :hidden, name: 'page[alternate_ids][]', value: alternate.id }
+  .alternate-resource--info
+    %h4.alternate-resource--title
+      %span= alternate.title
+      = link_to url, target: :blank do
+        = icon('external-link')
+    %p.alternate-resource--description= alternate.description.truncate(100)
+    %small.alternate-resource--path= alternate.path
+  .alternate-resource--actions
+    %button.clear.button.alternate-resource--button{ type: :button, data: { action: 'alternate-resource#remove' } }= icon('trash')

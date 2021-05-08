@@ -1,0 +1,14 @@
+-# Merge this with recent resources
+.card
+  .card-action-title
+    %h2
+      Recent Reusable Blocks
+  %table.table--resources
+    - BlockEditor::BlockList.reusable.limit(5).order('updated_at DESC').decorate.each do |resource|
+      %tr
+        %td= resource.title
+        %td
+          = link_to edit_backend_block_list_url(resource), class: 'button--action-pane' do
+            = icon('edit')
+
+  = link_to t('integral.actions.view_all'), list_backend_block_lists_url, class: 'button clear expanded'

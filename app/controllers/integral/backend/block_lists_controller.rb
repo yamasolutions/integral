@@ -3,14 +3,31 @@ module Integral
     # Block Lists controller
     class BlockListsController < BaseController
       before_action :authorize_with_klass, except: %i[activities activity]
-      before_action :set_resource, except: %i[create new index list]
+      before_action :set_resource, only: %i[show edit update]
 
       def index
         redirect_to list_backend_block_lists_url
       end
 
       def show
-        redirect_to edit_backend_block_list_url(@resource.id)
+        if params["_locale"].present?
+          block_list = BlockEditor::BlockList.reusable.find(params[:id])
+          res = {
+            id: block_list.id,
+            status: "publish",
+            name: "wp_block",
+            title: {
+              raw: block_list.name
+            },
+            content: {
+              raw: block_list.content
+            }
+          }
+
+          render json: res, status: 200, layout: false
+        else
+          redirect_to edit_backend_block_list_url(@resource.id)
+        end
       end
 
       # @return [BasePolicy] current authorization policy
@@ -18,6 +35,30 @@ module Integral
         policy(Integral::Page.new)
       end
       helper_method :current_policy
+
+      # Maybe able to get rid of the content here
+      def block_lists
+        res = BlockEditor::BlockList.reusable.map { |block_list| { id: block_list.id, title: block_list.name, content: block_list.content } }
+
+        render json: res, status: 200, layout: false
+      end
+
+      def wp_type
+        render json: { "rest_base" => "block_list" }, status: 200, layout: false
+      end
+
+      def wp_types
+        res = {
+          "wp_block" => {
+            "rest_base": "block_lists",
+            "labels": {
+              "singular_name": "Block Lists"
+            }
+          }
+        }
+
+        render json: res, status: 200, layout: false
+      end
 
       private
 
@@ -36,9 +77,9 @@ module Integral
         params.require(:block_list).permit(:name, :content)
       end
 
-      # def white_listed_grid_params
-      #   [ :descending, :order, :page, :title, status: [], locale: [] ]
-      # end
+      def white_listed_grid_params
+        [ :descending, :order, :page, :title ]
+      end
 
       def resource_klass
         BlockEditor::BlockList

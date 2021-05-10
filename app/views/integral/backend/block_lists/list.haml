@@ -7,5 +7,7 @@
     - if policy(Integral::Page).create?
       .top-bar-left.hide-for-small-only
         = link_to t('integral.actions.create'), new_backend_resource_url, class: 'button hollow'
+      = render_resource_grid_form do |f|
+        %li= f.input :title, as: :search, placeholder: t('integral.actions.search'), wrapper_html: { class: 'filter search' }, hint: false, label: false, input_html: { data: { filter: true }}
 
   = render_resource_grid

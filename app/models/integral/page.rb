@@ -10,6 +10,7 @@ module Integral
       backend_main_menu: { order: 20 },
       backend_create_menu: { order: 10 }
     }) # Integral Goodness
+    acts_as_taggable # Tagging
 
     has_paper_trail versions: { class_name: 'Integral::PageVersion' }
 
@@ -48,6 +49,7 @@ module Integral
     # Callbacks
     before_save :set_paper_trail_event
     before_save :set_integral_notification_action
+    before_save :set_tags_context
     after_initialize :set_defaults
 
     # Scopes
@@ -115,6 +117,16 @@ module Integral
       descendants
     end
 
+    # @return [String] Current tag context
+    def tag_context
+      "#{status}_#{locale}"
+    end
+
+    # @return [Array] ActsAsTaggableOn::Tag tags associated with this post
+    def tags
+      tags_on(tag_context)
+    end
+
     private
 
     def set_paper_trail_event
@@ -153,6 +165,33 @@ module Integral
       return if self.persisted?
 
       self.locale ||= Integral.frontend_locales.first
+    end
+
+    # Set the context of tags so that draft and archived tags are not displayed publicly
+    def set_tags_context
+      return unless tag_list_changed? || status_changed? || !persisted?
+
+      # Give all tags current context
+      set_tag_list_on(tag_context, tag_list)
+
+      # Clear previous contexts
+      self.tag_list = []
+      inactive_tag_contexts.each do |context|
+        set_tag_list_on(context, [])
+      end
+    end
+
+    # @return [Array] containing all inactive tag contexts
+    def inactive_tag_contexts
+      contexts = []
+
+      self.class.statuses.each_key do |status|
+        Integral.frontend_locales.each do |locale|
+          contexts << "#{status}_#{locale}"
+        end
+      end
+      contexts.delete(tag_context)
+      contexts
     end
   end
 end

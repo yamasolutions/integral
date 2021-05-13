@@ -38,7 +38,7 @@ module Integral
 
       # Maybe able to get rid of the content here
       def block_lists
-        res = BlockEditor::BlockList.reusable.map { |block_list| { id: block_list.id, title: block_list.name, content: block_list.content } }
+        res = BlockEditor::BlockList.reusable.map { |block_list| { id: block_list.id, title: { raw: block_list.name }, content: block_list.content } }
 
         render json: res, status: 200, layout: false
       end

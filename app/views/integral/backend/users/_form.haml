@@ -18,7 +18,7 @@
                   %th Editor
                   %th Manager
                 %tbody
-                  - for object_name in ['Page', 'Post', 'List', 'File', 'User']
+                  - for object_name in Integral::ActsAsIntegral.tracked_classes.map {|k| k.class_name}.sort
                     %tr
                       %th= object_name
                       - for role_type in ['Reader', 'Contributer', 'Editor', 'Manager']

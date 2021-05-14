@@ -53,7 +53,12 @@ module Integral
     after_initialize :set_defaults
 
     # Scopes
-    scope :search, ->(query) { where('lower(title) LIKE ? OR lower(path) LIKE ?', "%#{query.downcase}%", "%#{query.downcase}%") }
+    # TODO: Must be a better way of doing this - We're searching by title OR path OR tags
+    def self.search(query)
+      tags_sub = query.split.map {|term| "LOWER(\"tags\".\"name\") ILIKE '#{term}' ESCAPE '!'" }.join(" OR ")
+
+      where("EXISTS (SELECT * FROM \"taggings\" WHERE \"taggings\".\"taggable_id\" = \"integral_pages\".\"id\" AND \"taggings\".\"taggable_type\" = 'Integral::Page' AND \"taggings\".\"tag_id\" IN (SELECT \"tags\".\"id\" FROM \"tags\" WHERE (#{tags_sub}))) OR (lower(title) LIKE '%#{query}%' OR lower(path) LIKE '%#{query}%')")
+    end
 
     # Return all available parents
     # TODO: Update parent behaviour

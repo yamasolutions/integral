@@ -15,6 +15,7 @@ module Integral
         { key: I18n.t('integral.records.attributes.slug'), value: slug },
         { key: I18n.t('integral.records.attributes.author'), value: author.name },
         { key: I18n.t('integral.records.attributes.views'), value: view_count },
+        { key: I18n.t('integral.records.attributes.tag_list'), value: tags.join(', ') },
         { key: I18n.t('integral.records.attributes.updated_at'), value: I18n.l(updated_at) },
         { key: I18n.t('integral.records.attributes.created_at'), value: I18n.l(created_at) }
       ]

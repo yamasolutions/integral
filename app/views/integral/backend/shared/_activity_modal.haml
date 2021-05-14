@@ -6,8 +6,9 @@
   .timeline{data: {timeline: true }}
   = simple_form_for :grid, url: widget_backend_activities_url, method: :post, remote: true, html: { 'data-recent-activity-form' => true } do |f|
     = f.hidden_field(:created_at, value: '')
-    = f.hidden_field(:user, value: '')
-    = f.hidden_field(:object, value: '')
+    <input type="hidden" name="grid[user][]">
+    <input type="hidden" name="grid[object][]">
+
     = f.hidden_field(:item_id, value: '')
     = f.button(:submit, t('integral.actions.view_more'), class: 'button clear expanded')
 

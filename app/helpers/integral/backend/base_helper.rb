@@ -47,13 +47,8 @@ module Integral
         @decorated_current_user ||= current_user.decorate
       end
 
-      def render_main_menu
-        render_menu(extract_menu_items(Integral::ActsAsIntegral.backend_main_menu_items, :integral_backend_main_menu_item))
-      end
 
-      def render_create_menu
-        render_menu(extract_menu_items(Integral::ActsAsIntegral.backend_create_menu_items, :integral_backend_create_menu_item))
-      end
+
 
       def recent_user_notifications
         @recent_user_notifications ||= current_user.notifications.recent
@@ -199,6 +194,18 @@ module Integral
         else
           true
         end
+      end
+
+      def main_menu_items
+        extract_menu_items(Integral::ActsAsIntegral.backend_main_menu_items, :integral_backend_main_menu_item).sort_by { |item| item[:order] }
+      end
+
+      def render_main_menu
+        render_menu(extract_menu_items(Integral::ActsAsIntegral.backend_main_menu_items, :integral_backend_main_menu_item))
+      end
+
+      def render_create_menu
+        render_menu(extract_menu_items(Integral::ActsAsIntegral.backend_create_menu_items, :integral_backend_create_menu_item))
       end
 
       private

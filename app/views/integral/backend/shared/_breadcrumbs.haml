@@ -2,8 +2,7 @@
   #action-bar.top-bar
     - if @breadcrumbs.present?
       .top-bar-left
-        %ul.breadcrumbs
-          = render_breadcrumbs tag: :li, separator: ""
+        = render_breadcrumbs builder: BreadcrumbBuilder
     - if content_for?(:actionbar) || render_default_action_bar?
       .top-bar-right
         - if content_for?(:actionbar)

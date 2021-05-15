@@ -2,7 +2,7 @@ module Integral
   # Handles adding Integral behaviour to a class
   module ActsAsIntegral
     DEFAULT_OPTIONS = {
-      icon: 'home',
+      icon: 'bi bi-speedometer',
       notifications: { enabled: true },
       tracking: { enabled: true },
       cards: { at_a_glance: true },

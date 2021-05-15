@@ -5,7 +5,7 @@ module Integral
 
     acts_as_paranoid # Soft-deletion
     acts_as_integral({
-      icon: 'file',
+      icon: 'bi bi-stack',
       listable: { enabled: true },
       backend_main_menu: { order: 20 },
       backend_create_menu: { order: 10 }

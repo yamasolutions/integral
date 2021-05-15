@@ -1,158 +1,168 @@
-@import "font-awesome-sprockets";
-@import "font-awesome";
+// Bootstrap functions (used within variables)
+@import "bootstrap/scss/functions";
+@import "integral/backend/bootstrap-icons";
 
-@import 'integral/backend/foundation_and_overrides';
-@import "integral/support/media-query-indicator";
-@import "integral/backend/mixins";
-@import "integral/backend/materialize-tags";
-@import "integral/backend/modules/avatar-circle";
-@import "integral/backend/modules/timeline";
-@import "integral/backend/modules/alternate-resource";
-@import "integral/backend/modules/dropdown_pane_notifications";
-@import "integral/backend/modules/dropdown_pane_profile";
-@import "integral/backend/modules/gallery-manager";
-@import "integral/backend/modules/table-resources";
-@import 'integral/backend/shared';
-@import 'integral/backend/notifications';
-@import 'integral/backend/dashboard-layout';
-@import 'integral/backend/devise';
-@import 'integral/backend/overrides';
+// // Custom variables
+@import "integral/backend/variables";
 
-.diff {
-  ul {
-    margin-left: 0;
-    list-style: none;
-    background-color: rgba(212, 223, 239, 0.15);
-    li {
-      min-height: 1.5rem;
-      &.del {
-        background-color: transparentize($alert-color, 0.7);
-      }
-      &.ins {
-        background-color: transparentize($success-color, 0.7);
-      }
-    }
-  }
+// Bootstrap default variables, mixins & utilities
+@import "bootstrap/scss/variables";
+@import "bootstrap/scss/mixins";
+@import "bootstrap/scss/utilities";
+
+// Bootstrap components
+@import "hanazonogolf/bootstrap-icons";
+@import "bootstrap/scss/root";
+@import "bootstrap/scss/reboot";
+@import "bootstrap/scss/type";
+@import "bootstrap/scss/images";
+@import "bootstrap/scss/containers";
+@import "bootstrap/scss/grid";
+@import "bootstrap/scss/tables";
+@import "bootstrap/scss/forms";
+@import "bootstrap/scss/buttons";
+@import "bootstrap/scss/transitions";
+@import "bootstrap/scss/dropdown";
+@import "bootstrap/scss/button-group";
+@import "bootstrap/scss/nav";
+@import "bootstrap/scss/navbar";
+@import "bootstrap/scss/card";
+@import "bootstrap/scss/accordion";
+@import "bootstrap/scss/breadcrumb";
+@import "bootstrap/scss/pagination";
+@import "bootstrap/scss/badge";
+@import "bootstrap/scss/alert";
+@import "bootstrap/scss/progress";
+@import "bootstrap/scss/list-group";
+@import "bootstrap/scss/close";
+@import "bootstrap/scss/toasts";
+@import "bootstrap/scss/modal";
+@import "bootstrap/scss/tooltip";
+@import "bootstrap/scss/popover";
+@import "bootstrap/scss/carousel";
+@import "bootstrap/scss/spinners";
+@import "bootstrap/scss/offcanvas";
+@import "bootstrap/scss/helpers"; // Helpers
+@import "bootstrap/scss/utilities/api"; // Utilities
+
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-hr {
-  border: solid 0.5px #f4f7fb;
-  &.dark {
-    border-color: #d4dfef;
-    margin: 0.5em 0;
-  }
+
+@import "integral/backend/layout";
+
+
+
+
+.modal-backdrop {
+  z-index: 1030;
 }
 
-.data-unavailable {
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
-  //color: #17212b;
-  span {
-    margin-right: 2rem;
-  }
-}
 
-.card {
-  font-size: 0.9em;
-  .description {
-    margin: 1em 0;
-    color: scale-color($body-font-color, $lightness: 20%);
-  }
-  .subtitle {
-    margin: -0.5em 0 -0.25em 0;
-    color: scale-color($body-font-color, $lightness: 20%);
-  }
-  > .actions {
-    a {
-      display: block;
-      margin-bottom: 1em;
-      margin-right: 1em;
-    }
-  }
-  i {
-    width: 1.5rem;
-    text-align: center;
-  }
-}
 
-.card-unpadded.object {
-  .info-item {
-    border-top: solid 0.5px #d4dfef;
-    font-size: 0.8em;
-    padding: 0.5em 0;
-    .attr {
-      color: scale-color($body-font-color, $lightness: 10%);
-    }
 
-    .val {
-      float: right;
-      &.thumb img {
-        max-width: 1rem;
-        max-height: 1rem;
-      }
-    }
-  }
 
-  .button {
-    border-radius: 0px 0px 5px;
-    font-size: 1em;
-  }
-}
 
-.block_editor.input {
-  position: relative;
-  .block-editor {
-    min-height: 500px;
-  }
-}
+// body {
+//   font-size: .875rem;
+// }
 
-.block_editor.block-editor__fullscreen {
-  position: absolute;
-  top: 0px;
-  right: 0px;
-  bottom: 0px;
-  left: 0px;
-  padding: 0;
-  z-index: 99;
-  margin: 0;
-  .block-editor {
-    height: 100%;
-  }
-}
-
-.block-editor-size-toggle {
-  display: inline-block;
-  position: absolute;
-  top: 0;
-  right: 0;
-  z-index: 1;
-}
-
-.flex-auto {
-  flex: auto;
-}
-
-.uppy-StatusBar-progress {
-  background-color: $primary-color !important;
-}
-
-.uppy-StatusBar.is-complete .uppy-StatusBar-progress {
-  background-color: #1bb240 !important;
-}
-
-.uppy-StatusBar.is-waiting .uppy-StatusBar-actionBtn--upload {
-  background-color: $primary-color !important;
-}
-
-.uppy-DashboardContent-bar {
-  z-index: 10 !important;
-}
-
-.uppy-Dashboard-Item-previewIcon {
-  z-index: 1 !important;
-}
-
-.uppy-Dashboard--modal {
-  z-index: 1005 !important;
-}
+// .feather {
+//   width: 16px;
+//   height: 16px;
+//   vertical-align: text-bottom;
+// }
+//
+// /*
+//  * Sidebar
+//  */
+//
+// .sidebar {
+//   position: fixed;
+//   top: 0;
+//   /* rtl:raw:
+//   right: 0;
+//   */
+//   bottom: 0;
+//   /* rtl:remove */
+//   left: 0;
+//   z-index: 100; /* Behind the navbar */
+//   padding: 48px 0 0; /* Height of navbar */
+//   box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
+// }
+//
+// @media (max-width: 767.98px) {
+//   .sidebar {
+//     top: 5rem;
+//   }
+// }
+//
+// .sidebar-sticky {
+//   position: relative;
+//   top: 0;
+//   height: calc(100vh - 48px);
+//   padding-top: .5rem;
+//   overflow-x: hidden;
+//   overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+// }
+//
+// .sidebar .nav-link {
+//   font-weight: 500;
+//   color: #333;
+// }
+//
+// .sidebar .nav-link .feather {
+//   margin-right: 4px;
+//   color: #727272;
+// }
+//
+// .sidebar .nav-link.active {
+//   color: #007bff;
+// }
+//
+// .sidebar .nav-link:hover .feather,
+// .sidebar .nav-link.active .feather {
+//   color: inherit;
+// }
+//
+// .sidebar-heading {
+//   font-size: .75rem;
+//   text-transform: uppercase;
+// }
+//
+// /*
+//  * Navbar
+//  */
+//
+// .navbar-brand {
+//   padding-top: .75rem;
+//   padding-bottom: .75rem;
+//   font-size: 1rem;
+//   background-color: rgba(0, 0, 0, .25);
+//   box-shadow: inset -1px 0 0 rgba(0, 0, 0, .25);
+// }
+//
+// .navbar .navbar-toggler {
+//   top: .25rem;
+//   right: 1rem;
+// }
+//
+// .navbar .form-control {
+//   padding: .75rem 1rem;
+//   border-width: 0;
+//   border-radius: 0;
+// }
+//
+// .form-control-dark {
+//   color: #fff;
+//   background-color: rgba(255, 255, 255, .1);
+//   border-color: rgba(255, 255, 255, .1);
+// }
+//
+// .form-control-dark:focus {
+//   border-color: transparent;
+//   box-shadow: 0 0 0 3px rgba(255, 255, 255, .25);
+// }
+//

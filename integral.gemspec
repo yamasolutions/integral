@@ -17,19 +17,14 @@ Gem::Specification.new do |s|
   s.add_dependency 'active_record_union', '~> 1.3.0' # Table Unions - Used joining Versioning tables
   s.add_dependency 'acts-as-taggable-on', '~> 7.0' # Tagging
   s.add_dependency 'breadcrumbs_on_rails', '~> 3.0' # Breadcrumbs
-  s.add_dependency 'jquery-rails', '~> 4.4' # Jquery for Rails
-  s.add_dependency 'rails-ujs', '~> 0.1' # Rails JS
-  s.add_dependency 'coffee-rails', '~> 5.0' # Coffeescript
-  s.add_dependency 'client_side_validations', '~> 17.0' # Client-side validations
-  s.add_dependency 'client_side_validations-simple_form', '~> 11.1' # Simpleform for CSV
+  # s.add_dependency 'client_side_validations', '~> 17.0' # Client-side validations
+  # s.add_dependency 'client_side_validations-simple_form', '~> 11.1' # Simpleform for CSV
   s.add_dependency 'cocoon', '~> 1.2' # Nested forms
   s.add_dependency 'diffy', '~> 3.1' # View differences
   s.add_dependency 'gibbon', '~> 3.3' # Mailchimp API Wrapper
   s.add_dependency 'devise', '>= 4.5', '< 4.8' # Authentication
   s.add_dependency 'devise_invitable', '~> 1.7' # Invitable authentication
   s.add_dependency 'draper', '~> 3.0' # Object decoration
-  s.add_dependency 'font-awesome-sass', '~> 4.3' # Grid Icons
-  s.add_dependency 'foundation-rails', '~> 6.6.2' # Foundation UI Framework
   s.add_dependency 'friendly_id', '~> 5.2' # Slugging
   s.add_dependency "groupdate", "~> 3.0" # Group By
   s.add_dependency 'haml-rails', '~> 1.0' # HAML
@@ -38,10 +33,8 @@ Gem::Specification.new do |s|
   s.add_dependency 'inky-rb' # , "~> 0.6" #  Responsive email-ready HTML helpers
   s.add_dependency 'meta-tags', '~> 2.4' # Meta Tag Management (SEO)
   s.add_dependency 'image_processing', '~> 1.12' # Image manipulation
-  s.add_dependency 'nprogress-rails', '~> 0.2.0'
   s.add_dependency 'paper_trail', '~> 11.0' # Audit trail
   s.add_dependency 'paranoia', '~> 2.0' # Soft-delete records
-  s.add_dependency 'parsley-rails', '~> 2.4.4' # Jquery form validation plugin
   s.add_dependency 'premailer-rails', '~> 1.11' # Stylesheet inlining for email
   s.add_dependency 'pundit', '~> 1.1' # Authorization
   s.add_dependency 'rails', '~> 6.1.1'
@@ -50,11 +43,9 @@ Gem::Specification.new do |s|
   s.add_dependency 'sass-rails', '~> 6.0' # Sass
   s.add_dependency 'simple_form', '~> 5.0' # Form builder
   s.add_dependency 'sitemap_generator', '~> 6.0.1' # Sitemap Generator
-  s.add_dependency "toastr-rails", "~> 1.0" # Javascript notification Toastr
-  s.add_dependency 'turbolinks', '~> 5.0'
+  s.add_dependency 'turbo-rails', '~> 0.0'
   s.add_dependency 'datagrid', '~> 1.5.8' # Grids
   s.add_dependency 'will_paginate', '~> 3.1' # Pagination
-  s.add_dependency 'will_paginate-foundation', '~> 6.2' # Pagination for Foundation
   s.add_dependency 'fast_jsonapi', '~> 1.5' # Object Serialization
   s.add_dependency 'route_translator', '~> 8.0' # Multilingual routing
   s.add_dependency 'block_editor', '~> 0.1.0' # Block Editor

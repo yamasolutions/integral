@@ -6,7 +6,7 @@ module Integral
     include BlockEditor::Listable
 
     acts_as_integral({
-      icon: 'rss',
+      icon: 'bi bi-rss',
       listable: { enabled: Integral.blog_enabled? },
       backend_main_menu: { order: 30, enabled: Integral.blog_enabled? },
       backend_create_menu: { order: 20, enabled: Integral.blog_enabled? }

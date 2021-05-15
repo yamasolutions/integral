@@ -5,23 +5,15 @@ module Integral
     require 'haml'
     require 'htmlcompressor'
     require 'groupdate'
-    require 'turbolinks'
-    require 'toastr-rails'
-    require 'nprogress-rails'
+    require 'turbo-rails'
     require 'simple_form'
     require 'gibbon'
     require 'cocoon'
     require 'draper'
-    require 'coffee-rails'
-    require 'jquery-rails'
-    require 'rails-ujs'
-    require 'client_side_validations'
-    require 'client_side_validations/simple_form'
-    require 'parsley-rails'
+    # require 'client_side_validations'
+    # require 'client_side_validations/simple_form'
     require 'datagrid'
-    require 'font-awesome-sass'
     require 'breadcrumbs_on_rails'
-    require 'foundation-rails'
     require 'pundit'
     require 'paper_trail'
     require 'diffy'
@@ -35,7 +27,6 @@ module Integral
     require 'inky'
     require 'premailer/rails'
     require 'will_paginate'
-    require 'will_paginate-foundation'
     require 'rails-settings-cached'
     require 'fast_jsonapi'
     require 'route_translator'
@@ -71,9 +62,9 @@ module Integral
     # Menu Initializaion - Add items to menus which are not directly linked to a Modal
     initializer "integral.backend.set_main_menu_items" do |app|
       ActiveSupport::Notifications.subscribe 'integral.routes_loaded' do
-        Integral::ActsAsIntegral.add_backend_main_menu_item(id: :home, icon: 'home', order: 10, label: 'Home', url: Integral::Engine.routes.url_helpers.backend_dashboard_url)
-        Integral::ActsAsIntegral.add_backend_main_menu_item(id: :activities, icon: 'crosshairs', order: 90, label: 'Activities', url: Integral::Engine.routes.url_helpers.backend_activities_url, authorize: proc { policy(Integral::Version).manager? })
-        Integral::ActsAsIntegral.add_backend_main_menu_item(id: :settings, icon: 'cog', order: 100, label: 'Settings', url: Integral::Engine.routes.url_helpers.backend_settings_url, authorize: proc { current_user.admin? })
+        Integral::ActsAsIntegral.add_backend_main_menu_item(id: :home, icon: 'bi bi-house', order: 10, label: 'Home', url: Integral::Engine.routes.url_helpers.backend_dashboard_url)
+        Integral::ActsAsIntegral.add_backend_main_menu_item(id: :activities, icon: 'bi bi-gear', order: 90, label: 'Activities', url: Integral::Engine.routes.url_helpers.backend_activities_url, authorize: proc { policy(Integral::Version).manager? })
+        Integral::ActsAsIntegral.add_backend_main_menu_item(id: :settings, icon: 'bi bi-clock', order: 100, label: 'Settings', url: Integral::Engine.routes.url_helpers.backend_settings_url, authorize: proc { current_user.admin? })
       end
     end
 

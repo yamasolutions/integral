@@ -1,6 +1,10 @@
 module Integral
   # Support Helper which contains common helper methods used within backend & frontend
   module SupportHelper
+    def icon(name)
+      content_tag(:i, nil, class: name)
+    end
+
     # @return [Boolean] Whether or not to display media query indicator
     # Green - large screens, medium - tablets, red - mobile
     def display_media_query_indicator?

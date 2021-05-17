@@ -2,7 +2,7 @@
 - grid ||= recent_site_activity_grid
 - activities = cast_activities(grid.assets.limit(5))
 
-.card.flex-auto
+.card
   %h2= title
   - if activities.present?
     .timeline.timeline--compressed

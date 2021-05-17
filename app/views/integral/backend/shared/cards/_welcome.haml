@@ -1,28 +1,24 @@
-.card
+.card.card-summary
   %h2= t('.title')
   %p.subtitle= t('.get_started')
   %hr
-  .grid-x.actions
-    .cell.shrink
-      .grid-y
-        .cell.shrink
-          = link_to edit_backend_user_url(current_user) do
-            = icon('edit')
-            = t('integral.actions.edit_profile')
-        - if policy(Integral::Page).manager?
-          .cell.shrink
-            = link_to new_backend_page_url do
-              = icon('plus')
-              = t('integral.actions.new_page')
-    .cell.shrink
-      .grid-y
-        - if policy(Integral::Post).manager? && Integral.blog_enabled?
-          .cell.shrink
-            = link_to new_backend_post_url do
-              = icon('plus')
-              = t('integral.actions.new_post')
-        .cell.shrink
-          = link_to root_path do
-            = icon('eye')
-            = t('integral.actions.view_main_site')
+  .list-group
+    %li.list-group-item
+      = link_to edit_backend_user_url(current_user) do
+        = icon('bi bi-pencil')
+        = t('integral.actions.edit_profile')
+    - if policy(Integral::Page).manager?
+      %li.list-group-item
+        = link_to new_backend_page_url do
+          = icon('bi bi-plus')
+          = t('integral.actions.new_page')
+    - if policy(Integral::Post).manager? && Integral.blog_enabled?
+      %li.list-group-item
+        = link_to new_backend_post_url do
+          = icon('bi bi-plus')
+          = t('integral.actions.new_post')
+    %li.list-group-item
+      = link_to root_path do
+        = icon('bi bi-eye')
+        = t('integral.actions.view_main_site')
 

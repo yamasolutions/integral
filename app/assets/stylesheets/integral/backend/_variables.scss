@@ -287,10 +287,10 @@ $body-text-align:           null !default;
 //
 // Style anchor elements.
 
-$link-color:                              $primary !default;
+$link-color:                              #17212b;
 $link-decoration:                         none;
 $link-shade-percentage:                   20% !default;
-$link-hover-color:                        shift-color($link-color, $link-shade-percentage) !default;
+$link-hover-color:                        $primary;
 $link-hover-decoration:                   null !default;
 
 $stretched-link-pseudo-element:           after !default;
@@ -443,11 +443,11 @@ $line-height-base:            1.5 !default;
 $line-height-sm:              1.25 !default;
 $line-height-lg:              2 !default;
 
-$h1-font-size:                $font-size-base * 2.5 !default;
-$h2-font-size:                $font-size-base * 2.5;
-$h3-font-size:                $font-size-base * 1.75 !default;
-$h4-font-size:                $font-size-base * 1.5 !default;
-$h5-font-size:                $font-size-base * 1.25 !default;
+$h1-font-size:                $font-size-base * 1.5;
+$h2-font-size:                $font-size-base * 1.4;
+$h3-font-size:                $font-size-base * 1.3;
+$h4-font-size:                $font-size-base * 1.2;
+$h5-font-size:                $font-size-base * 1.1;
 $h6-font-size:                $font-size-base !default;
 // scss-docs-end font-variables
 
@@ -463,10 +463,10 @@ $font-sizes: (
 // scss-docs-end font-sizes
 
 // scss-docs-start headings-variables
-$headings-margin-bottom:      1em;
+$headings-margin-bottom:      1rem;
 $headings-font-family:        $font-family-base;
 $headings-font-style:         null !default;
-$headings-font-weight:        500 !default;
+$headings-font-weight:        bold;
 $headings-line-height:        1.2 !default;
 $headings-color:              null !default;
 // scss-docs-end headings-variables
@@ -542,7 +542,7 @@ $table-th-font-weight:        null !default;
 
 $table-striped-color:         $table-color !default;
 $table-striped-bg-factor:     .05 !default;
-$table-striped-bg:            rgba($black, $table-striped-bg-factor) !default;
+$table-striped-bg:            rgba($primary, $table-striped-bg-factor);
 
 $table-active-color:          $table-color !default;
 $table-active-bg-factor:      .1 !default;
@@ -556,7 +556,7 @@ $table-border-factor:         .1 !default;
 $table-border-width:          $border-width;
 $table-border-color:          $white;
 
-$table-striped-order:         odd !default;
+$table-striped-order:         even;
 
 $table-group-separator-color: currentColor !default;
 
@@ -585,7 +585,7 @@ $table-variants: (
 
 // scss-docs-start input-btn-variables
 $input-btn-padding-y:         .675rem !default;
-$input-btn-padding-x:         .85rem !default;
+$input-btn-padding-x:         1rem !default;
 $input-btn-font-family:       $headings-font-family;
 $input-btn-font-size:         0.9rem;
 $input-btn-line-height:       $line-height-base !default;
@@ -642,7 +642,7 @@ $btn-link-hover-color:        $link-hover-color !default;
 $btn-link-disabled-color:     $gray-600 !default;
 
 // Allows for customizing button radius independently from global border radius
-$btn-border-radius:           0;
+$btn-border-radius:           2rem;
 $btn-border-radius-sm:        0;
 $btn-border-radius-lg:        0;
 
@@ -1080,7 +1080,7 @@ $pagination-border-radius-lg:       $border-radius-lg !default;
 
 // scss-docs-start card-variables
 $card-spacer-y:                     $spacer !default;
-$card-spacer-x:                     0;
+$card-spacer-x:                     $spacer !default;
 $card-title-spacer-y:               $spacer / 2 !default;
 $card-border-width:                 0;
 $card-border-radius:                $border-radius !default;
@@ -1092,7 +1092,7 @@ $card-cap-bg:                       rgba($black, .03) !default;
 $card-cap-color:                    null !default;
 $card-height:                       null !default;
 $card-color:                        null !default;
-$card-bg:                           transparent;
+$card-bg:                           $white;
 $card-img-overlay-padding:          $spacer !default;
 $card-group-margin:                 $grid-gutter-width / 2 !default;
 // scss-docs-end card-variables

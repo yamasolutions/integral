@@ -1,0 +1,16 @@
+.card-summary {
+  p {
+    margin-bottom: 0;
+  }
+  .list-group {
+    flex-direction: row;
+    flex-wrap: wrap;
+    &-item {
+      width: 50%;
+      a {
+        display: block;
+        padding: $spacer/2 0;
+      }
+    }
+  }
+}

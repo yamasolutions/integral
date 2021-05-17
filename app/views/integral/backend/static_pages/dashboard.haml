@@ -1,22 +1,16 @@
 = content_for :title, t('.title')
 
-.grid-x
-  .cell.large-6
-    -# Left Column
-    .grid-x
-      .cell= render_card(:welcome)
-      - if Integral.blog_enabled? & Integral::Post.published.last.present?
-        .cell.medium-6.flex-container= render_card(:object, { title: t('.recent_post'), resource: Integral::Post.published.last.decorate })
+.row
+  .col-md-6= render_card(:welcome)
+  .col-md-6= render_card(:recent_activity)
+  - if Integral.blog_enabled? & Integral::Post.published.last.present?
+    .col-md-6= render_card(:object, { title: t('.recent_post'), resource: Integral::Post.published.last.decorate })
 
-      .cell.medium-6.flex-container= render_card(:object, { title: t('.recent_page'), resource: Integral::Page.published.last.decorate })
-  .cell.large-6
-    -# Right Column
-    .grid-x
-      .cell.xlarge-6= render_card(:recent_activity)
-      .cell.xlarge-6= render_card(:recent_user_activity)
-      .cell= render_card(:at_a_glance)
-      .cell
-        .card
-          %h2= t('integral.backend.cards.last_week')
-          = render_line_chart(dataset_dashboard_last_week)
+  .col-md-6= render_card(:object, { title: t('.recent_page'), resource: Integral::Page.published.last.decorate })
+  .col-md-6= render_card(:recent_user_activity)
+  .col-md-6= render_card(:at_a_glance)
+  .col-md-6
+    .card
+      %h2= t('integral.backend.cards.last_week')
+      = render_line_chart(dataset_dashboard_last_week)
 

@@ -200,12 +200,8 @@ module Integral
         extract_menu_items(Integral::ActsAsIntegral.backend_main_menu_items, :integral_backend_main_menu_item).sort_by { |item| item[:order] }
       end
 
-      def render_main_menu
-        render_menu(extract_menu_items(Integral::ActsAsIntegral.backend_main_menu_items, :integral_backend_main_menu_item))
-      end
-
-      def render_create_menu
-        render_menu(extract_menu_items(Integral::ActsAsIntegral.backend_create_menu_items, :integral_backend_create_menu_item))
+      def create_menu_items
+        extract_menu_items(Integral::ActsAsIntegral.backend_create_menu_items, :integral_backend_create_menu_item).sort_by { |item| item[:order] }
       end
 
       private
@@ -214,6 +210,7 @@ module Integral
         items = items.map { |item| item.class == Class ? item.send(extract_method) : item }
       end
 
+      # TODO: Remove?
       def render_menu(items, options={})
         return '' if items.empty?
 

@@ -2,7 +2,7 @@
   %li
     - if item[:list_items]&.any?
       %button(data-bs-toggle="tab" id="tab--#{item[:label]}" data-target="pane--#{item[:label]}" type="button" role="tab")
-        = icon('bi bi-speedometer')
+        = icon(item[:icon])
         %span= item[:label]
     - else
       = link_to item[:label], item[:url], icon: item[:icon]

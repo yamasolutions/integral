@@ -1,6 +1,6 @@
-.card-unpadded.object
+.card.card-object.p-0
   - if resource.present?
-    .card-section
+    .card-body
       %h2= title
       - if resource.to_backend_card[:image].present?
         = image_tag resource.to_backend_card[:image]
@@ -11,11 +11,11 @@
         .info-item
           %span.attr= attr[:key]
           %span.val= attr[:value]
-    = link_to resource.to_backend_card[:url], class: 'button' do
-      = icon('eye')
+    = link_to resource.to_backend_card[:url], class: 'btn btn-primary' do
+      = icon('bi bi-eye')
       = t('integral.actions.view')
   - else
-    .card-section
+    .card-body
       %h2= title
       = t('integral.backend.graphs.data_unavailable')
       = image_tag image_path('integral/backend/data-unavailable.png'), class: 'data-unavailable'

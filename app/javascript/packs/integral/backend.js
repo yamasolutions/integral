@@ -31,6 +31,33 @@ document.addEventListener("turbo:load", function() {
       panel.style.top = topPosition + "px"
       panel.style.left = leftPosition + "px"
 
+      triggerEl.addEventListener('mouseout', function (event) {
+        if(event.relatedTarget != panel){
+          panel.classList.remove("active")
+          triggerEl.classList.remove('hover')
+        }
+        panel.addEventListener('mouseout', function(event){
+          if(!panel.contains(event.relatedTarget)){
+            panel.classList.remove("active")
+            triggerEl.classList.remove('hover')
+          }
+        })
+      })
+    })
+  })
+
+  const tabList = [].slice.call(document.querySelectorAll(".topbar [role='tab']"))
+  tabList.forEach(function (triggerEl) {
+    triggerEl.addEventListener('mouseover', function (event) {
+      const panel = document.getElementById(triggerEl.dataset.target);
+      panel.classList.add("active")
+      triggerEl.classList.add('hover')
+
+      const topPosition = triggerEl.offsetTop + triggerEl.offsetHeight
+      const leftPosition = (triggerEl.offsetLeft + triggerEl.offsetWidth) - (panel.offsetWidth - 10)
+
+      panel.style.top = topPosition + "px"
+      panel.style.left = leftPosition + "px"
 
       triggerEl.addEventListener('mouseout', function (event) {
         if(event.relatedTarget != panel){

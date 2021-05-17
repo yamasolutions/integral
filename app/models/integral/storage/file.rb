@@ -12,7 +12,7 @@ module Integral
       validates :description, length: { maximum: 300 }
 
       acts_as_integral({
-        icon: 'cloud',
+        icon: 'bi bi-cloud',
         notifications: { enabled: false },
         listable: { enabled: true },
         backend_main_menu: { order: 80 },

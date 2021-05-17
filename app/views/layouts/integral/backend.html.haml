@@ -7,143 +7,123 @@
     -# = render_flashes
 
     .app-dashboard{ class: cookies['integral-sidebar'] == 'shrunk' ? 'shrink-large' : 'shrink-medium'}
+      #app-dashboard-sidebar.app-dashboard-sidebar
+        .app-dashboard-sidebar-title-area
+          = image_tag(image_path('integral/backend/logo.png'))
+          %button#close-sidebar.btn{ data: { controller: 'dashboard-menu-toggle', action: 'dashboard-menu-toggle#toggle' }, 'aria-label' => "Close menu", type: "button" }
+            = icon('bi bi-list')
+
+        #dashboard--sidebar-inner.app-dashboard-sidebar-inner{ 'data-turbolinks-permanent' => true }
+          %ul.app-dashboard-sidebar-menu{:role=>"tablist"}
+            = render partial: 'layouts/integral/backend/main_menu_items'
+
       .app-dashboard-body
-        #app-dashboard-sidebar.app-dashboard-sidebar
-          .app-dashboard-sidebar-title-area
+        .topbar
+          .topbar-left
             = image_tag(image_path('integral/backend/logo.png'))
-            %button#close-sidebar.btn{ data: { controller: 'dashboard-menu-toggle', action: 'dashboard-menu-toggle#toggle' }, 'aria-label' => "Close menu", type: "button" }
+            %h1= page_title
+          .topbar-right{:role=>"tablist"}
+            %button.btn.btn-primary.btn-toggle-menu(type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample")
               = icon('bi bi-list')
+            = link_to main_app.root_path, class: 'btn btn-view-site' do
+              = icon('bi bi-eye')
+              = t('integral.actions.view_main_site')
+            %button.btn.btn-notifications-dropdown(data-bs-toggle="tab" id="tab--header-notifications" data-target="pane--header-notifications" type="button" role="tab")
+              - if current_user.notifications.unread.any?
+                = icon('bi bi-circle-fill')
+                = icon('bi bi-bell')
+              - else
+                = icon('bi bi-bell-fill')
+            %button.btn.btn-avatar-menu(data-bs-toggle="tab" id="tab--header-profile" data-target="pane--header-profile" type="button" role="tab")= decorated_current_user.avatar_circle
+            %button.btn.btn-primary.btn-create-menu(data-bs-toggle="tab" id="tab--header-create" data-target="pane--header-create" type="button" role="tab")
+              = t('integral.actions.create')
+              = icon('bi bi-chevron-down')
 
-          #dashboard--sidebar-inner.app-dashboard-sidebar-inner{ 'data-turbolinks-permanent' => true }
-            -# TODO - Set multi-open to false. Currently hides - is-active items. Bug in Foundation
-            %ul.app-dashboard-sidebar-menu{:role=>"tablist"}
-              = render partial: 'layouts/integral/backend/main_menu_items'
+        #content-area
+          = render partial: 'integral/backend/shared/breadcrumbs'
+          = yield
 
+    .bottombar
+      .bottombar-left
+        = link_to main_app.root_path, class: '' do
+          = icon('bi bi-eye')
+          = t('integral.actions.view_main_site')
 
-        .app-dashboard-body-content
-          -# TODO: Fix stickyness https://github.com/zurb/foundation-sites/pull/10408
-          .topbar
-            .topbar-left
-              = image_tag(image_path('integral/backend/logo.png'))
-              %h1= page_title
-            .topbar-right
-              %button.btn.btn-primary(type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample")
-                = icon('bi bi-list')
+      .bottombar-right
+        .btn-group.dropup
+          %button(type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false")
+            = t('integral.actions.create')
+          %ul.dropdown-menu
+            = render partial: 'layouts/integral/backend/create_dropdown'
 
-
-            -# .top-bar-right
-            -#   %ul.menu
-            -#     %li.view-site
-            -#       = link_to main_app.root_path, class: 'button clear' do
-            -#         = icon('eye')
-            -#         = t('integral.actions.view_main_site')
-            -#     %li
-            -#       %button.button-notifications-dropdown{ type: 'button', data: { toggle: 'notifications-dropdown'}}
-            -#         - if current_user.notifications.unread.any?
-            -#           = icon('circle')
-            -#           = icon('bell-o')
-            -#         - else
-            -#           = icon('bell-o')
-            -#       #notifications-dropdown.dropdown-pane.dropdown-pane--notifications{ data: { notifications: true, load_more_url: current_user.multiple_page_notifications? ? notifications_backend_user_url(current_user, page: 2) : '', dropdown: true, hover: 'true', 'hover-pane' => 'true', 'v-offset' => '35', 'hover-delay' => 50 }}
-            -#         .section.text-center
-            -#           %span.title
-            -#             = current_user.notifications.unread.count
-            -#             Unread
-            -#           %span.subtitle User Notifications
-            -#         .section
-            -#           - if current_user.notifications.unread.count > 25
-            -#             = link_to 'Mark all as read', read_all_notifications_backend_user_url(current_user), method: :put, remote: true, class: 'notification-read-all', data: { confirm: 'Are you sure you want to mark all notifications as read?' }
-            -#           %ul.menu.vertical.notification-list
-            -#             = render recent_user_notifications.decorate, cached: true
-            -#           - if current_user.multiple_page_notifications?
-            -#             %p.notification-list-loader.js-loader--notifications
-            -#               = icon('spinner', class: 'fa-pulse fa-fw')
-            -#     %li
-            -#       %button.button.clear.avatar{ type: 'button', data: { toggle: 'profile-dropdown'}}= decorated_current_user.avatar_circle
-            -#       #profile-dropdown.dropdown-pane.dropdown-pane--profile{ data: { dropdown: true, hover: 'true', 'hover-pane'=> 'true', 'v-offset'=> '35', 'hover-delay'=> 50 }}
-            -#         .section
-            -#           = decorated_current_user.avatar_circle
-            -#           %span.name= current_user.name
-            -#           %span.email= current_user.email
-            -#         .section
-            -#           %ul.menu.vertical
-            -#             %li
-            -#               = link_to backend_account_url do
-            -#                 = icon('user')
-            -#                 %span= t('integral.navigation.profile')
-            -#             %li
-            -#               = link_to edit_backend_user_url(current_user.id) do
-            -#                 = icon('cog')
-            -#                 %span= t('integral.actions.edit_profile')
-            -#           %hr
-            -#           = link_to t('integral.actions.log_out'), destroy_user_session_path, method: :delete, class: 'button hollow'
-            -#
-            -#     %li.create
-            -#       %button.button{ type: 'button', data: { toggle: 'create-dropdown-top'}}
-            -#         = t('integral.actions.create')
-            -#         %span.chevron.bottom
-            -#       #create-dropdown-top.create-dropdown.dropdown-pane{ data: { dropdown: true, hover: 'true', 'hover-pane'=> 'true', 'v-offset'=> '35', 'hover-delay'=> 50 }}
-            -#         = render partial: 'layouts/integral/backend/create_dropdown'
-            -#
-            -#
-            -#     %li.toggle-menu
-            -#       %button{ type: 'button', data: { open: 'app-dashboard-sidebar' }}
-            -#         = icon('bi bi-list')
-
-          -# -# TODO: Ideally this would be using Foundations sticky plugin however this does not work within offcanvas (yet)
-          -# -# https://github.com/zurb/foundation-sites/pull/10408
-          -# #bottom-bar.top-bar
-          -#   .top-bar-left
-          -#     %ul.menu
-          -#       %li
-          -#         = link_to main_app.root_path, class: 'button clear' do
-          -#           = icon('eye')
-          -#           = t('integral.actions.view_main_site')
-          -#
-          -#   .top-bar-right
-          -#     %ul.menu
-          -#       %li
-          -#         %button.button{ type: 'button', data: { toggle: 'create-dropdown-bottom'}}
-          -#           = t('integral.actions.create')
-          -#         #create-dropdown-bottom.create-dropdown.dropdown-pane.top{ data: { dropdown: true, hover: 'true', 'hover-pane'=> 'true', 'v-offset'=> '20', 'hover-delay'=> 50 }}
-          -#           = render partial: 'layouts/integral/backend/create_dropdown'
-
-          #content-area
-            = render partial: 'integral/backend/shared/breadcrumbs'
-            = yield
     -# = render partial: 'integral/backend/shared/resource_selector'
     -# = render partial: 'integral/backend/shared/activity_modal'
-    = cache 'main-menu' do
-      #nav-tabContent.tab-content{ data: { turbo_permanent: true } }
-        - main_menu_items.select { |item| item[:list_items]&.any? }.each do |item|
-          .tab-pane.main-menu-tab(id="pane--#{item[:label]}" aria-labelledby="tab--#{item[:label]}" role="tabpanel")
-            %h3.main-menu-tab-title= item[:label]
-            %ul.main-menu-tab-list
-              - item[:list_items].each do |list_item|
-                = link_to list_item[:label], list_item[:url], wrapper: :li
+    #headerPanes.tab-content{ data: { turbo_permanent: true } }
+      .tab-pane.tab-pane-notifications(id="pane--header-notifications" aria-labelledby="tab--header-notifications" role="tabpanel")
+        .section.text-center
+          %span.title
+            = current_user.notifications.unread.count
+            Unread
+          %span.subtitle User Notifications
+        .section
+          - if current_user.notifications.unread.count > 25
+            = link_to 'Mark all as read', read_all_notifications_backend_user_url(current_user), method: :put, remote: true, class: 'notification-read-all', data: { confirm: 'Are you sure you want to mark all notifications as read?' }
+          %ul.menu.vertical.notification-list
+            = render recent_user_notifications.decorate, cached: true
+          - if current_user.multiple_page_notifications?
+            %p.notification-list-loader.js-loader--notifications
+              = icon('spinner', class: 'fa-pulse fa-fw')
+
+      .tab-pane.tab-pane-profile(id="pane--header-profile" aria-labelledby="tab--header-profile" role="tabpanel")
+        .section
+          = decorated_current_user.avatar_circle
+          %div
+            %span.name= current_user.name
+            %span.email= current_user.email
+        .section
+          %ul.list-group
+            %li.list-group-item
+              = link_to backend_account_url do
+                = icon('bi bi-person')
+                %span= t('integral.navigation.profile')
+            %li.list-group-item
+              = link_to edit_backend_user_url(current_user.id) do
+                = icon('bi bi-gear')
+                %span= t('integral.actions.edit_profile')
+          %hr
+          = link_to t('integral.actions.log_out'), destroy_user_session_path, method: :delete, class: 'btn btn-outline-primary'
+
+      .tab-pane.tab-pane-create(id="pane--header-create" aria-labelledby="tab--header-create" role="tabpanel")
+        %ul.list-group
+          = render partial: 'layouts/integral/backend/create_dropdown'
+
+    #nav-tabContent.tab-content{ data: { turbo_permanent: true } }
+      - main_menu_items.select { |item| item[:list_items]&.any? }.each do |item|
+        .tab-pane.main-menu-tab(id="pane--#{item[:label]}" aria-labelledby="tab--#{item[:label]}" role="tabpanel")
+          %h3.main-menu-tab-title= item[:label]
+          %ul.main-menu-tab-list
+            - item[:list_items].each do |list_item|
+              = link_to list_item[:label], list_item[:url], wrapper: :li
 
     .offcanvas.offcanvas-start(tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel")
       .offcanvas-header
         = image_tag(image_path('integral/backend/logo.png'))
-        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        %button(type="button" data-bs-dismiss="offcanvas" aria-label="Close")
+          = icon('bi bi-x')
       .offcanvas-body
-        -#= render partial: 'layouts/integral/back'
         #accordionExample.accordion
           - main_menu_items.each do |item|
-            .accordion-item
-              %h2.accordion-header(id="heading-#{item[:label]}")
-                %button.accordion-button.collapsed(type="button" data-bs-toggle="collapse" data-bs-target="#collapse-#{item[:label]}" aria-expanded="false" aria-controls="collapse-#{item[:label]}")
-                  Accordion Item #1
-              .accordion-collapse.collapse(id="collapse-#{item[:label]}" aria-labelledby="heading-#{item[:label]}" data-bs-parent="#accordionExample")
-                .accordion-body
-                  <strong>This is the first item's accordion body.</strong> It is shown by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
-
-            -# %li
-            -#   - if item[:list_items]&.any?
-            -#     %button(data-bs-toggle="tab" id="tab--#{item[:label]}" data-target="pane--#{item[:label]}" type="button" role="tab")
-            -#       = icon('bi bi-speedometer')
-            -#       %span= item[:label]
-            -#   - else
-            -#     = link_to item[:label], item[:url], icon: item[:icon]
-            -#
-            -#
+            - if item[:list_items]&.any?
+              .accordion-item
+                %h2.accordion-header(id="heading-#{item[:label]}")
+                  %button.accordion-button.collapsed(type="button" data-bs-toggle="collapse" data-bs-target="#collapse-#{item[:label]}" aria-expanded="false" aria-controls="collapse-#{item[:label]}")
+                    = icon(item[:icon])
+                    = item[:label]
+                .accordion-collapse.collapse(id="collapse-#{item[:label]}" aria-labelledby="heading-#{item[:label]}" data-bs-parent="#accordionExample")
+                  .accordion-body
+                    %ul
+                      - item[:list_items].each do |list_item|
+                        = link_to list_item[:label], list_item[:url], wrapper: :li
+            - else
+              %h2.accordion-header
+                = link_to item[:label], item[:url], icon: item[:icon]

@@ -63,8 +63,8 @@ module Integral
     initializer "integral.backend.set_main_menu_items" do |app|
       ActiveSupport::Notifications.subscribe 'integral.routes_loaded' do
         Integral::ActsAsIntegral.add_backend_main_menu_item(id: :home, icon: 'bi bi-house', order: 10, label: 'Home', url: Integral::Engine.routes.url_helpers.backend_dashboard_url)
-        Integral::ActsAsIntegral.add_backend_main_menu_item(id: :activities, icon: 'bi bi-gear', order: 90, label: 'Activities', url: Integral::Engine.routes.url_helpers.backend_activities_url, authorize: proc { policy(Integral::Version).manager? })
-        Integral::ActsAsIntegral.add_backend_main_menu_item(id: :settings, icon: 'bi bi-clock', order: 100, label: 'Settings', url: Integral::Engine.routes.url_helpers.backend_settings_url, authorize: proc { current_user.admin? })
+        Integral::ActsAsIntegral.add_backend_main_menu_item(id: :activities, icon: 'bi bi-clock', order: 90, label: 'Activities', url: Integral::Engine.routes.url_helpers.backend_activities_url, authorize: proc { policy(Integral::Version).manager? })
+        Integral::ActsAsIntegral.add_backend_main_menu_item(id: :settings, icon: 'bi bi-gear', order: 100, label: 'Settings', url: Integral::Engine.routes.url_helpers.backend_settings_url, authorize: proc { current_user.admin? })
       end
     end
 

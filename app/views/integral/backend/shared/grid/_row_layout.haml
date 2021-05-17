@@ -1,8 +1,7 @@
 %tr.tr--clickable{ data: { href: backend_resource_url(resource), context_menu: "dropdown-pane-actions-page-#{resource.id}" }}
   = yield
   %td.actions
-    %button.button--action-pane{ 'data-toggle' => "dropdown-pane-actions-page-#{resource.id}" }
-      = icon('ellipsis-v')
-    .dropdown-pane.dropdown-pane--actions{ id: "dropdown-pane-actions-page-#{resource.id}", data: { dropdown: true, position: :bottom, alignment: :right, close_on_click: 'true' } }
-      %ul.menu.vertical
-        = render partial: "#{self.controller._prefixes.first}/grid/dropdown_actions", locals: { resource: resource }
+    %button.btn.btn-dark(type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false")
+      = icon('bi bi-three-dots-vertical')
+    %ul.dropdown-menu
+      = render partial: "#{self.controller._prefixes.first}/grid/dropdown_actions", locals: { resource: resource }

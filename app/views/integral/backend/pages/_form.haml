@@ -1,41 +1,36 @@
 = simple_form_for [:backend, @resource], validate: true, html: { id: 'resource_form', class: 'are-you-sure', 'data-confirm-dirty-form' => true } do |f|
   = f.input :lock_version, as: :hidden
-  .grid-x
-    .cell.medium-8.large-9
-      -# Left Column
-      .grid-y
-        = f.input :title
-        = f.input :description
-        = f.fields_for :active_block_list do |block_list|
-          = BlockEditor::Instance.render(block_list)
+  .row
+    .col-md-8.form-group-list
+      = f.input :title
+      = f.input :description
+      = f.fields_for :active_block_list do |block_list|
+        = BlockEditor::Instance.render(block_list)
 
-    .cell.medium-4.large-3
-      -# Right Column
-      .grid-y
-        .input
-          %h2= t('integral.records.attributes.status')
+    .col-md-4.form-group-list
+      .form-group
+        %h2= t('integral.records.attributes.status')
+        %hr.dark
+        .radios= f.collection_radio_buttons :status, Integral::Page.available_statuses, :last, :first, include_hidden: false #, wrapper: :vertical_collection ?
+        %hr.dark
+        = f.button :button if f.object.persisted?
+      = f.input :path
+      - if Integral.multilingual_frontend?
+        = f.input :locale, collection: Integral.frontend_locales.map { |locale| [t("integral.language.#{locale}"), locale] }, include_blank: false
+        .form-group{ data: { controller: 'alternate-resource' } }
+          %h2 Alternates
           %hr.dark
-          .radios= f.collection_radio_buttons :status, Integral::Page.available_statuses, :last, :first, include_hidden: false
-          %hr.dark
-          = f.button :button if f.object.persisted?
-        = f.input :path
-        - if Integral.multilingual_frontend?
-          = f.input :locale, collection: Integral.frontend_locales.map { |locale| [t("integral.language.#{locale}"), locale] }, include_blank: false
-          .card{ data: { controller: 'alternate-resource' } }
-            %h2 Alternates
-            %hr.dark
-            %div{data: { target: 'alternate-resource.list' } }
-              .hide{data: { target: 'alternate-resource.template' } }= render partial: "alternate", locals: { alternate: resource_klass.new(title: '', description: '') }
-              = render partial: "alternate", collection: @resource.alternates.published
+          %div{data: { target: 'alternate-resource.list' } }
+            .hide{data: { target: 'alternate-resource.template' } }= render partial: "alternate", locals: { alternate: resource_klass.new(title: '', description: '') }
+            = render partial: "alternate", collection: @resource.alternates.published
 
-            %p{data: { target: 'alternate-resource.emptyMessage' }, class: @resource.alternates.published.empty? ? '' : 'hide' } No alternates selected.
+          %p{data: { target: 'alternate-resource.emptyMessage' }, class: @resource.alternates.published.empty? ? '' : 'hide' } No alternates selected.
 
-            = select_tag :alternates, grouped_options_for_select(grouped_page_alternate_options), prompt: "Select an alternate..", data: { target: 'alternate-resource.dropdown', action: 'alternate-resource#add' }
-            %p.help-text Reference any published resources which serve as alternates. Example - versions of the same piece of content in different languages
+          = select_tag :alternates, grouped_options_for_select(grouped_page_alternate_options), prompt: "Select an alternate..", data: { target: 'alternate-resource.dropdown', action: 'alternate-resource#add' }
+          %p.form-text Reference any published resources which serve as alternates. Example - versions of the same piece of content in different languages
 
-        = f.input :template, collection: Integral::Page.available_templates, prompt: t('integral.backend.pages.prompts.choose_template'), include_blank: false
-        = f.input :parent, as: :grouped_select, collection: grouped_page_parent_options, group_method: :last, include_blank: true, input_html: { data: { controller: 'select2' } }
+      = f.input :template, collection: Integral::Page.available_templates, prompt: t('integral.backend.pages.prompts.choose_template'), include_blank: false
+      = f.input :parent, as: :grouped_select, collection: grouped_page_parent_options, group_method: :last, include_blank: true, input_html: { data: { controller: 'select2' } }
+      = render partial: 'integral/backend/shared/image_preview', locals: { f:f }
 
-        = render partial: 'integral/backend/shared/image_preview', locals: { f:f }
-
-    .cell= f.button :button
+    .col= f.button :button, class: 'btn-primary'

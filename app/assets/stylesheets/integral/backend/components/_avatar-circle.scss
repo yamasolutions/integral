@@ -1,0 +1,49 @@
+.avatar-circle {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  position: relative;
+  vertical-align: text-bottom;
+
+  &-bg-0 {
+    background-color: #57c38d;
+  }
+  &-bg-1 {
+    background-color: #2d6cb9;
+  }
+  &-bg-2 {
+    background-color: #B381B3;
+  }
+  &-bg-3 {
+    background-color: #939393;
+  }
+  &-bg-4 {
+    background-color: #E3BC00;
+  }
+  &-bg-5 {
+    background-color: #d2985e;
+  }
+  &-bg-6 {
+    background-color: #00bcd4;
+  }
+  &-bg-7 {
+    background-color: #696969;
+  }
+  &-bg-8 {
+    background-color: #8bc34a;
+  }
+  &-bg-9 {
+    background-color: #f76459;
+  }
+}
+
+.avatar-text {
+  color: #fff;
+  text-transform: uppercase;
+  transform: translate(-50%,-50%);
+  left: 50%;
+  top: 50%;
+  position: absolute;
+  font-size: 10px;
+}

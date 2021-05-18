@@ -9,6 +9,7 @@ module Integral
       end
       attributes += [
         { key: I18n.t('integral.records.attributes.path'), value: path },
+        { key: I18n.t('integral.records.attributes.tag_list'), value: tags.join(', ') },
         { key: I18n.t('integral.records.attributes.updated_at'), value: I18n.l(updated_at) },
         { key: I18n.t('integral.records.attributes.created_at'), value: I18n.l(created_at) }
       ]

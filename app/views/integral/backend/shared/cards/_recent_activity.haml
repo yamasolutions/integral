@@ -9,7 +9,7 @@
       = render partial: 'integral/backend/activities/activity', collection: activities
 
     - if grid.assets.count > 5
-      %button.button.clear.expanded{ data: { recent_activity: true, recent_activity_created_at: activities.last.created_at.utc, recent_activity_user: grid.user, recent_activity_object: grid.object, recent_activity_item_id: grid.item_id, container_id: "modal--recent-activity-#{SecureRandom.hex}", recent_activity_title: title } }
+      %button.button.clear.expanded{ data: { recent_activity: true, recent_activity_created_at: activities.last.created_at.utc, recent_activity_user: grid.user, recent_activity_object: grid.object&.first, recent_activity_item_id: grid.item_id, container_id: "modal--recent-activity-#{SecureRandom.hex}", recent_activity_title: title } }
         = t('integral.actions.view_more')
 
   - else

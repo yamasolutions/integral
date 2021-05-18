@@ -1,0 +1,12 @@
+.list-group-summary {
+  flex-direction: row;
+  flex-wrap: wrap;
+  .list-group-item {
+    width: 50%;
+    a {
+      display: block;
+      padding: $spacer/2 0;
+    }
+  }
+}
+

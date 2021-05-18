@@ -1,39 +1,45 @@
 = content_for :title, t('.title', name: @resource.name)
-.grid-x.grid-padding-x
-  .cell.medium-6
-    .grid-y
-      .cell
-        .card.profile
-          .card-section
-            .grid-x.grid-padding-x
-              .cell.medium-4
-                = image_tag decorated_resource.avatar_url, class: :avatar
-              .cell.medium-8
-                = link_to edit_backend_user_url(@resource), class: :settings do
-                  = icon('cog')
-                %h2= @resource.name
-                -# TODO: Implement title/position for Integral::User
-                -#%h3 Director
-                %p
-                  = icon('envelope')
-                  = @resource.email
-                %p
-                  = icon('calendar')
-                  = t('.member_since', start_date: l(@resource.created_at))
-                %p
-                  = icon('user')
-                  = t("integral.statuses.#{@resource.status}")
-                %p
-                  - if @resource.notify_me?
-                    = icon('bell')
-                    = 'Notified about everything'
-                  - else
-                    = icon('bell-o')
-                    = 'Notified about only things that have been subscribed too'
-                .roles
-                  - @resource.roles.each do |role|
-                    .label= role.label
+.row
+  .col-md-6
+    .card.card-summary
+      .row
+        .col-md-4.text-center
+          = decorated_resource.avatar_circle
+        .col-md-8
+          %h2= @resource.name
+          %ul.list-group
+            %li.list-group-item.p-1
+              = icon('bi bi-envelope')
+              = @resource.email
+            %li.list-group-item.p-1
+              = icon('bi bi-calendar')
+              = t('.member_since', start_date: l(@resource.created_at))
+            %li.list-group-item.p-1
+              = icon('bi bi-person')
+              = t("integral.statuses.#{@resource.status}")
+            %li.list-group-item.p-1
+              - if @resource.notify_me?
+                = icon('bi bi-bell')
+                = 'Notified about everything'
+              - else
+                = icon('bi bi-bell-slash')
+                = 'Notified about only things that have been subscribed too'
 
-  .cell.medium-6
-    .grid-y
-      .cell= render_card(:recent_activity, { grid: recent_activity_grid(user: @resource.id) })
+          .mt-2
+            - @resource.roles.each do |role|
+              .badge.bg-secondary= role.label
+        .col
+          %hr
+          %ul.list-group.list-group-summary
+            %li.list-group-item
+              - if policy(resource_klass).manager?
+                = link_to t('integral.actions.edit'), edit_backend_resource_url(@resource), icon: 'bi bi-pencil'
+            %li.list-group-item
+              - if policy(resource_klass).manager?
+                = link_to t('integral.actions.delete'), backend_resource_url(@resource), method: :delete, data: { confirm: t('integral.actions.confirmation.deletion') }, icon: 'bi bi-trash'
+            %li.list-group-item
+              - if policy(Integral::Version).manager?
+                = link_to t('integral.actions.view_history'), activities_backend_resource_url(@resource), icon: 'bi bi-clock-history'
+
+  .col-md-6
+    = render_card(:recent_activity, { grid: recent_activity_grid(user: @resource.id) })

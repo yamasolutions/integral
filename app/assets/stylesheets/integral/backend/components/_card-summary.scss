@@ -2,15 +2,12 @@
   p {
     margin-bottom: 0;
   }
-  .list-group {
-    flex-direction: row;
-    flex-wrap: wrap;
-    &-item {
-      width: 50%;
-      a {
-        display: block;
-        padding: $spacer/2 0;
-      }
+
+  .avatar-circle {
+    width: 200px;
+    height: 200px;
+    .avatar-text {
+      font-size: 100px;
     }
   }
 }

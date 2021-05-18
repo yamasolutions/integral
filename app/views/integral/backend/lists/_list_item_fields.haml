@@ -8,17 +8,17 @@
   .list-item{ 'data-persisted' => "#{f.object.persisted?}" }
     = render 'item_modal', f:f, formatted_item: formatted_item
     .type
-      = icon('list', class: 'identifier')
+      = icon('bi bi-list identifier')
     .data
       %span.title= formatted_item.title
       %span.url= formatted_item.url
     .actions
-      = icon('edit', 'data-open' => "list-item-modal-#{f.object.id}", class: 'modal-trigger')
+      %i.bi.bi-pencil.modal-trigger{'data-open' => "list-item-modal-#{f.object.id}"}
 
       - if children_allowed
         .add-children
           = link_to_add_association f, :children, 'data-association-insertion-method' => 'prepend', force_non_association_create: true do
-            = icon('plus', class: 'action')
+            = icon('bi bi-plus action')
 
   - if children_allowed
     .children.sortable.hide

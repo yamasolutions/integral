@@ -1,5 +1,5 @@
 - content_for :title, t('.title', title: decorated_resource.title)
-.card.listing
+.card
   = simple_form_for @grid, as: :grid, url: form_url, method: :get, remote: true, html: { id: :grid_form, 'data-type' => :json } do |f|
     = f.hidden_field(:descending, value: @grid.descending, class: 'desc-field')
     = f.hidden_field(:order, value: @grid.order, class: 'order-field')

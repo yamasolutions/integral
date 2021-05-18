@@ -1,10 +1,17 @@
 = simple_form_for :settings, url: backend_settings_url, defaults: { required: false }, html: { id: :update_settings } do |f|
-  .grid-x.grid-padding-x
-    .cell
-      %ul.accordion{ 'data-responsive-accordion-tabs' => 'accordion medium-accordion large-tabs' }
-        = render 'integral/backend/settings/sections/general', f: f
-        = render 'integral/backend/settings/sections/seo', f: f
-        = render 'integral/backend/settings/sections/social', f: f
-        = render 'integral/backend/settings/sections/lists', f: f
-    .cell
-      = f.button :button, t('integral.actions.update')
+  - settings = [ {name: :general, icon: 'bi bi-pencil'}, {name: :seo, icon: 'bi bi-search'}, {name: :social, icon: 'bi bi-share'}, {name: :lists, icon: 'bi bi-list-ul'}]
+  %ul.nav.nav-tabs.nav-tabs-settings#myTab(role="tablist")
+    - settings.each_with_index do |setting, index|
+      %li.nav-item(role="presentation")
+        %button.nav-link{id: "tab-#{setting[:name]}", "data-bs-toggle" => "tab", "data-bs-target" => "#panel-#{setting[:name]}", type: "button", role: "tab", "aria-controls" => "panel-#{setting[:name]}", "aria-selected" => index==0 ? 'true' : 'false', class: index==0 ? 'active' : ''}
+          = icon(setting[:icon])
+          %div
+            %h3= t("integral.backend.settings.index.#{setting[:name]}.title")
+            %p= t("integral.backend.settings.index.#{setting[:name]}.description")
+
+  .tab-content#myTabContent
+    - settings.each_with_index do |setting, index|
+      .tab-pane.fade{id: "panel-#{setting[:name]}", role: "tabpanel", "aria-labelledby" => "tab-#{setting[:name]}", class: index==0 ? 'show active' : ''}
+        = render "integral/backend/settings/sections/#{setting[:name]}", f: f
+
+  = f.button :button, t('integral.actions.update'), class: 'btn-primary'

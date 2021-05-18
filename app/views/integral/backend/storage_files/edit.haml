@@ -2,15 +2,13 @@
 
 = simple_form_for [:backend, @resource], validate: true do |f|
   -# = f.input :lock_version, as: :hidden
-  .grid-x
-    .cell.medium-8
-      .grid-y
-        = f.input :title
-        = f.input :description
-    .cell.medium-4
-      .grid-y
-        .cell
-          .card
-            = image_tag main_app.url_for(@resource.attachment.representation(resize_to_limit: [500, 500]))
+  .row
+    .col-md-8.form-group-list
+      = f.input :title
+      = f.input :description
+    .col-md-4
+      .card
+        -# = image_tag main_app.url_for(@resource.attachment.representation(resize_to_limit: [500, 500]))
+        = image_tag decorated_resource.image_url
 
-    .cell= f.button :button
+    %div= f.button :button, class: 'btn-primary'

@@ -6,7 +6,7 @@
       %h2= @resource.title
       %p= @resource.description
       %hr
-      .list-group
+      .list-group.list-group-summary
         %li.list-group-item
           - unless @resource.archived?
             = link_to t('integral.actions.view_on_site'), @resource.path, icon: 'bi bi-eye'

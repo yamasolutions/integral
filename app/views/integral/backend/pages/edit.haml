@@ -1,18 +1,20 @@
 = content_for :title, t('.title', title: @resource.title)
 
 = content_for :actionbar do
-  %ul.menu.horizontal
-    %li
+  %ul.list-group.list-group-horizontal.mb-1
+    %li.list-group-item
       - if @resource.archived?
-        %button.button.white.disabled{ data: { tooltip: true, click_open: 'false' }, title: 'Archived pages cannot be viewed' }
-          = icon('eye')
+        %button.btn.btn-light.disabled{ data: { tooltip: true, click_open: 'false' }, title: 'Archived pages cannot be viewed' }
+          = icon('bi bi-eye')
           = t('integral.actions.view_on_site')
       - else
-        = link_to t('integral.actions.view_on_site'), @resource.path, class: 'button white', icon: :eye
+        = link_to t('integral.actions.view_on_site'), @resource.path, class: 'btn btn-light', icon: 'bi bi-eye'
 
     - if policy(resource_klass).duplicate?
-      = link_to t('integral.actions.clone'), duplicate_backend_resource_url(@resource), class: 'button white', method: :post, data: { confirm: t('integral.actions.confirmation.clone') }, icon: :history, wrapper: :li
+      %li.list-group-item
+        = link_to t('integral.actions.clone'), duplicate_backend_resource_url(@resource), class: 'btn btn-light', method: :post, data: { confirm: t('integral.actions.confirmation.clone') }, icon: 'bi bi-clipboard'
     - if policy(Integral::Version).manager?
-      = link_to t('integral.navigation.activity'), activities_backend_resource_url(@resource), class: 'button white', icon: :history, wrapper: :li
+      %li.list-group-item
+        = link_to t('integral.navigation.activity'), activities_backend_resource_url(@resource), class: 'btn btn-light', icon: 'bi bi-clock-history'
 
 = render 'form'

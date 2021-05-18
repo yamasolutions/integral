@@ -1,0 +1,18 @@
+.diff {
+  ul {
+    margin-left: 0;
+    list-style: none;
+    background-color: rgba(212, 223, 239, 0.15);
+    padding: 0;
+    margin-bottom: 0;
+    li {
+      min-height: 1.5rem;
+      &.del {
+        background-color: transparentize($warning, 0.7);
+      }
+      &.ins {
+        background-color: transparentize($success, 0.7);
+      }
+    }
+  }
+}

@@ -1,7 +1,7 @@
 - content_for :title, t('integral.navigation.activity_log')
 .row
   .col-md-9
-    .card
+    .card.card-object
       %h2 Activity Data
       -# - if record.to_card[:image].present?
       -#   = image_tag record.to_card[:image]
@@ -22,19 +22,19 @@
         - if @activity.whodunnit.present?
           = link_to backend_user_url(@activity.whodunnit.id) do
             %span.val.thumb
-              = image_tag @activity.whodunnit.avatar_url, class: :avatar
+              = @activity.whodunnit.avatar_circle
               = @activity.whodunnit.name
 
   .col-md-3
-    %ul.no-bullet
-      %li
-        = link_to @activity.item_url, class: 'button white expanded' do
-          = icon('eye')
+    %ul.list-group
+      %li.list-group-item
+        = link_to @activity.item_url, class: 'btn btn-light w-100 mb-1' do
+          = icon('bi bi-eye')
           = t('integral.actions.view_record')
       - if @activity.whodunnit.present?
-        %li
-          = link_to backend_user_url(@activity.whodunnit.id), class: 'button white expanded' do
-            = icon('eye')
+        %li.list-group-item
+          = link_to backend_user_url(@activity.whodunnit.id), class: 'btn btn-light w-100 mb-1' do
+            = icon('bi bi-pencil')
             = t('integral.actions.view_user')
       -# %li
       -#   = link_to @activity.item_url, class: 'button white' do
@@ -46,9 +46,8 @@
       -#     = t('integral.navigation.next')
 
   .card
-    .card-section
-      %h2 Changes
-      - @activity.changeset.each do |key, changeset|
-        %hr
-        %p= key
-        = Diffy::Diff.new(changeset[0], changeset[1], context: 1).to_s(:html_simple).html_safe
+    %h2 Changes
+    - @activity.changeset.each do |key, changeset|
+      %hr
+      %p= key
+      = Diffy::Diff.new(changeset[0], changeset[1], context: 1).to_s(:html_simple).html_safe

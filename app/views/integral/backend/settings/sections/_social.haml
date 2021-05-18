@@ -1,14 +1,14 @@
-= render layout: 'section', locals: { f: f, icon: 'share-alt', name: 'social' } do
-  .grid-x.grid-padding-x
-    .cell.medium-6
+.card
+  .row
+    .col-md-6
       = render 'input', f: f, name: 'twitter_url'
-    .cell.medium-6
+    .col-md-6
       = render 'input', f: f, name: 'facebook_url'
-    .cell.medium-6
+    .col-md-6
       = render 'input', f: f, name: 'instagram_url'
-    .cell.medium-6
+    .col-md-6
       = render 'input', f: f, name: 'linkedin_url'
-    .cell.medium-6
+    .col-md-6
       = render 'input', f: f, name: 'youtube_url'
-    .cell.medium-6
+    .col-md-6
       = render 'input', f: f, name: 'github_url'

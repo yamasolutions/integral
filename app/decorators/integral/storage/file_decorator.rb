@@ -4,6 +4,18 @@ module Integral
     class FileDecorator < BaseDecorator
       delegate_all
 
+      def image_url(size: nil, transform: nil, fallback: true)
+        representation = if size
+          attachment.representation(resize_to_limit: Integral.image_sizes[size])
+        elsif transform
+          attachment.representation(transform)
+        else
+          attachment.representation(resize_to_limit: Integral.image_sizes[:medium])
+        end
+ 
+        app_url_helpers.url_for(representation)
+      end
+
       # @return [Hash] the instance as a card
       def to_backend_card
         attributes = [
@@ -14,7 +26,7 @@ module Integral
         ]
 
         {
-          image: app_url_helpers.url_for(attachment.representation(resize_to_limit: [500, 500])),
+          image: image_url,
           description: description,
           url: backend_url,
           attributes: attributes

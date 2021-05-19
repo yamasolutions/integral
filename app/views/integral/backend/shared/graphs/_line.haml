@@ -1,4 +1,4 @@
-%canvas{ data: { chart: true, 'chart-type' => 'line', 'chart-labels' => labels }}
+%canvas{ data: { controller: 'chart', 'chart-type' => 'line', 'chart-labels' => labels }}
   - dataset.each_with_index do |item, index|
     %ul{ data: { 'chart-label' => item[:label] }}
       - data[index].each do |item|

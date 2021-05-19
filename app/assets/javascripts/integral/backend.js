@@ -56,7 +56,6 @@
 //   $(document).foundation();
 //   jQuery('input, textarea').characterCounter();
 //   SlugGenerator.check_for_slugs();
-//   new ChartManager();
 //   NotificationManager.flash();
 //   new RemoteForm($('.remote-form'));
 //   Grid.init();

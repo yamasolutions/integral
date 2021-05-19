@@ -1,0 +1,11 @@
+.tr-clickable {
+  &:hover {
+    cursor: pointer;
+    background-color: #cedeea;
+  }
+  button, a {
+    > * {
+      pointer-events: none;
+    }
+  }
+}

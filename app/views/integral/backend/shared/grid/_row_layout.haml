@@ -1,4 +1,4 @@
-%tr.tr--clickable{ data: { href: backend_resource_url(resource), context_menu: "dropdown-pane-actions-page-#{resource.id}" }}
+%tr.tr-clickable{ data: { controller: 'clickable-row', action: 'click->clickable-row#followLink contextmenu->clickable-row#openDropdown', href: backend_resource_url(resource), context_menu: "dropdown-pane-actions-page-#{resource.id}" }}
   = yield
   %td.actions
     %button.btn.btn-dark(type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false")

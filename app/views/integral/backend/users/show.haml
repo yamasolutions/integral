@@ -31,12 +31,25 @@
         .col
           %hr
           %ul.list-group.list-group-summary
-            %li.list-group-item
-              - if policy(resource_klass).manager?
+            - if policy(resource_klass).manager?
+              %li.list-group-item
                 = link_to t('integral.actions.edit'), edit_backend_resource_url(@resource), icon: 'bi bi-pencil'
-            %li.list-group-item
-              - if policy(resource_klass).manager?
-                = link_to t('integral.actions.delete'), backend_resource_url(@resource), method: :delete, data: { confirm: t('integral.actions.confirmation.deletion') }, icon: 'bi bi-trash'
+            - if policy(resource_klass).manager?
+              %li.list-group-item
+                %button.btn.btn-link{ data: { controller: 'confirmation', action: 'confirmation#confirm', href: backend_resource_url(@resource), method: :delete, message: t('integral.actions.confirmation.deletion') }}
+                  = icon('bi bi-trash')
+                  = t('integral.actions.delete')
+            - if policy(resource_klass).manager?
+              %li.list-group-item
+                - if @resource.blocked?
+                  = link_to unblock_backend_user_url(@resource), method: :put, data: { confirm: t('integral.actions.confirmation.unblock') } do
+                    = icon('bi bi-person-plus')
+                    = t('integral.actions.unblock')
+                - else
+                  = link_to block_backend_user_url(@resource), method: :put, data: { confirm: t('integral.actions.confirmation.block') } do
+                    = icon('bi bi-person-x')
+                    = t('integral.actions.block')
+
             %li.list-group-item
               - if policy(Integral::Version).manager?
                 = link_to t('integral.actions.view_history'), activities_backend_resource_url(@resource), icon: 'bi bi-clock-history'

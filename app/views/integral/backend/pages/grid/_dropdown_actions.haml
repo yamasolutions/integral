@@ -9,6 +9,3 @@
   = link_to t('integral.actions.view_history'), activities_backend_resource_url(resource), icon: 'bi bi-clock-history', wrapper: :li
 - if policy(resource_klass).destroy?
   = link_to t('integral.actions.delete'), backend_resource_url(resource), method: :delete, data: { confirm: t('integral.actions.confirmation.deletion') }, icon: 'bi bi-trash', wrapper: :li
-
-
-  

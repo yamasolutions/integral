@@ -1,4 +1,4 @@
-.btn {
+.btn:not(.btn-link, .btn-outline-primary) {
   color: $white;
   text-transform: uppercase;
 }
@@ -8,7 +8,9 @@
   background-color: $white;
 }
 
-
-.btn-outline-primary {
-  color: $primary;
+.btn-link {
+  padding: 0;
+  &:focus {
+    box-shadow: none;
+  }
 }

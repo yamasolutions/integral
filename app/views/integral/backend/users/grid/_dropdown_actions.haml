@@ -1,17 +1,17 @@
 - if policy(resource_klass).update?
-  = link_to t('integral.actions.edit'), edit_backend_resource_url(resource), icon: :edit, wrapper: :li
-= link_to t('integral.actions.open_in_new_tab'), backend_resource_url(resource), target: :blank, icon: 'external-link', wrapper: :li
+  = link_to t('integral.actions.edit'), edit_backend_resource_url(resource), icon: 'bi bi-pencil', wrapper: :li
+= link_to t('integral.actions.open_in_new_tab'), backend_resource_url(resource), target: :blank, icon: 'bi bi-box-arrow-up-right', wrapper: :li
 - if policy(Integral::Version).manager?
-  = link_to t('integral.actions.view_history'), activities_backend_resource_url(resource), icon: :history, wrapper: :li
+  = link_to t('integral.actions.view_history'), activities_backend_resource_url(resource), icon: 'bi bi-clock-history', wrapper: :li
 - if policy(resource_klass).manager?
   %li
     - if resource.blocked?
       = link_to unblock_backend_user_url(resource), method: :put, data: { confirm: t('integral.actions.confirmation.unblock') } do
-        = icon('unlock')
+        = icon('bi bi-person-plus')
         = t('integral.actions.unblock')
     - else
       = link_to block_backend_user_url(resource), method: :put, data: { confirm: t('integral.actions.confirmation.block') } do
-        = icon('ban')
+        = icon('bi bi-person-x')
         = t('integral.actions.block')
 - if policy(resource_klass).destroy?
-  = link_to t('integral.actions.delete'), backend_resource_url(resource), method: :delete, data: { confirm: t('integral.actions.confirmation.deletion') }, icon: :remove, wrapper: :li
+  = link_to t('integral.actions.delete'), backend_resource_url(resource), method: :delete, data: { confirm: t('integral.actions.confirmation.deletion') }, icon: 'bi bi-trash', wrapper: :li

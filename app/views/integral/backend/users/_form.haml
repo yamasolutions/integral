@@ -33,7 +33,8 @@
       = f.input :notify_me
       .card{ data: { controller: 'image-upload' } }
         = f.input :image, as: :hidden, input_html: { data: { target: 'image-upload.idField' }, value: @resource.image&.blob&.signed_id }
-        = f.label(:image)
+        %h3
+          = f.label(:image)
 
         - if @resource.image.attached?
           = image_tag main_app.url_for(@resource.image), data: { target: 'image-upload.previewImage' }

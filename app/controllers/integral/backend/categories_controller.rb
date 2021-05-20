@@ -35,6 +35,27 @@ module Integral
         end
       end
 
+      # Override redirect path
+      # DELETE /:id
+      def destroy
+        if @resource.destroy
+          respond_to do |format|
+            format.html { respond_successfully(notification_message('delete_success'), send("backend_posts_path")) }
+            format.js { head :no_content }
+          end
+        else
+          respond_to do |format|
+            format.html do
+              error_message = @resource.errors.full_messages.to_sentence
+              flash[:error] = "#{notification_message('delete_failure')} - #{error_message}"
+
+              redirect_to send("backend_posts_path")
+            end
+            format.js { head :unprocessable_entity }
+          end
+        end
+      end
+
       private
 
       def resource_params

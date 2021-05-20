@@ -1,34 +1,32 @@
 = content_for :title, @resource.title
 
-.grid-x
-  .cell.large-6
-    -# Left Column
-    .grid-x
-      .cell
-        .card
-          %h2= @resource.title
-          %p.subtitle= @resource.description
-          %hr
+.row
+  .col-md-6
+    .card.card-summary
+      %h2= @resource.title
+      %p= @resource.description
+      %hr
+      .list-group.list-group-summary
+        %li.list-group-item
+          = link_to t('integral.actions.view_on_site'), @resource.frontend_url, icon: 'bi bi-eye'
+        %li.list-group-item
+          - if policy(resource_klass).manager?
+            = link_to t('integral.actions.edit'), edit_backend_resource_url(@resource), icon: 'bi bi-pencil'
+        %li.list-group-item
+          - if policy(resource_klass).duplicate?
+            = link_to t('integral.actions.clone'), duplicate_backend_resource_url(@resource), method: :post, data: { confirm: t('integral.actions.confirmation.clone') }, icon: 'bi bi-clipboard'
+        - if policy(resource_klass).manager?
+          %li.list-group-item
+            %button.btn.btn-link{ data: { controller: 'confirmation', action: 'confirmation#confirm', href: backend_resource_url(@resource), method: :delete, message: t('integral.actions.confirmation.deletion') }}
+              = icon('bi bi-trash')
+              = t('integral.actions.delete')
+        %li.list-group-item
+          - if policy(Integral::Version).manager?
+            = link_to t('integral.actions.view_history'), activities_backend_resource_url(@resource), icon: 'bi bi-clock-history'
 
-          .grid-x.actions
-            .cell.xlarge-8.xxlarge-6
-              .grid-x.small-up-2
-                = link_to t('integral.actions.view_on_site'), @resource.frontend_url, icon: :eye, wrapper: :cell
-                - if policy(resource_klass).manager?
-                  = link_to t('integral.actions.edit'), edit_backend_resource_url(@resource), icon: :edit, wrapper: :cell
-                - if policy(resource_klass).duplicate?
-                  = link_to t('integral.actions.clone'), duplicate_backend_resource_url(@resource), method: :post, data: { confirm: t('integral.actions.confirmation.clone') }, icon: :clone, wrapper: :cell
-                - if policy(resource_klass).manager?
-                  = link_to t('integral.actions.delete'), backend_resource_url(@resource), icon: :remove, wrapper: :cell, method: :delete, data: { confirm: t('integral.actions.confirmation.deletion') }
-                - if policy(resource_klass).manager?
-                  = link_to t('integral.actions.view_history'), activities_backend_resource_url(@resource), icon: :history, wrapper: :cell
+  .col-md-6= render_card(:object, { title: 'Essentials', resource: decorated_resource })
+  - if Integral.multilingual_frontend?
+    .col-md-6= render_card(:resource_alternates)
 
-      .cell.medium-6.flex-container= render_card(:object, { title: 'Essentials', resource: decorated_resource })
-      - if Integral.multilingual_frontend?
-        .cell.medium-6.flex-container= render_card(:resource_alternates)
-
-      .cell.xlarge-6.flex-container= render_card(:recent_user_activity)
-  .cell.large-6
-    -# Right Column
-    .grid-x
-      .cell= render_card(:recent_activity)
+  .col-md-6= render_card(:recent_user_activity)
+  .col-md-6= render_card(:recent_activity)

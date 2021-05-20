@@ -153,7 +153,9 @@ module Integral
           locale: I18n.locale,
           'user-name' => current_user.name,
           'user-email' => current_user.email,
-          'user-created-at' => current_user.created_at.to_i
+          'user-created-at' => current_user.created_at.to_i,
+          'flash-type' => flash.first&.first,
+          'flash-message' => flash.first&.second
         }
       end
 

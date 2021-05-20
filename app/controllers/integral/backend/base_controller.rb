@@ -110,7 +110,6 @@ module Integral
             end
             format.js { head :unprocessable_entity }
           end
-
         end
       end
 

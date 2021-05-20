@@ -1,15 +1,8 @@
-.grid-x
-  -# Left Column
-  .cell.large-6
-    .grid-x
-      .cell= render_card(:recent_resources)
-      .cell= render_card(:categories)
-      .cell= render_card(:at_a_glance)
-
-  -# Right Column
-  .cell.large-6
-    .grid-x
-      .cell= render_card(:recent_activity)
-      .cell= render_card(:recent_block_lists)
-      .cell.xlarge-6= render_card(:recent_user_activity)
-      .cell.large-6= render_card(:top_post_authors)
+.row
+  .col-md-6= render_card(:recent_resources)
+  .col-md-6= render_card(:categories)
+  .col-md-6= render_card(:at_a_glance)
+  .col-md-6= render_card(:recent_activity)
+  .col-md-6= render_card(:recent_block_lists)
+  .col-md-6= render_card(:recent_user_activity)
+  .col-md-6= render_card(:top_post_authors)

@@ -16,9 +16,11 @@
         %li.list-group-item
           - if policy(resource_klass).duplicate?
             = link_to t('integral.actions.clone'), duplicate_backend_resource_url(@resource), method: :post, data: { confirm: t('integral.actions.confirmation.clone') }, icon: 'bi bi-clipboard'
-        %li.list-group-item
-          - if policy(resource_klass).manager?
-            = link_to t('integral.actions.delete'), backend_resource_url(@resource), method: :delete, data: { confirm: t('integral.actions.confirmation.deletion') }, icon: 'bi bi-trash'
+        - if policy(resource_klass).manager?
+          %li.list-group-item
+            %button.btn.btn-link{ data: { controller: 'confirmation', action: 'confirmation#confirm', href: backend_resource_url(@resource), method: :delete, message: t('integral.actions.confirmation.deletion') }}
+              = icon('bi bi-trash')
+              = t('integral.actions.delete')
         %li.list-group-item
           - if policy(Integral::Version).manager?
             = link_to t('integral.actions.view_history'), activities_backend_resource_url(@resource), icon: 'bi bi-clock-history'

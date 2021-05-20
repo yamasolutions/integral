@@ -1,0 +1,12 @@
+.toast-wrapper {
+  width: 100%;
+  margin: 0 auto;
+  z-index: 999;
+  bottom: 0;
+  right: 50%;
+  left: 50%;
+  position: fixed;
+  transform: translate(-50%, 0px);
+  z-index: 9999;
+  pointer-events: none;
+}

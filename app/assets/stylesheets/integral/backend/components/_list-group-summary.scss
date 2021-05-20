@@ -3,9 +3,11 @@
   flex-wrap: wrap;
   .list-group-item {
     width: 50%;
-    a {
+    a, button {
       display: block;
       padding: $spacer/2 0;
+      width: 100%;
+      text-align: left;
     }
   }
 }

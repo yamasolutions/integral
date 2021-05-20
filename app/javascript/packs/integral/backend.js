@@ -1,7 +1,7 @@
 import "styles.scss"
 // import I18n from 'i18n-js/index.js.erb'
 import * as Turbo from "@hotwired/turbo"
-// import Toast from "utils/toast"
+import Toast from "utils/integral/toast"
 
 window.Turbo = Turbo
 // window.I18n = I18n
@@ -17,6 +17,16 @@ require("@rails/actiontext")
 Trix.config.blockAttributes.default.tagName = 'p'
 
 document.addEventListener("turbo:load", function() {
+  const flashType = document.querySelector('body').dataset.flashType
+  const flashMessage = document.querySelector('body').dataset.flashMessage
+  if (flashType) {
+    if (flashType == 'notice') {
+      new Toast({type: 'success', title: 'Success', content: flashMessage })
+    } else {
+      new Toast({type: 'error', title: 'Error', content: flashMessage })
+    }
+  }
+
   // Main Menu Pane (Tab) Navigation
   const triggerTabList = [].slice.call(document.querySelectorAll('.app-dashboard-sidebar-menu button'))
   triggerTabList.forEach(function (triggerEl) {

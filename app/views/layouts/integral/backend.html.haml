@@ -4,7 +4,9 @@
     = google_tag_manager(:noscript)
     -# = render partial: 'integral/shared/media_query_indicator'
     -# .integral-version.is-hidden= "Integral Version: #{Integral::VERSION}"
-    -# = render_flashes
+
+    .toast-wrapper(aria-live="polite" aria-atomic="true")
+      #toast-container.toast-container.p-3
 
     .app-dashboard{ class: cookies['integral-sidebar'] == 'shrunk' ? 'shrink-large' : 'shrink-medium'}
       #app-dashboard-sidebar.app-dashboard-sidebar
@@ -58,6 +60,7 @@
 
     -# = render partial: 'integral/backend/shared/resource_selector'
     -# = render partial: 'integral/backend/shared/activity_modal'
+    = render partial: 'integral/backend/shared/confirm_modal'
     #headerPanes.tab-content{ data: { turbo_permanent: true } }
       .tab-pane.tab-pane-notifications(id="pane--header-notifications" aria-labelledby="tab--header-notifications" role="tabpanel")
         .section.text-center

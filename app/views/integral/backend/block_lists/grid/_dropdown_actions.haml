@@ -1,4 +1,7 @@
 - if policy(Integral::Page).update?
-  = link_to t('integral.actions.edit'), edit_backend_resource_url(resource), icon: :edit, wrapper: :li
+  = link_to t('integral.actions.edit'), edit_backend_resource_url(resource), icon: 'bi bi-pencil', wrapper: :li, class: 'dropdown-item'
 - if policy(Integral::Page).destroy?
-  = link_to t('integral.actions.delete'), backend_resource_url(resource), method: :delete, data: { confirm: t('integral.actions.confirmation.deletion') }, icon: :remove, wrapper: :li
+  %li
+    %button.dropdown-item{ data: { controller: 'confirmation', action: 'confirmation#confirm', message: t('integral.actions.confirmation.deletion'), method: :delete, href: backend_resource_url(resource) }}
+      = icon('bi bi-trash')
+      = t('integral.actions.delete')

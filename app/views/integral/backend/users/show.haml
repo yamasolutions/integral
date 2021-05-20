@@ -42,11 +42,11 @@
             - if policy(resource_klass).manager?
               %li.list-group-item
                 - if @resource.blocked?
-                  = link_to unblock_backend_user_url(@resource), method: :put, data: { confirm: t('integral.actions.confirmation.unblock') } do
+                  %button.btn.btn-link{ data: { controller: 'confirmation', action: 'confirmation#confirm', href: unblock_backend_user_url(@resource), method: :put, message: t('integral.actions.confirmation.unblock') }}
                     = icon('bi bi-person-plus')
                     = t('integral.actions.unblock')
                 - else
-                  = link_to block_backend_user_url(@resource), method: :put, data: { confirm: t('integral.actions.confirmation.block') } do
+                  %button.btn.btn-link{ data: { controller: 'confirmation', action: 'confirmation#confirm', href: block_backend_user_url(@resource), method: :put, message: t('integral.actions.confirmation.block') }}
                     = icon('bi bi-person-x')
                     = t('integral.actions.block')
 

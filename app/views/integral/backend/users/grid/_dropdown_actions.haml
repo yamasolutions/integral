@@ -1,17 +1,20 @@
 - if policy(resource_klass).update?
-  = link_to t('integral.actions.edit'), edit_backend_resource_url(resource), icon: 'bi bi-pencil', wrapper: :li
-= link_to t('integral.actions.open_in_new_tab'), backend_resource_url(resource), target: :blank, icon: 'bi bi-box-arrow-up-right', wrapper: :li
+  = link_to t('integral.actions.edit'), edit_backend_resource_url(resource), icon: 'bi bi-pencil', wrapper: :li, class: 'dropdown-item'
+= link_to t('integral.actions.open_in_new_tab'), backend_resource_url(resource), target: :blank, icon: 'bi bi-box-arrow-up-right', wrapper: :li, class: 'dropdown-item'
 - if policy(Integral::Version).manager?
-  = link_to t('integral.actions.view_history'), activities_backend_resource_url(resource), icon: 'bi bi-clock-history', wrapper: :li
+  = link_to t('integral.actions.view_history'), activities_backend_resource_url(resource), icon: 'bi bi-clock-history', wrapper: :li, class: 'dropdown-item'
 - if policy(resource_klass).manager?
   %li
     - if resource.blocked?
-      = link_to unblock_backend_user_url(resource), method: :put, data: { confirm: t('integral.actions.confirmation.unblock') } do
+      %button.dropdown-item{ data: { controller: 'confirmation', action: 'confirmation#confirm', message: t('integral.actions.confirmation.unblock'), method: :put, href: unblock_backend_user_url(resource) }}
         = icon('bi bi-person-plus')
         = t('integral.actions.unblock')
     - else
-      = link_to block_backend_user_url(resource), method: :put, data: { confirm: t('integral.actions.confirmation.block') } do
+      %button.dropdown-item{ data: { controller: 'confirmation', action: 'confirmation#confirm', message: t('integral.actions.confirmation.block'), method: :put, href: block_backend_user_url(resource) }}
         = icon('bi bi-person-x')
         = t('integral.actions.block')
 - if policy(resource_klass).destroy?
-  = link_to t('integral.actions.delete'), backend_resource_url(resource), method: :delete, data: { confirm: t('integral.actions.confirmation.deletion') }, icon: 'bi bi-trash', wrapper: :li
+  %li
+    %button.dropdown-item{ data: { controller: 'confirmation', action: 'confirmation#confirm', message: t('integral.actions.confirmation.deletion'), method: :delete, href: backend_resource_url(resource) }}
+      = icon('bi bi-trash')
+      = t('integral.actions.delete')

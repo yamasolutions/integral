@@ -5,58 +5,7 @@
 //     window.initialized = true;
 //   }
 //
-//   function loadMore(entries) {
-//     if (entries[0].intersectionRatio <= 0) {
-//       return;
-//     }
-//     lastNotificationObserver.unobserve(notificationsContainer.find('ul li:last-of-type')[0])
-//
-//     $.ajax({
-//       url: notificationsContainer.data('load-more-url'),
-//       success: function(response) {
-//         notificationsContainer.find('ul').append(response.content)
-//         $('[data-notification-read-url]').each(function( index, notification ) {
-//           unreadNotificationObserver.unobserve(notification)
-//           unreadNotificationObserver.observe(notification)
-//         });
-//
-//         if (response.load_more_url) {
-//           notificationsContainer.data('load-more-url', response.load_more_url)
-//           lastNotificationObserver.observe(notificationsContainer.find('ul li:last-of-type')[0])
-//         } else {
-//           notificationsContainer.find('.js-loader--notifications').hide()
-//         }
-//       }
-//     });
-//   }
-//
-//   function readNotification(entries) {
-//     var i;
-//     for (i = 0; i < entries.length; i++) {
-//       entry = entries[i]
-//
-//       if (entry.intersectionRatio < .90) {
-//         continue;
-//       }
-//
-//       readUrl = entry.target.dataset.notificationReadUrl
-//
-//       unreadNotificationObserver.unobserve(entry.target)
-//       entry.target.removeAttribute('data-notification-read-url')
-//
-//       $.ajax({
-//         url: readUrl,
-//         type: 'PUT',
-//         success: function(response) {
-//         }
-//       });
-//     }
-//   }
-//
-//   $(document).foundation();
-//   jQuery('input, textarea').characterCounter();
 //   SlugGenerator.check_for_slugs();
-//   NotificationManager.flash();
 //   new RemoteForm($('.remote-form'));
 //   Grid.init();
 //
@@ -64,10 +13,6 @@
 //     if (e.keyCode == 13) {
 //       return false;
 //     }
-//   });
-//
-//   $('.notification-read-all').on( "ajax:success", function(event, response) {
-//     location.reload();
 //   });
 //
 //   $("[data-form-subscribe-notifications], [data-form-unsubscribe-notifications]").submit(function( event ) {
@@ -90,32 +35,10 @@
 //     toastr['success']('You have unsubscribed to notifications.')
 //   });
 //
-//   notificationsContainer = $('[data-notifications]')
-//   if (notificationsContainer.data('load-more-url')) {
-//     lastNotificationObserver = new IntersectionObserver(loadMore, { root: notificationsContainer[0] });
-//     lastNotificationObserver.observe(notificationsContainer.find('ul li:last-of-type')[0])
-//   }
-//
-//   unreadNotificationObserver = new IntersectionObserver(readNotification, { root: notificationsContainer[0], threshold: 0.90 });
-//   $('[data-notification-read-url]').each(function( index, notification ) {
-//     unreadNotificationObserver.observe(notification)
-//   });
 //
 //   // Initialize foundation components on filter
 //   $(".card.listing form").on("ajax:success", function(ev) {
 //     $(ev.currentTarget).closest('.card.listing').find('[data-grid] table').foundation();
-//   });
-//
-//   $("[data-button-delete-category]").on("ajax:success", function(ev) {
-//     $(ev.currentTarget).closest('tr').fadeOut();
-//   });
-//
-//   $("[data-button-delete-category]").on("ajax:error", function(ev) {
-//     toastr["error"](I18n.t('integral.remote_form.error'));
-//   });
-//
-//   $("#new_category_modal").on("open.zf.reveal", function(ev) {
-//     $(ev.currentTarget).find('form').enableClientSideValidations();
 //   });
 //
 //   if (($('body.lists.new').length > 0) || ($('body.lists.show').length > 0) || ($('body.lists.edit').length > 0)) {
@@ -153,7 +76,6 @@
 //       $('#app-dashboard-sidebar').foundation('close');
 //     });
 //   }
-//
 //
 //   // Set the locale for clientside validations
 //   I18n.locale = $('body').data('locale') || 'en';

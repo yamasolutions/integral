@@ -27,10 +27,10 @@
           .topbar-right{:role=>"tablist"}
             %button.btn.btn-primary.btn-toggle-menu(type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample")
               = icon('bi bi-list')
-            = link_to main_app.root_path, class: 'btn btn-view-site' do
+            = link_to main_app.root_path, class: 'btn btn-clear btn-view-site' do
               = icon('bi bi-eye')
               = t('integral.actions.view_main_site')
-            %button.btn.btn-notifications-dropdown(data-bs-toggle="tab" id="tab--header-notifications" data-target="pane--header-notifications" type="button" role="tab")
+            %button.btn.btn-link.btn-notifications-dropdown(data-bs-toggle="tab" id="tab--header-notifications" data-target="pane--header-notifications" type="button" role="tab")
               - if current_user.notifications.unread.any?
                 = icon('bi bi-circle-fill')
                 = icon('bi bi-bell')
@@ -62,7 +62,8 @@
     = render partial: 'integral/backend/shared/activity_modal'
     = render partial: 'integral/backend/shared/confirm_modal'
     #headerPanes.tab-content{ data: { turbo_permanent: true } }
-      .tab-pane.tab-pane-notifications(id="pane--header-notifications" aria-labelledby="tab--header-notifications" role="tabpanel")
+      .tab-pane.tab-pane-notifications#pane--header-notifications{ 'aria-labelledby' => "tab--header-notifications", 'role' => "tabpanel", data: { controller: 'notifications', load_more_url: current_user.multiple_page_notifications? ? notifications_backend_user_url(current_user, page: 2) : '' }}
+
         .section.text-center
           %span.title
             = current_user.notifications.unread.count
@@ -70,12 +71,15 @@
           %span.subtitle User Notifications
         .section
           - if current_user.notifications.unread.count > 25
-            = link_to 'Mark all as read', read_all_notifications_backend_user_url(current_user), method: :put, remote: true, class: 'notification-read-all', data: { confirm: 'Are you sure you want to mark all notifications as read?' }
+            .d-flex.justify-content-end
+              %button.btn.btn-link.btn-notification-read-all{ data: { controller: 'confirmation', action: 'confirmation#confirm',  href: read_all_notifications_backend_user_url(current_user), method: :put, message: 'Are you sure you want to mark all notifications as read?' } }
+                Mark all as read
           %ul.menu.vertical.notification-list
             = render recent_user_notifications.decorate, cached: true
           - if current_user.multiple_page_notifications?
-            %p.notification-list-loader.js-loader--notifications
-              = icon('spinner', class: 'fa-pulse fa-fw')
+            .d-flex.justify-content-center.notification-list-loader.js-loader--notifications
+              .spinner-border(role="status")
+                %span.visually-hidden Loading...
 
       .tab-pane.tab-pane-profile(id="pane--header-profile" aria-labelledby="tab--header-profile" role="tabpanel")
         .section

@@ -11,8 +11,8 @@
           %h2.modal-title= title
           %button(type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close")
         .modal-body
-          = f.input :title, wrapper_html: { class: 'alternative' }, input_html: { id: slug_id }
-          = f.input :slug, wrapper_html: { class: 'alternative' }, input_html: { data: { slugify: "##{slug_id}" } }
+          = f.input :title, wrapper_html: { class: 'alternative' }, input_html: { data: { controller: 'slugger', action: 'slugger#slugify', slugger: "##{slug_id}" }}
+          = f.input :slug, wrapper_html: { class: 'alternative' }, input_html: { id: slug_id, data: { controller: 'slugger', action: 'slugger#validate' }}
           = f.input :description, as: :text, wrapper_html: { class: 'alternative' }
           - if Integral.multilingual_frontend?
             = f.input :locale, wrapper_html: { class: 'alternative' }, collection: Integral.frontend_locales.map { |locale| [t("integral.language.#{locale}"), locale] }, include_blank: false

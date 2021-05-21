@@ -39,6 +39,19 @@
     }
   }
 
+  .btn-notification-read-all {
+    display: block;
+    font-size: 0.8rem;
+    padding: 0 1rem;
+    margin-bottom: .5rem;
+    text-align: right;
+    padding: 0 1rem;
+    color: #555d66;
+    &:hover {
+      color: $primary;
+    }
+  }
+
   .section {
     padding: .5rem 0;
     &:last-of-type {
@@ -158,18 +171,5 @@
       height: 15px;
       border-radius: 50%
     }
-  }
-}
-
-a.notification-read-all {
-  font-size: 0.8rem;
-  padding: 0 1rem;
-  margin-bottom: .5rem;
-  text-align: right;
-  padding: 0 1rem;
-  margin-bottom: 1rem;
-  color: #555d66;
-  &:hover {
-    color: $primary;
   }
 }

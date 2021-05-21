@@ -67,7 +67,7 @@ module Integral
       # PUT /:id/read_all_notifications
       def read_all_notifications
         if current_user.notifications.unread.update_all(read_at: Time.now)
-          head :ok
+          redirect_to request.referrer
         else
           head :unprocessable_entity
         end

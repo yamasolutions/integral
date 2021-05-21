@@ -3,7 +3,7 @@
   .grid-x
     .cell.medium-9
       .grid-y
-        = f.input :title, input_html: { id: 'resource_title' }
+        = f.input :title, input_html: { data: { controller: 'slugger', action: 'slugger#slugify', slugger: '#resource_slug' }}
         = f.input :description
         = f.fields_for :active_block_list do |block_list|
           = BlockEditor::Instance.render(block_list)
@@ -18,7 +18,7 @@
             %hr.dark
             = f.button :button if f.object.persisted?
 
-        = f.input :slug, input_html: { data: { slugify: '#resource_title' }}
+        = f.input :slug, input_html: { id: 'resource_slug', data: { controller: 'slugger', action: 'slugger#validate' }}
         = f.input :category_id, collection: Integral::Category.all.map{ |category| [category.title, category.id] }, include_blank: false
         = f.input :tag_list, input_html: { value: @resource.tag_list_on(@resource.tag_context).join(','), data: { suggest_tags: true, suggest_tags_typeahead: resource_klass.tags_on("published_#{@resource.locale}").map(&:name).join(' ') } }
         - if Integral.multilingual_frontend?

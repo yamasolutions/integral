@@ -23,6 +23,9 @@ const DEFAULT_OPTS = {
 };
 
 class Toast {
+  /*
+   * new Toast({type: 'success', title: 'Success', content: flashMessage })
+   */
   constructor(opts) {
     this.render(opts)
   }

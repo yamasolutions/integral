@@ -1,32 +1,32 @@
-.reveal.record-selector.fixed.large{ data: { action: 'open->resource-selector#open', resource_selector_template: true, reveal: true, 'multiple-opened' => 'true', token: form_authenticity_token } }
-  .modal-header
-    %button.close-button{ type: 'button', data: { close: '' }, aria: { label: "Close Search" }}
-      %span{ aria: { hidden: 'true' } } &times;
-    %h2
-  .modal-content
-    .grid-x.grid-padding-x
-      .cell.medium-9
-        .top-bar
-          .top-bar-left
-            .filter.search= text_field_tag :search, '', placeholder: 'Search..', data: { target: 'resource-selector.searchField', action: 'input->resource-selector#searchInput' }
+.resource-selector.modal{ data: { action: 'open->resource-selector#open', resource_selector_template: true, token: form_authenticity_token }, tabindex: "-1" }
+  .modal-dialog.modal-xl
+    .modal-content
+      .modal-header
+        %h2.modal-title
+        %button(type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close")
+      .modal-body
+        .row
+          .col-md-9
+            .d-flex.justify-content-between.resource-selector-header
+              .top-bar-left
+                .filter.search= text_field_tag :search, '', placeholder: 'Search..', data: { target: 'resource-selector.searchField', action: 'input->resource-selector#searchInput' }
 
-          .top-bar-right
-            %button.button.create-button{ data: { target: 'resource-selector.uploadButton', action: 'resource-selector#upload' } }
-              = icon('cloud-upload')
-              = t('integral.actions.upload')
-        .loader.text-center{ data: { target: 'resource-selector.loadIndicator' } }
-          -# = icon('spinner', class: 'fa-pulse fa-3x fa-fw')
-          %span.sr-only Loading..
+              .top-bar-right
+                %button.btn.btn-primary{ data: { target: 'resource-selector.uploadButton', action: 'resource-selector#upload' } }
+                  = icon('bi bi-cloud-upload')
+                  = t('integral.actions.upload')
+            .loader.text-center{ data: { target: 'resource-selector.loadIndicator' } }
+              -# = icon('spinner', class: 'fa-pulse fa-3x fa-fw')
+              %span.sr-only Loading..
 
-        .records{ data: { target: 'resource-selector.collectionContainer' } }
+            .row.resource-selector-collection{ data: { target: 'resource-selector.collectionContainer' } }
 
-      .cell.medium-3
-        .sidebar
-          %h2 Details
-          %img{ data: { target: 'resource-selector.sidebarImage' } }
-          %p.title{ data: { target: 'resource-selector.sidebarTitle' } }
-          %p.description{ data: { target: 'resource-selector.sidebarDescription' } }
-  .modal-footer
-    %ul.menu.align-right
-      %li
-        %button.button.select{ disabled: true, data: { target: 'resource-selector.submitButton', action: 'resource-selector#select' } }= t('integral.actions.select')
+          .col-md-3.resource-selector-sidebar
+            %h2 Details
+            .resource-selector-sidebar-img
+              %img{ data: { target: 'resource-selector.sidebarImage' } }
+            %p.title{ data: { target: 'resource-selector.sidebarTitle' } }
+            %p.description{ data: { target: 'resource-selector.sidebarDescription' } }
+      .modal-footer
+        -# %button(type="button" class="btn btn-secondary" data-bs-dismiss="modal") Cancel
+        %button.btn.btn-primary{ disabled: true, data: { target: 'resource-selector.submitButton', action: 'resource-selector#select' } }= t('integral.actions.select')

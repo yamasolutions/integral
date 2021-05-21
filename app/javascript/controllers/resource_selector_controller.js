@@ -61,22 +61,20 @@ export default class extends Controller {
       .then((response) => response.json())
       .then((data) => {
         this.collectionContainerTarget.innerHTML = data.content
-        this.loadIndicatorTarget.classList.add('hide')
-        this.collectionContainerTarget.classList.remove('hide')
+        this.loadIndicatorTarget.classList.add('d-none')
+        this.collectionContainerTarget.classList.remove('d-none')
         this.collectionContainerTarget.querySelectorAll('.pagination a').forEach(element => element.addEventListener('click', (event) => {
           this.changePage(event)
         }))
       }).catch((error) => {
-        console.warn(error);
-
-        NotificationManager.notify('Sorry, an error has occurred. Please contact your webmaster.', 'error')
-        window.jQuery(this.element).foundation('close')
+        new Toast({ type: "error", title: "Error", content: 'Sorry, an error has occurred. Please contact your webmaster.' })
+        bootstrap.Modal.getInstance(this.element).hide()
       })
   }
 
   select() {
     this.element.dispatchEvent(new CustomEvent('resources-selected', { detail: { resources: this.selectedResources } }))
-    window.jQuery(this.element).foundation('close')
+    bootstrap.Modal.getInstance(this.element).hide()
   }
 
   preselect(event) {

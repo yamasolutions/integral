@@ -24,18 +24,18 @@ export default class extends Controller {
   remove() {
     this.idFieldTarget.value = ''
     this.previewImageTarget.src = ''
-    this.previewImageTarget.classList.add('hide')
-    this.placeholderImageTarget.classList.remove('hide')
-    this.createActionsListTarget.classList.remove('hide')
-    this.editActionsListTarget.classList.add('hide')
+    this.previewImageTarget.classList.add('d-none')
+    this.placeholderImageTarget.classList.remove('d-none')
+    this.createActionsListTarget.classList.remove('d-none')
+    this.editActionsListTarget.classList.add('d-none')
   }
 
   updateImage(image) {
     this.idFieldTarget.value = image.id
     this.previewImageTarget.src = image.image
-    this.previewImageTarget.classList.remove('hide')
-    this.placeholderImageTarget.classList.add('hide')
-    this.createActionsListTarget.classList.add('hide')
-    this.editActionsListTarget.classList.remove('hide')
+    this.previewImageTarget.classList.remove('d-none')
+    this.placeholderImageTarget.classList.add('d-none')
+    this.createActionsListTarget.classList.add('d-none')
+    this.editActionsListTarget.classList.remove('d-none')
   }
 }

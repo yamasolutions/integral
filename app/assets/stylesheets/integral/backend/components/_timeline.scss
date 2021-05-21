@@ -167,9 +167,9 @@ $timeline-item-card-radius: $border-radius;
 }
 
 @mixin timelinecompressed {
-  margin: 30px;
+  width: auto;
+  margin: 0 0 0 30px;
   padding: 0;
-  width: 90%;
 
   &::before {
     left: 0;

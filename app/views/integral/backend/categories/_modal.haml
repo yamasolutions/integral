@@ -1,26 +1,24 @@
 :ruby
   category ||= Integral::Category.new
-  modal_id ||= 'new_category_modal'
+  modal_id ||= 'modal-create-category'
   slug_id = "category_title_#{(Time.now.to_f * 1000).to_i}"
 
-.reveal{ data: { 'reveal' => true, 'multiple-opened' => 'true' }, id: modal_id }
-  %button.close-button{ type: 'button', data: { close: '' }, aria: { label: "Close" }}
-    %span{ aria: { hidden: 'true' } } &times;
-  = simple_form_for [:backend, category], validate: true, remote: true, html: { class: 'remote-form' } do |f|
-    .modal-header
-      %h4= title
-    .modal-content.padded
-      = f.input :title, wrapper_html: { class: 'alternative' }, input_html: { id: slug_id }
-      = f.input :slug, wrapper_html: { class: 'alternative' }, input_html: { data: { slugify: "##{slug_id}" } }
-      = f.input :description, as: :text, wrapper_html: { class: 'alternative' }
-      - if Integral.multilingual_frontend?
-        = f.input :locale, wrapper_html: { class: 'alternative' }, collection: Integral.frontend_locales.map { |locale| [t("integral.language.#{locale}"), locale] }, include_blank: false
-      %hr.dark
-      .grid-x
-        .cell.medium-6
-          = render partial: 'integral/backend/shared/image_preview', locals: { f:f }
-
-    .modal-footer
-      = f.button :button, class: 'button'
-
-
+.modal{ id: modal_id, tabindex: "-1" }
+  .modal-dialog
+    = simple_form_for [:backend, category], validate: true, html: { data: { controller: 'remote-form', action: 'turbo:submit-end->remote-form#enableButton turbo:submit-end->remote-form#displayErrorToast turbo:submit-end->remote-form#redirectOnSuccess turbo:submit-start->remote-form#disableButton' }} do |f|
+      .modal-content
+        .modal-header
+          %h2.modal-title= title
+          %button(type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close")
+        .modal-body
+          = f.input :title, wrapper_html: { class: 'alternative' }, input_html: { id: slug_id }
+          = f.input :slug, wrapper_html: { class: 'alternative' }, input_html: { data: { slugify: "##{slug_id}" } }
+          = f.input :description, as: :text, wrapper_html: { class: 'alternative' }
+          - if Integral.multilingual_frontend?
+            = f.input :locale, wrapper_html: { class: 'alternative' }, collection: Integral.frontend_locales.map { |locale| [t("integral.language.#{locale}"), locale] }, include_blank: false
+          %hr
+          .row
+            .col-md-8.p-0
+              = render partial: 'integral/backend/shared/image_preview', locals: { f:f }
+        .modal-footer
+          = f.submit nil, class: 'btn btn-primary'

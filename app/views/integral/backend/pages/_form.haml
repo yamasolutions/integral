@@ -21,10 +21,10 @@
           %h2 Alternates
           %hr.dark
           %div{data: { target: 'alternate-resource.list' } }
-            .hide{data: { target: 'alternate-resource.template' } }= render partial: "alternate", locals: { alternate: resource_klass.new(title: '', description: '') }
+            .d-none{data: { target: 'alternate-resource.template' } }= render partial: "alternate", locals: { alternate: resource_klass.new(title: '', description: '') }
             = render partial: "alternate", collection: @resource.alternates.published
 
-          %p{data: { target: 'alternate-resource.emptyMessage' }, class: @resource.alternates.published.empty? ? '' : 'hide' } No alternates selected.
+          %p{data: { target: 'alternate-resource.emptyMessage' }, class: @resource.alternates.published.empty? ? '' : 'd-none' } No alternates selected.
 
           = select_tag :alternates, grouped_options_for_select(grouped_page_alternate_options), prompt: "Select an alternate..", data: { target: 'alternate-resource.dropdown', action: 'alternate-resource#add' }
           %p.form-text Reference any published resources which serve as alternates. Example - versions of the same piece of content in different languages

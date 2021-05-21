@@ -11,7 +11,8 @@
   end
 
 .card
-  = f.label attribute, class: 'card-title'
+  %h4
+    = f.label attribute, class: 'card-title'
   .image-container{ data: { controller: 'image-preview' } }
     = f.hidden_field "#{attribute}_id", { data: { target: 'image-preview.idField' } }
     = image_tag image_url('integral/image-not-set.png'), class: placeholderHiddenClass, data: { target: 'image-preview.placeholderImage' }
@@ -21,11 +22,11 @@
         %button.btn.btn-light.btn.p-0.pt-2{ type: :button, data: { target: 'image-preview.addButton', action: 'image-preview#add' } }
           = t('integral.actions.add_image')
 
-    %ul.list-group{ class: unlinkHiddenClass, data: { target: 'image-preview.editActionsList' } }
+    %ul.list-group.list-group-horizontal{ class: unlinkHiddenClass, data: { target: 'image-preview.editActionsList' } }
       %li.list-group-item
-        %button.btn.btn-light{ type: :button, data: { target: 'image-preview.removeButton', action: 'image-preview#remove' } }= icon('trash')
+        %button.btn.btn-light{ type: :button, data: { target: 'image-preview.removeButton', action: 'image-preview#remove' } }= icon('bi bi-trash')
       %li.list-group-item
-        %button.btn.btn-light{ type: :button, data: { target: 'image-preview.editButton', action: 'image-preview#edit' } }= icon('pencil-square-o')
+        %button.btn.btn-light{ type: :button, data: { target: 'image-preview.editButton', action: 'image-preview#edit' } }= icon('bi bi-pencil')
 
   - if help_text.present?
     %p.help-text= help_text

@@ -6,6 +6,6 @@
     thumbnail_url = list_item[:image]
   end
 
-.cell
-  .record{ data: list_item.merge!({action: 'click->resource-selector#preselect' }) }
+.col-md-2
+  .resource-selector-item{ data: list_item.merge!({action: 'click->resource-selector#preselect' }) }
     %img{ src: thumbnail_url }

@@ -6,8 +6,8 @@
     %h4.alternate-resource--title
       %span= alternate.title
       = link_to url, target: :blank do
-        = icon('external-link')
+        = icon('bi bi-box-arrow-up-right')
     %p.alternate-resource--description= alternate.description.truncate(100)
     %small.alternate-resource--path= alternate.path
   .alternate-resource--actions
-    %button.clear.button.alternate-resource--button{ type: :button, data: { action: 'alternate-resource#remove' } }= icon('trash')
+    %button.btn.btn-clear.alternate-resource--button{ type: :button, data: { action: 'alternate-resource#remove' } }= icon('bi bi-trash')

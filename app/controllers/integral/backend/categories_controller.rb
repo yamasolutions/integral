@@ -9,7 +9,7 @@ module Integral
       # Updating a resource
       def update
         if @resource.update(resource_params)
-          flash.now[:notice] = notification_message('edit_success')
+          flash[:notice] = notification_message('edit_success')
           render json: { redirect_url: request.referrer }, status: :created
         else
           render json: { message: notification_message('edit_failure') }, status: :unprocessable_entity
@@ -28,7 +28,7 @@ module Integral
         @resource = Integral::Category.new(resource_params)
 
         if @resource.save
-          flash.now[:notice] = notification_message('creation_success')
+          flash[:notice] = notification_message('creation_success')
           render json: { redirect_url: request.referrer }, status: :created
         else
           render json: { message: notification_message('creation_failure') }, status: :unprocessable_entity

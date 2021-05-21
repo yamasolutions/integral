@@ -101,42 +101,6 @@
 //     unreadNotificationObserver.observe(notification)
 //   });
 //
-//   // Recent activity 'view more' behaviour
-//   $("[data-recent-activity]").on("click", function(ev) {
-//     $button = $(ev.currentTarget);
-//     modalId = $button.data('container-id');
-//
-//     $modal = $('#' + modalId);
-//     if ($modal.length > 0) {
-//       $modal.foundation('open');
-//     } else {
-//       $modal = $('#activity-placeholder').clone().appendTo('body')
-//       $form = $modal.find('form')
-//       $modal.attr('id', modalId)
-//       $modal.foundation()
-//
-//       // Populate modal with content & filters
-//       $modal.find('[data-title]').html($button.data('recent-activity-title'))
-//       $modal.find('[data-timeline]').html($button.closest('.card').find('.timeline').html())
-//       $form.find("input[name='grid[user]']").val($button.data('recent-activity-user'))
-//       $form.find("input[name='grid[object]']").val($button.data('recent-activity-object'))
-//       $form.find("input[name='grid[created_at]']").val($button.data('recent-activity-created-at'))
-//       $form.find("input[name='grid[item_id]']").val($button.data('recent-activity-item-id'))
-//
-//       $form.on( "ajax:success", function(event, response) {
-//         if (response.last_created_at != null) {
-//           $modal.find('[data-timeline]').append(response.content)
-//           $form.find("input[name='grid[created_at]']").val(response.last_created_at)
-//         } else {
-//           $form.find("input[type='submit']").hide()
-//         }
-//       });
-//
-//       $modal.foundation('open')
-//       $form.submit()
-//     }
-//   });
-//
 //   // Initialize foundation components on filter
 //   $(".card.listing form").on("ajax:success", function(ev) {
 //     $(ev.currentTarget).closest('.card.listing').find('[data-grid] table').foundation();
@@ -152,24 +116,6 @@
 //
 //   $("#new_category_modal").on("open.zf.reveal", function(ev) {
 //     $(ev.currentTarget).find('form').enableClientSideValidations();
-//   });
-//
-//   $("[data-button-edit-category]").on( "click", function(ev) {
-//     modalId = '#' + ev.currentTarget.dataset.buttonEditCategory;
-//     modalUrl = ev.currentTarget.dataset.modalUrl;
-//
-//     if ($(modalId).length == 0) {
-//       $.ajax({url: modalUrl, success: function(response){
-//         $('body').append(response.content);
-//         modal = $(modalId);
-//         modal.foundation().foundation('open');
-//         modal.find('form').enableClientSideValidations();
-//         new RemoteForm(modal.find('form'));
-//         SlugGenerator.check_for_slugs();
-//       }});
-//     } else {
-//       $(modalId).foundation('open');
-//     }
 //   });
 //
 //   if (($('body.lists.new').length > 0) || ($('body.lists.show').length > 0) || ($('body.lists.edit').length > 0)) {

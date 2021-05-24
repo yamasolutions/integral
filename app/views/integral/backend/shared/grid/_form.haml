@@ -4,6 +4,6 @@
   = f.hidden_field(:order, value: resource_grid.order, class: 'order-field')
   = f.hidden_field(:page, value: resource_grid_options[:page], class: 'page-field')
 
-  %ul.align-right.menu.filters
+  %ul.list-group.list-group-filters
     = yield(f)
 

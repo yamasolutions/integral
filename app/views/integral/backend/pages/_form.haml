@@ -30,7 +30,7 @@
           %p.form-text Reference any published resources which serve as alternates. Example - versions of the same piece of content in different languages
 
       = f.input :template, collection: Integral::Page.available_templates, prompt: t('integral.backend.pages.prompts.choose_template'), include_blank: false
-      = f.input :parent, as: :grouped_select, collection: grouped_page_parent_options, group_method: :last, include_blank: true, input_html: { data: { controller: 'select2' } }
+      = f.input :parent, as: :grouped_select, collection: grouped_page_parent_options, group_method: :last, include_blank: true, input_html: { data: { controller: 'fancy-select' } }
       = render partial: 'integral/backend/shared/image_preview', locals: { f:f }
 
     .col= f.button :button, class: 'btn-primary'

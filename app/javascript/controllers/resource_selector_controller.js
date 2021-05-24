@@ -121,23 +121,23 @@ export default class extends Controller {
   processUploads(result) {
     result.successful.forEach(file => {
       let data = file.response.data
-      let resourceElement = this.collectionContainerTarget.querySelector('.placeholder .cell').cloneNode(true)
+      let resourceElement = this.collectionContainerTarget.querySelector('.resource-selector-placeholder > *').cloneNode(true)
 
       for (const [key, value] of Object.entries(data)) {
-        resourceElement.querySelector('.record').setAttribute(`data-${key}`, value);
+        resourceElement.querySelector('.resource-selector-item').setAttribute(`data-${key}`, value);
       }
       resourceElement.querySelector('img').setAttribute('src', data.image)
       // resourceElement.querySelector('.title').innerHTML = data.title
       // resourceElement.querySelector('.subtitle').innerHTML = data.subtitle
 
-      this.collectionContainerTarget.querySelector('.grid-x').prepend(resourceElement)
+      this.collectionContainerTarget.prepend(resourceElement)
       setTimeout(() => {
-        resourceElement.querySelector('.record').click()
+        resourceElement.querySelector('.resource-selector-item').click()
       }, 200); // Not sure why but timeout was required here otherwise click was not registered
     })
 
     if (this.collectionContainerTarget.querySelector('.no-records') != null) {
-      this.collectionContainerTarget.querySelector('.no-records').classList.remove('hide')
+      this.collectionContainerTarget.querySelector('.no-records').classList.remove('d-none')
     }
     this.uppy.reset()
   }

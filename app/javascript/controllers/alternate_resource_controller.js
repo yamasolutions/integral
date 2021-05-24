@@ -1,5 +1,5 @@
 import { Controller } from "stimulus"
-import 'select2'
+import tomSelect from "tom-select/dist/js/tom-select.complete"
 
 // All this seems overcomplicated - the functionality is basically a pillbox with custom templating
 export default class extends Controller {
@@ -10,16 +10,7 @@ export default class extends Controller {
       resource.classList.add('editable')
     })
 
-    // $(this.dropdownTarget).select2({
-    //   placeholder: 'Select an alternate..',
-    //   allowClear: true
-    // })
-    //
-    // $(this.dropdownTarget).on('change.select2', (event) => {
-    //   if (this.dropdownTarget.value != '') {
-    //     this.add(event)
-    //   }
-    // })
+    this.selector = new tomSelect(this.dropdownTarget)
   }
 
   add() {
@@ -35,10 +26,15 @@ export default class extends Controller {
     alternateResourceCard.querySelector('.alternate-resource--path').innerHTML = selectedOptionData.path
 
     alternateResourceCard.classList.add('editable')
-    this.dropdownTarget.value = null
-    // .trigger('change')
+    this.selector.destroy()
+    let ids = [...this.listTarget.querySelectorAll('.alternate-resource.editable')].map(item => item.querySelector('input').value)
+    Array.from(this.dropdownTarget.options).forEach(item => {
+      if (ids.includes(item.value)) {
+        item.disabled = true
+      }
+    })
 
-    selectedOption.disabled = true
+    this.selector = new tomSelect(this.dropdownTarget)
     this.toggleEmptyMessage()
   }
 
@@ -47,11 +43,13 @@ export default class extends Controller {
     var alternateId = Array.from(wrapper.querySelectorAll('input')).pop().value
 
     wrapper.remove()
+    this.selector.destroy()
 
     Array.from(this.dropdownTarget.options).find(function (item) {
       return item.value == alternateId
     }).disabled = false
 
+    this.selector = new tomSelect(this.dropdownTarget)
     this.toggleEmptyMessage()
   }
 

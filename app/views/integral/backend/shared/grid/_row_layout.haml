@@ -1,7 +1,7 @@
 %tr.tr-clickable{ data: { controller: 'clickable-row', action: 'click->clickable-row#followLink contextmenu->clickable-row#openDropdown', href: backend_resource_url(resource), context_menu: "dropdown-pane-actions-page-#{resource.id}" }}
   = yield
   %td.actions
-    %button.btn.btn-dark(type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false")
+    %button.btn.btn-link(type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false")
       = icon('bi bi-three-dots-vertical')
     %ul.dropdown-menu
       = render partial: "#{self.controller._prefixes.first}/grid/dropdown_actions", locals: { resource: resource }

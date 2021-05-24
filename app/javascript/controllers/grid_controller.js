@@ -1,9 +1,8 @@
 import { Controller } from "stimulus"
-import $ from 'jquery'
-import 'select2'
+import Grid from "utils/integral/grid"
 
 export default class extends Controller {
   connect() {
-    $(this.element).select2()
+    new Grid(this.element)
   }
 }

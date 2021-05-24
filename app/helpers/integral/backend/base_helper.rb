@@ -87,7 +87,9 @@ module Integral
 
       # @return [String] Resource Grid
       def render_resource_grid(locals = {})
-        render(partial: "integral/backend/shared/grid/grid", locals: locals)
+        render_data_grid do
+          render(partial: "integral/backend/shared/grid/grid", locals: locals)
+        end
       end
 
       # @return [String] Integral card
@@ -118,7 +120,6 @@ module Integral
       end
 
       def recent_activity_grid(options)
-        #Integral::Grids::ActivitiesGrid.new(options)
         Integral::Grids::ActivitiesGrid.new options do |scope|
           scope.where.not(whodunnit: nil)
         end
@@ -139,10 +140,10 @@ module Integral
       # Renders a grid from a local partial within a datagrid container
       def render_data_grid
         unless block_given?
-          return content_tag(:div, render(partial: 'grid', locals: { grid: @grid }), data: { 'grid' => true, 'form' => 'grid_form' })
+          return content_tag(:div, render(partial: 'grid', locals: { grid: @grid }), data: { 'controller' => 'grid', 'form' => 'grid_form' }, class: 'grid-container')
         end
 
-        content_tag :div, data: { 'grid' => true, 'form' => 'grid_form' } do
+        content_tag(:div, data: { 'controller' => 'grid', 'form' => 'grid_form' }, class: 'grid-container') do
           yield
         end
       end

@@ -1,6 +1,7 @@
 import "styles.scss"
 // import I18n from 'i18n-js/index.js.erb'
 import * as Turbo from "@hotwired/turbo"
+import "cocoon-js-vanilla"
 import Toast from "utils/integral/toast"
 
 window.Turbo = Turbo

@@ -5026,6 +5026,11 @@ coa@^2.0.2:
     chalk "^2.4.1"
     q "^1.1.2"
 
+cocoon-js-vanilla@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/cocoon-js-vanilla/-/cocoon-js-vanilla-1.1.0.tgz#bd468445198a1e6ff217305418b496e1dc0e08a7"
+  integrity sha512-tCeS8x1Mpdt7C+0eA/ZcPOd+W970to7ziAqirGHPlSkQ490fY5JzV94h66ipaF4aLe7vQ3gtSFlb+1AvM80Bpw==
+
 code-point-at@^1.0.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/code-point-at/-/code-point-at-1.1.0.tgz#0d070b4d043a5bea33a2f1a40e2edb3d9a4ccf77"
@@ -12634,6 +12639,11 @@ sort-keys@^1.0.0:
   integrity sha1-RBttTTRnmPG05J6JIK37oOVD+a0=
   dependencies:
     is-plain-obj "^1.0.0"
+
+sortablejs@^1.13.0:
+  version "1.13.0"
+  resolved "https://registry.yarnpkg.com/sortablejs/-/sortablejs-1.13.0.tgz#3ab2473f8c69ca63569e80b1cd1b5669b51269e9"
+  integrity sha512-RBJirPY0spWCrU5yCmWM1eFs/XgX2J5c6b275/YyxFRgnzPhKl/TDeU2hNR8Dt7ITq66NRPM4UlOt+e5O4CFHg==
 
 source-list-map@^2.0.0:
   version "2.0.1"

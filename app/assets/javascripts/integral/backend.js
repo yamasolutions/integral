@@ -1,14 +1,4 @@
 // function ready() {
-//   if (window.initialized == true) {
-//     return;
-//   } else {
-//     window.initialized = true;
-//   }
-//
-//   SlugGenerator.check_for_slugs();
-//   new RemoteForm($('.remote-form'));
-//   Grid.init();
-//
 //   $('#resource_form').on('keypress', e => {
 //     if (e.keyCode == 13) {
 //       return false;
@@ -35,11 +25,6 @@
 //     toastr['success']('You have unsubscribed to notifications.')
 //   });
 //
-//
-//   // Initialize foundation components on filter
-//   $(".card.listing form").on("ajax:success", function(ev) {
-//     $(ev.currentTarget).closest('.card.listing').find('[data-grid] table').foundation();
-//   });
 //
 //   if (($('body.lists.new').length > 0) || ($('body.lists.show').length > 0) || ($('body.lists.edit').length > 0)) {
 //     new List();
@@ -122,16 +107,3 @@
 //     });
 //   });
 // };
-//
-// document.addEventListener("turbolinks:load", ready);
-// $( document ).ready(ready);
-//
-// // User navigates using Turbolinks
-// document.addEventListener("turbolinks:visit", function() {
-//   window.initialized = false;
-// });
-//
-// document.addEventListener("turbolinks:render", function() {
-//   GoogleAnalytics.virtualPageView();
-// });
-//

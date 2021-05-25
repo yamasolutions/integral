@@ -13,15 +13,16 @@
       %span.title= formatted_item.title
       %span.url= formatted_item.url
     .actions
-      %i.bi.bi-pencil.modal-trigger{'data-open' => "list-item-modal-#{f.object.id}"}
+      %button.btn.btn-link(type="button" data-bs-toggle="modal" data-bs-target="#list-item-modal-#{f.object.id}")
+        %i.bi.bi-pencil
 
       - if children_allowed
         .add-children
-          = link_to_add_association f, :children, 'data-association-insertion-method' => 'prepend', force_non_association_create: true do
+          = link_to_add_association f, :children, 'data-association-insertion-method' => 'prepend', force_non_association_create: true, 'data-association-insertion-node' => "#list-item-children-#{f.object.id}" do
             = icon('bi bi-plus action')
 
   - if children_allowed
-    .children.sortable.hide
+    .children.sortable.d-none(id="list-item-children-#{f.object.id}")
       = f.simple_fields_for :children do |list_item|
         = render 'child_fields', f: list_item
 

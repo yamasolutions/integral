@@ -24,7 +24,7 @@
                       - if roles["#{object_name}#{role_type}"].present?
                         %td
                           %span.checkbox
-                            = check_box_tag 'user[role_ids][]', roles["#{object_name}#{role_type}"], @resource.role_ids.include?(roles["#{object_name}#{role_type}"]), id: "#{object_name}#{role_type}", class: 'filled-in'
+                            = check_box_tag 'user[role_ids][]', roles["#{object_name}#{role_type}"], @resource.role_ids.include?(roles["#{object_name}#{role_type}"]), id: "#{object_name}#{role_type}", class: 'filled-in', data: { controller: 'permission-checkbox', action: 'permission-checkbox#confirmUnique' }
                             = label_tag "#{object_name}#{role_type}", '&nbsp'.html_safe
                       - else
                         %td

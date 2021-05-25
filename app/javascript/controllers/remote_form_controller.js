@@ -52,7 +52,8 @@ export default class extends Controller {
     if (customMessage) {
       return customMessage
     } else {
-      return I18n.t('integral.remote_form.success')
+      // return I18n.t('integral.remote_form.success')
+      return "Your request was complete successfully."
     }
   }
 }

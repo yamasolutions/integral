@@ -18,6 +18,8 @@ require("@rails/actiontext")
 Trix.config.blockAttributes.default.tagName = 'p'
 
 document.addEventListener("turbo:load", function() {
+  // I18n.locale = document.querySelector('body').dataset.locale
+
   const flashType = document.querySelector('body').dataset.flashType
   const flashMessage = document.querySelector('body').dataset.flashMessage
   if (flashType) {
@@ -27,6 +29,16 @@ document.addEventListener("turbo:load", function() {
       new Toast({type: 'error', title: 'Error', content: flashMessage })
     }
   }
+
+  // Disable tab index for help text URLs
+  document.querySelectorAll('.form-text a').forEach(element => element.setAttribute('tabindex', -1))
+
+  // Disable enter submitting forms
+  document.querySelector('#resource_form').addEventListener('keypress', function (event) {
+    if (event.keyCode == 13) {
+      event.preventDefault()
+    }
+  })
 
   // Main Menu Pane (Tab) Navigation
   const triggerTabList = [].slice.call(document.querySelectorAll('.app-dashboard-sidebar-menu button'))
@@ -85,5 +97,3 @@ document.addEventListener("turbo:load", function() {
     })
   })
 })
-
-

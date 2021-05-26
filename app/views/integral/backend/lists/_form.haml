@@ -1,4 +1,4 @@
-= simple_form_for [:backend, @resource], validate: true, html: { class: 'are-you-sure', 'data-confirm-dirty-form' => true, id: :list_form } do |f|
+= simple_form_for [:backend, @resource], validate: true, html: { class: 'are-you-sure', 'data-confirm-dirty-form' => true, id: :resource_form } do |f|
   = f.input :lock_version, as: :hidden
   .row
     .col-md-8

@@ -9,7 +9,7 @@ module Integral
         Integral::Page.all.order('updated_at DESC')
       end
 
-      filter(:title) do |value|
+      filter(:search) do |value|
         search(value)
       end
 

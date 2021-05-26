@@ -52,7 +52,7 @@ Gem::Specification.new do |s|
 
   s.add_development_dependency 'database_cleaner', '~> 1.5' # Manages database test states
   s.add_development_dependency 'factory_bot_rails', '~> 4.8' # Create reusable object templates
-  s.add_development_dependency 'faker', '~> 1.6' # Random data generator
+  s.add_development_dependency 'faker', '~> 2.18' # Random data generator
   s.add_development_dependency 'pry-rails', '~> 0.3' # Debugger
   s.add_development_dependency 'rails-controller-testing', '~> 1.0' # Rails controller testing
   s.add_development_dependency 'rspec-rails', '~> 4.0' # Testing framework

@@ -13,5 +13,22 @@
         margin-right: .5rem;
       }
     }
+    .form-group {
+      margin-bottom: 0;
+      .form-label abbr {
+        display: none;
+      }
+    }
+    .ts-control.form-control {
+      padding: 0;
+    }
+    .ts-control {
+      .item {
+        pointer-events: none;
+        .remove {
+        pointer-events: all;
+        }
+      }
+    }
   }
 }

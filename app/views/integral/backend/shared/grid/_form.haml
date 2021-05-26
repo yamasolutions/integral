@@ -1,4 +1,4 @@
-= simple_form_for resource_grid, as: :grid, url: list_backend_resources_url, method: :get, remote: true, html: { id: :grid_form, 'data-type' => :json } do |f|
+= simple_form_for resource_grid, as: :grid, url: list_backend_resources_url, html: { id: :grid_form, novalidate: true } do |f|
   = hidden_field_tag(:gridview, true)
   = f.hidden_field(:descending, value: resource_grid.descending, class: 'desc-field')
   = f.hidden_field(:order, value: resource_grid.order, class: 'order-field')

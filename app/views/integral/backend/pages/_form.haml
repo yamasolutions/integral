@@ -9,16 +9,14 @@
 
     .col-md-4.form-group-list
       .form-group
-        %h2= t('integral.records.attributes.status')
+        = f.input :status, as: :radio_buttons, collection: Integral::Page.available_statuses, include_hidden: false
         %hr.dark
-        .radios= f.collection_radio_buttons :status, Integral::Page.available_statuses, :last, :first, include_hidden: false #, wrapper: :vertical_collection ?
-        %hr.dark
-        = f.button :button if f.object.persisted?
+        = f.button :button, class: 'btn-primary' if f.object.persisted?
       = f.input :path
       - if Integral.multilingual_frontend?
         = f.input :locale, collection: Integral.frontend_locales.map { |locale| [t("integral.language.#{locale}"), locale] }, include_blank: false
         .form-group{ data: { controller: 'alternate-resource' } }
-          %h2 Alternates
+          %p.form-label Alternates
           %hr.dark
           %div{data: { target: 'alternate-resource.list' } }
             .d-none{data: { target: 'alternate-resource.template' } }= render partial: "alternate", locals: { alternate: resource_klass.new(title: '', description: '') }
@@ -27,7 +25,7 @@
           %p{data: { target: 'alternate-resource.emptyMessage' }, class: @resource.alternates.published.empty? ? '' : 'd-none' } No alternates selected.
 
           = select_tag :alternates, grouped_options_for_select(grouped_page_alternate_options), prompt: "Select an alternate..", data: { target: 'alternate-resource.dropdown', action: 'alternate-resource#add' }
-          %p.form-text Reference any published resources which serve as alternates. Example - versions of the same piece of content in different languages
+          %small.form-text Reference any published resources which serve as alternates. Example - versions of the same piece of content in different languages
 
       = f.input :template, collection: Integral::Page.available_templates, prompt: t('integral.backend.pages.prompts.choose_template'), include_blank: false
       = f.input :parent, as: :grouped_select, collection: grouped_page_parent_options, group_method: :last, include_blank: true, input_html: { data: { controller: 'fancy-select' } }

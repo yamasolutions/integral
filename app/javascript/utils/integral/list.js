@@ -1,5 +1,6 @@
-import ListItem from 'utils/integral/list_item';
-import Sortable from 'sortablejs';
+import ListItem from 'utils/integral/list_item'
+import Sortable from 'sortablejs'
+import Toast from "utils/integral/toast"
 
 class List {
   constructor(form) {
@@ -16,8 +17,7 @@ class List {
     this.addButton.addEventListener("cocoon:before-insert",  (event) => {
       if (this.listItemLimit > 0 && this.form.querySelectorAll('#list-items > .list-item-container').length >= this.listItemLimit) {
         event.preventDefault()
-        // toastr['error']("This list is limited to #{@listItemLimit} list items.")
-        console.error(`This list is limited to ${this.listItemLimit} list items.`)
+        new Toast({type: 'error', title: 'Error', content: `This list is limited to ${this.listItemLimit} list items.` })
         return false
       }
     })
@@ -29,16 +29,6 @@ class List {
     this.form.querySelector('#list-items').addEventListener("cocoon:before-remove",  (event) => {
       bootstrap.Modal.getInstance(event.detail[0].querySelector('.modal')).hide()
     })
-
-    //     # Do not allow submit on enter
-    //     $('form').on 'keyup keypress', (e) =>
-    //       keyCode = e.keyCode or e.which
-    //       if keyCode == 13
-    //         e.preventDefault()
-    //         inputId = e.target.id
-    //
-    //         if inputId == 'list_description' or inputId == 'list_title'
-    //           @_hideListField(e.target)
   }
 
   _createListItems() {
@@ -63,8 +53,8 @@ class List {
     modal.setAttribute("id", modalId)
     modalTrigger.setAttribute("data-bs-target", `#${modalId}`)
 
-    new_item.querySelector('.children').setAttribute("id", childrenId)
-    new_item.querySelector('.add-children a').setAttribute("data-association-insertion-node", `#${childrenId}`)
+    new_item.querySelector('.children')?.setAttribute("id", childrenId)
+    new_item.querySelector('.add-children a')?.setAttribute("data-association-insertion-node", `#${childrenId}`)
 
     const list_item = new ListItem(this.form, new_item)
     this._initializeSortable()
@@ -72,8 +62,6 @@ class List {
       element.querySelector('.priority-field').value = priority
     })
     list_item.openModal()
-
-    console.log('handle insertion')
   }
 
   // Calculate & set list item priorities

@@ -42,7 +42,7 @@ $blue:    #0d6efd !default;
 $indigo:  #6610f2 !default;
 $purple:  #6f42c1 !default;
 $pink:    #d63384 !default;
-$red:     #8B373D !default;
+$red:     #DC0407;
 $orange:  #fd7e14 !default;
 $yellow:  #BB8E13 !default;
 $green:   #2C6E39 !default;
@@ -373,14 +373,14 @@ $border-color:                $gray-300 !default;
 // scss-docs-end border-variables
 
 // scss-docs-start border-radius-variables
-$border-radius:               .25rem !default;
+$border-radius:               .3rem;
 $border-radius-sm:            .2rem !default;
-$border-radius-lg:            .3rem !default;
+$border-radius-lg:            .5rem;
 $border-radius-pill:          50rem !default;
 // scss-docs-end border-radius-variables
 
 // scss-docs-start box-shadow-variables
-$box-shadow:                  0 .5rem 1rem rgba($black, .15) !default;
+$box-shadow:                  0 4px 12px 0 rgba(#223344, .05);
 $box-shadow-sm:               0 .125rem .25rem rgba($black, .075) !default;
 $box-shadow-lg:               0 1rem 3rem rgba($black, .175) !default;
 $box-shadow-inset:            inset 0 1px 2px rgba($black, .075) !default;
@@ -489,7 +489,7 @@ $display-line-height: $headings-line-height !default;
 $lead-font-size:              $font-size-base * 1.25 !default;
 $lead-font-weight:            300 !default;
 
-$small-font-size:             .875em !default;
+$small-font-size:             .8em;
 
 $sub-sup-font-size:           .75em !default;
 
@@ -666,14 +666,14 @@ $form-text-margin-top:                  .25rem !default;
 $form-text-font-size:                   $small-font-size !default;
 $form-text-font-style:                  null !default;
 $form-text-font-weight:                 null !default;
-$form-text-color:                       $text-muted !default;
+$form-text-color:                       #2d4a67;
 // scss-docs-end form-text-variables
 
 // scss-docs-start form-label-variables
-$form-label-margin-bottom:              .35rem;
-$form-label-font-size:                  null !default;
+$form-label-margin-bottom:              .5rem;
+$form-label-font-size:                  1.25rem;
 $form-label-font-style:                 null !default;
-$form-label-font-weight:                700;
+$form-label-font-weight:                normal;
 $form-label-color:                      $secondary;
 // scss-docs-end form-label-variables
 
@@ -698,11 +698,11 @@ $input-disabled-bg:                     $gray-200 !default;
 $input-disabled-border-color:           null !default;
 
 $input-color:                           $body-color !default;
-$input-border-color:                    $gray-400 !default;
+$input-border-color:                    #d4dfef;
 $input-border-width:                    $input-btn-border-width !default;
 $input-box-shadow:                      $box-shadow-inset !default;
 
-$input-border-radius:                   0;
+$input-border-radius:                   $border-radius;
 $input-border-radius-sm:                0;
 $input-border-radius-lg:                0;
 
@@ -732,7 +732,7 @@ $input-transition:                      border-color .15s ease-in-out, box-shado
 $form-check-input-width:                  1em !default;
 $form-check-min-height:                   $font-size-base * $line-height-base !default;
 $form-check-padding-start:                $form-check-input-width + .5em !default;
-$form-check-margin-bottom:                .125rem !default;
+$form-check-margin-bottom:                .5rem;
 $form-check-label-color:                  null !default;
 $form-check-label-cursor:                 null !default;
 $form-check-transition:                   null !default;
@@ -877,17 +877,13 @@ $form-feedback-valid-color:         $success !default;
 $form-feedback-invalid-color:       $danger !default;
 
 $form-feedback-icon-valid-color:    $form-feedback-valid-color !default;
-$form-feedback-icon-valid:          url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'><path fill='#{$form-feedback-icon-valid-color}' d='M2.3 6.73L.6 4.53c-.4-1.04.46-1.4 1.1-.8l1.1 1.4 3.4-3.8c.6-.63 1.6-.27 1.2.7l-4 4.6c-.43.5-.8.4-1.1.1z'/></svg>") !default;
+$form-feedback-icon-valid:          none;
 $form-feedback-icon-invalid-color:  $form-feedback-invalid-color !default;
 $form-feedback-icon-invalid:        url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' width='12' height='12' fill='none' stroke='#{$form-feedback-icon-invalid-color}'><circle cx='6' cy='6' r='4.5'/><path stroke-linejoin='round' d='M5.8 3.6h.4L6 6.5z'/><circle cx='6' cy='8.2' r='.6' fill='#{$form-feedback-icon-invalid-color}' stroke='none'/></svg>") !default;
 // scss-docs-end form-feedback-variables
 
 // scss-docs-start form-validation-states
 $form-validation-states: (
-  "valid": (
-    "color": $form-feedback-valid-color,
-    "icon": $form-feedback-icon-valid
-  ),
   "invalid": (
     "color": $form-feedback-invalid-color,
     "icon": $form-feedback-icon-invalid

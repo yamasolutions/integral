@@ -2,8 +2,8 @@
   .d-flex.align-self-end
     .top-bar-right
       = render_resource_grid_form do |f|
-        %li= f.input :user, collection: Integral::User.all.map {|u| [u.name, u.id]}, label: t('integral.records.attributes.user'), wrapper_html: { class: 'filter' }, input_html: { multiple: true, data: { filter: true, controller: 'grid-filter' } }, required: false
-        %li= f.input :action, collection: Integral::Version.available_actions, label: 'Action', wrapper_html: { class: 'filter' }, input_html: { multiple: true, data: { filter: true, controller: 'grid-filter' } }, required: false
-        %li= f.input :object, collection: Integral::Version.available_objects, label: 'Object', wrapper_html: { class: 'filter' }, input_html: { multiple: true, data: { filter: true, controller: 'grid-filter' } }, required: false
+        %li= f.input :user, collection: Integral::User.all.map {|u| [u.name, u.id]}, wrapper_html: { class: 'alternative' }, input_html: { multiple: true, data: { filter: true, controller: 'grid-filter' } }
+        %li= f.input :action, collection: Integral::Version.available_actions, wrapper_html: { class: 'alternative' }, input_html: { multiple: true, data: { filter: true, controller: 'grid-filter' } }
+        %li= f.input :object, collection: Integral::Version.available_objects, wrapper_html: { class: 'alternative' }, input_html: { multiple: true, data: { filter: true, controller: 'grid-filter' } }
 
   = render_resource_grid

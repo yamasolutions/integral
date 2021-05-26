@@ -5027,9 +5027,9 @@ coa@^2.0.2:
     q "^1.1.2"
 
 cocoon-js-vanilla@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/cocoon-js-vanilla/-/cocoon-js-vanilla-1.1.0.tgz#bd468445198a1e6ff217305418b496e1dc0e08a7"
-  integrity sha512-tCeS8x1Mpdt7C+0eA/ZcPOd+W970to7ziAqirGHPlSkQ490fY5JzV94h66ipaF4aLe7vQ3gtSFlb+1AvM80Bpw==
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/cocoon-js-vanilla/-/cocoon-js-vanilla-1.2.0.tgz#595348499d315d3b5828dd77a20974756cf59321"
+  integrity sha512-qLomIVL0Krfc983WLgaYPPktMjMtBN+F/CV15NPVDc9U9BCe2OL5WyAIYkPrVhDRphoYBmHCdIlZkq+vSBI4xg==
 
 code-point-at@^1.0.0:
   version "1.1.0"

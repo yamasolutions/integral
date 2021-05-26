@@ -33,12 +33,25 @@ document.addEventListener("turbo:load", function() {
   // Disable tab index for help text URLs
   document.querySelectorAll('.form-text a').forEach(element => element.setAttribute('tabindex', -1))
 
-  // Disable enter submitting forms
-  document.querySelector('#resource_form').addEventListener('keypress', function (event) {
-    if (event.keyCode == 13) {
-      event.preventDefault()
-    }
-  })
+  const resourceForm = document.querySelector('#resource_form')
+  if (resourceForm) {
+    // Disable turbo
+    resourceForm.setAttribute('data-turbo', 'false')
+
+    // Add 'was-validated' class to resource_form on submission for validation
+    document.querySelectorAll('#resource_form input').forEach(element => {
+      element.addEventListener('invalid', function (event) {
+        event.target.form.classList.add('was-validated')
+      })
+    })
+
+    // Disable enter keypress submitting forms
+    resourceForm.addEventListener('keypress', function (event) {
+      if (event.keyCode == 13) {
+        event.preventDefault()
+      }
+    })
+  }
 
   // Main Menu Pane (Tab) Navigation
   const triggerTabList = [].slice.call(document.querySelectorAll('.app-dashboard-sidebar-menu button'))

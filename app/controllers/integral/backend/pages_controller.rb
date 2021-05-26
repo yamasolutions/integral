@@ -49,7 +49,7 @@ module Integral
       end
 
       def white_listed_grid_params
-        [ :descending, :order, :page, :title, status: [], locale: [] ]
+        [ :descending, :order, :page, :search, status: [], locale: [] ]
       end
 
       def resource_klass

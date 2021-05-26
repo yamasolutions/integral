@@ -3,7 +3,7 @@
   %body{ class: "#{controller_name} #{action_name}", data: body_data_attributes }
     = google_tag_manager(:noscript)
     -# = render partial: 'integral/shared/media_query_indicator'
-    -# .integral-version.is-hidden= "Integral Version: #{Integral::VERSION}"
+    .integral-version.d-none= "Integral Version: #{Integral::VERSION}"
 
     .toast-wrapper(aria-live="polite" aria-atomic="true")
       #toast-container.toast-container.p-3
@@ -98,7 +98,9 @@
                 = icon('bi bi-gear')
                 %span= t('integral.actions.edit_profile')
           %hr
-          = link_to t('integral.actions.log_out'), destroy_user_session_path, method: :delete, class: 'btn btn-outline-primary'
+          -# = link_to t('integral.actions.log_out'), destroy_user_session_path, method: :delete, class: 'btn btn-outline-primary'
+          = button_to t('integral.actions.log_out'), destroy_user_session_path, method: :delete, class: 'btn btn-outline-primary', 'data-turbo' => 'false'
+
 
       .tab-pane.tab-pane-create(id="pane--header-create" aria-labelledby="tab--header-create" role="tabpanel")
         %ul.list-group

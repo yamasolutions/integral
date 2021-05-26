@@ -101,8 +101,6 @@ class ListItem {
       element.querySelector('.priority-field').value = priority
     })
     list_item.openModal()
-
-    console.log('handle insertion')
   }
 
   // Get element which contains children
@@ -186,26 +184,11 @@ class ListItem {
 
   // Handles when user clicks the ok button on modal
   _handleConfirmClick() {
-    // Validate form before closing Modal
-    console.log('validaton on confirm')
-    // formValidator = $('#list_form').parsley
-    //   successClass: ''
-    //   errorClass: 'has-error'
-    //   errorsWrapper: '<div class=\"parsley-error-block\"></div>'
-    //   errorTemplate: '<span></span>'
-    //   excluded: 'input:not(.reveal[aria-hidden=false] input)'
-    //   classHandler: (element) =>
-    //     element.$element.closest('.input-field')
-    //
-    // if formValidator.validate()
-    //   @modal.foundation('close')
-    //   sortable('.sortable', 'enable')
-    //
-    if (true) { // TODO: Add validation
+    if (this.titleField.checkValidity() && this.urlField.checkValidity()) {
       this._updateListItem()
       bootstrap.Modal.getInstance(this.modal).hide()
     } else {
-      //toastr['error'](I18n.t('errors.fix_errors'))
+      this.modal.classList.add('was-validated')
     }
   }
 
@@ -254,15 +237,15 @@ class ListItem {
     this.objectWrapper.classList.add('d-none')
     this.linkField.classList.add('d-none')
     this.linkNewTab.classList.add('d-none')
-    // this.titleField.addClass 'required'
+    this.titleField.required = true
   }
 
   handleLinkSelection() {
     this.objectWrapper.classList.add('d-none')
     this.linkField.classList.remove('d-none')
     this.linkNewTab.classList.remove('d-none')
-    // this.titleField.classList.add 'required'
-    //     @urlField.addClass 'required'
+    this.titleField.required = true
+    this.urlField.required = true
   }
 
   handleObjectTypeSelection() {
@@ -309,9 +292,9 @@ class ListItem {
     this.linkNewTab.classList.remove('d-none')
 
     // # Update validation
-    // @titleField.removeClass 'required'
-    // @urlField.removeClass 'required'
-    // @objectIdField.addClass 'required'
+    this.titleField.required = false
+    this.urlField.required = false
+    this.objectIdField.required = true
   }
 }
 

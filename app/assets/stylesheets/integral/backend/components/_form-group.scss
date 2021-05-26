@@ -1,0 +1,12 @@
+.form-group.alternative {
+  margin-bottom: .75rem;
+  .form-label {
+    font-size: .95rem;
+    margin-bottom: 0;
+    color: #2d4a67;
+  }
+  .form-control, .form-select {
+    padding: $spacer/2;
+    border-radius: 0;
+  }
+}

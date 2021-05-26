@@ -9,7 +9,7 @@ module Integral
         Integral::List.where(hidden: false).order('title DESC')
       end
 
-      filter(:title) do |value|
+      filter(:search) do |value|
         search(value)
       end
 

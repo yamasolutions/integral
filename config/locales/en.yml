@@ -493,6 +493,7 @@ en:
     labels:
       defaults:
         body: Content
+        locale: Language
       children:
         fake_type: 'Type'
         target: 'New Tab?'

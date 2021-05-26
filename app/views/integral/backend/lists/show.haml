@@ -12,7 +12,9 @@
             = link_to t('integral.actions.edit'), edit_backend_resource_url(@resource), icon: 'bi bi-pencil'
         - if policy(resource_klass).duplicate?
           %li.list-group-item
-            = link_to t('integral.actions.clone'), duplicate_backend_resource_url(@resource), method: :post, data: { confirm: t('integral.actions.confirmation.clone') }, icon: 'bi bi-clipboard'
+            %button.btn.btn-link{ data: { controller: 'confirmation', action: 'confirmation#confirm', href: duplicate_backend_resource_url(@resource), method: :post, message: t('integral.actions.confirmation.clone') }}
+              = icon('bi bi-clipboard')
+              = t('integral.actions.clone')
         - if policy(resource_klass).manager?
           %li.list-group-item
             %button.btn.btn-link{ data: { controller: 'confirmation', action: 'confirmation#confirm', href: backend_resource_url(@resource), method: :delete, message: t('integral.actions.confirmation.deletion') }}

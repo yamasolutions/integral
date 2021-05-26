@@ -1,16 +1,15 @@
-.modal.modal-list-item{id: "list-item-modal-#{f.object.id}"}
+.modal.modal-list-item{id: "list-item-modal-#{f.object.id}", data: { "bs-backdrop" => "static" }}
   .modal-dialog.modal-lg
     .modal-content
       .modal-header
         %h4.modal-title Edit List Item
         // %button(type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close")
-
       .modal-body
         .row
           .col-12
             = f.input :type, as: :hidden, input_html: { class: 'type-field' }
             = f.input :fake_type, wrapper_html: { class: 'alternative' }, input_html: { class: 'faketype-field'} do
-              - select_tag :fake_type, options_for_select(Integral::ListItem.types_collection, formatted_item.type_for_dropdown), { include_blank: false, disabled: f.object.persisted?, class: 'faketype-field' }
+              - select_tag :fake_type, options_for_select(Integral::ListItem.types_collection, formatted_item.type_for_dropdown), { include_blank: false, disabled: f.object.persisted?, class: 'form-control faketype-field' }
             = f.input :object_type, as: :hidden, input_html: { class: 'object-type-field' }
             .object-wrapper{ class: f.object.object? ? '' : 'd-none' }
               = f.input :object_id, as: :hidden, input_html: { class: 'object-id-field' }
@@ -27,11 +26,11 @@
                   Override defaults
                   = icon('bi bi-chevron-down')
           .col-12
-            = f.input :title, wrapper_html: { class: 'alternative' }, input_html: { 'data-character-counter' => 'true', class: formatted_item.title_required? ? 'title-field required' : 'title-field' }
+            = f.input :title, wrapper_html: { class: 'alternative' }, input_html: { 'data-character-counter' => 'true', required: formatted_item.title_required?, class: 'title-field' }, required: true
           .col-md-8.link-field{ class: f.object.basic? || !f.object.persisted? ? 'd-none' : '' }
             = f.input :url, wrapper_html: { class: "alternative" }, input_html: { class: 'url-field' }
-          .col-md-4.link-new-tab.align-self-middle.flex-container{ class: f.object.basic? || !f.object.persisted? ? 'd-none' : '' }
-            = f.input :target, as: :boolean, checked_value: '_blank', unchecked_value: '_self', input_html: { class: 'target-field' }, wrapper_html: { class: 'alternative' }
+          .col-md-4.link-new-tab.align-self-center.flex-container{ class: f.object.basic? || !f.object.persisted? ? 'd-none' : '' }
+            = f.input :target, as: :boolean, checked_value: '_blank', unchecked_value: '_self', input_html: { class: 'target-field' }, wrapper_html: { class: 'alternative mb-0' }
           .col-12
             = f.input :subtitle, input_html: { 'data-character-counter' => 'true' }, wrapper_html: { class: 'alternative' }, as: :string
           .col-md-8

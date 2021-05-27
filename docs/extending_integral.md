@@ -349,7 +349,7 @@ Just like any other engine or gem, you can override any Integral file by simply 
 For example if you're wanting to override the logo used in the backend area, save your image to the following location with your application:
 
 ```
-  app/assets/images/integral/backend/logo.png
+  app/assets/images/integral/backend/logo.svg
 ```
 
 ## Troubleshooting

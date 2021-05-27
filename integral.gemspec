@@ -17,8 +17,6 @@ Gem::Specification.new do |s|
   s.add_dependency 'active_record_union', '~> 1.3.0' # Table Unions - Used joining Versioning tables
   s.add_dependency 'acts-as-taggable-on', '~> 7.0' # Tagging
   s.add_dependency 'breadcrumbs_on_rails', '~> 3.0' # Breadcrumbs
-  # s.add_dependency 'client_side_validations', '~> 17.0' # Client-side validations
-  # s.add_dependency 'client_side_validations-simple_form', '~> 11.1' # Simpleform for CSV
   s.add_dependency 'cocoon', '~> 1.2' # Nested forms
   s.add_dependency 'diffy', '~> 3.1' # View differences
   s.add_dependency 'gibbon', '~> 3.3' # Mailchimp API Wrapper

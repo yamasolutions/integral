@@ -3,7 +3,7 @@ import tomSelect from "tom-select/dist/js/tom-select.complete"
 
 export default class extends Controller {
   initialize() {
-    const control = new tomSelect(this.element, {
+    this.control = new tomSelect(this.element, {
       plugins: ['remove_button'],
       create: true,
       options: this.element.dataset.tagOptions.split(" ").map(obj => {
@@ -13,8 +13,11 @@ export default class extends Controller {
         }
       })
     })
-    control.on('type', (str) => {
+    this.control.on('type', (str) => {
       control.setTextboxValue(str.replace(/\s+/g, '-'))
     })
+  }
+  disconnect() {
+    this.control.destroy()
   }
 }

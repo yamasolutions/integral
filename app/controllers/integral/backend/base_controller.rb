@@ -123,7 +123,6 @@ module Integral
         if cloned_resource.save
           respond_successfully(notification_message('clone_success'), send("edit_backend_#{controller_name.singularize}_path", cloned_resource.id))
         else
-          binding.pry
           respond_failure(notification_message('clone_failure'), :edit)
         end
       end

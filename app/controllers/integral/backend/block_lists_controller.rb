@@ -3,7 +3,7 @@ module Integral
     # Block Lists controller
     class BlockListsController < BaseController
       before_action :authorize_with_klass, except: %i[activities activity]
-      before_action :set_resource, only: %i[show edit update]
+      before_action :set_resource, only: %i[show edit update destroy]
 
       def index
         redirect_to list_backend_block_lists_url
@@ -78,7 +78,7 @@ module Integral
       end
 
       def white_listed_grid_params
-        [ :descending, :order, :page, :title ]
+        [ :descending, :order, :page, :search ]
       end
 
       def resource_klass

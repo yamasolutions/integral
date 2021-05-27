@@ -6,8 +6,8 @@
   %meta{ name: "ROBOTS", content: "NOINDEX, NOFOLLOW" }
   %meta{ name: 'turbolinks-root', content: "/#{Integral.backend_namespace}" }
   %meta{ name: "direct-upload-url", content: rails_direct_uploads_path }
-  %meta{ name: "integral-file-upload-url", content: backend_storage_files_url }
-  %meta{ name: "integral-file-list-url", content: list_backend_storage_files_url(format: :json) }
+  %meta{ name: "integral-file-upload-url", content: integral.backend_storage_files_url }
+  %meta{ name: "integral-file-list-url", content: integral.list_backend_storage_files_url(format: :json) }
   %meta{ name: "integral-file-accepted-types", content: Integral.accepted_file_types.join(',') }
   %meta{ name: "integral-file-maximum-size", content: Integral.maximum_file_size }
 
@@ -15,15 +15,10 @@
     %meta{ name: 'turbolinks-visit-control', content: :reload }
 
   %title= page_title
-
-  %link{ href: 'https://fonts.googleapis.com/css?family=Nunito:400,600', rel: 'stylesheet', type: 'text/css' }
-
-  = stylesheet_link_tag    'integral/backend', media: 'all', 'data-turbolinks-track' => true
-  -# = javascript_include_tag 'integral/backend', 'data-turbolinks-track' => true
+  = stylesheet_link_tag 'integral/backend', media: 'all', 'data-turbolinks-track' => true
   = javascript_pack_tag 'integral/backend'
   = stylesheet_pack_tag 'integral/backend'
   = javascript_pack_tag 'block_editor/application', 'data-turbolinks-track': 'reload', webpacker: 'BlockEditor'
   = stylesheet_pack_tag 'block_editor/application', 'data-turbolinks-track': 'reload', webpacker: 'BlockEditor'
   = stylesheet_link_tag 'block_editor/backend', media: 'all', 'data-turbolinks-track' => true
-
   = csrf_meta_tags

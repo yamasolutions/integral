@@ -11,7 +11,7 @@
     .app-dashboard{ class: cookies['integral-sidebar'] == 'shrunk' ? 'shrink-large' : 'shrink-medium'}
       #app-dashboard-sidebar.app-dashboard-sidebar
         .app-dashboard-sidebar-title-area
-          = image_tag(image_path('integral/backend/logo.png'))
+          = image_tag(image_path('integral/backend/logo.svg'))
           %button#close-sidebar.btn{ data: { controller: 'dashboard-menu-toggle', action: 'dashboard-menu-toggle#toggle' }, 'aria-label' => "Close menu", type: "button" }
             = icon('bi bi-list')
 
@@ -22,7 +22,7 @@
       .app-dashboard-body
         .topbar
           .topbar-left
-            = image_tag(image_path('integral/backend/logo.png'))
+            = image_tag(image_path('integral/backend/logo.svg'))
             %h1= page_title
           .topbar-right{:role=>"tablist"}
             %button.btn.btn-primary.btn-toggle-menu(type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample")
@@ -98,9 +98,7 @@
                 = icon('bi bi-gear')
                 %span= t('integral.actions.edit_profile')
           %hr
-          -# = link_to t('integral.actions.log_out'), destroy_user_session_path, method: :delete, class: 'btn btn-outline-primary'
           = button_to t('integral.actions.log_out'), destroy_user_session_path, method: :delete, class: 'btn btn-outline-primary', 'data-turbo' => 'false'
-
 
       .tab-pane.tab-pane-create(id="pane--header-create" aria-labelledby="tab--header-create" role="tabpanel")
         %ul.list-group
@@ -112,27 +110,30 @@
           %h3.main-menu-tab-title= item[:label]
           %ul.main-menu-tab-list
             - item[:list_items].each do |list_item|
-              = link_to list_item[:label], list_item[:url], wrapper: :li
+              - if current_user_authorized_for_menu_item?(list_item)
+                = link_to list_item[:label], list_item[:url], wrapper: :li
 
     .offcanvas.offcanvas-start(tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel")
       .offcanvas-header
-        = image_tag(image_path('integral/backend/logo.png'))
+        = image_tag(image_path('integral/backend/logo.svg'))
         %button(type="button" data-bs-dismiss="offcanvas" aria-label="Close")
           = icon('bi bi-x')
       .offcanvas-body
         #accordionExample.accordion
           - main_menu_items.each do |item|
-            - if item[:list_items]&.any?
-              .accordion-item
-                %h2.accordion-header(id="heading-#{item[:label]}")
-                  %button.accordion-button.collapsed(type="button" data-bs-toggle="collapse" data-bs-target="#collapse-#{item[:label]}" aria-expanded="false" aria-controls="collapse-#{item[:label]}")
-                    = icon(item[:icon])
-                    = item[:label]
-                .accordion-collapse.collapse(id="collapse-#{item[:label]}" aria-labelledby="heading-#{item[:label]}" data-bs-parent="#accordionExample")
-                  .accordion-body
-                    %ul
-                      - item[:list_items].each do |list_item|
-                        = link_to list_item[:label], list_item[:url], wrapper: :li
-            - else
-              %h2.accordion-header
-                = link_to item[:label], item[:url], icon: item[:icon]
+            - if current_user_authorized_for_menu_item?(item)
+              - if item[:list_items]&.any?
+                .accordion-item
+                  %h2.accordion-header(id="heading-#{item[:label]}")
+                    %button.accordion-button.collapsed(type="button" data-bs-toggle="collapse" data-bs-target="#collapse-#{item[:label]}" aria-expanded="false" aria-controls="collapse-#{item[:label]}")
+                      = icon(item[:icon])
+                      = item[:label]
+                  .accordion-collapse.collapse(id="collapse-#{item[:label]}" aria-labelledby="heading-#{item[:label]}" data-bs-parent="#accordionExample")
+                    .accordion-body
+                      %ul
+                        - item[:list_items].each do |list_item|
+                          - if current_user_authorized_for_menu_item?(list_item)
+                            = link_to list_item[:label], list_item[:url], wrapper: :li
+              - else
+                %h2.accordion-header
+                  = link_to item[:label], item[:url], icon: item[:icon]

@@ -11,8 +11,15 @@ $dashboard-sidebar-width-closed: 60px;
 }
 
 .app-dashboard {
+  overflow: hidden;
+  height: 100vh;
   &-body {
     margin-left: $dashboard-sidebar-width-open;
+    overflow: scroll;
+    height: 100%;
+    @include media-breakpoint-down(sm) {
+      margin-left: 0;
+    }
   }
 
   &-sidebar {
@@ -28,7 +35,6 @@ $dashboard-sidebar-width-closed: 60px;
     }
 
     &-menu {
-      color: red;
       padding: 0;
       button, a {
         position: relative;
@@ -260,7 +266,7 @@ $dashboard-sidebar-width-closed: 60px;
   width: 200px;
   position: fixed;
   top: 49px;
-  z-index: 1;
+  z-index: 100;
   padding: 1rem;
   color: $white;
   background-color: $secondary;

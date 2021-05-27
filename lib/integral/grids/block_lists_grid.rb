@@ -9,7 +9,7 @@ module Integral
         BlockEditor::BlockList.where(listable_id: nil, listable_type: nil).order('updated_at DESC')
       end
 
-      filter(:title) do |value|
+      filter(:search) do |value|
         search(value)
       end
 

@@ -60,4 +60,8 @@ export default class extends Controller {
       this.emptyMessageTarget.classList.add('d-none')
     }
   }
+
+  disconnect() {
+    this.selector.destroy()
+  }
 }

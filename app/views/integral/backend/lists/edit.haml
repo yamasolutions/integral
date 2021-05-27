@@ -1,7 +1,7 @@
 = simple_form_for [:backend, @resource], validate: true, html: { class: 'are-you-sure', 'data-controller' => 'list-manager', 'data-confirm-dirty-form' => true, 'data-list-item-limit' => @resource.list_item_limit, id: :resource_form } do |f|
   = f.input :lock_version, as: :hidden
   .row
-    .col-md-8.form-group-list
+    .col-md-12.form-group-list
       = f.input :title, hint: false, disabled: f.object.locked?
       = f.input :description, hint: false, disabled: f.object.locked?
       = render partial: 'integral/backend/lists/manager', locals: { f: f, locked: f.object.locked? }

@@ -12,6 +12,9 @@ recommendations of [keepachangelog.com](http://keepachangelog.com/).
 - Bump to Ruby 2.7.2
 - Bump to Rails 6.1
 - Replace Carrierwave with ActiveStorage
+- Switch from frontend framework from Foundation to Bootstrap
+- Remove jQuery
+- Remove rails-ujs
 
 ### Added
 

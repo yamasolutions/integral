@@ -18,6 +18,17 @@ export default class extends Controller {
       form.querySelector("input[name='grid[object]']").value = this.element.dataset.recentActivityObject || ''
       form.querySelector("input[name='grid[created_at]']").value = this.element.dataset.recentActivityCreatedAt || ''
       form.querySelector("input[name='grid[item_id]']").value = this.element.dataset.recentActivityItemId || ''
+
+
+      // // Populate modal with content & filters
+      // $modal.find('[data-title]').html($button.data('recent-activity-title'))
+      // $modal.find('[data-timeline]').html($button.closest('.card').find('.timeline').html())
+      // $form.find("input[name='grid[user][]']").val($button.data('recent-activity-user'))
+      // $form.find("input[name='grid[object][]']").val($button.data('recent-activity-object'))
+      // $form.find("input[name='grid[created_at]']").val($button.data('recent-activity-created-at'))
+      // $form.find("input[name='grid[item_id]']").val($button.data('recent-activity-item-id'))
+
+
       document.querySelector('body').insertAdjacentHTML('beforeend', modal)
 
       new bootstrap.Modal(modal).show()

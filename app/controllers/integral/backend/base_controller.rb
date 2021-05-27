@@ -166,8 +166,8 @@ module Integral
       end
 
       # Redirect user to integral dashboard after successful login
-      def after_sign_in_path_for(_resource)
-        integral.backend_dashboard_path
+      def after_sign_in_path_for(resource)
+        stored_location_for(resource) || integral.backend_dashboard_path
       end
 
       # Redirect user to integral dashboard after successful logout

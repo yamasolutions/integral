@@ -4,12 +4,11 @@
       .modal-header
         %h4.modal-title{data: {title: true }}
         %button(type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close")
-
       .modal-body
         .timeline.timeline--compressed{data: {timeline: true }}
         = simple_form_for :grid, url: widget_backend_activities_url, method: :post, html: { data: { turbo: 'false', controller: 'activity-form', action: 'activity-form#submit' }} do |f|
           = f.hidden_field(:created_at, value: '')
-          = f.hidden_field(:user, value: '')
-          = f.hidden_field(:object, value: '')
+          <input type="hidden" name="grid[user][]">
+          <input type="hidden" name="grid[object][]">
           = f.hidden_field(:item_id, value: '')
           = f.button(:submit, t('integral.actions.view_more'), class: 'btn-clear w-100')

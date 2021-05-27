@@ -10,8 +10,6 @@ module Integral
     require 'gibbon'
     require 'cocoon'
     require 'draper'
-    # require 'client_side_validations'
-    # require 'client_side_validations/simple_form'
     require 'datagrid'
     require 'breadcrumbs_on_rails'
     require 'pundit'
@@ -27,6 +25,7 @@ module Integral
     require 'inky'
     require 'premailer/rails'
     require 'will_paginate'
+    require 'will_paginate/view_helpers/action_view' # Eagerly load otherwise have no access to LinkRenderer to inherit from it for custom renderers
     require 'rails-settings-cached'
     require 'fast_jsonapi'
     require 'route_translator'

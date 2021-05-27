@@ -8,4 +8,4 @@
 - else
   = render partial: 'integral/backend/shared/resource_selector/resource', collection: collection.map(&:to_list_item), as: :list_item
   .col-12.d-flex.justify-content-center
-    = will_paginate collection, renderer: BootstrapPaginationRenderer
+    = will_paginate collection, renderer: Integral::BootstrapPaginationRenderer

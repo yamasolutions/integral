@@ -5,7 +5,6 @@ require 'integral/version'
 require 'integral/router'
 require 'integral/middleware/alias_router'
 require 'integral/engine'
-require 'integral/bootstrap_pagination_renderer'
 require 'integral/google_tag_manager'
 require 'integral/grids/activities_grid'
 require 'integral/grids/block_lists_grid'
@@ -23,6 +22,8 @@ require 'integral/partial_list_item_renderer'
 require 'integral/chart_renderer/base'
 require 'integral/chart_renderer/donut'
 require 'integral/chart_renderer/line'
+require 'integral/bootstrap_pagination_renderer'
+require 'integral/bootstrap_pagination_button_renderer'
 
 # Integral
 module Integral

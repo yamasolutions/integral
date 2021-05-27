@@ -53,8 +53,10 @@ class List {
     modal.setAttribute("id", modalId)
     modalTrigger.setAttribute("data-bs-target", `#${modalId}`)
 
-    new_item.querySelector('.children')?.setAttribute("id", childrenId)
-    new_item.querySelector('.add-children a')?.setAttribute("data-association-insertion-node", `#${childrenId}`)
+    if (new_item.querySelector('.children')) {
+      new_item.querySelector('.children').setAttribute("id", childrenId)
+      new_item.querySelector('.add-children a').setAttribute("data-association-insertion-node", `#${childrenId}`)
+    }
 
     const list_item = new ListItem(this.form, new_item)
     this._initializeSortable()

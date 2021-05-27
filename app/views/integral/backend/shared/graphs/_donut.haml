@@ -1,5 +1,5 @@
 .pos-relative
-  %canvas{ data: { controller: 'chart', 'chart-type' => 'donut' }}
+  %canvas.chart-donut{ data: { controller: 'chart', 'chart-type' => 'donut' }}
     %ul
       - dataset.each_with_index do |item, index|
         %li{ data: { value: data[index] }} = #{item[:label]}: #{data[index]}

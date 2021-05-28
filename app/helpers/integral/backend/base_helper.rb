@@ -47,9 +47,6 @@ module Integral
         @decorated_current_user ||= current_user.decorate
       end
 
-
-
-
       def recent_user_notifications
         @recent_user_notifications ||= current_user.notifications.recent
       end

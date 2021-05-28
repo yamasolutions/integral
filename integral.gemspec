@@ -20,9 +20,9 @@ Gem::Specification.new do |s|
   s.add_dependency 'cocoon', '~> 1.2' # Nested forms
   s.add_dependency 'diffy', '~> 3.1' # View differences
   s.add_dependency 'gibbon', '~> 3.3' # Mailchimp API Wrapper
-  s.add_dependency 'devise', '>= 4.5', '< 4.8' # Authentication
-  s.add_dependency 'devise_invitable', '~> 1.7' # Invitable authentication
-  s.add_dependency 'draper', '~> 3.0' # Object decoration
+  s.add_dependency 'devise', '~> 4.8' # Authentication
+  s.add_dependency 'devise_invitable', '~> 2.0' # Invitable authentication
+  s.add_dependency 'draper', '~> 4.0' # Object decoration
   s.add_dependency 'friendly_id', '~> 5.2' # Slugging
   s.add_dependency "groupdate", "~> 3.0" # Group By
   s.add_dependency 'haml-rails', '~> 1.0' # HAML

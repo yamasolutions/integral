@@ -25,7 +25,7 @@ module Integral
 
     describe '.integral_icon' do
       it 'returns expected icon' do
-        expect(described_class.integral_icon).to eq 'list'
+        expect(described_class.integral_icon).to eq 'bi bi-list-ul'
       end
     end
 

@@ -22,6 +22,7 @@ require 'integral/partial_list_item_renderer'
 require 'integral/chart_renderer/base'
 require 'integral/chart_renderer/donut'
 require 'integral/chart_renderer/line'
+require 'integral/breadcrumb_builder'
 require 'integral/bootstrap_pagination_renderer'
 require 'integral/bootstrap_pagination_button_renderer'
 

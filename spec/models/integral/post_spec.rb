@@ -19,7 +19,7 @@ module Integral
 
     describe '.integral_icon' do
       it 'returns expected icon' do
-        expect(described_class.integral_icon).to eq 'rss'
+        expect(described_class.integral_icon).to eq 'bi bi-rss'
       end
     end
 

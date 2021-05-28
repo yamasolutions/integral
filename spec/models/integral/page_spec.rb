@@ -20,7 +20,7 @@ module Integral
 
     describe '.integral_icon' do
       it 'returns expected icon' do
-        expect(described_class.integral_icon).to eq 'file'
+        expect(described_class.integral_icon).to eq 'bi bi-stack'
       end
     end
 

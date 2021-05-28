@@ -1,6 +1,5 @@
 // Bootstrap functions (used within variables)
 @import "bootstrap/scss/functions";
-@import "integral/backend/bootstrap-icons";
 
 // // Custom variables
 @import "integral/backend/variables";
@@ -10,8 +9,10 @@
 @import "bootstrap/scss/mixins";
 @import "bootstrap/scss/utilities";
 
+// Bootstrap icons - importing this through yarn was causing segmentation fault issues
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css");
+
 // Bootstrap components
-@import "integral/bootstrap-icons";
 @import "bootstrap/scss/root";
 @import "bootstrap/scss/reboot";
 @import "bootstrap/scss/type";

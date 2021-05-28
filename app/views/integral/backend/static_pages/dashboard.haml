@@ -6,7 +6,8 @@
   - if Integral.blog_enabled? & Integral::Post.published.last.present?
     .col-md-6= render_card(:object, { title: t('.recent_post'), resource: Integral::Post.published.last.decorate })
 
-  .col-md-6= render_card(:object, { title: t('.recent_page'), resource: Integral::Page.published.last.decorate })
+  - if Integral::Page.published.last.present?
+    .col-md-6= render_card(:object, { title: t('.recent_page'), resource: Integral::Page.published.last.decorate })
   .col-md-6= render_card(:recent_user_activity)
   .col-md-6= render_card(:at_a_glance)
   .col-md-6

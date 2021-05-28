@@ -30,11 +30,6 @@ Integral.configure do |config|
   #
   # config.additional_settings_params = [:additional_awesome_setting]
 
-  # Set additional widgets available to the content editor
-  # Default is []
-  #
-  # config.additional_widgets = [['custom_widget', 'WidgetClass']]
-
   # Set additional backend permitted page params
   # Default is []
   #

@@ -27,5 +27,3 @@ module Integral
     end
   end
 end
-
-

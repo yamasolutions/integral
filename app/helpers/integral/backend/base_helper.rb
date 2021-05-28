@@ -212,36 +212,6 @@ module Integral
       def extract_menu_items(items, extract_method)
         items = items.map { |item| item.class == Class ? item.send(extract_method) : item }
       end
-
-      # TODO: Remove?
-      def render_menu(items, options={})
-        return '' if items.empty?
-
-        output = ''
-        items = items.sort_by { |item| item[:order] }
-
-        items.each do |item|
-          next unless current_user_authorized_for_menu_item?(item)
-
-          if item[:list_items]&.any?
-            output += content_tag :li do
-              list = content_tag :ul do
-                list_items = item[:list_items].map do |list_item|
-                  next unless current_user_authorized_for_menu_item?(list_item)
-
-                  link_to list_item[:label], list_item[:url], wrapper: :li
-                end.join.html_safe
-                list_items.prepend(content_tag(:li, item[:label]))
-              end
-              list.prepend(link_to(item[:label], item[:url], icon: item[:icon]))
-            end
-          else
-            output += link_to item[:label], item[:url], wrapper: :li, icon: item[:icon]
-          end
-        end
-
-        output.html_safe
-      end
     end
   end
 end

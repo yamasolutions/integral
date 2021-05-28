@@ -3,5 +3,5 @@
   = f.input :email, autofocus: true, input_html: { class: 'mb-3', value: Rails.env.development? ? Integral::User.first&.email : nil, placeholder: 'name@example.com' }
   .form-actions
     = f.button :button, "Reset password", class: 'btn btn-primary w-100'
-.text-center
+.text-center.mt-2
   = render "devise/shared/links"

@@ -246,6 +246,11 @@ $dashboard-sidebar-width-closed: 60px;
           font-size: 15px;
         }
       }
+      img {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+      }
     }
     .btn-toggle-menu {
       color: $white;

@@ -176,6 +176,7 @@ module Integral
         get '/wp/v2/block_lists', to: 'backend/block_lists#block_lists'
         get '/wp/v2/block_list/:id', to: 'backend/block_lists#show'
         get '/wp/v2/blocks/:id', to: 'backend/block_lists#show'
+        get '/wp/v2/media/:id', to: 'backend/storage_files#show'
       end
     end
   end

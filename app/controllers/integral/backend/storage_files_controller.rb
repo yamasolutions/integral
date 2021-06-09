@@ -5,6 +5,26 @@ module Integral
       before_action :authorize_with_klass, except: %i[activities activity]
       before_action :set_resource, except: %i[create new index list]
 
+      # GET /:id
+      # Show resource
+      def show
+        if params["_locale"].present?
+          res = {
+            id: @resource.id,
+            # title: @resource.title,
+            # alt: @resource.title,
+            media_details: {
+              sizes: Integral.image_sizes.map { |k, v| {k => { source_url: decorated_resource.image_url(size: k) } } }.inject(:merge)
+            }
+          }
+
+          render json: res, status: 200, layout: false
+        else
+          add_breadcrumb I18n.t('integral.navigation.list'), list_backend_resources_url
+          add_breadcrumb I18n.t('integral.actions.view')
+        end
+      end
+
       # GET /new
       # Resource creation screen
       def new

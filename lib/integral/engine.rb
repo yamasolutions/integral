@@ -49,6 +49,7 @@ module Integral
       end
 
       Integral::Engine.routes.default_url_options[:host] = Rails.application.routes.default_url_options[:host]
+      Integral::Engine.config.assets.paths << Integral::Engine.root.join('node_modules')
 
       if Integral.multilingual_frontend?
         RouteTranslator.config do |config|

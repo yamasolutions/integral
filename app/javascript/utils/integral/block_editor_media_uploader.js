@@ -6,7 +6,13 @@ class BlockEditorMediaUploader {
     // TODO: Possibly only create this instance once?
     const instance = new window.ResourceSelector('Select image..', document.querySelector("meta[name='integral-file-list-url']").getAttribute("content"), { filters: { type: 'image/%' } })
     instance.on('resources-selected', (event) => {
-      callback({url: event.resources[0].image});
+      const resource = event.resources[0]
+
+      callback({
+        id: resource.id,
+        title: resource.title,
+        url: resource.image
+      });
     });
 
     // TODO: Delay wouldn't be required if we instantiated on load

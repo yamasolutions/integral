@@ -1,9 +1,18 @@
+- resource = local_assigns.fetch(:resource, nil)
+
 = render partial: 'integral/shared/breadcrumbs'
 
-#blog-wrapper.grid-container
-  %h1= title
-  .grid-x.grid-padding-x
-    .cell.large-9{ 'data-post-list' => true }
+#blog-wrapper.container
+  %h1
+    = title
+    - if user_signed_in? && resource.present?
+      %small
+        %span.badge.bg-secondary= resource.status
+        %span.small= link_to 'Edit', integral.edit_backend_post_url(resource.id), class: "button medium", data: { 'turbo' => 'false' }
+
+  .row
+    .col-lg-9{ 'data-post-list' => true }
       = yield
     = render partial: 'integral/shared/blog/sidebar'
+
 = render partial: 'integral/shared/blog/categories'

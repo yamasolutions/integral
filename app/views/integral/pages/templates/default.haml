@@ -1,6 +1,6 @@
 -# Uncomment this to easily update demo markup
 -# = render partial: 'integral/pages/demo'
 
-= link_to t('integral.actions.edit'), edit_backend_page_url(@page.id), class: 'button primary button--edit-resource', data: { 'turbolinks' => 'false' } if current_user.present?
+= link_to t('integral.actions.edit'), edit_backend_page_url(@resource.id), class: 'button primary button--edit-resource', data: { 'turbolinks' => 'false' } if current_user.present?
 .wysiwyg-content
-  = @page.render_active_block_list
+  = @resource.render_active_block_list

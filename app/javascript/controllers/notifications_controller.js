@@ -19,7 +19,6 @@ export default class extends Controller {
     }
 
     window.lastNotificationObserver.unobserve(notificationsContainer.querySelector('ul li:last-of-type'))
-    console.log('load More!')
 
     fetch(notificationsContainer.dataset.loadMoreUrl)
       .then(response => response.json())

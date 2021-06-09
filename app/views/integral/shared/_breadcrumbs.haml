@@ -1,5 +1,2 @@
 - if render_breadcrumbs? && @breadcrumbs.present?
-  .grid-container
-    .grid-x.grid-padding-x
-      .cell.small-12
-        = render_breadcrumbs builder: FoundationBuilder
+  = render_breadcrumbs builder: Integral::BreadcrumbBuilder

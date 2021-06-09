@@ -1,15 +1,14 @@
-.grid-container
+.container
   %h2.blog-subheading= t('integral.blog.widgets.categories')
-  .scroll-container{ 'data-item-width' => 250 }
-    .grid-x.grid-margin-x.scroll-wrapper
-      - featured_categories.decorate.each do |category|
-        .cell.medium-3
-          .list-widget
-            .list-widget-image
-              = link_to category_path(category) do
-                = image_tag category.image_url
-                .list-widget-tag= category.title
-            %ul.no-bullet
-              - category.posts(4).each do |post|
-                %li= link_to post.title, integral.post_path(post.slug)
+  .scroll-container.row
+    - featured_categories.decorate.each do |category|
+      .col-md-4
+        .integral-category
+          .integral-category-image
+            = link_to category_path(category) do
+              = image_tag category.image_url
+              .integral-category-title= category.title
+          %ul.integral-category-list
+            - category.posts(4).each do |post|
+              %li= link_to post.title, integral.post_path(post.slug)
 

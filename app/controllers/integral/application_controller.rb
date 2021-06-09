@@ -123,17 +123,20 @@ module Integral
     end
     helper_method :alternative_urls
 
-    def load_blog_tags
-      @blog_tags = Integral::Post.tag_counts_on("published_#{I18n.locale}", order: 'taggings_count desc', limit: 30)
+    def popular_blog_tags
+      @popular_blog_tags ||= Integral::Post.tag_counts_on("published_#{I18n.locale}", order: 'taggings_count desc', limit: 30)
     end
+    helper_method :popular_blog_tags
 
-    def load_recent_posts
-      @recent_posts = Integral::Post.published.where(locale: I18n.locale).order('published_at DESC').limit(4)
+    def recent_blog_posts
+      @recent_blog_posts ||= Integral::Post.published.where(locale: I18n.locale).order('published_at DESC').limit(4)
     end
+    helper_method :recent_blog_posts
 
-    def load_popular_posts
-      @popular_posts = Integral::Post.published.where(locale: I18n.locale).order('view_count DESC').limit(4)
+    def popular_blog_posts
+      @popular_blog_posts ||= Integral::Post.published.where(locale: I18n.locale).order('view_count DESC').limit(4)
     end
+    helper_method :popular_blog_posts
 
     # Raises 404 if no user is logged in
     def verify_user

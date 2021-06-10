@@ -9,7 +9,7 @@ class BlockEditorMediaUploader {
       const resource = event.resources[0]
 
       callback({
-        id: resource.id,
+        id: parseInt(resource.id),
         title: resource.title,
         url: resource.image
       });

@@ -2,7 +2,7 @@ module Integral
   # Represents a user post category
   class Category < ApplicationRecord
     acts_as_integral({
-      icon: 'tags',
+      icon: 'bi bi-tag',
       backend_main_menu: { enabled: false },
       backend_create_menu: { enabled: false }
     })

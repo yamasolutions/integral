@@ -13,30 +13,39 @@ module Integral
       end
 
       def grouped_page_parent_options
-        @resource.available_parents.order('updated_at DESC').group_by(&:locale).map do |result|
+        options = @resource.available_parents.order('updated_at DESC').group_by(&:locale).map do |result|
           [
-            t("language.#{result[0]}"),
+            t("integral.language.#{result[0]}"),
             result[1].map { |page| [ "#{page.title} - #{page.path} (##{page.id})", page.id ] }
           ]
         end.to_h
+
+        # TODO: Do not show grouped when not using mutliple languages
+        # options.keys.one? ? options.values.first : options
       end
 
       def grouped_post_alternate_options
-        Integral::Post.published.where.not(id: @resource.id).order('updated_at DESC').group_by(&:locale).map do |result|
+        options = Integral::Post.published.where.not(id: @resource.id).order('updated_at DESC').group_by(&:locale).map do |result|
           [
-            t("language.#{result[0]}"),
+            t("integral.language.#{result[0]}"),
             result[1].map { |post| ["#{post.title} - #{post.slug} (##{post.id})", post.id, {disabled: @resource.alternate_ids.include?(post.id), data: { title: post.title, description: post.description, path: post.slug, url: backend_post_url(post.id) } }] }
           ]
         end.to_h
+
+        # TODO: Do not show grouped when not using mutliple languages
+        # options.keys.one? ? options.values.first : options
       end
 
       def grouped_page_alternate_options
-        Integral::Page.published.where.not(id: @resource.id).order('updated_at DESC').group_by(&:locale).map do |result|
+        options = Integral::Page.published.where.not(id: @resource.id).order('updated_at DESC').group_by(&:locale).map do |result|
           [
-            t("language.#{result[0]}"),
+            t("integral.language.#{result[0]}"),
             result[1].map { |page| ["#{page.title} - #{page.path} (##{page.id})", page.id, {disabled: @resource.alternate_ids.include?(page.id), data: { title: page.title, description: page.description, path: page.path, url: backend_page_url(page.id) } }] }
           ]
         end.to_h
+
+        # TODO: Do not show grouped when not using mutliple languages
+        # options.keys.one? ? options.values.first : options
       end
 
       def current_webpacker_instance

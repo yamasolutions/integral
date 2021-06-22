@@ -1,0 +1,13 @@
+- cache @list do
+  %button(type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close")
+  .modal-body
+    - if @list.list_items.present?
+      - if @list.list_items.count > 1
+        = render_gallery(@list, { html_classes: 'main-swiper'})
+        = render_thumb_gallery(@list, { html_classes: 'thumb-swiper'})
+      - else
+        = Integral::PartialListItemRenderer.new(@list.list_items.first, partial_path: 'integral/shared/gallery/slide').render_item
+    - else
+      %p.text-center
+        Sorry, no media available.
+

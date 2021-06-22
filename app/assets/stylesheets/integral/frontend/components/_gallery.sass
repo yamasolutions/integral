@@ -1,0 +1,89 @@
+.modal--gallery
+  .gallery-image-wrapper
+    display: flex
+    justify-content: center
+    align-items: center
+    height: 100%
+  .btn-close
+    position: absolute
+    right: 0
+    z-index: 1000
+    padding: 1rem
+    display: block
+    background-position: center
+  .modal-content
+    background-color: #000
+  .modal-header
+    border-bottom: none
+  .btn-close
+    opacity: 1
+  iframe
+    height: 100%
+    width: 100%
+  .content
+    visibility: hidden
+    width: 100%
+    height: 100%
+    text-align: center
+    > img
+      max-height: 100%
+  .placeholder
+    margin: 10em 0
+    text-align: center
+    p, i
+      color: $white
+    i
+      font-size: 2em
+      margin-bottom: 0.5em
+  .main-swiper
+    height: calc(100vh - 10rem)
+    margin-bottom: 0
+    .swiper-wrapper
+      height: 100%
+    .swiper-button-prev, .swiper-button-next
+      position: absolute
+      top: 40%
+      margin: 0
+      border: none
+      color: $white
+      font-size: 3em
+      @include media-breakpoint-down(sm)
+        display: none
+    .swiper-slide
+      margin: auto 0
+      text-align: center
+      img
+        max-height: 100%
+  .thumb-swiper
+    height: 6rem
+    // height: 9em
+    padding: 0.5em 0
+    margin-bottom: 0
+    .swiper-slide
+      opacity: .5
+      width: 10em
+      height: 6em
+      cursor: pointer
+      margin-right: 10px
+      @include media-breakpoint-down(sm)
+        width: 8em
+      i
+        position: absolute
+        color: $primary
+        background-color: $white
+        padding: 1em
+        font-size: 0.75em
+        top: 30%
+        left: 42%
+        border-radius: 50%
+      img, video
+        object-fit: cover
+        height: 100%
+        width: 100%
+    .swiper-slide-thumb-active
+      opacity: 1
+      box-shadow: 0 2px 9px 0 $primary
+      border: solid 2px $primary
+    .swiper-button-prev, .swiper-button-next
+      display: none
+

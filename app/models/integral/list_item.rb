@@ -37,7 +37,8 @@ module Integral
           object_type: listable.to_s,
           true_value: 'Integral::Object',
           resource_selector_title: 'Select resource..',
-          resource_selector_url: listable.integral_resource_selector_url
+          resource_selector_url: listable.integral_resource_selector_url,
+          icon: listable.integral_icon
         }
 
         collection << [listable.model_name.human, listable.to_s, data: object_data]

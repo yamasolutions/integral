@@ -165,6 +165,12 @@ module Integral
       ActionController::Base.helpers.image_path('integral/defaults/no_image_available.jpg')
     end
 
+    def object_data
+      return nil unless object_available?
+
+      @object_data ||= list_item.object.to_list_item
+    end
+
     private
 
     def render_no_object_warning
@@ -192,10 +198,6 @@ module Integral
 
       # Provide empty string - no attr supplied and no object linked
       ''
-    end
-
-    def object_data
-      @object_data ||= list_item.object.to_list_item
     end
 
     def object_available?

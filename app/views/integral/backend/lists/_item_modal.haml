@@ -14,7 +14,7 @@
             .object-wrapper{ class: f.object.object? ? '' : 'd-none' }
               = f.input :object_id, as: :hidden, input_html: { class: 'object-id-field' }
 
-              .object-preview.hoverable
+              .object-preview.hoverable{ data: formatted_item.object_data }
                 = image_tag image_path(formatted_item.object_image_url)
                 .object-data
                   %h5= formatted_item.title

@@ -31,6 +31,7 @@ class ListItem {
 
     this.setIcon()
     this.setupEvents()
+    this.setValidation()
   }
 
   setupEvents() {
@@ -110,32 +111,29 @@ class ListItem {
 
   setIcon() {
     const identifier = this.container.querySelector('.identifier')
-    let icon = 'link'
+    let icon = 'bi bi-link'
     let classes = ''
 
     if (this._hasChildren()) {
       if (this._getChildren().classList.contains('d-none')) {
-        icon = 'chevron-down'
+        icon = 'bi bi-chevron-down'
       } else {
-        icon = 'chevron-up'
+        icon = 'bi bi-chevron-up'
       }
       classes = 'action'
     } else {
       if (this.targetField.checked) {
-        icon = 'globe'
+        icon = 'bi bi-globe'
       }
       if (this.isBasic()) {
-        icon = 'list'
+        icon = 'bi bi-list-ul'
       }
       if (this.isObject()) {
         icon = this.objectIcon()
       }
     }
 
-    identifier.className = ""
-    identifier.classList.add('bi')
-    identifier.classList.add('identifier')
-    identifier.classList.add(`bi-${icon}`)
+    identifier.className = `identifier ${icon}`
     if (classes != "") {
       identifier.classList.add(classes)
     }
@@ -146,7 +144,7 @@ class ListItem {
     if (icon) {
       return icon
     } else {
-      return 'link'
+      return 'bi bi-link'
     }
   }
 
@@ -171,7 +169,6 @@ class ListItem {
     }
   }
 
-
   expandChildren() {
     this._getChildren().classList.remove('d-none')
     this.setIcon()
@@ -195,6 +192,7 @@ class ListItem {
   _updateListItem() {
     let title = ''
     let url = ''
+
     if (this.isObject()) {
       title = this.objectData.title
       url = this.objectData.url
@@ -218,6 +216,7 @@ class ListItem {
   }
 
   handleObjectUpdate() {
+    console.log('hello world')
     this.typeField.value = this.fakeTypeField.selectedOptions[0].dataset.trueValue
 
     switch(this.typeField.value) {
@@ -233,19 +232,41 @@ class ListItem {
     }
   }
 
+  setValidation() {
+    this.typeField.value = this.fakeTypeField.selectedOptions[0].dataset.trueValue
+
+    this.titleField.required = false
+    this.urlField.required = false
+    this.objectIdField.required = false
+
+    switch(this.typeField.value) {
+      case 'Integral::Basic':
+        this.titleField.required = true
+        break;
+      case 'Integral::Link':
+        this.titleField.required = true
+        this.urlField.required = true
+        break;
+      case 'Integral::Object':
+        this.objectIdField.required = true
+        break;
+    }
+  }
+
   handleBasicSelection() {
     this.objectWrapper.classList.add('d-none')
     this.linkField.classList.add('d-none')
     this.linkNewTab.classList.add('d-none')
-    this.titleField.required = true
+
+    this.setValidation()
   }
 
   handleLinkSelection() {
     this.objectWrapper.classList.add('d-none')
     this.linkField.classList.remove('d-none')
     this.linkNewTab.classList.remove('d-none')
-    this.titleField.required = true
-    this.urlField.required = true
+
+    this.setValidation()
   }
 
   handleObjectTypeSelection() {
@@ -291,10 +312,7 @@ class ListItem {
     this.linkField.classList.remove('d-none')
     this.linkNewTab.classList.remove('d-none')
 
-    // # Update validation
-    this.titleField.required = false
-    this.urlField.required = false
-    this.objectIdField.required = true
+    this.setValidation()
   }
 }
 

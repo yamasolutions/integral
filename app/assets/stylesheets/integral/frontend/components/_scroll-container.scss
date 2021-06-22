@@ -1,0 +1,10 @@
+.scroll-container {
+  @include media-breakpoint-down(sm) {
+    overflow-x: scroll;
+    flex-wrap: nowrap;
+    > * {
+      width: 290px;
+      min-width: 290px;
+    }
+  }
+}

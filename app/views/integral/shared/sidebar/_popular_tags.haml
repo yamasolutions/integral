@@ -3,5 +3,5 @@
   .sidebar-tags
     %ul.post-tags
       - @blog_tags.each do |tag|
-        %li= link_to tag.name, tag_url(tag.name)
+        %li.post-tags__item= link_to tag.name, tag_url(tag.name), class: 'badge'
   = link_to 'View All', integral.tags_url, class: 'sidebar-widget-link'

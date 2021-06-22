@@ -1,0 +1,35 @@
+.post-tags {
+  list-style: none;
+  padding-left: 0;
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: $spacer;
+  @include media-breakpoint-up(sm) {
+    margin-bottom: 0;
+  }
+  &__item {
+    margin-bottom: 0.5*$spacer;
+    &:not(:last-child) {
+      margin-right: 0.5*$spacer;
+    }
+    a {
+      padding: .3rem .5rem;
+      font-size: .8*$spacer;
+      color: $white;
+      text-decoration: none;
+      &.badge {
+        background: #8a8a8a;
+        font-weight: normal;
+      }
+      &:hover {
+        color: $white;
+        &.badge {
+          background: $primary;
+        }
+      }
+    }
+  }
+  &.center {
+    justify-content: center;
+  }
+}

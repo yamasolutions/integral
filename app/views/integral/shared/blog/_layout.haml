@@ -1,9 +1,9 @@
 = render partial: 'integral/shared/breadcrumbs'
 
-#blog-wrapper.grid-container
+#blog-wrapper.container
   %h1= title
-  .grid-x.grid-padding-x
-    .cell.large-9{ 'data-post-list' => true }
+  .row
+    .col-lg-9{ 'data-post-list' => true }
       = yield
     = render partial: 'integral/shared/blog/sidebar'
 = render partial: 'integral/shared/blog/categories'

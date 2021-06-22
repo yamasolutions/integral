@@ -26,6 +26,7 @@ module Integral
       # Copy required migrations
       def copy_migrations
         rake 'integral:install:migrations'
+        rake 'block_editor:install:migrations'
         rake 'active_storage:install'
       end
 

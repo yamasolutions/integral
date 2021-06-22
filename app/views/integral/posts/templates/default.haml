@@ -1,7 +1,7 @@
 = render_post_as_json_ld(@post)
 
 = render partial: 'integral/shared/breadcrumbs'
-#blog-wrapper.grid-container
+#blog-wrapper.container
   .grid-x.grid-padding-x
     .cell.large-9
       %article.article
@@ -30,7 +30,7 @@
 
     = render partial: 'integral/shared/blog/sidebar'
 
-.grid-container.show-for-large
+.container.show-for-large
   = render partial: 'similar_posts'
 
 = render partial: 'integral/shared/blog/categories'

@@ -1,6 +1,7 @@
 = render layout: 'integral/shared/blog/layout', locals: { title: t('.title') } do
-  %ul.post-tags.text-center
+  %ul.post-tags.center
     - @tags.each do |tag|
-      %li
-        = link_to tag_url(tag.name) do
+      %li.post-tags__item
+        = link_to tag_url(tag.name), class: 'badge' do
           = tag.name
+

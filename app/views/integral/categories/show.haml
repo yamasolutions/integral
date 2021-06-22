@@ -2,4 +2,4 @@
 
 = render layout: 'integral/shared/blog/layout', locals: { title: @resource.title } do
   = render partial: @posts, cached: true
-  .center= will_paginate @posts, { renderer: FoundationPagination::Rails, params: { category_path: true } }
+  .center= will_paginate @posts, { renderer: Integral::BootstrapPaginationRenderer, params: { category_path: true } }

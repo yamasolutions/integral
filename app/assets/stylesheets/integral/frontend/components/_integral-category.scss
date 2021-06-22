@@ -1,0 +1,40 @@
+.integral-category {
+  margin-bottom: $spacer;
+  border-radius: $border-radius;
+  background-color: $white;
+  &-image {
+    img {
+      height: 300px;
+      width: 100%;
+      object-fit: cover;
+      border-top-left-radius: $border-radius;
+      border-top-right-radius: $border-radius;
+    }
+  }
+
+  &-title {
+    font-family: $headings-font-family;
+    color: $body-color;
+    font-size: 1.5rem;
+    padding: 0 1rem;
+    padding-top: 1rem;
+    &:hover {
+      color: $primary;
+    }
+  }
+
+  &-list {
+    list-style: none;
+    padding-left: 0;
+    padding: 1rem;
+    padding-top: 0;
+    li {
+      a {
+        color: $body-color;
+        &:hover {
+          color: $primary;
+        }
+      }
+    }
+  }
+}

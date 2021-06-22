@@ -1,9 +1,9 @@
 - image_url ||= renderer.image_url
-.grid-x.list-item
-  .cell.small-3.image
+.row.list-item
+  .col-3.image
     = link_to url do
       = image_tag image_url, alt: title
-  .cell.small-9.data
+  .col-9.data
     = link_to title, url
     %ul.list-unstyled.piped-list
       %li= subtitle

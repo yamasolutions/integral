@@ -1,17 +1,17 @@
-#share-modal.reveal{ data: { reveal: '' } }
-  %h3= t('integral.share_modal.title')
-  %hr.modal-topbar
-  %p
-    = link_to facebook_share_url, class: 'button facebook' do
-      = icon('facebook')
-      Facebook
-    = link_to twitter_share_url, class: 'button twitter' do
-      = icon('twitter')
-      Twitter
-    = link_to canonical_url, class: 'button copy-url hollow' do
-      = icon('copy')
-      %span= t('integral.actions.copy_url')
-
-  %button.close-button{ data: { close: '' }, aria: { label: "Close modal" }}
-    %span{ aria: { hidden: true } } &times;
-
+#share-modal.modal.modal-share(tabindex="-1")
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %h4.modal-title= t('integral.share_modal.title')
+        %button(type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close")
+      .modal-body
+        %p
+          = link_to facebook_share_url, class: 'button facebook' do
+            = icon('facebook')
+            Facebook
+          = link_to twitter_share_url, class: 'button twitter' do
+            = icon('twitter')
+            Twitter
+          = link_to canonical_url, class: 'button copy-url hollow' do
+            = icon('copy')
+            %span= t('integral.actions.copy_url')

@@ -84,8 +84,8 @@ module Integral
       image_variant_url(preview_image, size: size, transform: transform)
     end
 
-    def image_url(size: nil, transform: nil)
-      image_variant_url(image, size: size, transform: transform)
+    def image_url(size: nil, transform: nil, fallback: true)
+      image_variant_url(image, size: size, transform: transform, fallback: fallback)
     end
 
     # Date the post was published

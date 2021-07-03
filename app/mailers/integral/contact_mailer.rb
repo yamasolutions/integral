@@ -9,9 +9,8 @@ module Integral
     # @param enquiry [Enquiry] enquiry which the visitor has created
     def forward_enquiry(enquiry)
       @enquiry = enquiry
-      sender = email_sender(enquiry.name, enquiry.email)
 
-      mail subject: forwarding_subject(enquiry), from: sender, to: incoming_email_address, reply_to: sender
+      mail subject: forwarding_subject(enquiry), from: email_sender(enquiry.name, outgoing_email_address), to: incoming_email_address, reply_to: email_sender(enquiry.name, enquiry.email)
     end
 
     # Send an auto reply to the visitor of the supplied enquiry

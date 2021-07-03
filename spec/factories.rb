@@ -54,6 +54,7 @@ FactoryBot.define do
     title
     path { "/#{Faker::Lorem.words(number: 2).join('/')}" }
     description
+    locale { Integral.frontend_locales.sample }
   end
 
   factory :integral_post, class: 'Integral::Post' do
@@ -63,11 +64,12 @@ FactoryBot.define do
     category
     user
     slug { Faker::Internet.slug(glue: '-') }
-    image { create(:integral_storage_file) }
+    # image { create(:integral_storage_file) }
     view_count
     created_at { Faker::Time.backward(days: 30) }
     published_at { Faker::Time.backward(days: 30) }
     status { rand(0..1) }
+    locale { Integral.frontend_locales.sample }
   end
 
   factory :integral_notification, class: 'Integral::Notification::Notification' do
@@ -88,7 +90,7 @@ FactoryBot.define do
     title
     description
     slug { Faker::Internet.slug(glue: '-') }
-    image { create(:integral_storage_file) }
+    # image { create(:integral_storage_file) }
   end
 
   factory :integral_post_viewing, class: 'Integral::PostViewing' do

@@ -1,8 +1,8 @@
 .inline-articles{ 'data-most-read-posts' => true}
-  %h2= t('integral.blog.widgets.most_read')
-  .grid-x.grid-padding-x
+  %h3= t('integral.blog.widgets.most_read')
+  .row
     - most_read_posts.each do |post|
-      .cell.small-6.medium-3
+      .col-md-3.col-6
         = link_to integral.post_url(post.slug) do
           = image_tag post.image_url, alt: post.title
-          .inline-articles-title= post.title
+          %h4.inline-articles-title= post.title

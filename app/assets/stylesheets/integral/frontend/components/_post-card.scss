@@ -1,5 +1,6 @@
 .post-card {
   box-shadow: none;
+  margin-bottom: $spacer;
   &:hover {
     box-shadow: $box-shadow;
   }

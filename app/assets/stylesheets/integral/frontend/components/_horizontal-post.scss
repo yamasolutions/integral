@@ -30,6 +30,7 @@
 
 
     > h3 > a {
+      font-size: 20px;
       color: $black;
       @include media-breakpoint-down(sm) {
         font-size: 1rem;

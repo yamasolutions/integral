@@ -1,38 +1,29 @@
 = render_post_as_json_ld(@post)
 
-= render partial: 'integral/shared/breadcrumbs'
-#blog-wrapper.container
-  .grid-x.grid-padding-x
-    .cell.large-9
-      %article.article
-        %header
-          %h1
-            = @post.title
-            - if user_signed_in?
-              %span.label.entity-status{ class: @post.draft? ? 'warning' : '' }= @post.status
-              %span.small= link_to 'Edit', integral.edit_backend_post_url(@post.id), class: "button medium", data: { 'turbolinks' => 'false' }
-          .grid-x
-            .cell.medium-8
-              .article-author
-                %span= @post.avatar
-                = @post.author.name
-              %ul.list-unstyled.piped-list
-                %li= @post.published_at
-                %li= link_to @post.category.title, category_path(@post.category)
-            .cell.small-4.text-right.show-for-medium
-              %button.button{ 'data-open' => 'share-modal' }
-                = icon('share', class: 'show-for-medium')
-                = t('integral.actions.share')
-        %section.wysiwyg-content.wysiwyg-content--post
-          = @post.render_active_block_list
-        = render partial: 'integral/posts/article_footer'
-      .hide-for-large= render partial: 'similar_posts'
+= render layout: 'integral/shared/blog/layout', locals: { title: @post.title, resource: @post } do
+  %header.article__header
+    .row
+      .col-8
+        .article__author.text-muted
+          %span
+            = image_tag @post.author.decorate.avatar_url, class: 'article__avatar', alt: @post.author.name
+          = @post.author.name
+        %ul.list-group.list-group-horizontal.list-group-piped
+          %li.list-group-item.text-muted= @post.published_at
+          %li.list-group-item.text-muted= link_to @post.category.title, category_path(@post.category)
+      .col-4.d-flex.justify-content-end.align-items-start
+        %button.btn.btn-primary(type="button" data-bs-toggle="modal" data-bs-target="#modal--share")
+          %i.bi.bi-share
+          %span.m-1.d-md-inline-block.d-none
+            = t('integral.actions.share')
+      .col-12
+        %hr
 
-    = render partial: 'integral/shared/blog/sidebar'
+  %section.wysiwyg-content.wysiwyg-content--post
+    = @post.render_active_block_list
 
-.container.show-for-large
+.container
   = render partial: 'similar_posts'
 
-= render partial: 'integral/shared/blog/categories'
 = render partial: 'integral/shared/share_modal'
-= render partial: 'integral/shared/subscribe_modal'
+

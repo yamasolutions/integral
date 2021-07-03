@@ -231,8 +231,8 @@ module Integral
                default: I18n.t("integral.backend.notifications.#{type_namespace}", type: resource_klass.model_name.human))
       end
 
-      helper_method :disable_turbolinks?
-      def disable_turbolinks?
+      helper_method :disable_turbo?
+      def disable_turbo?
         false
       end
 

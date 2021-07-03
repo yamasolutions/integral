@@ -15,7 +15,7 @@
           %button#close-sidebar.btn{ data: { controller: 'dashboard-menu-toggle', action: 'dashboard-menu-toggle#toggle' }, 'aria-label' => "Close menu", type: "button" }
             = icon('bi bi-list')
 
-        #dashboard--sidebar-inner.app-dashboard-sidebar-inner{ 'data-turbolinks-permanent' => true }
+        #dashboard--sidebar-inner.app-dashboard-sidebar-inner{ 'data-turbo-permanent' => true }
           %ul.app-dashboard-sidebar-menu{:role=>"tablist"}
             = render partial: 'layouts/integral/backend/main_menu_items'
 

@@ -1,23 +1,7 @@
-.container
-  #admin-bar.top-bar{ data: { 'turbo' => 'false' }}
-    .top-bar-left
-      %ul.dropdown.menu{"data-dropdown-menu" => ""}
-        %li.menu-text= current_user.name
-    .top-bar-right
-      %ul.dropdown.menu{"data-dropdown-menu" => ""}
-        %li= link_to t('integral.navigation.dashboard', locale: current_user.locale), integral.backend_dashboard_url
-        %li
-          %a{:href => "#"}= t('integral.navigation.quick_links', locale: current_user.locale)
-          %ul.menu.vertical
-            - if policy(current_user).manager?
-              %li= link_to t('integral.navigation.users', locale: current_user.locale), integral.backend_users_url
-            - if Integral.blog_enabled? && policy(Integral::Post).manager?
-              %li= link_to t('integral.navigation.posts', locale: current_user.locale), integral.backend_posts_url
-            - if policy(Integral::Page).manager?
-              %li= link_to t('integral.navigation.pages', locale: current_user.locale), integral.backend_pages_url
-            - if policy(Integral::List).manager?
-              %li= link_to t('integral.navigation.lists', locale: current_user.locale), integral.backend_lists_url
-            - if policy(Integral::Version).manager?
-              %li= link_to t('integral.navigation.activities', locale: current_user.locale), integral.backend_activities_url
-            %li= link_to t('integral.navigation.my_account', locale: current_user.locale), integral.backend_account_url
-            %li= link_to t('integral.navigation.log_out', locale: current_user.locale), integral.destroy_user_session_url, method: :delete
+.p-2.admin-bar{ data: { 'turbo' => 'false' }}
+  .container
+    .d-flex.justify-content-between
+      .user-name= current_user.name
+      = content_for :edit_resource_link
+      = link_to t('integral.navigation.dashboard', locale: current_user.locale), integral.backend_dashboard_url, data: { 'turbo' => 'false' }
+

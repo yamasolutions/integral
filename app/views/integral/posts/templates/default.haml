@@ -27,3 +27,6 @@
 
 = render partial: 'integral/shared/share_modal'
 
+- if current_user.present?
+  = content_for :edit_resource_link do
+    = link_to t('integral.actions.edit'), edit_backend_post_url(@post.id), data: { 'turbo' => 'false' }

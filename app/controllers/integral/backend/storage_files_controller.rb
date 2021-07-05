@@ -37,9 +37,8 @@ module Integral
           'title' => params.fetch(:search, nil)
         }
 
-        puts options
         collection = resource_grid_klass.new(options) do |scope|
-          scope.page(page).per_page(25)
+          scope.page(page).per_page(24)
         end.assets
 
         render json: { content: render_to_string(partial: 'integral/backend/shared/resource_selector/collection', locals: { collection: collection }) }

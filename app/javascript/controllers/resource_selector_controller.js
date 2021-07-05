@@ -42,6 +42,37 @@ export default class extends Controller {
     this.search()
   }
 
+  navigate(event) {
+    switch (event.key) {
+      case "ArrowLeft":
+        this.selectPreviousItem()
+        break;
+      case "ArrowRight":
+        this.selectNextItem()
+        break;
+      case "ArrowUp":
+        this.selectPreviousItem()
+        break;
+      case "ArrowDown":
+        this.selectNextItem()
+        break;
+    }
+  }
+
+  selectPreviousItem() {
+    const previousElement = this.element.querySelector('.resource-selector-item.selected').parentElement.previousElementSibling.children[0]
+    if (previousElement && previousElement.classList.contains('resource-selector-item')) {
+      previousElement.click()
+    }
+  }
+
+  selectNextItem() {
+    const previousElement = this.element.querySelector('.resource-selector-item.selected').parentElement.nextElementSibling.children[0]
+    if (previousElement && previousElement.classList.contains('resource-selector-item')) {
+      previousElement.click()
+    }
+  }
+
   upload() {
     this.uppy.getPlugin('Dashboard').openModal()
   }
@@ -52,7 +83,10 @@ export default class extends Controller {
   }
 
   search(page=1) {
-    let searchFilters = Object.assign({}, this.defaultFilters, { page: page, search: this.searchFieldTarget.value })
+    let searchFilters = Object.assign({}, this.defaultFilters, { search: this.searchFieldTarget.value })
+    if (page) { // Guard against null being passed in for page
+      searchFilters.page = page
+    }
     let url = this.element.dataset.resourceSelectorUrl + '?' + new URLSearchParams(searchFilters)
 
     fetch(url, {
@@ -89,7 +123,8 @@ export default class extends Controller {
 
     // Update sidebar
     this.sidebarTitleTarget.innerHTML = selectedResource.dataset.title
-    this.sidebarDescriptionTarget.innerHTML = selectedResource.dataset.description
+    this.sidebarDescriptionTarget.innerHTML = selectedResource.dataset.description || ''
+    this.sidebarImageTarget.setAttribute('src', '') // Clear src first so that previous image is not shown whilst new one loads
     this.sidebarImageTarget.setAttribute('src', selectedResource.dataset.image)
   }
 

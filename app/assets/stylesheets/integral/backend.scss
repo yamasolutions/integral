@@ -62,7 +62,7 @@ img {
   max-width: 100%;
 }
 
-.uppy-Dashboard--modal {
+body > .uppy-Root, .uppy-Dashboard--modal {
   z-index: $zindex-modal !important;
 }
 

@@ -48,11 +48,11 @@ module Integral
       return nil if image.nil?
 
       if size
-        image.variant(resize_to_limit: Integral.image_sizes[size])
+        image.variant(Integral.image_transformation_options.merge!(resize_to_limit: Integral.image_sizes[size]))
       elsif transform
         image.variant(transform)
       else
-        image.variant(resize_to_limit: Integral.image_sizes[:medium])
+        image.variant(Integral.image_transformation_options.merge!(resize_to_limit: Integral.image_sizes[:medium]))
       end
     end
 

@@ -6,13 +6,13 @@ module Integral
 
       def image_url(size: nil, transform: nil, fallback: true)
         representation = if size
-          attachment.representation(resize_to_limit: Integral.image_sizes[size])
+          attachment.representation(Integral.image_transformation_options.merge!(resize_to_limit: Integral.image_sizes[size]))
         elsif transform
           attachment.representation(transform)
         else
-          attachment.representation(resize_to_limit: Integral.image_sizes[:medium])
+          attachment.representation(Integral.image_transformation_options.merge!(resize_to_limit: Integral.image_sizes[:medium]))
         end
- 
+
         app_url_helpers.url_for(representation)
       end
 

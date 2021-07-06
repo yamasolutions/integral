@@ -117,7 +117,7 @@ module Integral
       image = object_data[:image] if object_available?
 
       if image.respond_to?(:attached?) && image.attached?
-        url_helpers.url_for(image.representation(resize_to_limit: Integral.image_sizes[size]))
+        url_helpers.url_for(image.representation(Integral.image_transformation_options.merge!(resize_to_limit: Integral.image_sizes[size])))
       elsif image.present?
         image
       else
@@ -132,7 +132,7 @@ module Integral
     # Returns the non object image path
     def non_object_image_url(size: :medium)
       if non_object_image.present?
-        url_helpers.url_for(non_object_image.representation(resize_to_limit: Integral.image_sizes[size]))
+        url_helpers.url_for(non_object_image.representation(Integral.image_transformation_options.merge!(resize_to_limit: Integral.image_sizes[size])))
       else
         fallback_image_url
       end
@@ -148,7 +148,7 @@ module Integral
 
     def image_url(size: :medium)
       if image.present?
-        url_helpers.url_for(image.representation(resize_to_limit: Integral.image_sizes[size]))
+        url_helpers.url_for(image.representation(Integral.image_transformation_options.merge!(resize_to_limit: Integral.image_sizes[size])))
       else
         fallback_image_url
       end

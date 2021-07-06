@@ -19,7 +19,7 @@ module Integral
 
         if @resource.save
           resource_data = @resource.to_list_item
-          resource_data[:image] = main_app.url_for(resource_data[:image].representation(resize_to_limit: Integral.image_sizes[:medium]))
+          resource_data[:image] = main_app.url_for(resource_data[:image].representation(Integral.image_transformation_options.merge!(resize_to_limit: Integral.image_sizes[:medium])))
           render json: resource_data, status: :created
         else
           head :unprocessable_entity

@@ -1,7 +1,7 @@
 :ruby
   if list_item[:image].respond_to?(:attached?)
-    thumbnail_url = main_app.url_for(list_item[:image].representation(resize_to_limit: [100, 100]))
-    list_item[:image] = main_app.url_for(list_item[:image].representation(resize_to_limit: [1200, 1200]))
+    thumbnail_url = main_app.url_for(list_item[:image].representation(Integral.image_transformation_options.merge!(resize_to_limit: Integral.image_sizes[:small])))
+    list_item[:image] = main_app.url_for(list_item[:image].representation(Integral.image_transformation_options.merge!(resize_to_limit: Integral.image_sizes[:large])))
   else
     thumbnail_url = list_item[:image]
   end

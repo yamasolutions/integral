@@ -88,6 +88,16 @@ module Integral
     large: [1600, 1600]
   }
 
+  mattr_accessor :image_transformation_options
+  @@image_transformation_options = {
+    format: :jpeg,
+    sampling_factor: "4:2:0",
+    strip: true,
+    interlace: "JPEG",
+    colorspace: "sRGB",
+    quality: 80
+  }
+
   mattr_accessor :additional_page_templates
   @@additional_page_templates = []
 

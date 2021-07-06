@@ -148,7 +148,11 @@ module Integral
 
     def image_url(size: :medium)
       if image.present?
-        url_helpers.url_for(image.representation(Integral.image_transformation_options.merge!(resize_to_limit: Integral.image_sizes[size])))
+        if size == :original
+          url_helpers.url_for(image.attachment)
+        else
+          url_helpers.url_for(image.representation(Integral.image_transformation_options.merge!(resize_to_limit: Integral.image_sizes[size])))
+        end
       else
         fallback_image_url
       end

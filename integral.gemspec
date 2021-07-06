@@ -37,7 +37,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'pundit', '~> 1.1' # Authorization
   s.add_dependency 'rails', '~> 6.1.1'
   s.add_dependency 'webpacker', '~> 5.1'
-  s.add_dependency 'rails-settings-cached', '~> 0.6' # Persisted settings
+  s.add_dependency 'rails-settings-cached', '~> 2.6.0' # Persisted settings
   s.add_dependency 'sass-rails', '~> 6.0' # Sass
   s.add_dependency 'simple_form', '~> 5.0' # Form builder
   s.add_dependency 'sitemap_generator', '~> 6.0.1' # Sitemap Generator

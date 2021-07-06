@@ -53,8 +53,8 @@ module Integral
   mattr_accessor :frontend_locales
   @@frontend_locales = [:en]
 
-  mattr_accessor :additional_settings_params
-  @@additional_settings_params = []
+  mattr_accessor :additional_settings
+  @@additional_settings = {}
 
   mattr_accessor :additional_post_params
   @@additional_post_params = []

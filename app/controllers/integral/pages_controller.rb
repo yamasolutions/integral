@@ -53,15 +53,17 @@ module Integral
     end
 
     def alternative_urls
-      alternative_urls = {
-        I18n.locale.to_s => canonical_url
-      }
+      @alternative_urls ||= begin
+                              alternative_urls = {
+                                I18n.locale.to_s => canonical_url
+                              }
 
-      @page.alternates.published.each do |alternate|
-        alternative_urls[alternate.locale] = "#{Rails.application.routes.default_url_options[:host]}#{alternate.path}"
-      end
+                              @page.alternates.published.each do |alternate|
+                                alternative_urls[alternate.locale] = "#{Rails.application.routes.default_url_options[:host]}#{alternate.path}"
+                              end
 
-      alternative_urls
+                              alternative_urls
+                            end
     end
   end
 end

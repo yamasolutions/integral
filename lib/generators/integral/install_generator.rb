@@ -9,7 +9,6 @@ module Integral
       # Copies over necessary initialiser files
       def copy_initializer_files
         copy_file 'integral.rb', 'config/initializers/integral.rb'
-        copy_file 'app.yml', 'config/app.yml'
         copy_file 'sitemap.rb', 'config/sitemap.rb'
       end
 

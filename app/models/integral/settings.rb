@@ -4,7 +4,7 @@ module Integral
     field :main_menu_list_id, default: 1
     field :website_title, default: "Integral Rails"
     field :contact_email, default: "change-me@integralrails.com"
-    field :default_preview_image_path, default: 'previews/default.jpg'
+    field :default_preview_image_path
     field :google_tag_manager_id
     field :facebook_app_id
     field :twitter_handler

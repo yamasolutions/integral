@@ -8,7 +8,12 @@ module Integral
       engine_url_helpers.send("activity_backend_#{object.class.model_name.singular_route_key}_url", object.id, activity_id)
     end
 
-    # @return [String] URL to backend Image page
+    # @return [String] URL to backend edit page
+    def edit_backend_url
+      engine_url_helpers.send("edit_backend_#{object.class.model_name.singular_route_key}_url", object.id)
+    end
+
+    # @return [String] URL to backend page
     def backend_url
       engine_url_helpers.send("backend_#{object.class.model_name.singular_route_key}_url", object.id)
     end

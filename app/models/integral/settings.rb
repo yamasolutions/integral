@@ -14,6 +14,8 @@ module Integral
     field :youtube_url
     field :linkedin_url
     field :github_url
+    field :newsletter_api_key
+    field :newsletter_list_id
 
     Integral.additional_settings.each do |setting, options|
       field setting, **options

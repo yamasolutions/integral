@@ -25,7 +25,7 @@ module Integral
 
       # @return [BasePolicy] current authorization policy
       def current_policy
-        return policy(@page) if @page
+        return policy(@resource) if @resource
 
         policy(Integral::Page.new)
       end

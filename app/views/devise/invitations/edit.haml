@@ -1,5 +1,5 @@
-%h1= t 'devise.invitations.edit.header'
-= simple_form_for resource, as: resource_name, url: invitation_path(resource_name), html: { method: :put }, wrapper: :floating_labels_form) do |f|
+%h1= t('devise.invitations.edit.header')
+= simple_form_for(resource, as: resource_name, url: invitation_path(resource_name), html: { method: :put }, wrapper: :floating_labels_form) do |f|
   = f.hidden_field :invitation_token
   = f.input :password, autofocus: true, input_html: { placeholder: 'password' }
   = f.input :password_confirmation, input_html: { placeholder: 'password' }

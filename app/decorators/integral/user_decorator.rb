@@ -16,7 +16,9 @@ module Integral
 
     def avatar_circle
       if object.avatar.attached?
-        h.image_tag(avatar_url, class: 'avatar', alt: object.name)
+        h.content_tag :div, class: "avatar-circle" do
+          h.image_tag(avatar_url, alt: object.name)
+        end
       else
         initials = object.name.split(' ').map { |name| name[0] }.join[0..1]
 

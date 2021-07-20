@@ -28,7 +28,7 @@
           .col-12
             = f.input :title, wrapper_html: { class: 'alternative' }, input_html: { 'data-character-counter' => 'true', required: formatted_item.title_required?, class: 'title-field' }, required: true
           .col-md-8.link-field{ class: f.object.basic? || !f.object.persisted? ? 'd-none' : '' }
-            = f.input :url, wrapper_html: { class: "alternative" }, input_html: { class: 'url-field' }
+            = f.input :url, as: :string, wrapper_html: { class: "alternative" }, input_html: { class: 'url-field', pattern: "(https?|/).*?", inputmode: 'url' }
           .col-md-4.link-new-tab.align-self-center.flex-container{ class: f.object.basic? || !f.object.persisted? ? 'd-none' : '' }
             = f.input :target, as: :boolean, checked_value: '_blank', unchecked_value: '_self', input_html: { class: 'target-field' }, wrapper_html: { class: 'alternative mb-0' }
           .col-12

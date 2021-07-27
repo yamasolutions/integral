@@ -4,13 +4,27 @@
   %header.article__header
     .row
       .col-8
-        .article__author.text-muted
+        %ul.list-group.list-group-horizontal.list-group-piped.d-lg-none
+          %li.list-group-item.text-muted
+            .article__author.text-muted
+              %span
+                = image_tag @resource.author.decorate.avatar_url, class: 'article__avatar', alt: @resource.author.name
+              = @resource.author.name
+          %li.list-group-item.text-muted= @resource.published_at
+        .article__author.text-muted.d-none.d-lg-block
           %span
             = image_tag @resource.author.decorate.avatar_url, class: 'article__avatar', alt: @resource.author.name
           = @resource.author.name
         %ul.list-group.list-group-horizontal.list-group-piped
-          %li.list-group-item.text-muted= @resource.published_at
+          %li.list-group-item.text-muted.d-none.d-lg-block= @resource.published_at
           %li.list-group-item.text-muted= link_to @resource.category.title, category_path(@resource.category)
+          - if @resource.tags_on(@resource.tag_context).any?
+            %li.list-group-item.text-muted
+              %button.js-popover-trigger.bg-transparent.border-0.btn-link.text-muted{ data: { 'bs-toggle' => 'popover', 'bs-html' => 'true', 'bs-custom-class' => 'popover-tags', 'bs-placement' => 'bottom', 'bs-content' => content_tag(:ul, @resource.tags_on(@resource.tag_context).map {|t| content_tag(:li, link_to("##{t.name}", integral.tag_path(t.name), class: 'badge'), class: 'post-tags__item') }.join().html_safe, class: 'post-tags justify-content-center') } }
+                = @resource.tags_on(@resource.tag_context).count
+                = t('labels.tags')
+                %i.bi.bi-info-circle
+
       .col-4.d-flex.justify-content-end.align-items-start
         %button.btn.btn-primary(type="button" data-bs-toggle="modal" data-bs-target="#modal--share")
           %i.bi.bi-share

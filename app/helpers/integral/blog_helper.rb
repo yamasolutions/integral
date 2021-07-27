@@ -66,7 +66,7 @@ module Integral
 
     # TODO: Change this to use GA API through a GoogleAnalyticsService
     def most_read_posts
-      @popular_posts.decorate
+      popular_blog_posts.decorate
     end
   end
 end

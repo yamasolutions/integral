@@ -216,7 +216,6 @@ class ListItem {
   }
 
   handleObjectUpdate() {
-    console.log('hello world')
     this.typeField.value = this.fakeTypeField.selectedOptions[0].dataset.trueValue
 
     switch(this.typeField.value) {

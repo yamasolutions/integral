@@ -1,6 +1,5 @@
 = simple_form_for [:backend, @resource],  html: { id: 'resource_form' } do |f|
   = f.input :lock_version, as: :hidden
-  .grid-x
   .row
     .col-md-8.form-group-list
       = f.input :title, input_html: { data: { controller: 'slugger', action: 'slugger#slugify', slugger: '#resource_slug' }}

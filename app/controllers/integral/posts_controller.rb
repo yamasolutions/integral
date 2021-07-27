@@ -68,14 +68,18 @@ module Integral
     end
 
     # Creates array of related posts. If enough related posts do not exist uses popular posts
-    def find_related_posts
-      @related_posts = @resource.find_related_tags.limit(amount_of_related_posts_to_display)
-      amount_of_related_posts = @related_posts.length
+    def related_blog_posts
+      @related_posts ||= begin
+                           posts = @resource.find_related_tags.limit(amount_of_related_posts_to_display)
+                           amount_of_related_posts = posts.length
 
-      if amount_of_related_posts != amount_of_related_posts_to_display && (amount_of_related_posts + @popular_posts.length) >= amount_of_related_posts_to_display
-        @related_posts = @related_posts.to_a.concat(@popular_posts[0...amount_of_related_posts_to_display - amount_of_related_posts])
-      end
+                           if amount_of_related_posts != amount_of_related_posts_to_display && (amount_of_related_posts + popular_blog_posts.length) >= amount_of_related_posts_to_display
+                             posts = posts.to_a.concat(popular_blog_posts[0...amount_of_related_posts_to_display - amount_of_related_posts])
+                           end
+                           posts
+                         end
     end
+    helper_method :related_blog_posts
 
     def amount_of_related_posts_to_display
       3

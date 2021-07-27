@@ -1,4 +1,5 @@
 import { Controller } from "stimulus"
+import Sortable from 'sortablejs'
 
 export default class extends Controller {
   static targets = [ "container" ]
@@ -13,20 +14,20 @@ export default class extends Controller {
 
     // Handle close when resource was not selected
     this.resourceSelector.on('closed', (event) => {
-      if (this.containerTarget.lastElementChild.querySelector("[data-target='gallery-manager-item.objectField']").value == '') {
-        this.containerTarget.lastElementChild.remove()
+      const lastElement = Array.from(this.containerTarget.querySelectorAll('.gallery-manager--item-wrapper')).pop()
+      if (lastElement.querySelector("[data-target='gallery-manager-item.objectField']").value == '') {
+        lastElement.remove()
       }
     })
 
-    $(this.containerTarget).on('cocoon:after-insert', (e, new_item) => {
+    this.containerTarget.addEventListener("cocoon:after-insert",  (event) => {
       this.resourceSelector.open()
     })
 
-    $(this.containerTarget).on( "sortupdate", () => {
-      this.updateSortOrder()
+    Sortable.create(this.containerTarget, {
+      onUpdate: this.updateSortOrder,
+      items: '.gallery-manager--item-wrapper'
     })
-
-    sortable(this.containerTarget, {items: '.gallery-manager--item-wrapper' })
   }
 
   addItem(item) {
@@ -35,7 +36,10 @@ export default class extends Controller {
   }
 
   resort() {
-    sortable(this.containerTarget, {items: '.gallery-manager--item-wrapper' })
+    Sortable.create(this.containerTarget, {
+      onUpdate: this.updateSortOrder,
+      items: '.gallery-manager--item-wrapper'
+    })
     this.updateSortOrder()
   }
 

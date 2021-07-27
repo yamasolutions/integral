@@ -1,6 +1,6 @@
 - gallery_id = "js-gallery--#{Random.hex}"
 .gallery-manager{ data: { controller: 'gallery-manager' } }
-  .gallery.grid-x.grid-padding-x{ class: gallery_id, data: { target: 'gallery-manager.container' } }
+  .gallery.row{ class: gallery_id, data: { target: 'gallery-manager.container' } }
     = gallery.hidden_field :id
     = gallery.hidden_field :lock_version
     = gallery.simple_fields_for :list_items do |list_item|

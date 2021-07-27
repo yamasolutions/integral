@@ -46,9 +46,10 @@ class ResourceSelector extends EventEmitter {
       this.emit('resources-selected', event.detail)
     });
 
-    // window.jQuery(this.container).on("closed.zf.reveal", (event) => {
-    //   this.emit('closed')
-    // });
+
+    this.container.addEventListener("hide.bs.modal", (event) => {
+       this.emit('closed')
+    });
   }
 
   open() {

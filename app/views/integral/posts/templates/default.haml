@@ -1,16 +1,16 @@
-= render_post_as_json_ld(@post)
+= render_post_as_json_ld(@resource)
 
-= render layout: 'integral/shared/blog/layout', locals: { title: @post.title, resource: @post } do
+= render layout: 'integral/shared/blog/layout', locals: { title: @resource.title, resource: @resource } do
   %header.article__header
     .row
       .col-8
         .article__author.text-muted
           %span
-            = image_tag @post.author.decorate.avatar_url, class: 'article__avatar', alt: @post.author.name
-          = @post.author.name
+            = image_tag @resource.author.decorate.avatar_url, class: 'article__avatar', alt: @resource.author.name
+          = @resource.author.name
         %ul.list-group.list-group-horizontal.list-group-piped
-          %li.list-group-item.text-muted= @post.published_at
-          %li.list-group-item.text-muted= link_to @post.category.title, category_path(@post.category)
+          %li.list-group-item.text-muted= @resource.published_at
+          %li.list-group-item.text-muted= link_to @resource.category.title, category_path(@resource.category)
       .col-4.d-flex.justify-content-end.align-items-start
         %button.btn.btn-primary(type="button" data-bs-toggle="modal" data-bs-target="#modal--share")
           %i.bi.bi-share
@@ -20,13 +20,12 @@
         %hr
 
   %section.wysiwyg-content.wysiwyg-content--post
-    = @post.render_active_block_list
+    = @resource.render_active_block_list
 
 .container
   = render partial: 'similar_posts'
 
 = render partial: 'integral/shared/share_modal'
 
-- if current_user.present?
-  = content_for :edit_resource_link do
-    = link_to t('integral.actions.edit'), edit_backend_post_url(@post.id), data: { 'turbo' => 'false' }
+= content_for :edit_resource_link do
+  = link_to t('integral.actions.edit'), edit_backend_post_url(@resource.id), data: { 'turbo' => 'false' }

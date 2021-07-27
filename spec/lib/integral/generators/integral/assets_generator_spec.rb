@@ -14,14 +14,12 @@ module Integral
         end
 
         it 'creates frontend asset files' do
-          assert_file 'app/assets/javascripts/integral/frontend.js'
           assert_file 'app/assets/stylesheets/integral/frontend.scss'
           assert_directory 'app/assets/stylesheets/integral/frontend'
         end
 
         it 'does not create backend asset files' do
-          assert_no_file 'app/assets/javascripts/integral/backend.js'
-          assert_no_file 'app/assets/stylesheets/integral/backend.sass'
+          assert_no_file 'app/assets/stylesheets/integral/backend.scss'
           assert_no_directory 'app/assets/stylesheets/integral/backend'
         end
 
@@ -38,14 +36,12 @@ module Integral
         end
 
         it 'creates frontend asset files' do
-          assert_file 'app/assets/javascripts/integral/frontend.js'
           assert_file 'app/assets/stylesheets/integral/frontend.scss'
           assert_directory 'app/assets/stylesheets/integral/frontend'
         end
 
         it 'creates backend asset files' do
-          assert_file 'app/assets/javascripts/integral/backend.js'
-          assert_file 'app/assets/stylesheets/integral/backend.sass'
+          assert_file 'app/assets/stylesheets/integral/backend.scss'
           assert_directory 'app/assets/stylesheets/integral/backend'
         end
 

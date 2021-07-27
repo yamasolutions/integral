@@ -5,6 +5,8 @@ spec/dummy/db/*.sqlite3
 spec/dummy/public/uploads/*
 spec/dummy/tmp/*
 spec/examples.txt
+spec/dummy/public/assets/*
+spec/dummy/public/packs/*
 node_modules/
 spec/lib/integral/generators/tmp/*
 pkg/
@@ -14,3 +16,5 @@ coverage/
 website/build/*
 tmp/*
 public/packs/*
+public/packs-test/*
+

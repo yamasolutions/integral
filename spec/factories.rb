@@ -75,7 +75,7 @@ FactoryBot.define do
   factory :integral_notification, class: 'Integral::Notification::Notification' do
     recipient
     actor
-    read_at { Faker::Time.backward(30) }
+    read_at { Faker::Time.backward(days: 30) }
     action { ['create', 'update', 'destroy'].sample }
     association(:subscribable, factory: :integral_post)
   end
@@ -124,7 +124,7 @@ FactoryBot.define do
     name
     email
     subject { Faker::Book.title }
-    message { Faker::Lorem.paragraph(sentences: 8)[50..150] }
+    message { Faker::Lorem.paragraph(sentence_count: 8)[50..150] }
   end
 end
 

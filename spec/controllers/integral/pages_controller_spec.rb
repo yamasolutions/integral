@@ -9,7 +9,7 @@ module Integral
     describe 'GET show' do
       context 'when post is published' do
         before do
-          get :show, params: { id: resource.id }
+          get :show, params: { id: resource.id, integral_original_path: resource.path }
         end
 
         it { expect(response.status).to eq 200 }
@@ -21,13 +21,13 @@ module Integral
         let(:user) { create(:page_manager) }
 
         context 'a visitor cannot view the post' do
-          it { expect{get :show, params: { id: resource.id }}.to raise_error(ActiveRecord::RecordNotFound) }
+          it { expect{get :show, params: { id: resource.id, integral_original_path: resource.path }}.to raise_error(ActiveRecord::RecordNotFound) }
         end
 
         context 'a user can view the post' do
           before do
             sign_in user
-            get :show, params: { id: resource.id }
+            get :show, params: { id: resource.id, integral_original_path: resource.path }
           end
 
           it { expect(response.status).to eq 200 }

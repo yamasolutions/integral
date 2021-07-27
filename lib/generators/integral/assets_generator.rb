@@ -14,8 +14,7 @@ module Integral
       def copy_backend_assets
         return unless options['asset_list'].include?('backend')
 
-        file 'javascripts/integral/backend.js'
-        file 'stylesheets/integral/backend.sass'
+        file 'stylesheets/integral/backend.scss'
         directory 'stylesheets/integral/backend'
       end
 
@@ -23,7 +22,6 @@ module Integral
       def copy_frontend_assets
         return unless options['asset_list'].include?('frontend')
 
-        file 'javascripts/integral/frontend.js'
         file 'stylesheets/integral/frontend.scss'
         directory 'stylesheets/integral/frontend'
       end

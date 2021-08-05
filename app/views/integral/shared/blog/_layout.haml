@@ -6,4 +6,4 @@
     .col-lg-9{ 'data-post-list' => true }
       = yield
     = render partial: 'integral/shared/blog/sidebar'
-= render partial: 'integral/shared/blog/categories'
+= render partial: 'integral/shared/blog/categories' if display_post_categories_widget?

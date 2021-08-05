@@ -3,7 +3,7 @@
 = render layout: 'integral/shared/blog/layout', locals: { title: @resource.title, resource: @resource } do
   %header.article__header
     .row
-      .col-8
+      .col-10.col-md-8
         %ul.list-group.list-group-horizontal.list-group-piped.d-lg-none
           %li.list-group-item.text-muted
             .article__author.text-muted
@@ -25,7 +25,7 @@
                 = t('labels.tags')
                 %i.bi.bi-info-circle
 
-      .col-4.d-flex.justify-content-end.align-items-start
+      .col-2.col-md-4.d-flex.justify-content-end.align-items-start
         %button.btn.btn-primary(type="button" data-bs-toggle="modal" data-bs-target="#modal--share")
           %i.bi.bi-share
           %span.m-1.d-md-inline-block.d-none
@@ -36,8 +36,9 @@
   %section.wysiwyg-content.wysiwyg-content--post
     = @resource.render_active_block_list
 
-.container
-  = render partial: 'similar_posts'
+- if display_similar_posts_widget?
+  .container
+    = render partial: 'similar_posts'
 
 = render partial: 'integral/shared/share_modal'
 

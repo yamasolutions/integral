@@ -59,6 +59,16 @@ module Integral
       Integral::Post.published.where(locale: I18n.locale).count > 4
     end
 
+    # Whether or not to display post categories
+    def display_post_categories_widget?
+      true
+    end
+
+    # Whether or not to display similar posts
+    def display_similar_posts_widget?
+      true
+    end
+
     # Whether or not to display most read widget
     def display_most_read_posts_widget?
       Integral::Post.published.where(locale: I18n.locale).count > 10

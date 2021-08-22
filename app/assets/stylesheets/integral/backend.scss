@@ -69,3 +69,7 @@ body > .uppy-Root, .uppy-Dashboard--modal {
 form {
   margin-block-end: 0;
 }
+
+.mapboxgl-control-container {
+  pointer-events: none;
+}

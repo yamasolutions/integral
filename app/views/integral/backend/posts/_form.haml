@@ -11,7 +11,7 @@
       .form-group
         = f.input :status, as: :radio_buttons, collection: Integral::Post.available_statuses, include_hidden: false
         %hr.dark
-          = f.button :button, class: 'btn-primary' if f.object.persisted?
+        = f.button :button, class: 'btn-primary' if f.object.persisted?
 
       = f.input :slug, input_html: { id: 'resource_slug', data: { controller: 'slugger', action: 'slugger#validate' }}
       = f.input :category_id, collection: Integral::Category.all.map{ |category| [category.title, category.id] }, include_blank: false

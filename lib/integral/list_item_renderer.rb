@@ -22,7 +22,9 @@ module Integral
       @opts = opts.reverse_merge(
         wrapper_element: 'li',
         child_wrapper_element: 'ul',
-        child_wrapper_class: ''
+        child_wrapper_class: 'dropdown-menu',
+        child_item_class: 'dropdown-toggle',
+        child_item_data: { 'bs-toggle' => 'dropdown' }
       )
 
       @list_item = list_item
@@ -58,7 +60,8 @@ module Integral
     # @return [Hash] list item options
     def item_options
       opts = {}
-      opts[:class] = 'dropdown-button' if list_item.has_children?
+      opts[:class] = @opts[:child_item_class] if list_item.has_children?
+      opts[:data] = @opts[:child_item_data] if list_item.has_children?
       opts[:href] = url if url.present?
       opts[:target] = target if target.present? && target != '_self'
 

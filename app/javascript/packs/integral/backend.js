@@ -20,13 +20,15 @@ Trix.config.blockAttributes.default.tagName = 'p'
 document.addEventListener("turbo:load", function() {
   // I18n.locale = document.querySelector('body').dataset.locale
 
-  const flashType = document.querySelector('body').dataset.flashType
-  const flashMessage = document.querySelector('body').dataset.flashMessage
-  if (flashType) {
-    if (flashType == 'notice') {
-      new Toast({type: 'success', title: 'Success', content: flashMessage })
-    } else {
-      new Toast({type: 'error', title: 'Error', content: flashMessage })
+  if (document.querySelector('body')) {
+    const flashType = document.querySelector('body').dataset.flashType
+    const flashMessage = document.querySelector('body').dataset.flashMessage
+    if (flashType) {
+      if (flashType == 'notice') {
+        new Toast({type: 'success', title: 'Success', content: flashMessage })
+      } else {
+        new Toast({type: 'error', title: 'Error', content: flashMessage })
+      }
     }
   }
 
@@ -47,7 +49,7 @@ document.addEventListener("turbo:load", function() {
 
     // Disable enter keypress submitting forms
     resourceForm.addEventListener('keypress', function (event) {
-      if (event.keyCode == 13) {
+      if (event.keyCode == 13 && event.target.tagName != "TRIX-EDITOR") {
         event.preventDefault()
       }
     })

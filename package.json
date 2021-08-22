@@ -15,6 +15,7 @@
     "bootstrap": "^5.0.1",
     "chart.js": "^3.2.1",
     "cocoon-js-vanilla": "^1.1.0",
+    "mapbox-gl": "^2.4.0",
     "rails-erb-loader": "^5.5.2",
     "sortablejs": "^1.13.0",
     "stimulus": "^1.1.1",

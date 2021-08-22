@@ -1,6 +1,6 @@
 - if policy(resource_klass).update?
   = link_to t('integral.actions.edit'), edit_backend_resource_url(resource), icon: 'bi bi-pencil', wrapper: :li, class: 'dropdown-item'
-= link_to t('integral.actions.open_in_new_tab'), backend_resource_url(resource), target: :blank, icon: 'bi bi-box-arrow-up-right', wrapper: :li, class: 'dropdown-item'
+= link_to t('integral.actions.open_in_new_tab'), backend_resource_url(resource), target: '_blank', icon: 'bi bi-box-arrow-up-right', wrapper: :li, class: 'dropdown-item'
 - if policy(resource_klass).duplicate?
   %li
     %button.dropdown-item{ data: { controller: 'confirmation', action: 'confirmation#confirm', message: t('integral.actions.confirmation.clone'), method: :post, href: duplicate_backend_resource_url(resource) }}

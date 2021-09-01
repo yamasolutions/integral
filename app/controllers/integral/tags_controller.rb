@@ -18,13 +18,9 @@ module Integral
       add_breadcrumb t('integral.breadcrumbs.tags'), integral.tags_url
       add_breadcrumb @resource.name, nil
 
-      page_title = "Posts tagged with #{@resource.name}"
-      page_title += " - Page #{params[:page]}" if params[:page].present?
-      page_description = params[:page].present? ? "Page #{params[:page] } - #{t('integral.tags.show.description', tag_name: @resource.name)}" : t('integral.tags.show.description', tag_name: @resource.name)
-
       @meta_data = {
-        page_title: page_title,
-        page_description: page_description
+        page_title: append_page(t('integral.tags.show.title', tag_name: @resource.name)),
+        page_description: append_page(t('integral.tags.show.description', tag_name: @resource.name))
       }
     end
 

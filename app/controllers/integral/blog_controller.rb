@@ -10,15 +10,11 @@ module Integral
     end
 
     def page_title
-      return t('.title') unless params[:page].present?
-
-      "Page #{params[:page]} - #{t('.title')}"
+      append_page(t('.title'))
     end
 
     def page_description
-      return t('.description') unless params[:page].present?
-
-      "Page #{params[:page]} - #{t('.description')}"
+      append_page(t('.description'))
     end
   end
 end

@@ -14,13 +14,6 @@ module Integral
       @posts = Integral::Post.published.where(locale: I18n.locale).includes(:image, :user).order('published_at DESC').paginate(page: params[:page])
       @posts = @posts.where.not(id: @latest_post.id) if @latest_post
 
-      page_title = t('integral.posts.index.title')
-      page_description = t('integral.posts.index.description')
-      if params[:page].present?
-        page_title += " - Page #{params[:page]}"
-        page_description += " - Page #{params[:page]}"
-      end
-
       @meta_data = {
         page_title: page_title,
         page_description: page_description

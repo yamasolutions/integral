@@ -29,6 +29,11 @@ module Integral
       end
     end
 
+    def append_page(str)
+      params[:page].present? ? "Page #{params[:page] } - #{str}" : str
+    end
+    helper_method :append_page
+
     private
 
     # Actions that should be carried out before rendering

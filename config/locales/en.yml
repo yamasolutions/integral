@@ -249,7 +249,8 @@ en:
         description: Tags used within our blog
       show:
         subtitle: Related Articles
-        description: "All articles tagged %{tag_name} within our blog"
+        title: "Posts tagged with %{tag_name}"
+        description: "All posts tagged %{tag_name} within our blog"
     blog:
       posted_ago: "Published %{time} ago"
       widgets:

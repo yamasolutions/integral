@@ -1,3 +1,7 @@
--# TODO: Support video
-.gallery-image-wrapper
-  = image_tag renderer.image_url(size: :medium), alt: title
+- if object.attachment.video?
+  .gallery-video-wrapper
+    %video{ 'data-controller' => 'video', poster: main_app.url_for(object.attachment.preview(Integral.image_transformation_options.merge!(resize_to_limit: Integral.image_sizes[:medium]))) }
+      %source{ src: main_app.url_for(object.attachment) }
+- else
+  .gallery-image-wrapper
+    = image_tag renderer.image_url(size: :medium), alt: title

@@ -184,6 +184,10 @@ module Integral
       @object_data ||= list_item.object.to_list_item
     end
 
+    def video?
+      object_data&.fetch(:image)&.video?
+    end
+
     private
 
     def render_no_object_warning

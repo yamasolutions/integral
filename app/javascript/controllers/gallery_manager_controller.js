@@ -5,7 +5,15 @@ export default class extends Controller {
   static targets = [ "container" ]
 
   connect() {
-    this.resourceSelector = new ResourceSelector('Select Image..', document.querySelector("meta[name='integral-file-list-url']").getAttribute("content"), { filters: { type: 'image/%' } })
+    const resourceSelectorOptions = {
+      filters: { type: "image/%,video/%" },
+      fileRestrictions: {
+        maxNumberOfFiles: 1,
+        allowedFileTypes: ["image/*", "video/*"]
+      }
+    }
+
+    this.resourceSelector = new ResourceSelector('Select media..', document.querySelector("meta[name='integral-file-list-url']").getAttribute("content"), resourceSelectorOptions)
 
     // Handle resource selection
     this.resourceSelector.on('resources-selected', (event) => {
@@ -25,7 +33,9 @@ export default class extends Controller {
     })
 
     Sortable.create(this.containerTarget, {
-      onUpdate: this.updateSortOrder,
+      onUpdate: () => {
+        this.updateSortOrder()
+      },
       items: '.gallery-manager--item-wrapper'
     })
   }

@@ -5,6 +5,29 @@ module Integral
       before_action :authorize_with_klass, except: %i[activities activity]
       before_action :set_resource, except: %i[create new index list]
 
+      def show
+        if params["_locale"].present?
+          file = Integral::Storage::File.find(params[:id]).decorate
+          res = {
+            id: file.id,
+            alt: file.title,
+            link: "",
+            caption: "",
+            media_details: {
+              sizes:  {
+                large: {
+                  source_url: file.image_url(size: :large)
+                }
+              }
+            },
+          }
+
+          render json: res, status: 200, layout: false
+        else
+          super
+        end
+      end
+
       # GET /new
       # Resource creation screen
       def new

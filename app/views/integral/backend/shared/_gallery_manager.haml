@@ -6,5 +6,5 @@
     = gallery.simple_fields_for :list_items do |list_item|
       = render partial: 'integral/backend/shared/gallery_manager/item', locals: { f: list_item, gallery_id: gallery_id }
   = link_to_add_association gallery, :list_items, 'data-association-insertion-method' => 'append', class: 'gallery-manager--add-button', 'data-association-insertion-node' => ".#{gallery_id}", force_non_association_create: true, partial: 'integral/backend/shared/gallery_manager/item' do
-    = t('integral.actions.add_image')
+    = t('integral.actions.add_image_or_video')
 

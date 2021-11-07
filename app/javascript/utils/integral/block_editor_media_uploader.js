@@ -2,11 +2,24 @@
  * Wrapper for ResourceSelector which Block Editor uses to upload & select media
  */
 class BlockEditorMediaUploader {
-  static open(callback) {
-    // TODO: Possibly only create this instance once?
-    const instance = new window.ResourceSelector('Select image..', document.querySelector("meta[name='integral-file-list-url']").getAttribute("content"), { filters: { type: 'image/%' } })
+  static open(callback, props) {
+    const resourceSelectorOptions = {
+      filters: { type: props.allowedTypes.map( type => { return `${type}/%` }).join(",") },
+      fileRestrictions: {
+        maxNumberOfFiles: 1,
+        allowedFileTypes: props.allowedTypes.map( type => { return `${type}/*` })
+      }
+    }
+
+    const instance = new window.ResourceSelector('Select media..', document.querySelector("meta[name='integral-file-list-url']").getAttribute("content"), resourceSelectorOptions)
     instance.on('resources-selected', (event) => {
-      callback({url: event.resources[0].image});
+      // TODO: This needs to support returning things other than images, such as videos
+      // Possibly instead of image we call .asset or .url and image could change to preview?
+      const selectedResource = event.resources[0]
+      callback({
+        url: selectedResource.image,
+        id: parseInt(selectedResource.id)
+      });
     });
 
     // TODO: Delay wouldn't be required if we instantiated on load

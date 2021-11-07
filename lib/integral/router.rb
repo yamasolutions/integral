@@ -170,12 +170,13 @@ module Integral
           resources :settings, only: %i[index create]
         end
 
-        # Block Editor 
+        # Block Editor
         get '/wp/v2/types', to: 'backend/block_lists#wp_types'
         get '/wp/v2/types/wp_block', to: 'backend/block_lists#wp_type'
         get '/wp/v2/block_lists', to: 'backend/block_lists#block_lists'
         get '/wp/v2/block_list/:id', to: 'backend/block_lists#show'
         get '/wp/v2/blocks/:id', to: 'backend/block_lists#show'
+        get '/wp/v2/media/:id', to: 'backend/storage_files#show'
       end
     end
   end

@@ -34,7 +34,7 @@ module Integral
     end
 
     def render_active_block_list
-      helpers.render_blocks(active_block_list.content)
+      helpers.render_block_list(active_block_list)
     end
 
     private

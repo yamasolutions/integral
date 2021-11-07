@@ -14,7 +14,7 @@ module Integral
       end
 
       filter(:type) do |value|
-        search_by_type(value)
+        search_by_types(value.split(","))
       end
 
       column(:title, order: :title)

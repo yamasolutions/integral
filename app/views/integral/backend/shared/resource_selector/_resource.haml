@@ -1,13 +1,14 @@
 :ruby
   if list_item[:image].respond_to?(:attached?)
     thumbnail_url = main_app.url_for(list_item[:image].representation(Integral.image_transformation_options.merge!(resize_to_limit: Integral.image_sizes[:small])))
+    item_classes = list_item[:image].try("video?") ? 'video' : ''
     list_item[:image] = main_app.url_for(list_item[:image].representation(Integral.image_transformation_options.merge!(resize_to_limit: Integral.image_sizes[:large])))
   else
     thumbnail_url = list_item[:image]
   end
 
 .col-md-2
-  .resource-selector-item{ data: list_item.merge!({action: 'keydown->resource-selector#navigate click->resource-selector#preselect' }), tabindex: "-1" }
+  .resource-selector-item{ data: list_item.merge!({action: 'keydown->resource-selector#navigate click->resource-selector#preselect' }), tabindex: "-1", class: item_classes }
     .resource-selector-item-img
       %img{ src: thumbnail_url }
     %span.resource-selector-item-title= list_item[:title]

@@ -13,6 +13,12 @@ module Integral
       end
     end
 
+    def render_block_list(block_list)
+      Rails.cache.fetch block_list do
+        ::BlockEditor::BlockListRenderer.render(block_list.content)
+      end
+    end
+
     def render_blocks(content)
       ::BlockEditor::BlockListRenderer.render(content)
     end

@@ -1,6 +1,7 @@
 - formatted_item = Integral::ListItemRenderer.new(f.object)
+
 .col-6.gallery-manager--item-wrapper{ data: { action: 'populate->gallery-manager-item#populate', controller: 'gallery-manager-item', modal: "gallery-item-modal-#{f.object.class.name.parameterize}-#{f.object.id}"}}
-  .gallery-manager--item-container{ data: { open: "gallery-item-modal-#{f.object.class.name.parameterize}-#{f.object.id}"}, class: '' }
+  .gallery-manager--item-container{ data: { open: "gallery-item-modal-#{f.object.class.name.parameterize}-#{f.object.id}"}, class: formatted_item.video? ? 'video' : '' }
     = link_to_remove_association f, class: 'gallery-manager--item-remove-button', wrapper_class: 'gallery-manager--item-wrapper' do
       %i.bi.bi-x
     = f.hidden_field :type, value: 'Integral::Object'

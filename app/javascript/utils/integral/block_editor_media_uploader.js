@@ -3,10 +3,7 @@
  */
 class BlockEditorMediaUploader {
   static open(callback, props) {
-    let allowedTypes = props.type
-    if (!Array.isArray(allowedTypes)) {
-      allowedTypes = [props.type]
-    }
+    let allowedTypes = props.allowedTypes || [props.type]
     const resourceSelectorOptions = {
       filters: { type: allowedTypes.map( type => { return `${type}/%` }).join(",") },
       fileRestrictions: {

@@ -18,6 +18,9 @@ module Integral
     # @param enquiry [Enquiry] enquiry which the visitor has created
     def auto_reply(enquiry)
       @enquiry = enquiry
+
+      I18n.locale = @enquiry.context
+
       sender = email_sender(Integral::Settings.website_title, outgoing_email_address)
 
       mail subject: auto_reply_subject(enquiry), to: enquiry.email, from: sender, reply_to: sender

@@ -8,14 +8,17 @@ module Integral
     # @option opts [String] :message The message to provide a message for the tweet.
     #
     # @return [String] Twitter URL to share a page
-    def mail_share_url(opts = {})
+    def mail_share_url(opts = {}, escape: true)
       page_url = opts.fetch(:url, request.original_url)
       message = opts.fetch(:message, '')
 
-      page_url = CGI.escape(page_url)
+      if escape
+        page_url = CGI.escape(page_url)
+        message = CGI.escape(message) if message.present?
+      end
 
       share_url = "mailto:?body=#{page_url}"
-      share_url += "&subject=#{CGI.escape(message)}" if message.present?
+      share_url += "&subject=#{message}" if message.present?
 
       share_url
     end

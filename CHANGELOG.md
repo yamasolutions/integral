@@ -7,12 +7,31 @@ recommendations of [keepachangelog.com](http://keepachangelog.com/).
 
 ### Breaking Changes
 
+-
+
+### Added
+
+-
+
+### Fixed
+
+-
+
+### Dependancies
+
+-
+
+
+## v2.0.0 - 2021-12-27
+
+### Breaking Changes
+
 - Homepage is no longer specified within settings area. Instead set homepage path to `/`
 - Removed `additional_tracked_classes` config option - this is now controlled through the `acts_as_integral` concern
 - Bump to Ruby 3.0.1
 - Bump to Rails 6.1
 - Replace Carrierwave with ActiveStorage
-- Switch from frontend framework from Foundation to Bootstrap
+- Switch frontend framework from Foundation to Bootstrap
 - Remove jQuery
 - Remove rails-ujs
 
@@ -37,7 +56,8 @@ recommendations of [keepachangelog.com](http://keepachangelog.com/).
 
 ### Dependancies
 
--
+- Bump to Ruby 3.0.1
+- Bump to Rails 6.1
 
 ## v1.5.1 - 2020-11-08
 

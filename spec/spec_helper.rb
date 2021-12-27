@@ -105,10 +105,6 @@ RSpec.configure do |config|
     Rails.application.load_seed
   end
 
-  config.before(:each, type: :system) do
-    driven_by :apparition
-  end
-
   config.around :each do |ex|
     ex.run_with_retry retry: 3
   end

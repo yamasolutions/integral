@@ -15,7 +15,7 @@ Gem::Specification.new do |s|
   s.files = Dir['{app,config,db,lib}/**/*', 'MIT-LICENSE', 'Rakefile', 'README.md', 'spec/factories.rb', 'spec/support/image.jpg', 'public/**/*']
 
   s.add_dependency 'active_record_union', '~> 1.3.0' # Table Unions - Used joining Versioning tables
-  s.add_dependency 'acts-as-taggable-on', '~> 7.0' # Tagging
+  s.add_dependency 'acts-as-taggable-on'#, '~> 9.0' # Tagging
   s.add_dependency 'breadcrumbs_on_rails', '~> 3.0' # Breadcrumbs
   s.add_dependency 'cocoon', '~> 1.2' # Nested forms
   s.add_dependency 'diffy', '~> 3.1' # View differences
@@ -35,7 +35,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'paranoia', '~> 2.0' # Soft-delete records
   s.add_dependency 'premailer-rails', '~> 1.11' # Stylesheet inlining for email
   s.add_dependency 'pundit', '~> 1.1' # Authorization
-  s.add_dependency 'rails', '~> 6.1.1'
+  s.add_dependency 'rails', '~> 7.0'
   s.add_dependency 'webpacker', '~> 5.1'
   s.add_dependency 'rails-settings-cached', '~> 2.6.0' # Persisted settings
   s.add_dependency 'sass-rails', '~> 6.0' # Sass
@@ -45,8 +45,8 @@ Gem::Specification.new do |s|
   s.add_dependency 'datagrid', '~> 1.5.8' # Grids
   s.add_dependency 'will_paginate', '~> 3.1' # Pagination
   s.add_dependency 'fast_jsonapi', '~> 1.5' # Object Serialization
-  s.add_dependency 'route_translator', '~> 8.0' # Multilingual routing
-  s.add_dependency 'block_editor', '~> 1.0' # Block Editor
+  s.add_dependency 'route_translator', '~> 12.0' # Multilingual routing
+  s.add_dependency 'block_editor'#, '~> 1.0' # Block Editor
 
   s.add_development_dependency 'webrick', '~> 1.7' # Server
   s.add_development_dependency 'database_cleaner', '~> 1.5' # Manages database test states

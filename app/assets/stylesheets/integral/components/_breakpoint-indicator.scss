@@ -1,0 +1,32 @@
+/*
+  Provides developers an indicator of the screen size - useful for when working on the responsive layouts.
+  Pink - XXL
+  Blue - XL
+  Green - L
+  Orange - M
+  Red - S
+
+ */
+.breakpoint-indicator {
+  position: fixed;
+  top: 0;
+  padding: .5rem .5rem;
+  transform: translate(calc(50vw - 50%));
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  color: $white;
+  background-color: $pink;
+  z-index: 999;
+  @include media-breakpoint-down(xl) {
+    background-color: $blue;
+  }
+  @include media-breakpoint-down(lg) {
+    background-color: $green;
+  }
+  @include media-breakpoint-down(md) {
+    background-color: $orange;
+  }
+  @include media-breakpoint-down(sm) {
+    background-color: $red;
+  }
+}

@@ -1,12 +1,12 @@
-.card.listing
-  %h2.show-for-small-only= page_title
-  = link_to t('integral.actions.create'), new_backend_resource_url, class: 'button hollow show-for-small-only create'
-  .top-bar
-    .top-bar-left.hide-for-small-only
-      = link_to t('integral.actions.create'), new_backend_resource_url, class: 'button hollow'
+.card
+  %h2.d-md-none= page_title
+  = link_to t('integral.actions.create'), new_backend_resource_url, class: 'btn btn-outline-primary d-md-none'
+  .d-flex.justify-content-between
+    .top-bar-left.d-none.d-md-block
+      = link_to t('integral.actions.create'), new_backend_resource_url, class: 'btn btn-outline-primary'
     .top-bar-right
       = render_resource_grid_form do |f|
-        %li= f.input :status, collection: resource_klass.available_statuses, label: t('integral.records.attributes.status'), wrapper_html: { class: 'filter' }, input_html: { multiple: true, data: { filter: true, controller: 'grid-filter' } }, required: false
-        %li= f.input :name, as: :search, placeholder: t('integral.actions.search'), wrapper_html: { class: 'filter search' }, hint: false, label: false, input_html: { data: { filter: true }}
+        %li= f.input :status, collection: resource_klass.available_statuses, wrapper_html: { class: 'alternative' }, input_html: { multiple: true, data: { filter: true, controller: 'grid-filter' } }
+        %li= f.input :search, as: :search, placeholder: t('integral.actions.search'), wrapper_html: { class: 'alternative search' }, hint: false, label: false, input_html: { data: { filter: true }}
 
   = render_resource_grid

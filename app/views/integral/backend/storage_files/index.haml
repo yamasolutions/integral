@@ -1,20 +1,13 @@
 = content_for :actionbar do
-  %ul.menu.horizontal
+  %ul.list-group.mb-1
     - if policy(resource_klass).new?
-      %li
-        = link_to new_backend_resource_url, class: 'button white' do
-          = icon('plus')
+      %li.list-group-item
+        = link_to new_backend_resource_url, class: 'btn btn-light' do
+          = icon('bi bi-plus')
           = t('integral.actions.upload')
 
-.grid-x
-  -# Left Column
-  .cell.large-6
-    .grid-y
-      .cell= render_card(:recent_resources)
-      .cell= render_card(:at_a_glance)
-
-  -# Right Column
-  .cell.large-6
-    .grid-y
-      .cell= render_card(:recent_activity)
-      .cell.xlarge-6= render_card(:recent_user_activity)
+.row
+  .col-md-6= render_card(:recent_resources)
+  .col-md-6= render_card(:at_a_glance)
+  .col-md-6= render_card(:recent_activity)
+  .col-md-6= render_card(:recent_user_activity)

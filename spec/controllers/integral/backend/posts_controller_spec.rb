@@ -7,7 +7,7 @@ module Integral
 
       let(:title) { 'foobar title' }
       let(:slug) { 'foobar-title' }
-      let(:description) { Faker::Lorem.paragraph(8)[0..150] }
+      let(:description) { Faker::Lorem.paragraph(sentence_count: 8)[0..150] }
       let(:tag_list) { 'foo,bar,tags' }
       let(:category) { create(:integral_category) }
       let(:post_params) { { title: title, description: description, tag_list: tag_list, slug: slug, user_id: user.id, category_id: category.id } }

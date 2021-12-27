@@ -11,6 +11,7 @@ module Integral
       # POST /
       # Update settings
       def create
+        # TODO: Re-implement this
         # Parse for booleans
         settings_params.each do |key, value|
           Settings[key] = parsed_value(value) if value.present?

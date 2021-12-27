@@ -3,6 +3,8 @@ module Integral
   class Enquiry < ApplicationRecord
     acts_as_paranoid # Soft-deletion
 
+    attr_accessor :first_name # NOTE: first_name acts as honey pot
+
     # Validations
     validates :email, presence: true
     validates_format_of :email, with: Devise.email_regexp

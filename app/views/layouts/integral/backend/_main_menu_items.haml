@@ -1,1 +1,9 @@
-= render_main_menu
+- main_menu_items.each do |item|
+  - if current_user_authorized_for_menu_item?(item)
+    %li
+      - if item[:list_items]&.any?
+        %button(data-bs-toggle="tab" id="tab--#{item[:label]}" data-target="pane--#{item[:label]}" type="button" role="tab")
+          = icon(item[:icon])
+          %span= item[:label]
+      - else
+        = link_to item[:label], item[:url], icon: item[:icon]

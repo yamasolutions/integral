@@ -1,1 +1,4 @@
-%ul.menu.vertical= render_create_menu
+- create_menu_items.each do |item|
+  - if current_user_authorized_for_menu_item?(item)
+    %li.list-group-item
+      = link_to item[:label], item[:url], icon: item[:icon]

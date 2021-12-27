@@ -21,7 +21,11 @@ module Integral
       end
 
       it 'renders the sender email' do
-        expect(mail.from).to eq [enquiry.email]
+        expect(mail.from).to eq [Integral::Settings.contact_email]
+      end
+
+      it 'renders the reply to email' do
+        expect(mail.reply_to).to eq [enquiry.email]
       end
     end
 

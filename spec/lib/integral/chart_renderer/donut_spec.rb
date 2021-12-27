@@ -9,13 +9,15 @@ module Integral
         { scope: Integral::User, label: 'Total Users' }
       ]}
       let(:graph_markup) { "
-                           <canvas data-chart data-chart-type='donut'>
+                           <div class='pos-relative'>
+                           <canvas class='chart-donut' data-chart-type='donut' data-controller='chart'>
                            <ul>
                            <li data-value='3'>= Total Pages: 3</li>
                            <li data-value='0'>= Total Lists: 0</li>
                            <li data-value='0'>= Total Users: 0</li>
                            </ul>
                            </canvas>
+                           </div>
                            ".squish.gsub("\n", ' ') + ' ' }
       let(:no_data_markup) { ApplicationController.renderer.render(partial: "integral/backend/shared/graphs/no_data_available") }
 

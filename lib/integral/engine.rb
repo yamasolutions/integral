@@ -1,26 +1,17 @@
 module Integral
   # Integral Engine
   class Engine < ::Rails::Engine
+    require 'block_editor'
     require 'haml'
     require 'htmlcompressor'
     require 'groupdate'
-    require 'turbolinks'
-    require 'toastr-rails'
-    require 'nprogress-rails'
+    require 'turbo-rails'
     require 'simple_form'
     require 'gibbon'
     require 'cocoon'
     require 'draper'
-    require 'coffee-rails'
-    require 'jquery-rails'
-    require 'rails-ujs'
-    require 'client_side_validations'
-    require 'client_side_validations/simple_form'
-    require 'parsley-rails'
     require 'datagrid'
-    require 'font-awesome-sass'
     require 'breadcrumbs_on_rails'
-    require 'foundation-rails'
     require 'pundit'
     require 'paper_trail'
     require 'diffy'
@@ -34,9 +25,8 @@ module Integral
     require 'inky'
     require 'premailer/rails'
     require 'will_paginate'
-    require 'will_paginate-foundation'
+    require 'will_paginate/view_helpers/action_view' # Eagerly load otherwise have no access to LinkRenderer to inherit from it for custom renderers
     require 'rails-settings-cached'
-    require 'gaffe'
     require 'fast_jsonapi'
     require 'route_translator'
     require 'webpacker'
@@ -59,6 +49,7 @@ module Integral
       end
 
       Integral::Engine.routes.default_url_options[:host] = Rails.application.routes.default_url_options[:host]
+      Integral::Engine.config.assets.paths << Integral::Engine.root.join('node_modules')
 
       if Integral.multilingual_frontend?
         RouteTranslator.config do |config|
@@ -71,9 +62,9 @@ module Integral
     # Menu Initializaion - Add items to menus which are not directly linked to a Modal
     initializer "integral.backend.set_main_menu_items" do |app|
       ActiveSupport::Notifications.subscribe 'integral.routes_loaded' do
-        Integral::ActsAsIntegral.add_backend_main_menu_item(id: :home, icon: 'home', order: 10, label: 'Home', url: Integral::Engine.routes.url_helpers.backend_dashboard_url)
-        Integral::ActsAsIntegral.add_backend_main_menu_item(id: :activities, icon: 'crosshairs', order: 90, label: 'Activities', url: Integral::Engine.routes.url_helpers.backend_activities_url, authorize: proc { policy(Integral::Version).manager? })
-        Integral::ActsAsIntegral.add_backend_main_menu_item(id: :settings, icon: 'cog', order: 100, label: 'Settings', url: Integral::Engine.routes.url_helpers.backend_settings_url, authorize: proc { current_user.admin? })
+        Integral::ActsAsIntegral.add_backend_main_menu_item(id: :home, icon: 'bi bi-house', order: 10, label: 'Home', url: Integral::Engine.routes.url_helpers.backend_dashboard_url)
+        Integral::ActsAsIntegral.add_backend_main_menu_item(id: :activities, icon: 'bi bi-clock', order: 90, label: 'Activities', url: Integral::Engine.routes.url_helpers.backend_activities_url, authorize: proc { policy(Integral::Version).manager? })
+        Integral::ActsAsIntegral.add_backend_main_menu_item(id: :settings, icon: 'bi bi-gear', order: 100, label: 'Settings', url: Integral::Engine.routes.url_helpers.backend_settings_url, authorize: proc { current_user.admin? })
       end
     end
 
@@ -91,37 +82,7 @@ module Integral
     end
 
     initializer 'integral.assets.precompile' do |app|
-      assets_for_precompile = [
-        # Dashboard tiles
-        'integral/tiles/*',
-        # Defaults
-        'integral/defaults/*',
-        # Frontend
-        'integral/frontend.js',
-        'integral/frontend.css',
-        'integral/posts-hero-banner.jpg',
-        'integral/demo/*',
-        'logo.png',
-
-        # Backend
-        'integral/backend.js',
-        'integral/backend.css',
-        'integral/backend/logo.png',
-        'integral/backend/data-unavailable.png',
-        'integral/image-not-set.png',
-
-        # Block Editor
-        'integral/block_editor.css',
-
-        # Emails
-        'integral/emails.css',
-        'integral/emails/colors.css',
-
-        # Errors
-        'errors.css'
-      ]
-
-      app.config.assets.precompile.concat assets_for_precompile
+      app.config.assets.precompile << "integral_manifest.js"
     end
 
     initializer "webpacker.proxy" do |app|

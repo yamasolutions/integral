@@ -1,3 +1,11 @@
+# frozen_string_literal: true
+#
+# Uncomment this and change the path if necessary to include your own
+# components.
+# See https://github.com/heartcombo/simple_form#custom-components to know
+# more about custom components.
+# Dir[Rails.root.join('lib/components/**/*.rb')].each { |f| require f }
+#
 # Use this setup block to configure all options available in SimpleForm.
 SimpleForm.setup do |config|
   # Wrappers are used by the form builder to generate a
@@ -6,7 +14,7 @@ SimpleForm.setup do |config|
   # stack. The options given below are used to wrap the
   # whole input.
   config.wrappers :default, class: :input,
-    hint_class: 'field-with-hint', error_class: 'field-with-errors' do |b|
+    hint_class: :field_with_hint, error_class: :field_with_errors, valid_class: :field_without_errors do |b|
     ## Extensions enabled by default
     # Any of these extensions can be disabled for a
     # given input by passing: `f.input EXTENSION_NAME => false`.
@@ -29,24 +37,25 @@ SimpleForm.setup do |config|
 
     # Calculates maxlength from length validations for string inputs
     # and/or database column lengths
-    b.use :maxlength
+    b.optional :maxlength
 
     # Calculate minlength from length validations for string inputs
-    b.use :minlength
+    b.optional :minlength
 
     # Calculates pattern from format validations for string inputs
     b.optional :pattern
 
     # Calculates min and max from length validations for numeric inputs
-    b.use :min_max
+    b.optional :min_max
 
     # Calculates readonly automatically from readonly attributes
     b.optional :readonly
 
     ## Inputs
+    # b.use :input, class: 'input', error_class: 'is-invalid', valid_class: 'is-valid'
     b.use :label_input
-    b.use :error, wrap_with: { tag: :span, class: 'form-error is-visible' }
-    b.use :hint,  wrap_with: { tag: :p, class: 'help-text' }
+    b.use :hint,  wrap_with: { tag: :span, class: :hint }
+    b.use :error, wrap_with: { tag: :span, class: :error }
 
     ## full_messages_for
     # If you want to display the full error message for the attribute, you can
@@ -65,7 +74,7 @@ SimpleForm.setup do |config|
   config.boolean_style = :nested
 
   # Default class for buttons
-  config.button_class = 'button'
+  config.button_class = 'btn'
 
   # Method used to tidy up errors. Specify any Rails Array method.
   # :first lists the first message for each field.
@@ -77,9 +86,6 @@ SimpleForm.setup do |config|
 
   # CSS class to add for error notification helper.
   config.error_notification_class = 'error_notification'
-
-  # ID to add for error notification helper.
-  # config.error_notification_id = nil
 
   # Series of attempts to detect a default label method for collection.
   # config.collection_label_methods = [ :to_label, :name, :title, :to_s ]
@@ -104,7 +110,7 @@ SimpleForm.setup do |config|
   # config.label_text = lambda { |label, required, explicit_label| "#{required} #{label}" }
 
   # You can define the class to use on all labels. Default is nil.
-  # config.label_class = nil
+  config.label_class = 'form-label'
 
   # You can define the default class to be used on forms. Can be overriden
   # with `html: { :class }`. Defaulting to none.
@@ -121,10 +127,7 @@ SimpleForm.setup do |config|
   # in this configuration, which is recommended due to some quirks from different browsers.
   # To stop SimpleForm from generating the novalidate option, enabling the HTML5 validations,
   # change this configuration to true.
-  config.browser_validations = false
-
-  # Collection of methods to detect if a file type was given.
-  # config.file_methods = [ :mounted_as, :file?, :public_filename ]
+  config.browser_validations = true
 
   # Custom mappings for input types. This should be a hash containing a regexp
   # to match as key, and the input type that will be used when the field name
@@ -166,4 +169,8 @@ SimpleForm.setup do |config|
 
   # Defines which i18n scope will be used in Simple Form.
   # config.i18n_scope = 'simple_form'
+
+  # Defines validation classes to the input_field. By default it's nil.
+  # config.input_field_valid_class = 'is-valid'
+  # config.input_field_error_class = 'is-invalid'
 end

@@ -9,7 +9,7 @@ module Integral
         Integral::Post.all.order('title DESC')
       end
 
-      filter(:title) do |value|
+      filter(:search) do |value|
         search(value)
       end
 

@@ -24,8 +24,8 @@ module Integral
       }
     end
 
-    def image_url(size: nil, transform: nil)
-      image_variant_url(image, size: size, transform: transform)
+    def image_url(size: nil, transform: nil, fallback: true)
+      image_variant_url(image, size: size, transform: transform, fallback: fallback)
     end
   end
 end

@@ -1,5 +1,5 @@
-.card.list-management
-  .top-bar
+.card.list-manager
+  .top-bar.d-flex.justify-content-between
     .top-bar-left
       = f.input :children, wrapper_html: { class: 'alternative' }, disabled: locked
     .top-bar-right
@@ -7,6 +7,6 @@
   #list-items.sortable
     = link_to_add_association f, :list_items, 'data-association-insertion-method' => 'after', id: 'top-add-list-button', 'data-association-insertion-node' => '#top-add-list-button', force_non_association_create: true do
       .add-list-item
-        = icon('plus')
+        = icon('bi bi-plus')
     = f.simple_fields_for :list_items do |list_item|
       = render 'list_item_fields', f: list_item

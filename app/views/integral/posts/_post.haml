@@ -1,11 +1,11 @@
 .horizontal-post
-  .grid-x.grid-padding-x
-    .cell.small-4
+  .row
+    .col-4
       = link_to integral.post_url(post.slug) do
         = image_tag post.image_url, alt: post.title
-    .cell.small-8.horizontal-post-body
+    .col-8.horizontal-post-body
       %h3= link_to post.title, integral.post_url(post.slug)
-      %p.show-for-medium= post.description
+      %p.horizontal-post-description= post.description
       %ul.list-unstyled.piped-list
         %li= post.published_at
         %li= link_to post.category.title, category_path(post.category)

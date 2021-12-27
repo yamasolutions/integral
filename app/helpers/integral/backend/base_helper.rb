@@ -15,7 +15,7 @@ module Integral
       def grouped_page_parent_options
         @resource.available_parents.order('updated_at DESC').group_by(&:locale).map do |result|
           [
-            t("language.#{result[0]}"),
+            t("integral.language.#{result[0]}"),
             result[1].map { |page| [ "#{page.title} - #{page.path} (##{page.id})", page.id ] }
           ]
         end.to_h
@@ -24,7 +24,7 @@ module Integral
       def grouped_post_alternate_options
         Integral::Post.published.where.not(id: @resource.id).order('updated_at DESC').group_by(&:locale).map do |result|
           [
-            t("language.#{result[0]}"),
+            t("integral.language.#{result[0]}"),
             result[1].map { |post| ["#{post.title} - #{post.slug} (##{post.id})", post.id, {disabled: @resource.alternate_ids.include?(post.id), data: { title: post.title, description: post.description, path: post.slug, url: backend_post_url(post.id) } }] }
           ]
         end.to_h
@@ -33,7 +33,7 @@ module Integral
       def grouped_page_alternate_options
         Integral::Page.published.where.not(id: @resource.id).order('updated_at DESC').group_by(&:locale).map do |result|
           [
-            t("language.#{result[0]}"),
+            t("integral.language.#{result[0]}"),
             result[1].map { |page| ["#{page.title} - #{page.path} (##{page.id})", page.id, {disabled: @resource.alternate_ids.include?(page.id), data: { title: page.title, description: page.description, path: page.path, url: backend_page_url(page.id) } }] }
           ]
         end.to_h
@@ -45,14 +45,6 @@ module Integral
 
       def decorated_current_user
         @decorated_current_user ||= current_user.decorate
-      end
-
-      def render_main_menu
-        render_menu(extract_menu_items(Integral::ActsAsIntegral.backend_main_menu_items, :integral_backend_main_menu_item))
-      end
-
-      def render_create_menu
-        render_menu(extract_menu_items(Integral::ActsAsIntegral.backend_create_menu_items, :integral_backend_create_menu_item))
       end
 
       def recent_user_notifications
@@ -92,7 +84,9 @@ module Integral
 
       # @return [String] Resource Grid
       def render_resource_grid(locals = {})
-        render(partial: "integral/backend/shared/grid/grid", locals: locals)
+        render_data_grid do
+          render(partial: "integral/backend/shared/grid/grid", locals: locals)
+        end
       end
 
       # @return [String] Integral card
@@ -123,7 +117,6 @@ module Integral
       end
 
       def recent_activity_grid(options)
-        #Integral::Grids::ActivitiesGrid.new(options)
         Integral::Grids::ActivitiesGrid.new options do |scope|
           scope.where.not(whodunnit: nil)
         end
@@ -144,10 +137,10 @@ module Integral
       # Renders a grid from a local partial within a datagrid container
       def render_data_grid
         unless block_given?
-          return content_tag(:div, render(partial: 'grid', locals: { grid: @grid }), data: { 'grid' => true, 'form' => 'grid_form' })
+          return content_tag(:div, render(partial: 'grid', locals: { grid: @grid }), data: { 'controller' => 'grid', 'form' => 'grid_form' }, class: 'grid-container')
         end
 
-        content_tag :div, data: { 'grid' => true, 'form' => 'grid_form' } do
+        content_tag(:div, data: { 'controller' => 'grid', 'form' => 'grid_form' }, class: 'grid-container') do
           yield
         end
       end
@@ -158,7 +151,9 @@ module Integral
           locale: I18n.locale,
           'user-name' => current_user.name,
           'user-email' => current_user.email,
-          'user-created-at' => current_user.created_at.to_i
+          'user-created-at' => current_user.created_at.to_i,
+          'flash-type' => flash.first&.first,
+          'flash-message' => flash.first&.second
         }
       end
 
@@ -201,39 +196,18 @@ module Integral
         end
       end
 
+      def main_menu_items
+        extract_menu_items(Integral::ActsAsIntegral.backend_main_menu_items, :integral_backend_main_menu_item).sort_by { |item| item[:order] }
+      end
+
+      def create_menu_items
+        extract_menu_items(Integral::ActsAsIntegral.backend_create_menu_items, :integral_backend_create_menu_item).sort_by { |item| item[:order] }
+      end
+
       private
 
       def extract_menu_items(items, extract_method)
         items = items.map { |item| item.class == Class ? item.send(extract_method) : item }
-      end
-
-      def render_menu(items, options={})
-        return '' if items.empty?
-
-        output = ''
-        items = items.sort_by { |item| item[:order] }
-
-        items.each do |item|
-          next unless current_user_authorized_for_menu_item?(item)
-
-          if item[:list_items]&.any?
-            output += content_tag :li do
-              list = content_tag :ul do
-                list_items = item[:list_items].map do |list_item|
-                  next unless current_user_authorized_for_menu_item?(list_item)
-
-                  link_to list_item[:label], list_item[:url], wrapper: :li
-                end.join.html_safe
-                list_items.prepend(content_tag(:li, item[:label]))
-              end
-              list.prepend(link_to(item[:label], item[:url], icon: item[:icon]))
-            end
-          else
-            output += link_to item[:label], item[:url], wrapper: :li, icon: item[:icon]
-          end
-        end
-
-        output.html_safe
       end
     end
   end

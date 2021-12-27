@@ -1,0 +1,14 @@
+.card
+  %h2.d-md-none= page_title
+  - if policy(Integral::Page).create?
+    = link_to t('integral.actions.create'), new_backend_resource_url, class: 'btn btn-outline-primary d-md-none'
+
+  .d-flex.justify-content-between
+    - if policy(Integral::Page).create?
+      .top-bar-left.d-none.d-md-block
+        = link_to t('integral.actions.create'), new_backend_resource_url, class: 'btn btn-outline-primary'
+    .top-bar-right
+      = render_resource_grid_form do |f|
+        %li= f.input :search, as: :search, placeholder: t('integral.actions.search'), wrapper_html: { class: 'alternative search' }, hint: false, label: false, input_html: { data: { filter: true }}
+
+  = render_resource_grid

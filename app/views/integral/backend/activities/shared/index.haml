@@ -1,15 +1,14 @@
 - content_for :title, t('.title', title: decorated_resource.title)
-.card.listing
-  = simple_form_for @grid, as: :grid, url: form_url, method: :get, remote: true, html: { id: :grid_form, 'data-type' => :json } do |f|
+.card
+  = simple_form_for @grid, as: :grid, url: form_url, html: { id: :grid_form, novalidate: true } do |f|
     = f.hidden_field(:descending, value: @grid.descending, class: 'desc-field')
     = f.hidden_field(:order, value: @grid.order, class: 'order-field')
     = f.hidden_field(:page, value: resource_grid_options[:page], class: 'page-field')
 
-    .top-bar
-      .top-bar-right
-        %ul.align-right.menu.filters
-          %li= f.input :user, collection: Integral::User.all.map {|u| [u.name, u.id]}, label: t('integral.records.attributes.user'), wrapper_html: { class: 'filter' }, input_html: { multiple: true, data: { filter: true, controller: 'grid-filter' } }, required: false
-          %li= f.input :action, collection: Integral::Version.available_actions, label: 'Action', wrapper_html: { class: 'filter' }, input_html: { multiple: true, data: { filter: true, controller: 'grid-filter' } }, required: false
+    .d-flex.justify-content-end
+      %ul.list-group.list-group-filters
+        %li= f.input :user, collection: Integral::User.all.map {|u| [u.name, u.id]}, wrapper_html: { class: 'alternative' }, input_html: { multiple: true, data: { filter: true, controller: 'grid-filter' } }
+        %li= f.input :action, collection: Integral::Version.available_actions, wrapper_html: { class: 'alternative' }, input_html: { multiple: true, data: { filter: true, controller: 'grid-filter' } }
 
   = render partial: 'integral/backend/activities/shared/grid', locals: { grid: @grid }
 

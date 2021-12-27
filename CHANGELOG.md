@@ -9,9 +9,12 @@ recommendations of [keepachangelog.com](http://keepachangelog.com/).
 
 - Homepage is no longer specified within settings area. Instead set homepage path to `/`
 - Removed `additional_tracked_classes` config option - this is now controlled through the `acts_as_integral` concern
-- Bump to Ruby 2.7.2
+- Bump to Ruby 3.0.1
 - Bump to Rails 6.1
 - Replace Carrierwave with ActiveStorage
+- Switch from frontend framework from Foundation to Bootstrap
+- Remove jQuery
+- Remove rails-ujs
 
 ### Added
 

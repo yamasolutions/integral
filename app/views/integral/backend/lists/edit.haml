@@ -1,15 +1,8 @@
-= content_for :actionbar do
-  %ul.menu.horizontal
-    - if policy(Integral::List).duplicate?
-      = link_to t('integral.actions.clone'), duplicate_backend_list_url(@resource.id), class: 'button white', method: :post, data: { confirm: t('integral.actions.confirmation.clone') }, icon: :history, wrapper: :li
-
-= simple_form_for [:backend, @resource], validate: true, html: { class: 'are-you-sure', 'data-confirm-dirty-form' => true, 'data-list-item-limit' => @resource.list_item_limit, id: :list_form } do |f|
+= simple_form_for [:backend, @resource], validate: true, html: { class: 'are-you-sure', 'data-controller' => 'list-manager', 'data-confirm-dirty-form' => true, 'data-list-item-limit' => @resource.list_item_limit, id: :resource_form } do |f|
   = f.input :lock_version, as: :hidden
-  .grid-x
-    .cell.medium-6.flex-container
-      .card= f.input :title, hint: false, disabled: f.object.locked?
-    .cell.medium-6.flex-container
-      .card= f.input :description, hint: false, disabled: f.object.locked?
-    .cell
+  .row
+    .col-md-12.form-group-list
+      = f.input :title, hint: false, disabled: f.object.locked?
+      = f.input :description, hint: false, disabled: f.object.locked?
       = render partial: 'integral/backend/lists/manager', locals: { f: f, locked: f.object.locked? }
-    .cell= f.button :button
+    %div= f.button :button, class: 'btn-primary'

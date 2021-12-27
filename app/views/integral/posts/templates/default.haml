@@ -1,38 +1,46 @@
-= render_post_as_json_ld(@post)
+= render_post_as_json_ld(@resource)
 
-= render partial: 'integral/shared/breadcrumbs'
-#blog-wrapper.grid-container
-  .grid-x.grid-padding-x
-    .cell.large-9
-      %article.article
-        %header
-          %h1
-            = @post.title
-            - if user_signed_in?
-              %span.label.entity-status{ class: @post.draft? ? 'warning' : '' }= @post.status
-              %span.small= link_to 'Edit', integral.edit_backend_post_url(@post.id), class: "button medium", data: { 'turbolinks' => 'false' }
-          .grid-x
-            .cell.medium-8
-              .article-author
-                %span= @post.avatar
-                = @post.author.name
-              %ul.list-unstyled.piped-list
-                %li= @post.published_at
-                %li= link_to @post.category.title, category_path(@post.category)
-            .cell.small-4.text-right.show-for-medium
-              %button.button{ 'data-open' => 'share-modal' }
-                = icon('share', class: 'show-for-medium')
-                = t('integral.actions.share')
-        %section.wysiwyg-content.wysiwyg-content--post
-          = @post.render_active_block_list
-        = render partial: 'integral/posts/article_footer'
-      .hide-for-large= render partial: 'similar_posts'
+= render layout: 'integral/shared/blog/layout', locals: { title: @resource.title, resource: @resource } do
+  %header.article__header
+    .row
+      .col-10.col-md-8
+        %ul.list-group.list-group-horizontal.list-group-piped.d-lg-none
+          %li.list-group-item.text-muted
+            .article__author.text-muted
+              %span
+                = image_tag @resource.author.decorate.avatar_url, class: 'article__avatar', alt: @resource.author.name
+              = @resource.author.name
+          %li.list-group-item.text-muted= @resource.published_at
+        .article__author.text-muted.d-none.d-lg-block
+          %span
+            = image_tag @resource.author.decorate.avatar_url, class: 'article__avatar', alt: @resource.author.name
+          = @resource.author.name
+        %ul.list-group.list-group-horizontal.list-group-piped
+          %li.list-group-item.text-muted.d-none.d-lg-block= @resource.published_at
+          %li.list-group-item.text-muted= link_to @resource.category.title, category_path(@resource.category)
+          - if @resource.tags_on(@resource.tag_context).any?
+            %li.list-group-item.text-muted
+              %button.js-popover-trigger.bg-transparent.border-0.btn-link.text-muted{ data: { 'bs-toggle' => 'popover', 'bs-html' => 'true', 'bs-custom-class' => 'popover-tags', 'bs-placement' => 'bottom', 'bs-content' => content_tag(:ul, @resource.tags_on(@resource.tag_context).map {|t| content_tag(:li, link_to("##{t.name}", integral.tag_path(t.name), class: 'badge'), class: 'post-tags__item') }.join().html_safe, class: 'post-tags justify-content-center') } }
+                = @resource.tags_on(@resource.tag_context).count
+                = t('labels.tags')
+                %i.bi.bi-info-circle
 
-    = render partial: 'integral/shared/blog/sidebar'
+      .col-2.col-md-4.d-flex.justify-content-end.align-items-start
+        %button.btn.btn-primary(type="button" data-bs-toggle="modal" data-bs-target="#modal--share")
+          %i.bi.bi-share
+          %span.m-1.d-md-inline-block.d-none
+            = t('integral.actions.share')
+      .col-12
+        %hr
 
-.grid-container.show-for-large
-  = render partial: 'similar_posts'
+  %section.wysiwyg-content.wysiwyg-content--post
+    = @resource.render_active_block_list
 
-= render partial: 'integral/shared/blog/categories'
+- if display_similar_posts_widget?
+  .container
+    = render partial: 'similar_posts'
+
 = render partial: 'integral/shared/share_modal'
-= render partial: 'integral/shared/subscribe_modal'
+
+= content_for :edit_resource_link do
+  = link_to t('integral.actions.edit'), edit_backend_post_url(@resource.id), data: { 'turbo' => 'false' }

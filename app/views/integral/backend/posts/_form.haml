@@ -1,41 +1,35 @@
-= simple_form_for [:backend, @resource], validate: true, html: { id: 'resource_form', class: 'are-you-sure', 'data-confirm-dirty-form' => true } do |f|
+= simple_form_for [:backend, @resource],  html: { id: 'resource_form' } do |f|
   = f.input :lock_version, as: :hidden
-  .grid-x
-    .cell.medium-9
-      .grid-y
-        = f.input :title, input_html: { id: 'resource_title' }
-        = f.input :description
-        = f.simple_fields_for :active_block_list do |block_list|
-          = block_list.input :content, as: :block_editor
+  .row
+    .col-md-8.form-group-list
+      = f.input :title, input_html: { data: { controller: 'slugger', action: 'slugger#slugify', slugger: '#resource_slug' }}
+      = f.input :description
+      = f.fields_for :active_block_list do |block_list|
+        = BlockEditor::Instance.render(block_list)
 
-    .cell.medium-3
-      .grid-y
-        .cell
-          .card
-            = f.label(:status)
-            %hr.dark
-            .radios= f.collection_radio_buttons :status, resource_klass.available_statuses, :last, :first
-            %hr.dark
-            = f.button :button if f.object.persisted?
+    .col-md-4.form-group-list
+      .form-group
+        = f.input :status, as: :radio_buttons, collection: Integral::Post.available_statuses, include_hidden: false
+        %hr.dark
+          = f.button :button, class: 'btn-primary' if f.object.persisted?
 
-        = f.input :slug, input_html: { data: { slugify: '#resource_title' }}
-        = f.input :category_id, collection: Integral::Category.all.map{ |category| [category.title, category.id] }, include_blank: false
-        = f.input :tag_list, input_html: { value: @resource.tag_list_on(@resource.tag_context).join(','), data: { suggest_tags: true, suggest_tags_typeahead: resource_klass.tags_on("published_#{@resource.locale}").map(&:name).join(' ') } }
-        - if Integral.multilingual_frontend?
-          = f.input :locale, collection: Integral.frontend_locales.map { |locale| [t("integral.language.#{locale}"), locale] }, include_blank: false
-          .card{ data: { controller: 'alternate-resource' } }
-            %h2 Alternates
-            %hr.dark
-            %div{data: { target: 'alternate-resource.list' } }
-              .hide{data: { target: 'alternate-resource.template' } }= render partial: "alternate", locals: { alternate: resource_klass.new(title: '', description: '') }
-              = render partial: "alternate", collection: @resource.alternates.published
+      = f.input :slug, input_html: { id: 'resource_slug', data: { controller: 'slugger', action: 'slugger#validate' }}
+      = f.input :category_id, collection: Integral::Category.all.map{ |category| [category.title, category.id] }, include_blank: false
+      = f.input :tag_list, input_html: { value: @resource.tag_list_on(@resource.tag_context).join(','), data: { controller: 'resource-tags', tag_options: resource_klass.all_tags.pluck(:name).sort.join(' ') } }
+      - if Integral.multilingual_frontend?
+        = f.input :locale, collection: Integral.frontend_locales.map { |locale| [t("integral.language.#{locale}"), locale] }, include_blank: false
+        .card{ data: { controller: 'alternate-resource' } }
+          %p.form-label Alternates
+          %div{data: { target: 'alternate-resource.list' } }
+            .d-none{data: { target: 'alternate-resource.template' } }= render partial: "alternate", locals: { alternate: resource_klass.new(title: '', description: '') }
+            = render partial: "alternate", collection: @resource.alternates.published
 
-            %p{data: { target: 'alternate-resource.emptyMessage' }, class: @resource.alternates.published.empty? ? '' : 'hide' } No alternates selected.
+          %p{data: { target: 'alternate-resource.emptyMessage' }, class: @resource.alternates.published.empty? ? '' : 'd-none' } No alternates selected.
 
-            = select_tag :alternates, grouped_options_for_select(grouped_post_alternate_options), prompt: "Select an alternate..", data: { target: 'alternate-resource.dropdown', action: 'alternate-resource#add' }
-            %p.help-text Reference any published resources which serve as alternates. Example - versions of the same piece of content in different languages
+          = select_tag :alternates, grouped_options_for_select(grouped_post_alternate_options), prompt: "Select an alternate..", data: { target: 'alternate-resource.dropdown', action: 'alternate-resource#add' }
+          %small.form-text Reference any published resources which serve as alternates. Example - versions of the same piece of content in different languages
 
-        = f.association :user
-        = render partial: 'integral/backend/shared/image_preview', locals: { f:f }
-        = render partial: 'integral/backend/shared/image_preview', locals: { f:f, attribute: :preview_image, help_text: 'This is displayed when sharing socially, leave blank to fallback to the featured image.' }
-    .cell= f.button :button
+      = f.association :user
+      = render partial: 'integral/backend/shared/image_preview', locals: { f:f }
+      = render partial: 'integral/backend/shared/image_preview', locals: { f:f, attribute: :preview_image, help_text: 'This is displayed when sharing socially, leave blank to fallback to the featured image.' }
+    .col= f.button :button, class: 'btn-primary'

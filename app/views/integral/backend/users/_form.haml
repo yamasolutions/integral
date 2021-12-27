@@ -1,51 +1,49 @@
-= simple_form_for [:backend, @resource], validate: true, html: { id: 'user_form', class: 'are-you-sure' } do |f|
+= simple_form_for [:backend, @resource], validate: true, html: { id: 'resource_form', class: 'are-you-sure' } do |f|
   = f.input :lock_version, as: :hidden
-  .grid-x
-    .cell.medium-8.large-9
-      .grid-y
-        = f.input :name
-        = f.input :email
-        - if policy(current_user).manager?
-          .cell
-            .card
-              - roles = Integral::Role.all.map { |role| [role.name, role.id ] }.to_h
-              = hidden_field_tag 'user[role_ids][]'
-              %table.table-striped.centered.js-table--user-roles
-                %thead
-                  %th Role
-                  %th Reader
-                  %th Contributer
-                  %th Editor
-                  %th Manager
-                %tbody
-                  - for object_name in Integral::ActsAsIntegral.tracked_classes.map {|k| k.name.demodulize}.sort
-                    %tr
-                      %th= object_name
-                      - for role_type in ['Reader', 'Contributer', 'Editor', 'Manager']
-                        - if roles["#{object_name}#{role_type}"].present?
-                          %td
-                            %span.checkbox
-                              = check_box_tag 'user[role_ids][]', roles["#{object_name}#{role_type}"], @resource.role_ids.include?(roles["#{object_name}#{role_type}"]), id: "#{object_name}#{role_type}", class: 'filled-in'
-                              = label_tag "#{object_name}#{role_type}", '&nbsp'.html_safe
-                        - else
-                          %td
-
-    .cell.medium-4.large-3
-      .grid-y
-        = f.input :notify_me
+  .row
+    .col-md-8.form-group-list
+      = f.input :name
+      = f.input :email
+      - if policy(current_user).manager?
         .cell
-          .card{ data: { controller: 'image-upload' } }
-            = f.input :image, as: :hidden, input_html: { data: { target: 'image-upload.idField' }, value: @resource.image&.blob&.signed_id }
-            = f.label(:image)
+          .card
+            - roles = Integral::Role.all.map { |role| [role.name, role.id ] }.to_h
+            = hidden_field_tag 'user[role_ids][]'
+            %table.table.table-striped.js-table--user-roles
+              %thead
+                %th Role
+                %th Reader
+                %th Contributer
+                %th Editor
+                %th Manager
+              %tbody
+                - for object_name in Integral::ActsAsIntegral.tracked_classes.map {|k| k.name.demodulize}.sort
+                  %tr
+                    %th= object_name
+                    - for role_type in ['Reader', 'Contributer', 'Editor', 'Manager']
+                      - if roles["#{object_name}#{role_type}"].present?
+                        %td
+                          %span.checkbox
+                            = check_box_tag 'user[role_ids][]', roles["#{object_name}#{role_type}"], @resource.role_ids.include?(roles["#{object_name}#{role_type}"]), id: "#{object_name}#{role_type}", class: 'filled-in', data: { controller: 'permission-checkbox', action: 'permission-checkbox#confirmUnique' }
+                            = label_tag "#{object_name}#{role_type}", '&nbsp'.html_safe
+                      - else
+                        %td
 
-            - if @resource.image.attached?
-              = image_tag main_app.url_for(@resource.image), data: { target: 'image-upload.previewImage' }
-            - else
-              %img{ data: { target: 'image-upload.previewImage' } }
-            %button.button.clear{ class: @resource.image.attached? ? '' : 'hide', type: :button, data: { target: 'image-upload.updateButton', action: 'image-upload#open' } } Update Avatar
-            %button.button.clear{ class: @resource.image.attached? ? 'hide' : '',  type: :button, data: { target: 'image-upload.createButton', action: 'image-upload#open' } } Create Avatar
+    .col-md-4.form-group-list
+      = f.input :notify_me
+      .card{ data: { controller: 'image-upload' } }
+        = f.input :image, as: :hidden, input_html: { data: { target: 'image-upload.idField' }, value: @resource.image&.blob&.signed_id }
+        %h3
+          = f.label(:image)
 
-        = f.input :locale, collection: Integral::User.available_locales, prompt: t('integral.backend.users.prompts.select_language'), include_blank: false
+        - if @resource.image.attached?
+          = image_tag main_app.url_for(@resource.image), data: { target: 'image-upload.previewImage' }
+        - else
+          %img{ data: { target: 'image-upload.previewImage' } }
+        %button.btn.btn-clear{ class: @resource.image.attached? ? '' : 'd-none', type: :button, data: { target: 'image-upload.updateButton', action: 'image-upload#open' } } Update Avatar
+        %button.btn.btn-clear{ class: @resource.image.attached? ? 'd-none' : '',  type: :button, data: { target: 'image-upload.createButton', action: 'image-upload#open' } } Create Avatar
 
-    .cell= f.button :button
+      = f.input :locale, collection: Integral::User.available_locales, prompt: t('integral.backend.users.prompts.select_language'), include_blank: false
+
+    %div= f.button :button, class: 'btn-primary'
 

@@ -2,7 +2,7 @@ require "rails_helper"
 
 module Integral
   module Middleware
-    describe PageRouter do
+    describe AliasRouter do
       let(:path) { 'some/url/path' }
       let(:request) { double('get?' => true, 'path_info' => path ) }
       let(:app) { double('call' => true ) }

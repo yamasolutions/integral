@@ -1,21 +1,14 @@
 module Integral
   # Support Helper which contains common helper methods used within backend & frontend
   module SupportHelper
+    def icon(name)
+      content_tag(:i, nil, class: name)
+    end
+
     # @return [Boolean] Whether or not to display media query indicator
     # Green - large screens, medium - tablets, red - mobile
     def display_media_query_indicator?
       Rails.env.development?
-    end
-
-    # @return [String] markup listing flash notifications
-    def render_flashes
-      flash_types = %i[notice alert error]
-
-      content_tag :div, id: :flash_list do
-        flash_types.each do |type|
-          concat render_flash(type, flash[type]) if flash[type].present?
-        end
-      end
     end
 
     # Creates an anchor link
@@ -55,12 +48,6 @@ module Integral
       else
         super
       end
-    end
-
-    private
-
-    def render_flash(type, message)
-      content_tag(:div, nil, class: :flash, data: { message: message, klass: type })
     end
   end
 end

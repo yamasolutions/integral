@@ -1,0 +1,24 @@
+.btn:not(.btn-link, .btn-outline-primary, .btn-clear, .btn-light) {
+  color: $white;
+}
+
+.btn:not(.btn-link) {
+  text-transform: uppercase;
+}
+
+.btn-light {
+  color: $primary;
+  background-color: $white;
+}
+
+.btn-clear {
+  color: $primary;
+  background-color: transparent;
+}
+
+.btn-link {
+  padding: 0;
+  &:focus {
+    box-shadow: none;
+  }
+}

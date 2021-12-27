@@ -25,7 +25,7 @@ module Integral
 
       # @return [BasePolicy] current authorization policy
       def current_policy
-        return policy(@page) if @page
+        return policy(@resource) if @resource
 
         policy(Integral::Page.new)
       end
@@ -34,7 +34,7 @@ module Integral
       private
 
       # Unfortunately currently have to disable Turbolinks for Block Editor History to not bleed over
-      def disable_turbolinks?
+      def disable_turbo?
         action_name == 'new' || action_name == 'edit'
       end
 
@@ -49,7 +49,7 @@ module Integral
       end
 
       def white_listed_grid_params
-        [ :descending, :order, :page, :title, status: [], locale: [] ]
+        [ :descending, :order, :page, :search, status: [], locale: [] ]
       end
 
       def resource_klass

@@ -1,166 +1,71 @@
-@import "font-awesome-sprockets";
-@import "font-awesome";
+// Bootstrap functions (used within variables)
+@import "bootstrap/scss/functions";
 
-@import 'integral/backend/foundation_and_overrides';
-@import "integral/support/media-query-indicator";
-@import "integral/backend/mixins";
-@import "integral/backend/materialize-tags";
-@import "integral/backend/modules/timeline";
-@import "integral/backend/modules/alternate-resource";
-@import "integral/backend/modules/dropdown_pane_notifications";
-@import "integral/backend/modules/dropdown_pane_profile";
-@import "integral/backend/modules/gallery-manager";
-@import "integral/backend/modules/table-resources";
-@import 'integral/backend/shared';
-@import 'integral/backend/notifications';
-@import 'integral/backend/dashboard-layout';
-@import 'integral/backend/devise';
-@import 'integral/backend/overrides';
+// // Custom variables
+@import "integral/backend/variables";
 
-.diff {
-  ul {
-    margin-left: 0;
-    list-style: none;
-    background-color: rgba(212, 223, 239, 0.15);
-    li {
-      min-height: 1.5rem;
-      &.del {
-        background-color: transparentize($alert-color, 0.7);
-      }
-      &.ins {
-        background-color: transparentize($success-color, 0.7);
-      }
-    }
-  }
+// Bootstrap default variables, mixins & utilities
+@import "bootstrap/scss/variables";
+@import "bootstrap/scss/mixins";
+@import "bootstrap/scss/utilities";
+
+// Bootstrap icons - importing this through yarn was causing segmentation fault issues
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css");
+
+// Bootstrap components
+@import "bootstrap/scss/root";
+@import "bootstrap/scss/reboot";
+@import "bootstrap/scss/type";
+@import "bootstrap/scss/images";
+@import "bootstrap/scss/containers";
+@import "bootstrap/scss/grid";
+@import "bootstrap/scss/tables";
+@import "bootstrap/scss/forms";
+@import "bootstrap/scss/buttons";
+@import "bootstrap/scss/transitions";
+@import "bootstrap/scss/dropdown";
+@import "bootstrap/scss/button-group";
+@import "bootstrap/scss/nav";
+@import "bootstrap/scss/navbar";
+@import "bootstrap/scss/card";
+@import "bootstrap/scss/accordion";
+@import "bootstrap/scss/breadcrumb";
+@import "bootstrap/scss/pagination";
+@import "bootstrap/scss/badge";
+@import "bootstrap/scss/alert";
+@import "bootstrap/scss/progress";
+@import "bootstrap/scss/list-group";
+@import "bootstrap/scss/close";
+@import "bootstrap/scss/toasts";
+@import "bootstrap/scss/modal";
+@import "bootstrap/scss/tooltip";
+@import "bootstrap/scss/popover";
+@import "bootstrap/scss/carousel";
+@import "bootstrap/scss/spinners";
+@import "bootstrap/scss/offcanvas";
+@import "bootstrap/scss/helpers"; // Helpers
+@import "bootstrap/scss/utilities/api"; // Utilities
+
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-hr {
-  border: solid 0.5px #f4f7fb;
-  &.dark {
-    border-color: #d4dfef;
-    margin: 0.5em 0;
-  }
+@import "integral/backend/layout";
+@import "integral/backend/components";
+
+.modal-backdrop {
+  z-index: 1030;
 }
 
-.data-unavailable {
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
-  //color: #17212b;
-  span {
-    margin-right: 2rem;
-  }
+img {
+  max-width: 100%;
 }
 
-.card {
-  font-size: 0.9em;
-  .description {
-    margin: 1em 0;
-    color: scale-color($body-font-color, $lightness: 20%);
-  }
-  .subtitle {
-    margin: -0.5em 0 -0.25em 0;
-    color: scale-color($body-font-color, $lightness: 20%);
-  }
-  > .actions {
-    a {
-      display: block;
-      margin-bottom: 1em;
-      margin-right: 1em;
-    }
-  }
-  i {
-    width: 1.5rem;
-    text-align: center;
-  }
+body > .uppy-Root, .uppy-Dashboard--modal {
+  z-index: $zindex-modal !important;
 }
 
-.card-unpadded.object {
-  .card-section {
-    img {
-      width: 100%;
-      height: 12rem;
-      object-fit: cover;
-    }
-  }
-  .info-item {
-    border-top: solid 0.5px #d4dfef;
-    font-size: 0.8em;
-    padding: 0.5em 0;
-    display: flex;
-    .attr {
-      color: scale-color($body-font-color, $lightness: 10%);
-      flex-grow: 1;
-      margin-right: 1rem;
-    }
-
-    .val {
-      &.thumb img {
-        max-width: 1rem;
-        max-height: 1rem;
-      }
-    }
-  }
-
-  .button {
-    border-radius: 0px 0px 5px;
-    font-size: 1em;
-  }
-}
-
-.block_editor.input {
-  position: relative;
-  .block-editor {
-    min-height: 500px;
-  }
-}
-
-.block_editor.block-editor__fullscreen {
-  position: absolute;
-  top: 0px;
-  right: 0px;
-  bottom: 0px;
-  left: 0px;
-  padding: 0;
-  z-index: 99;
-  margin: 0;
-  .block-editor {
-    height: 100%;
-  }
-}
-
-.block-editor-size-toggle {
-  display: inline-block;
-  position: absolute;
-  top: 0;
-  right: 0;
-  z-index: 1;
-}
-
-.flex-auto {
-  flex: auto;
-}
-
-.uppy-StatusBar-progress {
-  background-color: $primary-color !important;
-}
-
-.uppy-StatusBar.is-complete .uppy-StatusBar-progress {
-  background-color: #1bb240 !important;
-}
-
-.uppy-StatusBar.is-waiting .uppy-StatusBar-actionBtn--upload {
-  background-color: $primary-color !important;
-}
-
-.uppy-DashboardContent-bar {
-  z-index: 10 !important;
-}
-
-.uppy-Dashboard-Item-previewIcon {
-  z-index: 1 !important;
-}
-
-.uppy-Dashboard--modal {
-  z-index: 1005 !important;
+form {
+  margin-block-end: 0;
 }

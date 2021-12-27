@@ -14,9 +14,7 @@ Rails.application.configure do
 
   uglifier = Uglifier.new(ugly_opts)
 
-  config.assets.compile = true
   config.assets.debug = false
-
   config.assets.js_compressor = uglifier
   config.assets.css_compressor = :sass
 

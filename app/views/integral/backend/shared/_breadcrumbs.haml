@@ -1,9 +1,8 @@
 - if @breadcrumbs.present? || content_for?(:actionbar) || render_default_action_bar?
-  #action-bar.top-bar
+  .d-flex.justify-content-between
     - if @breadcrumbs.present?
       .top-bar-left
-        %ul.breadcrumbs
-          = render_breadcrumbs tag: :li, separator: ""
+        = render_breadcrumbs builder: Integral::BreadcrumbBuilder
     - if content_for?(:actionbar) || render_default_action_bar?
       .top-bar-right
         - if content_for?(:actionbar)

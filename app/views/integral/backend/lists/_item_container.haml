@@ -12,7 +12,7 @@
       %span.title= formatted_item.title
       %span.url= formatted_item.url
     .actions
-      = icon('edit', class: 'action', 'data-open' => "list-item-modal-#{f.object.id}", class: 'modal-trigger')
+      = icon('bi bi-pencil', class: 'action', 'data-open' => "list-item-modal-#{f.object.id}", class: 'modal-trigger')
 
       - if children_allowed
         .add-children
@@ -20,7 +20,7 @@
             = icon('plus', class: 'action')
 
   - if children_allowed
-    .children.sortable.hide
+    .children.sortable.d-none
       = f.simple_fields_for :children do |list_item|
         = render 'child_fields', f: list_item
 

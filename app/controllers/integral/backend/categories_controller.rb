@@ -9,7 +9,7 @@ module Integral
       # Updating a resource
       def update
         if @resource.update(resource_params)
-          flash.now[:notice] = notification_message('edit_success')
+          flash[:notice] = notification_message('edit_success')
           render json: { redirect_url: request.referrer }, status: :created
         else
           render json: { message: notification_message('edit_failure') }, status: :unprocessable_entity
@@ -28,10 +28,31 @@ module Integral
         @resource = Integral::Category.new(resource_params)
 
         if @resource.save
-          flash.now[:notice] = notification_message('creation_success')
+          flash[:notice] = notification_message('creation_success')
           render json: { redirect_url: request.referrer }, status: :created
         else
           render json: { message: notification_message('creation_failure') }, status: :unprocessable_entity
+        end
+      end
+
+      # Override redirect path
+      # DELETE /:id
+      def destroy
+        if @resource.destroy
+          respond_to do |format|
+            format.html { respond_successfully(notification_message('delete_success'), send("backend_posts_path")) }
+            format.js { head :no_content }
+          end
+        else
+          respond_to do |format|
+            format.html do
+              error_message = @resource.errors.full_messages.to_sentence
+              flash[:error] = "#{notification_message('delete_failure')} - #{error_message}"
+
+              redirect_to send("backend_posts_path")
+            end
+            format.js { head :unprocessable_entity }
+          end
         end
       end
 

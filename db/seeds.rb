@@ -32,7 +32,7 @@ renderer = ApplicationController.renderer.new(
 page = Integral::Page.new(title: 'Integral CMS - Demo Page',
                        description:'Integral CMS demo page. Integral is a rails content management system (CMS) which gives developers the ability to create a modern website with all the bells and whistles without the hassle.',
                        path: '/',
-                       active_block_list: Integral::BlockEditor::BlockList.new(content: renderer.render('integral/pages/_demo', layout: false), active: true),
+                       active_block_list: BlockEditor::BlockList.new(content: renderer.render('integral/pages/_demo', layout: false), active: true),
                        status: 1)
 page.active_block_list.listable = page
 page.save!
@@ -42,7 +42,7 @@ if Integral.blog_enabled?
   category = Integral::Category.create!(title: 'Uncategorised', description: "Posts which we haven't yet categorized but are sure to grab your attention", slug: 'uncategorized')
   post = Integral::Post.new(title: 'Integral CMS - Demo Post',
                          description: 'Integral CMS demo post. Integral is a rails content management system (CMS) which gives developers the ability to create a modern website with all the bells and whistles without the hassle.',
-                         active_block_list: Integral::BlockEditor::BlockList.new(content: renderer.render('integral/posts/_demo', layout: false), active: true),
+                         active_block_list: BlockEditor::BlockList.new(content: renderer.render('integral/posts/_demo', layout: false), active: true),
                          slug: 'integral-demo',
                          user: user,
                          tag_list: 'integral-cms,example-tag',

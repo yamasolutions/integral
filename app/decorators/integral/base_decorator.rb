@@ -8,7 +8,12 @@ module Integral
       engine_url_helpers.send("activity_backend_#{object.class.model_name.singular_route_key}_url", object.id, activity_id)
     end
 
-    # @return [String] URL to backend Image page
+    # @return [String] URL to backend edit page
+    def edit_backend_url
+      engine_url_helpers.send("edit_backend_#{object.class.model_name.singular_route_key}_url", object.id)
+    end
+
+    # @return [String] URL to backend page
     def backend_url
       engine_url_helpers.send("backend_#{object.class.model_name.singular_route_key}_url", object.id)
     end
@@ -29,7 +34,7 @@ module Integral
     end
 
     def render_active_block_list
-      helpers.render_blocks(active_block_list.content)
+      helpers.render_block_list(active_block_list)
     end
 
     private
@@ -48,11 +53,11 @@ module Integral
       return nil if image.nil?
 
       if size
-        image.variant(resize_to_limit: Integral.image_sizes[size])
+        image.variant(Integral.image_transformation_options.merge!(resize_to_limit: Integral.image_sizes[size]))
       elsif transform
         image.variant(transform)
       else
-        image.variant(resize_to_limit: Integral.image_sizes[:medium])
+        image.variant(Integral.image_transformation_options.merge!(resize_to_limit: Integral.image_sizes[:medium]))
       end
     end
 

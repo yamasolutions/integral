@@ -2,19 +2,19 @@
   .notification-icon
     -#= icon('home')
   .notification-content
-    .align-justify.flex-container
+    .d-flex.justify-content-between
       %span.notification-action
         = notification.model_name
         = notification.action_verb
       %span.notification-whodunnit
         - if notification.whodunnit.present?
           = link_to notification.whodunnit_url do
-            = image_tag notification.whodunnit_avatar_url, class: :avatar
+            = notification.whodunnit.avatar_circle
             %span= notification.whodunnit_name.truncate(30)
         - else
           = image_tag notification.whodunnit_avatar_url, class: :avatar
           %span= notification.whodunnit_name.truncate(30)
-    .align-justify.flex-container
+    .d-flex.justify-content-between
       = link_to notification.item_url, class: 'notification-title' do
         = notification.item_title.truncate(40)
       %span.notification-created-at= time_ago_in_words(notification.created_at, scope: 'datetime.distance_in_words.short')

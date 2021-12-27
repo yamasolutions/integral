@@ -1,16 +1,17 @@
 - options = { columns: [:date, :user, :action, :actions], order: true }
 
 = render_data_grid do
-  %table.table--resources
+  %table.table.table-striped
     %thead
       %tr
         - grid.html_columns(*options[:columns]).uniq { |col| col.name }.sort_by{ |item| options[:columns].index item.name }.each do |column|
           %th{ class: datagrid_column_classes(grid, column) }
             - if column.supports_order? && options[:order]
-              %button{ data: { sort: column.name, desc: (!grid.descending).to_s }}
+              %button.btn.btn-link.fw-bold.fs-6{ data: { sort: column.name, desc: (!resource_grid.descending).to_s }}
                 = column.header
             - else
-              = column.header
+              .fw-bold.fs-6
+                = column.header
     %tbody
       - if grid.assets.any?
         - grid.assets.decorate.each do |activity|
@@ -19,25 +20,26 @@
             %td
               - if activity.whodunnit.present?
                 = link_to backend_user_url(activity.whodunnit.id) do
-                  %span.label.clear
-                    = image_tag activity.whodunnit.avatar_url, class: :avatar
-                    = activity.whodunnit.name
+                  = activity.whodunnit.avatar_circle
+                  = activity.whodunnit.name
             %td
-              %span.label= activity.event
+              %span.badge.bg-secondary= activity.event
             -# Currently not possible to show this as changeset isn't available in the query resultset for performance reasons - One possible solution would be to create a Grid class for each Version - rather than unioning all the tables it only includes it's own
             -# %td= activity.attributes_changed
             %td.actions
               = link_to activity.url do
-                = icon('eye')
+                = icon('bi bi-eye')
       - else
         = render partial: 'integral/backend/shared/grid/empty'
 
-  .top-bar
+  .d-flex.justify-content-between
     .top-bar-left
-      = render partial: 'integral/backend/shared/grid/pagination', locals: { records: grid.assets }
+      = render partial: 'integral/backend/shared/grid/pagination', locals: { records: resource_grid.assets }
     .top-bar-right
       %p
         = link_to t('integral.actions.clear_filters'), { clear_retained_options: true }
         |
-        = page_entries_info grid.assets, model: Integral::Version
-  = icon('spinner', class: 'fa-pulse fa-3x fa-fw load-indicator')
+        = page_entries_info resource_grid.assets, model: resource_klass
+  .grid-container-loading-indicator
+    .spinner-border(role="status")
+      %span.visually-hidden Loading...

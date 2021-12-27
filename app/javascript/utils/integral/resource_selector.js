@@ -27,6 +27,7 @@ class ResourceSelector extends EventEmitter {
 
     // Create container from template
     this.container = document.querySelector('[data-resource-selector-template]').cloneNode(true)
+    this.container.id = [...Array(30)].map(() => Math.random().toString(36)[2]).join('')
     this.container.removeAttribute('data-resource-selector-template')
     this.container.setAttribute('data-controller', 'resource-selector')
     this.container.setAttribute('data-resource-selector-url', url)
@@ -40,19 +41,19 @@ class ResourceSelector extends EventEmitter {
 
     // Append to body and initialize
     document.querySelector('body').appendChild(this.container)
-    window.jQuery(this.container).foundation()
 
     this.container.addEventListener("resources-selected", (event) => {
       this.emit('resources-selected', event.detail)
     });
 
-    window.jQuery(this.container).on("closed.zf.reveal", (event) => {
-      this.emit('closed')
+
+    this.container.addEventListener("hide.bs.modal", (event) => {
+       this.emit('closed')
     });
   }
 
   open() {
-    window.jQuery(this.container).foundation('open')
+    new bootstrap.Modal(this.container).show()
     this.container.dispatchEvent(new CustomEvent('open'))
   }
 };

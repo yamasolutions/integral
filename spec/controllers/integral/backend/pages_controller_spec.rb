@@ -6,7 +6,7 @@ module Integral
       routes { Integral::Engine.routes }
 
       let(:title) { 'foobar title' }
-      let(:description) { Faker::Lorem.paragraph(8)[0..150] }
+      let(:description) { Faker::Lorem.paragraph(sentence_count: 8)[0..150] }
       let(:path) { '/foo/bar' }
       let(:page_params) { { title: title, description: description, path: path } }
       let(:user) { create(:page_manager) }

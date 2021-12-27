@@ -1,7 +1,9 @@
-#gallery-placeholder.reveal.full.modal--gallery{ data: {reveal: true }}
-  %button.close-button{ data: { close: '' }, aria: { label: "Close modal" }}
-    %span{ aria: { hidden: true } } &times;
-  .placeholder
-    = icon('spinner', class: 'fa-pulse')
-    %p Loading..
-  .content
+#gallery-placeholder.modal--gallery.modal(tabindex="-1")
+  .modal-dialog.modal-fullscreen
+    .modal-content
+      %button(type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close")
+      .modal-body
+        .placeholder
+          .spinner-border.text-primary(role="status")
+            <span class="visually-hidden">Loading...</span>
+          -# %p Loading..

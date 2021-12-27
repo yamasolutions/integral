@@ -12,7 +12,7 @@ module Integral
       validates :description, length: { maximum: 300 }
 
       acts_as_integral({
-        icon: 'cloud',
+        icon: 'bi bi-cloud',
         notifications: { enabled: false },
         listable: { enabled: true },
         backend_main_menu: { order: 80 },
@@ -24,7 +24,7 @@ module Integral
       has_paper_trail versions: { class_name: 'Integral::Storage::FileVersion' } # Version Tracking
 
       scope :search, ->(query) { where('lower(title) LIKE ?', "%#{query.downcase}%") }
-      scope :search_by_type, ->(type) { joins(attachment_attachment: :blob).where("active_storage_blobs.content_type LIKE ?", type) }
+      scope :search_by_types, ->(types) { joins(attachment_attachment: :blob).where("active_storage_blobs.content_type LIKE any ( array[?] )", types) }
 
       after_create_commit :eagerly_process_image_variants
 

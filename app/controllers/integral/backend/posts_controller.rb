@@ -37,7 +37,7 @@ module Integral
       private
 
       # Unfortunately currently have to disable Turbolinks for Block Editor History to not bleed over
-      def disable_turbolinks?
+      def disable_turbo?
         action_name == 'new' || action_name == 'edit'
       end
 
@@ -57,7 +57,7 @@ module Integral
       end
 
       def white_listed_grid_params
-        [ :descending, :order, :page, :title, status: [], locale: [], user: [] ]
+        [ :descending, :order, :page, :search, status: [], locale: [], user: [] ]
       end
 
       def resource_klass

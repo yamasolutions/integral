@@ -7,12 +7,12 @@
     .stat-table-heading
       .stat-table-header Total Authors
       .stat-table-header-count= user_ids.count
-    %table.unstriped.hover
+    %table.table.table-striped
       - post_users.each do |record|
         %tr
           %td
-            = image_tag record.avatar_url, alt: record.name, class: 'avatar'
+            = record.avatar_circle
             = record.name
           %td
-            %span.badge.secondary= user_ids[record.id]
+            %span.badge.bg-secondary= user_ids[record.id]
 

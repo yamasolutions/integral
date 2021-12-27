@@ -1,13 +1,11 @@
-.placeholder
+.resource-selector-placeholder
   = render partial: 'integral/backend/shared/resource_selector/resource', locals: { list_item: { image: '', title: '', subtitle: '' }}
 
 - if collection.empty?
-  .grid-x.small-up-3.medium-up-4.large-up-6
   %p.text-center.no-records
     = t('integral.backend.tables.no_data_available')
     = image_tag image_path('integral/backend/data-unavailable.png')
 - else
-  .grid-x.small-up-3.medium-up-4.large-up-6
-    = render partial: 'integral/backend/shared/resource_selector/resource', collection: collection.map(&:to_list_item), as: :list_item
-  .text-center
-    = will_paginate collection, renderer: FoundationPagination::Rails
+  = render partial: 'integral/backend/shared/resource_selector/resource', collection: collection.map(&:to_list_item), as: :list_item
+  .col-12.d-flex.justify-content-center
+    = will_paginate collection, renderer: Integral::BootstrapPaginationRenderer

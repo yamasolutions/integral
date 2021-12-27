@@ -1,6 +1,28 @@
 module Integral
   # Social Helper which contains methods relating to social networking
   module SocialHelper
+    # Mail link sharing
+    #
+    # @param [Hash] opts the options to create the share URL
+    # @option opts [String] :url Supply URL if would like to share URL other than the current
+    # @option opts [String] :message The message to provide a message for the tweet.
+    #
+    # @return [String] Twitter URL to share a page
+    def mail_share_url(opts = {}, escape: true)
+      page_url = opts.fetch(:url, request.original_url)
+      message = opts.fetch(:message, '')
+
+      if escape
+        page_url = CGI.escape(page_url)
+        message = CGI.escape(message) if message.present?
+      end
+
+      share_url = "mailto:?body=#{page_url}"
+      share_url += "&subject=#{message}" if message.present?
+
+      share_url
+    end
+
     # Twitter social sharing
     # URL snippet built from - https://sharingbuttons.io/
     #

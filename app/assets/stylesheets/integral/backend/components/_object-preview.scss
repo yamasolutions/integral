@@ -1,0 +1,36 @@
+.object-preview {
+  display: flex;
+  padding: .5rem;
+  margin-top: -1rem;
+  background-color: rgba(212, 223, 239, 0.2);
+  cursor: pointer;
+  h5 {
+    margin: 0;
+    font-weight: normal;
+  }
+  img {
+    width: 10em;
+    height: 8em;
+    object-fit: cover;
+  }
+  i {
+    font-size: 1.5rem;
+    color: $primary;
+    padding: 1rem;
+    align-self: center;
+  }
+  small {
+    color: #2d4a67;
+    i {
+      font-size: .7em;
+    }
+  }
+  .object-data {
+    flex-grow: 1;
+    margin: 0 .5rem;
+  }
+  .url {
+    color: $primary;
+    font-size: .75rem;
+  }
+}

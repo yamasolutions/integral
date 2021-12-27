@@ -2,37 +2,37 @@ module Integral
   # Renders dynamic pages
   class PagesController < Integral.frontend_parent_controller.constantize
     before_action :validate_routed_through_alias, only: [:show]
-    before_action :find_page, only: [:show]
+    before_action :set_resource, only: [:show]
     before_action :set_breadcrumbs
 
     # GET /{page.path}
     # Presents dynamic pages
     def show
       @meta_data = {
-        page_title: @page.title,
-        page_description: @page.description,
+        page_title: @resource.title,
+        page_description: @resource.description,
         open_graph: {
-          image: @page.image_url(size: :large)
+          image: @resource.image_url(size: :large)
         }
       }
 
-      render "integral/pages/templates/#{@page.template}"
+      render "integral/pages/templates/#{@resource.template}"
     end
 
     private
 
-    def find_page
+    def set_resource
       scope = if current_user.present?
                 Integral::Page
               else
                 Integral::Page.published
               end
 
-      @page = scope.find(params[:id]).decorate
+      @resource = scope.find(params[:id]).decorate
     end
 
     def set_breadcrumbs
-      breadcrumbs = @page.breadcrumbs
+      breadcrumbs = @resource.breadcrumbs
       breadcrumbs.pop
 
       breadcrumbs.each do |breadcrumb|
@@ -45,23 +45,25 @@ module Integral
         add_breadcrumb title, "#{Rails.application.routes.default_url_options[:host]}#{breadcrumb[:path]}"
       end
 
-      add_breadcrumb @page.title
+      add_breadcrumb @resource.title
     end
 
     def canonical_url
-      "#{Rails.application.routes.default_url_options[:host]}#{@page.path}"
+      "#{Rails.application.routes.default_url_options[:host]}#{@resource.path}"
     end
 
     def alternative_urls
-      alternative_urls = {
-        I18n.locale.to_s => canonical_url
-      }
+      @alternative_urls ||= begin
+                              alternative_urls = {
+                                I18n.locale.to_s => canonical_url
+                              }
 
-      @page.alternates.published.each do |alternate|
-        alternative_urls[alternate.locale] = "#{Rails.application.routes.default_url_options[:host]}#{alternate.path}"
-      end
+                              @resource.alternates.published.each do |alternate|
+                                alternative_urls[alternate.locale] = "#{Rails.application.routes.default_url_options[:host]}#{alternate.path}"
+                              end
 
-      alternative_urls
+                              alternative_urls
+                            end
     end
   end
 end

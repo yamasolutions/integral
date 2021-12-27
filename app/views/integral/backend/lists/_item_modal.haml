@@ -1,45 +1,46 @@
-.reveal.list-item-modal.modal-fixed-footer{id: "list-item-modal-#{f.object.id}", data: { 'reveal' => true, 'close-on-click' => 'false', 'close-on-esc' => 'false', 'append-to' => '#list_form', 'multiple-opened' => 'true' }}
-  .modal-header
-    %h4 Edit List Item
-  .modal-content
-    .grid-x.grid-padding-x
-      .cell
-        = f.input :type, as: :hidden, input_html: { class: 'type-field' }
-        = f.input :fake_type, wrapper_html: { class: 'alternative' }, input_html: { class: 'faketype-field'} do
-          - select_tag :fake_type, options_for_select(Integral::ListItem.types_collection, formatted_item.type_for_dropdown), { include_blank: false, disabled: f.object.persisted?, class: 'faketype-field' }
-        = f.input :object_type, as: :hidden, input_html: { class: 'object-type-field' }
-        .object-wrapper{ class: f.object.object? ? '' : 'hide' }
-          = f.input :object_id, as: :hidden, input_html: { class: 'object-id-field' }
+.modal.modal-list-item{id: "list-item-modal-#{f.object.id}", data: { "bs-backdrop" => "static" }}
+  .modal-dialog.modal-lg
+    .modal-content
+      .modal-header
+        %h4.modal-title Edit List Item
+        // %button(type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close")
+      .modal-body
+        .row
+          .col-12
+            = f.input :type, as: :hidden, input_html: { class: 'type-field' }
+            = f.input :fake_type, wrapper_html: { class: 'alternative' }, input_html: { class: 'faketype-field'} do
+              - select_tag :fake_type, options_for_select(Integral::ListItem.types_collection, formatted_item.type_for_dropdown), { include_blank: false, disabled: f.object.persisted?, class: 'form-control faketype-field' }
+            = f.input :object_type, as: :hidden, input_html: { class: 'object-type-field' }
+            .object-wrapper{ class: f.object.object? ? '' : 'd-none' }
+              = f.input :object_id, as: :hidden, input_html: { class: 'object-id-field' }
 
-          .object-preview.hoverable
-            = image_tag image_path(formatted_item.object_image_url)
-            .object-data
-              %h5= formatted_item.title
-              %span.subtitle= formatted_item.subtitle
-              %span.url= formatted_item.url
-            = icon('edit')
-          .text-right
-            %small
-              Override defaults
-              = icon('chevron-down')
-      .cell
-        = f.input :title, wrapper_html: { class: 'alternative' }, input_html: { 'data-character-counter' => 'true', class: formatted_item.title_required? ? 'title-field required' : 'title-field' }
-      .cell.medium-8.link-attribute{ class: f.object.basic? || !f.object.persisted? ? 'hide' : '' }
-        = f.input :url, wrapper_html: { class: "alternative" }, input_html: { class: 'url-field' }
-      .cell.medium-4.link-attribute.align-self-middle.flex-container{ class: f.object.basic? || !f.object.persisted? ? 'hide' : '' }
-        = f.input :target, as: :boolean, checked_value: '_blank', unchecked_value: '_self', input_html: { class: 'target-field' }, wrapper_html: { class: 'alternative' }
-      .cell
-        = f.input :subtitle, input_html: { 'data-character-counter' => 'true' }, wrapper_html: { class: 'alternative' }, as: :string
-      .cell.medium-8
-        = f.input :description, input_html: { 'data-character-counter' => 'true' }, wrapper_html: { class: 'alternative' }, as: :string, hint: false
-      .cell.medium-4
-        = f.input :image_id, as: :hidden, input_html: { class: 'image-field', data: { image_present: formatted_item.non_object_image.present?, fallback_image: formatted_item.fallback_image_url } }
-        .image-preview.center
-          .image-container
-            = image_tag formatted_item.non_object_image_url, class: 'clickable hoverable'
-        = link_to 'Unlink', '#', class: 'btn unlink-btn'
+              .object-preview.hoverable{ data: formatted_item.object_data }
+                = image_tag image_path(formatted_item.object_image_url)
+                .object-data
+                  %h5= formatted_item.title
+                  %span.subtitle= formatted_item.subtitle
+                  %span.url= formatted_item.url
+                = icon('bi bi-pencil')
+              .text-end
+                %small
+                  Override defaults
+                  = icon('bi bi-chevron-down')
+          .col-12
+            = f.input :title, wrapper_html: { class: 'alternative' }, input_html: { 'data-character-counter' => 'true', required: formatted_item.title_required?, class: 'title-field' }, required: true
+          .col-md-8.link-field{ class: f.object.basic? || !f.object.persisted? ? 'd-none' : '' }
+            = f.input :url, as: :string, wrapper_html: { class: "alternative" }, input_html: { class: 'url-field', pattern: "(https?|/).*?", inputmode: 'url' }
+          .col-md-4.link-new-tab.align-self-center.flex-container{ class: f.object.basic? || !f.object.persisted? ? 'd-none' : '' }
+            = f.input :target, as: :boolean, checked_value: '_blank', unchecked_value: '_self', input_html: { class: 'target-field' }, wrapper_html: { class: 'alternative mb-0' }
+          .col-12
+            = f.input :subtitle, input_html: { 'data-character-counter' => 'true' }, wrapper_html: { class: 'alternative' }, as: :string
+          .col-md-8
+            = f.input :description, input_html: { 'data-character-counter' => 'true' }, wrapper_html: { class: 'alternative' }, as: :string, hint: false
+          .col-md-4
+            = render partial: 'integral/backend/shared/image_preview', locals: { f:f }
 
-  .modal-footer
-    = link_to_remove_association 'Remove', f, class: 'button hollow secondary modal-close'
-    = link_to t('integral.actions.apply'), '#', class: 'button confirm-btn'
+      .modal-footer
+        // %button(type="button" class="btn btn-secondary" data-bs-dismiss="modal") Cancel
+        // %button(type="button" class="btn btn-primary") Confirm
+        = link_to_remove_association 'Remove', f, wrapper_class: 'list-item-container', class: 'btn btn-secondary modal-close'
+        = link_to t('integral.actions.apply'), '#', class: 'btn btn-primary confirm-btn'
 

@@ -3,5 +3,5 @@ Rails.application.routes.draw do
   mount Integral::Engine, at: '/', as: 'integral'
 
   # Must specify root so that #root_url method is defined
-  root to: 'integral/static_pages#home'
+  root to: 'integral/pages#show'
 end

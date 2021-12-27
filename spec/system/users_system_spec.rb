@@ -18,7 +18,7 @@ module Integral
     it "can view the users list" do
       visit list_backend_users_path
 
-      expect(page).to have_content 'User Listing'
+      expect(page).to have_content 'User List'
     end
 
     it "can view a user" do
@@ -51,12 +51,10 @@ module Integral
       expect(page).to have_content I18n.t('integral.backend.notifications.edit_success', type: Integral::User.model_name.human)
     end
 
-    it "can delete a user" do
-      visit list_backend_users_path
+    xit "can delete a user" do
+      visit backend_user_path(user)
 
-      find('tbody tr:nth-of-type(2) button').click
-      all('[data-dropdown] [data-confirm]').last.click
-
+      click_on 'Delete'
       click_on 'Confirm'
 
       expect(page).to have_content I18n.t('integral.backend.notifications.delete_success', type: Integral::User.model_name.human)

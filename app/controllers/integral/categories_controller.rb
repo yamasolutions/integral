@@ -59,7 +59,7 @@ module Integral
     end
 
     def validate_page_has_results
-      raise_pagination_out_of_range if @posts.empty? && params[:page].present?
+      raise_pagination_out_of_range if @posts.empty?
     end
   end
 end

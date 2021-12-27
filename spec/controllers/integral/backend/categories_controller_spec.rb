@@ -7,7 +7,7 @@ module Integral
 
       let(:title) { 'foobar title' }
       let(:slug) { 'foobar-title' }
-      let(:description) { Faker::Lorem.paragraph(8)[0..150] }
+      let(:description) { Faker::Lorem.paragraph(sentence_count: 8)[0..150] }
       let(:params) { { title: title, description: description, slug: slug } }
       let(:user) { create(:post_manager) }
       let!(:category) { create(:integral_category) }
@@ -118,7 +118,7 @@ module Integral
           end
 
           # it { expect(category.reload.deleted?).to be true }
-          it { expect(response).to redirect_to backend_categories_path }
+          it { expect(response).to redirect_to backend_posts_path }
         end
       end
     end

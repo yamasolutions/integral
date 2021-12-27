@@ -5,7 +5,7 @@ module Integral
 
     acts_as_paranoid # Soft-deletion
     acts_as_integral({
-      icon: 'file',
+      icon: 'bi bi-stack',
       listable: { enabled: true },
       backend_main_menu: { order: 20 },
       backend_create_menu: { order: 10 }
@@ -55,6 +55,8 @@ module Integral
     # Scopes
     # TODO: Must be a better way of doing this - We're searching by title OR path OR tags
     def self.search(query)
+      return all if query.blank?
+
       tags_sub = query.split.map {|term| "LOWER(\"tags\".\"name\") ILIKE '#{term}' ESCAPE '!'" }.join(" OR ")
 
       where("EXISTS (SELECT * FROM \"taggings\" WHERE \"taggings\".\"taggable_id\" = \"integral_pages\".\"id\" AND \"taggings\".\"taggable_type\" = 'Integral::Page' AND \"taggings\".\"tag_id\" IN (SELECT \"tags\".\"id\" FROM \"tags\" WHERE (#{tags_sub}))) OR (lower(title) LIKE '%#{query}%' OR lower(path) LIKE '%#{query}%')")

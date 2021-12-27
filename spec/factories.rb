@@ -3,8 +3,8 @@ FactoryBot.define do
   sequence(:email) { |n| Faker::Internet.email }
   sequence(:title) { |n| Faker::Book.title }
   sequence(:phone_number) { |n| Faker::PhoneNumber.phone_number[0..19] }
-  sequence(:description) { |n| Faker::Lorem.paragraph(8)[50..150] }
-  sequence(:tag_list) { |n| Faker::Hipster.words(Faker::Number.between(1, 5), true, true) }
+  sequence(:description) { |n| Faker::Lorem.paragraph(sentence_count: 8)[50..150] }
+  sequence(:tag_list) { |n| Faker::Hipster.words(number: Faker::Number.between(from: 1, to: 5)) }
   sequence(:view_count) { rand(5000) }
   sequence(:url) { Faker::Internet.url }
   sequence(:integral_image) { |n| FactoryBot.create(:integral_storage_file, attachment: Rack::Test::UploadedFile.new(File.join(Integral::Engine.root, 'app', 'assets', 'images', 'integral', 'defaults', 'no_image_available.jpg'))) }
@@ -52,8 +52,9 @@ FactoryBot.define do
 
   factory :integral_page, class: 'Integral::Page' do
     title
-    path { "/#{Faker::Lorem.words(2).join('/')}" }
+    path { "/#{Faker::Lorem.words(number: 2).join('/')}" }
     description
+    locale { Integral.frontend_locales.sample }
   end
 
   factory :integral_post, class: 'Integral::Post' do
@@ -62,18 +63,19 @@ FactoryBot.define do
     tag_list
     category
     user
-    slug { Faker::Internet.slug(nil, '-') }
-    image { create(:integral_storage_file) }
+    slug { Faker::Internet.slug(glue: '-') }
+    # image { create(:integral_storage_file) }
     view_count
-    created_at { Faker::Time.backward(30) }
-    published_at { Faker::Time.backward(30) }
+    created_at { Faker::Time.backward(days: 30) }
+    published_at { Faker::Time.backward(days: 30) }
     status { rand(0..1) }
+    locale { Integral.frontend_locales.sample }
   end
 
   factory :integral_notification, class: 'Integral::Notification::Notification' do
     recipient
     actor
-    read_at { Faker::Time.backward(30) }
+    read_at { Faker::Time.backward(days: 30) }
     action { ['create', 'update', 'destroy'].sample }
     association(:subscribable, factory: :integral_post)
   end
@@ -87,8 +89,8 @@ FactoryBot.define do
   factory :integral_category, class: 'Integral::Category', aliases: [:category] do
     title
     description
-    slug { Faker::Internet.slug(nil, '-') }
-    image { create(:integral_storage_file) }
+    slug { Faker::Internet.slug(glue: '-') }
+    # image { create(:integral_storage_file) }
   end
 
   factory :integral_post_viewing, class: 'Integral::PostViewing' do
@@ -122,7 +124,7 @@ FactoryBot.define do
     name
     email
     subject { Faker::Book.title }
-    message { Faker::Lorem.paragraph(8)[50..150] }
+    message { Faker::Lorem.paragraph(sentence_count: 8)[50..150] }
   end
 end
 

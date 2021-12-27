@@ -5,10 +5,9 @@ require 'integral/version'
 require 'integral/router'
 require 'integral/middleware/alias_router'
 require 'integral/engine'
-require 'integral/button_link_renderer'
 require 'integral/google_tag_manager'
-require 'integral/foundation_builder'
 require 'integral/grids/activities_grid'
+require 'integral/grids/block_lists_grid'
 require 'integral/grids/pages_grid'
 require 'integral/grids/users_grid'
 require 'integral/grids/lists_grid'
@@ -16,10 +15,6 @@ require 'integral/grids/posts_grid'
 require 'integral/grids/files_grid'
 require 'integral/acts_as_listable'
 require 'integral/acts_as_integral'
-require 'integral/block_editor/blocks/base'
-require 'integral/block_editor/blocks/recent_posts'
-require 'integral/block_editor/blocks/contact_form'
-require 'integral/block_editor/block_list_renderer'
 require 'integral/list_renderer'
 require 'integral/swiper_list_renderer'
 require 'integral/list_item_renderer'
@@ -27,6 +22,9 @@ require 'integral/partial_list_item_renderer'
 require 'integral/chart_renderer/base'
 require 'integral/chart_renderer/donut'
 require 'integral/chart_renderer/line'
+require 'integral/breadcrumb_builder'
+require 'integral/bootstrap_pagination_renderer'
+require 'integral/bootstrap_pagination_button_renderer'
 
 # Integral
 module Integral
@@ -55,8 +53,8 @@ module Integral
   mattr_accessor :frontend_locales
   @@frontend_locales = [:en]
 
-  mattr_accessor :additional_settings_params
-  @@additional_settings_params = []
+  mattr_accessor :additional_settings
+  @@additional_settings = {}
 
   mattr_accessor :additional_post_params
   @@additional_post_params = []
@@ -88,6 +86,16 @@ module Integral
     small: [500, 500],
     medium: [800, 800],
     large: [1600, 1600]
+  }
+
+  mattr_accessor :image_transformation_options
+  @@image_transformation_options = {
+    format: :jpeg,
+    sampling_factor: "4:2:0",
+    strip: true,
+    interlace: "JPEG",
+    colorspace: "sRGB",
+    quality: 80
   }
 
   mattr_accessor :additional_page_templates
@@ -138,12 +146,5 @@ module Integral
   # @return [Boolean] Enables Dynamic Routing of the homepage using Integral::Middleware::Router
   def self.dynamic_homepage_enabled?
     Integral.root_path.nil?
-  end
-
-  # @return [Array] Dynamic block editor block types
-  def self.dynamic_blocks
-    # TODO: Allow host app to add additional blocks
-    # i.e. blocks.concat Integral.additional_dynamic_blocks
-    [ Integral::BlockEditor::Blocks::ContactForm, Integral::BlockEditor::Blocks::RecentPosts ]
   end
 end

@@ -5,6 +5,29 @@ module Integral
       before_action :authorize_with_klass, except: %i[activities activity]
       before_action :set_resource, except: %i[create new index list]
 
+      def show
+        if params["_locale"].present?
+          file = Integral::Storage::File.find(params[:id]).decorate
+          res = {
+            id: file.id,
+            alt: file.title,
+            link: "",
+            caption: "",
+            media_details: {
+              sizes:  {
+                large: {
+                  source_url: file.image_url(size: :large)
+                }
+              }
+            },
+          }
+
+          render json: res, status: 200, layout: false
+        else
+          super
+        end
+      end
+
       # GET /new
       # Resource creation screen
       def new
@@ -19,7 +42,7 @@ module Integral
 
         if @resource.save
           resource_data = @resource.to_list_item
-          resource_data[:image] = main_app.url_for(resource_data[:image].representation(resize_to_limit: Integral.image_sizes[:medium]))
+          resource_data[:image] = main_app.url_for(resource_data[:image].representation(Integral.image_transformation_options.merge!(resize_to_limit: Integral.image_sizes[:medium])))
           render json: resource_data, status: :created
         else
           head :unprocessable_entity
@@ -37,9 +60,8 @@ module Integral
           'title' => params.fetch(:search, nil)
         }
 
-        puts options
         collection = resource_grid_klass.new(options) do |scope|
-          scope.page(page).per_page(25)
+          scope.page(page).per_page(24)
         end.assets
 
         render json: { content: render_to_string(partial: 'integral/backend/shared/resource_selector/collection', locals: { collection: collection }) }

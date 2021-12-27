@@ -1,0 +1,26 @@
+.inline-articles {
+  margin-bottom: 15px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #e2e1e1;
+  a {
+    img {
+      height: 120px;
+      width: 100%;
+      object-fit: cover;
+    }
+  }
+  &-title {
+    max-width: 100% !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis;
+    white-space: nowrap !important;
+    padding: 10px;
+    color: #0a0a0a;
+    font-size: 16px;
+    font-weight: bold;
+    font-family: $font-family-sans-serif;
+    &:hover {
+      color: $primary;
+    }
+  }
+}

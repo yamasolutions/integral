@@ -110,12 +110,21 @@ module Integral
             end
           end
 
+          # Reusable Blocks Management
+          resources :block_lists do
+            get 'list', on: :collection
+            # member do
+            #   post 'duplicate'
+            #   get 'activities', controller: 'pages'
+            #   get 'activities/:activity_id', to: 'pages#activity', as: :activity
+            # end
+          end
+
           # Page Management
           resources :pages do
             get 'list', on: :collection
             member do
               post 'duplicate'
-              get 'block_editor'
               get 'activities', controller: 'pages'
               get 'activities/:activity_id', to: 'pages#activity', as: :activity
             end
@@ -160,6 +169,14 @@ module Integral
           # Settings Management
           resources :settings, only: %i[index create]
         end
+
+        # Block Editor
+        get '/wp/v2/types', to: 'backend/block_lists#wp_types'
+        get '/wp/v2/types/wp_block', to: 'backend/block_lists#wp_type'
+        get '/wp/v2/block_lists', to: 'backend/block_lists#block_lists'
+        get '/wp/v2/block_list/:id', to: 'backend/block_lists#show'
+        get '/wp/v2/blocks/:id', to: 'backend/block_lists#show'
+        get '/wp/v2/media/:id', to: 'backend/storage_files#show'
       end
     end
   end

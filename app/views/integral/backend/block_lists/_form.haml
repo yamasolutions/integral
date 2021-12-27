@@ -1,0 +1,6 @@
+= simple_form_for [:backend, @resource], html: { id: 'resource_form', class: 'are-you-sure', 'data-confirm-dirty-form' => true } do |f|
+  .row
+    .col-md-8.form-group-list
+      = f.input :name
+      = BlockEditor::Instance.render(f)
+    .col-12= f.button :button, class: 'btn-primary'

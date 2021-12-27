@@ -2,11 +2,10 @@
 %td
   - if resource.whodunnit.present?
     = link_to backend_user_url(resource.whodunnit.id) do
-      %span.label.clear
-        = image_tag resource.whodunnit.avatar_url, class: :avatar
-        = resource.whodunnit.name
+      = resource.whodunnit.avatar_circle
+      = resource.whodunnit.name
 %td
-  %span.label= resource.event
+  %span.badge.bg-secondary= resource.event
 %td= resource.item_type.constantize.model_name.human
 %td
   = link_to resource.item_url do

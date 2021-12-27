@@ -1,0 +1,50 @@
+.tab-pane-create {
+  position: absolute;
+  padding: 1em 0;
+  min-width: 10em;
+  background-color: $white;
+  box-shadow: $box-shadow;
+  padding: $spacer;
+  margin-top: 32px;
+  width: 200px;
+  &:after {
+    content: ' ';
+    position: absolute;
+    right: 0;
+    top: -2.2em;
+    height: 2.2em;
+    width: 70%;
+  }
+  &:before {
+    content: ' ';
+    width: 2.5em;
+    height: 1.5em;
+    border-radius: 0 0 0.5em 0;
+    background: linear-gradient(-45deg, #ffffff 50%, transparent 50%);
+    position: absolute;
+    margin: 0;
+    right: 0.5em;
+    transform: rotate(225deg) skewX(8deg) skewY(8deg);
+    top: -0.1em;
+  }
+  .list-group-item {
+    margin-top: .75rem;
+    a {
+      display: block;
+      width: 100%;
+    }
+    &:first-of-type {
+      margin-top: 0;
+    }
+    i {
+      margin-right: .5rem;
+    }
+  }
+  // li {
+  //   display: block;
+  // }
+  // i {
+  //   width: 30px;
+  //   text-align: center;
+  // }
+}

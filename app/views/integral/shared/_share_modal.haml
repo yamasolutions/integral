@@ -1,17 +1,20 @@
-#share-modal.reveal{ data: { reveal: '' } }
-  %h3= t('integral.share_modal.title')
-  %hr.modal-topbar
-  %p
-    = link_to facebook_share_url, class: 'button facebook' do
-      = icon('facebook')
-      Facebook
-    = link_to twitter_share_url, class: 'button twitter' do
-      = icon('twitter')
-      Twitter
-    = link_to canonical_url, class: 'button copy-url hollow' do
-      = icon('copy')
-      %span= t('integral.actions.copy_url')
-
-  %button.close-button{ data: { close: '' }, aria: { label: "Close modal" }}
-    %span{ aria: { hidden: true } } &times;
+.modal.fade(id="modal--share" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true")
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %h5.modal-title= t('integral.share_modal.title')
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      .modal-body
+        .d-flex.flex-column
+          = link_to facebook_share_url, class: 'btn btn-outline-secondary w-100 mb-3' do
+            = icon('facebook')
+            Facebook
+          = link_to twitter_share_url, class: 'btn btn-outline-secondary w-100 mb-3' do
+            = icon('twitter')
+            Twitter
+          %div(data-controller="clipboard")
+            %input{ "data-target" => "clipboard.source", type: "text", value: canonical_url, readonly: true, class: "visually-hidden" }
+            %button.btn.btn-outline-primary.w-100(data-action="clipboard#copy")
+              = icon('bi bi-clipboard')
+              %span= t('integral.actions.copy_url')
 

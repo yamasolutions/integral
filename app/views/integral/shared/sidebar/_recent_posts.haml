@@ -4,5 +4,5 @@
   %h2.sidebar-widget-title= t('integral.blog.widgets.recent_posts')
   .sidebar-articles
     -# TODO: Use collection rendering - possibly create a post sidebar item partial?
-    - @recent_posts.decorate.each do |post|
+    - recent_blog_posts.decorate.each do |post|
       = render 'integral/shared/sidebar/item', url: integral.post_url(post.slug), image_url: post.image_url(size: :small), title: post.title, subtitle: t('integral.blog.posted_ago', time: time_ago_in_words(post.object.published_at))

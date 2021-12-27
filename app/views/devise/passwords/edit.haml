@@ -1,17 +1,9 @@
-%h2 Change your password
-= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }, validate: true) do |f|
+%h1 Change your password
+= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }, wrapper: :floating_labels_form) do |f|
   = f.hidden_field :reset_password_token
-  .input-group
-    %span.input-group-label
-      = icon('key')
-    = f.input :password, input_html: { class: 'input-group-field' }, label: false
-  .input-group
-    %span.input-group-label
-      = icon('key')
-    = f.input :password_confirmation, input_html: { class: 'input-group-field' }, label: false
-
+  = f.input :password, autofocus: true, input_html: { placeholder: 'password' }
+  = f.input :password_confirmation, input_html: { placeholder: 'password' }
   .form-actions
-    = f.button :button, "Change my password", class: 'button expanded'
-
-= render "devise/shared/links"
-
+    = f.button :button, "Change my password", class: 'btn btn-primary w-100'
+.text-center.mt-2
+  = render "devise/shared/links"

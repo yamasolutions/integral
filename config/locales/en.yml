@@ -230,6 +230,7 @@ en:
       settings: Settings
       listing: Listing
       storage_files: Storage
+      block_lists: Reusable Blocks
 
     posts:
       index:
@@ -391,6 +392,9 @@ en:
           title: 'Edit Post'
         new:
           title: 'New Post'
+      block_lists:
+        edit:
+          title: 'Editing block list - %{title}'
       pages:
         templates:
           default: Default
@@ -490,6 +494,7 @@ en:
     labels:
       defaults:
         body: Content
+        locale: Language
       children:
         fake_type: 'Type'
         target: 'New Tab?'
@@ -558,6 +563,9 @@ en:
 
   will_paginate:
     models:
+      block_editor/block_list:
+        one: Block List
+        other: Block Lists
       integral/post:
         one: Post
         other: Posts

@@ -1,18 +1,9 @@
-%h2= t('.title')
-= simple_form_for(resource, as: resource_name, url: session_path(resource_name), validate: true) do |f|
-  .input-group
-    %span.input-group-label
-      = icon('envelope')
-    = f.input :email, autofocus: true, input_html: { class: 'input-group-field', value: Rails.env.development? ? Integral::User.first&.email : nil }, label: false
-
-  .input-group
-    %span.input-group-label
-      = icon('key')
-    = f.input :password, input_html: { class: 'input-group-field', 'data-character-counter' => 'false', value: Rails.env.development? ? 'password' : nil }, label: false
+%h1= t('.title')
+= simple_form_for(resource, as: resource_name, url: session_path(resource_name), wrapper: :floating_labels_form) do |f|
+  = f.input :email, autofocus: true, input_html: { class: '', value: Rails.env.development? ? Integral::User.first&.email : nil, placeholder: 'name@example.com' }
+  = f.input :password, input_html: { class: '', 'data-character-counter' => 'false', value: Rails.env.development? ? 'password' : nil, placeholder: 'password' }
   = f.input :remember_me, as: :boolean
-
   .form-actions
-    = f.button :button, "Log in", class: 'button expanded'
-
-= render "devise/shared/links"
-
+    = f.button :button, "Log in", class: 'btn btn-primary w-100'
+.text-center.mt-2
+  = render "devise/shared/links"

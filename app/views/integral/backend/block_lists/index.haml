@@ -1,0 +1,12 @@
+.grid-x
+  -# Left Column
+  .cell.large-6
+    .grid-y
+      .cell= render_card(:recent_resources)
+      .cell= render_card(:at_a_glance)
+
+  -# Right Column
+  .cell.large-6
+    .grid-y
+      .cell= render_card(:recent_activity)
+      .cell.xlarge-6= render_card(:recent_user_activity)

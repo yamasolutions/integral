@@ -1,8 +1,8 @@
 %html
-  = render partial: 'layouts/integral/login/head'
-  %body.devise
-    = render_flashes
-    .row.align-center
-      .columns.medium-5
-        .devise-form
-          = yield
+  = render 'layouts/integral/backend/head'
+  %body{ data: { turbo: 'false', flash_type: flash.first&.first, flash_message: flash.first&.second }}
+    .toast-wrapper(aria-live="polite" aria-atomic="true")
+      #toast-container.toast-container.p-3
+    .form-signin
+      .form-signin-container
+        = yield

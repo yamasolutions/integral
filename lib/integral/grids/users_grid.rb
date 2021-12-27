@@ -9,7 +9,7 @@ module Integral
         Integral::User.all.order('name DESC')
       end
 
-      filter(:name) do |value|
+      filter(:search) do |value|
         search(value)
       end
 

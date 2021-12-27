@@ -3,30 +3,31 @@
   help_text = help_text.present? ? help_text : ''
   image = f.object.send(attribute)
 
-  unlinkHiddenClass = image.present? ? '' : 'hide'
-  placeholderHiddenClass = image.present? ? 'hide' : ''
+  unlinkHiddenClass = image.present? ? '' : 'd-none'
+  placeholderHiddenClass = image.present? ? 'd-none' : ''
 
   if image&.attached?
     image_path = main_app.url_for(image&.attachment)
   end
 
-.image-select
-  = f.label attribute
+.card
+  %h4
+    = f.label attribute, class: 'card-title'
   .image-container{ data: { controller: 'image-preview' } }
     = f.hidden_field "#{attribute}_id", { data: { target: 'image-preview.idField' } }
     = image_tag image_url('integral/image-not-set.png'), class: placeholderHiddenClass, data: { target: 'image-preview.placeholderImage' }
     %img{ src: image_path, data: { target: 'image-preview.previewImage' } }
-    %ul.menu.align-left.menu-unlinked{ class: placeholderHiddenClass, data: { target: 'image-preview.createActionsList' } }
-      %li
-        %button.button.clear{ type: :button, data: { target: 'image-preview.addButton', action: 'image-preview#add' } }
+    %ul.list-group{ class: placeholderHiddenClass, data: { target: 'image-preview.createActionsList' } }
+      %li.list-group-item
+        %button.btn.btn-light.btn.p-0.pt-2{ type: :button, data: { target: 'image-preview.addButton', action: 'image-preview#add' } }
           = t('integral.actions.add_image')
 
-    %ul.menu.align-right.menu-linked{ class: unlinkHiddenClass, data: { target: 'image-preview.editActionsList' } }
-      %li
-        %button.button.clear{ type: :button, data: { target: 'image-preview.removeButton', action: 'image-preview#remove' } }= icon('trash')
-      %li
-        %button.button.clear{ type: :button, data: { target: 'image-preview.editButton', action: 'image-preview#edit' } }= icon('pencil-square-o')
+    %ul.list-group.list-group-horizontal{ class: unlinkHiddenClass, data: { target: 'image-preview.editActionsList' } }
+      %li.list-group-item
+        %button.btn.btn-light{ type: :button, data: { target: 'image-preview.removeButton', action: 'image-preview#remove' } }= icon('bi bi-trash')
+      %li.list-group-item
+        %button.btn.btn-light{ type: :button, data: { target: 'image-preview.editButton', action: 'image-preview#edit' } }= icon('bi bi-pencil')
 
   - if help_text.present?
-    %p.help-text= help_text
+    %small.form-text= help_text
 

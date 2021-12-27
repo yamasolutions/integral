@@ -10,7 +10,7 @@ module Integral
         { scope: Integral::User, label: 'Users' }
       ]}
       let(:graph_markup) { "
-                           <canvas data-chart data-chart-labels='#{last_week_in_days}' data-chart-type='line'>
+                           <canvas data-chart-labels='#{last_week_in_days}' data-chart-type='line' data-controller='chart'>
                            <ul data-chart-label='Posts'>
                            <li data-value='0'></li>
                            <li data-value='0'></li>

@@ -67,7 +67,7 @@ module Integral
       # PUT /:id/read_all_notifications
       def read_all_notifications
         if current_user.notifications.unread.update_all(read_at: Time.now)
-          head :ok
+          redirect_to request.referrer
         else
           head :unprocessable_entity
         end
@@ -100,7 +100,7 @@ module Integral
       end
 
       def white_listed_grid_params
-        [ :descending, :order, :page, :name, status: [], locale: [], user: [] ]
+        [ :descending, :order, :page, :search, status: [], locale: [], user: [] ]
       end
 
       def resource_klass

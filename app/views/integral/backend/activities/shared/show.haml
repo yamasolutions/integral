@@ -1,41 +1,40 @@
 - content_for :title, t('integral.navigation.activity_log')
-.grid-x
-  .cell.medium-9
-    .card-unpadded.object
-      .card-section
-        %h2 Activity Data
-        -# - if record.to_card[:image].present?
-        -#   = image_tag record.to_card[:image]
-        -# - else
-        -#   = image_tag image_url('integral/defaults/no_image_available.jpg')
-        %p.description= record.title
-        .info-item
-          %span.attr Date
-          %span.val= l(@activity.created_at)
-        .info-item
-          %span.attr Time
-          %span.val= l(@activity.created_at)
-        .info-item
-          %span.attr Action
-          %span.val= @activity.event
-        .info-item
-          %span.attr User
-          - if @activity.whodunnit.present?
-            = link_to backend_user_url(@activity.whodunnit.id) do
-              %span.val.thumb
-                = image_tag @activity.whodunnit.avatar_url, class: :avatar
-                = @activity.whodunnit.name
+.row
+  .col-md-9
+    .card.card-object
+      %h2 Activity Data
+      -# - if record.to_card[:image].present?
+      -#   = image_tag record.to_card[:image]
+      -# - else
+      -#   = image_tag image_url('integral/defaults/no_image_available.jpg')
+      %p.description= record.title
+      .info-item
+        %span.attr Date
+        %span.val= l(@activity.created_at)
+      .info-item
+        %span.attr Time
+        %span.val= l(@activity.created_at)
+      .info-item
+        %span.attr Action
+        %span.val= @activity.event
+      .info-item
+        %span.attr User
+        - if @activity.whodunnit.present?
+          = link_to backend_user_url(@activity.whodunnit.id) do
+            %span.val.thumb
+              = @activity.whodunnit.avatar_circle
+              = @activity.whodunnit.name
 
-  .cell.medium-3
-    %ul.no-bullet
-      %li
-        = link_to @activity.item_url, class: 'button white expanded' do
-          = icon('eye')
+  .col-md-3
+    %ul.list-group
+      %li.list-group-item
+        = link_to @activity.item_url, class: 'btn btn-light w-100 mb-1' do
+          = icon('bi bi-eye')
           = t('integral.actions.view_record')
       - if @activity.whodunnit.present?
-        %li
-          = link_to backend_user_url(@activity.whodunnit.id), class: 'button white expanded' do
-            = icon('eye')
+        %li.list-group-item
+          = link_to backend_user_url(@activity.whodunnit.id), class: 'btn btn-light w-100 mb-1' do
+            = icon('bi bi-pencil')
             = t('integral.actions.view_user')
       -# %li
       -#   = link_to @activity.item_url, class: 'button white' do
@@ -46,11 +45,9 @@
       -#     = icon('chevron-circle-right ')
       -#     = t('integral.navigation.next')
 
-  .cell.small-12.medium-9
-    .card
-      .card-section
-        %h2 Changes
-        - @activity.changeset.each do |key, changeset|
-          %hr
-          %p= key
-          = Diffy::Diff.new(changeset[0], changeset[1], context: 1).to_s(:html_simple).html_safe
+  .card
+    %h2 Changes
+    - @activity.changeset.each do |key, changeset|
+      %hr
+      %p= key
+      = Diffy::Diff.new(changeset[0], changeset[1], context: 1).to_s(:html_simple).html_safe

@@ -7,20 +7,21 @@
   .list-item{ 'data-persisted' => "#{f.object.persisted?}" }
     = render 'item_modal', f:f, formatted_item: formatted_item
     .type
-      = icon('list', class: 'identifier')
+      %i.bi.bi-list.identifier
     .data
       %span.title= formatted_item.title
       %span.url= formatted_item.url
     .actions
-      = icon('edit', class: 'action', 'data-open' => "list-item-modal-#{f.object.id}", class: 'modal-trigger')
+      %button.btn.btn-link(type="button" data-bs-toggle="modal" data-bs-target="#list-item-modal-#{f.object.id}")
+        %i.bi.bi-pencil
 
       - if children_allowed
         .add-children
           = link_to_add_association f, :children, 'data-association-insertion-method' => 'prepend', force_non_association_create: true do
-            = icon('plus', class: 'action')
+            %i.bi.bi-plus.action
 
   - if children_allowed
-    .children.sortable.hide
+    .children.sortable.d-none
       = f.simple_fields_for :children do |list_item|
         = render 'child_fields', f: list_item
 

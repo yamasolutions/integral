@@ -48,7 +48,7 @@ module Integral
     describe '#item_icon' do
       context 'when integral_icon is available' do
         it 'returns icon for posts' do
-          expect(subject.item_icon).to eq 'rss'
+          expect(subject.item_icon).to eq 'bi bi-rss'
         end
       end
       context 'when integral_icon is unavailable' do
@@ -66,23 +66,23 @@ module Integral
       end
     end
 
-    describe '#whodunnit_avatar_url' do
-      context 'when whodunnit is nil' do
-        it 'returns default avatar' do
-          expect(subject.whodunnit_avatar_url).to eq ActionController::Base.helpers.asset_path('integral/defaults/user_avatar.jpg')
-        end
-      end
-
-      context 'when whodunnit is present' do
-        let(:user) { create(:integral_user) }
-
-        it 'returns user avatar URL' do
-          allow_any_instance_of(User).to receive(:avatar).and_return(double(url: "custom-avatar"))
-
-          expect(subject.whodunnit_avatar_url).to eq 'custom-avatar'
-        end
-      end
-    end
+    # describe '#whodunnit_avatar_url' do
+    #   context 'when whodunnit is nil' do
+    #     it 'returns default avatar' do
+    #       expect(subject.whodunnit_avatar_url).to eq ActionController::Base.helpers.asset_path('integral/defaults/user_avatar.jpg')
+    #     end
+    #   end
+    #
+    #   context 'when whodunnit is present' do
+    #     let(:user) { create(:integral_user) }
+    #
+    #     it 'returns user avatar URL' do
+    #       allow_any_instance_of(User).to receive(:avatar).and_return(double(url: "custom-avatar"))
+    #
+    #       expect(subject.whodunnit_avatar_url).to eq 'custom-avatar'
+    #     end
+    #   end
+    # end
 
     describe '#whodunnit_name' do
       context 'when whodunnit is nil' do

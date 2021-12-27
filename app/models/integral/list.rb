@@ -2,7 +2,7 @@ module Integral
   # Represents a generic list such as a gallery or menu
   class List < ApplicationRecord
     acts_as_integral({
-      icon: 'list',
+      icon: 'bi bi-list-ul',
       backend_main_menu: { order: 50 },
       backend_create_menu: { order: 40 }
     }) # Integral Goodness

@@ -1,0 +1,30 @@
+.latest-post {
+  margin-bottom: 15px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #e2e1e1;
+  a {
+    width: 100%;
+    img {
+      height: 250px;
+      object-fit: cover;
+      width: 100%;
+      @include media-breakpoint-up(md) {
+        height: 450px;
+      }
+      @include media-breakpoint-up(lg) {
+        height: 500px;
+      }
+    }
+  }
+  .latest-post-title {
+    margin: 20px 0;
+    color: #0a0a0a;
+    font-size: 24px;
+    a {
+      color: currentColor;
+      &:hover {
+        color: $primary;
+      }
+    }
+  }
+}

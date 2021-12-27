@@ -1,11 +1,13 @@
-.card.listing
-  %h2.show-for-small-only= page_title
-  = link_to t('integral.actions.create'), new_backend_resource_url, class: 'button hollow show-for-small-only create'
-  .top-bar
-    .top-bar-left.hide-for-small-only
-      = link_to t('integral.actions.create'), new_backend_resource_url, class: 'button hollow'
+.card
+  %h2.d-md-none= page_title
+  - if policy(resource_klass).create?
+    = link_to t('integral.actions.create'), new_backend_resource_url, class: 'btn btn-outline-primary d-md-none'
+  .d-flex.justify-content-between
+    - if policy(resource_klass).create?
+      .top-bar-left.d-none.d-md-block
+        = link_to t('integral.actions.create'), new_backend_resource_url, class: 'btn btn-outline-primary'
     .top-bar-right
       = render_resource_grid_form do |f|
-        %li= f.input :title, placeholder: t('integral.actions.search'), wrapper_html: { class: 'filter search' }, hint: false, label: false
+        %li= f.input :search, placeholder: t('integral.actions.search'), wrapper_html: { class: 'alternative search' }, hint: false, label: false
 
   = render_resource_grid

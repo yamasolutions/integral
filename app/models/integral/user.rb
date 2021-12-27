@@ -3,7 +3,7 @@ module Integral
   class User < ApplicationRecord
     acts_as_paranoid # Soft-deletion
     acts_as_integral({
-      icon: 'user',
+      icon: 'bi bi-people',
       backend_main_menu: { order: 60 },
       backend_create_menu: { order: 50 }
     }) # Integral Goodness
